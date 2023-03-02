@@ -81,6 +81,7 @@ const register = async (req, res, next) => {
 
 
 const login = async (req, res, next) => {
+    console.log('user trying to login:')
     console.log(req.body)
     const { email, password } = req.body;
 
@@ -126,7 +127,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        console.log(req.user)
+        // console.log(req.user)
         // generate JWT
         const eticketjwt = jwt.sign({
             // accountId: req.user.accountId
@@ -147,11 +148,11 @@ const logout = async (req, res, next) => {
 
 const profile = async (req, res, next) => {
     try {
-        console.log(req.user)
+        // console.log(req.user)
 
         const account = await accountService.getAccountById(req.user.accountId);
-        console.log('account')
-        console.log(account)
+        // console.log('account')
+        // console.log(account)
         if (!account) {
             return res.status(401).json({ error: 'Invalid virifecation to get account' });
         }
