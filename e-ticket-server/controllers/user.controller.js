@@ -64,10 +64,10 @@ const register = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            sameSite: 'strict',
-            path: '/',
-            maxAge: 60 * 60 * 24 * 10,
             // secure: process.env.NODE_ENV === 'production',
+            // maxAge: 60 * 60 * 24 * 10 , 
+            // sameSite: 'strict',
+            // path: '/',
         }).status(201).json({ account });
     } catch (error) {
         if (error.code === '23505') {
@@ -81,8 +81,6 @@ const register = async (req, res, next) => {
 
 
 const login = async (req, res, next) => {
-    console.log('user trying to login:')
-    console.log(req.body)
     const { email, password } = req.body;
 
     // Validate input data
@@ -113,21 +111,19 @@ const login = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            sameSite: 'none',
-            secure: true,
-            path: '/',
-            maxAge: 60 * 60 * 24 * 2 * 1000, //2days
+            // secure: process.env.NODE_ENV === 'production',
+            // maxAge: 60 * 60 * 24 * 10 , 
+            // sameSite: 'strict',
+            // path: '/',
         }).status(201).json({ profile });
     } catch (error) {
-        // next(error);
-        console.error(error);
-        res.status(500).json({ error: 'Server error to login' });
+        next(error);
     }
 };
 
 const logout = async (req, res, next) => {
     try {
-        // console.log(req.user)
+        console.log(req.user)
         // generate JWT
         const eticketjwt = jwt.sign({
             // accountId: req.user.accountId
@@ -148,11 +144,11 @@ const logout = async (req, res, next) => {
 
 const profile = async (req, res, next) => {
     try {
-        // console.log(req.user)
+        console.log(req.user)
 
         const account = await accountService.getAccountById(req.user.accountId);
-        // console.log('account')
-        // console.log(account)
+        console.log('account')
+        console.log(account)
         if (!account) {
             return res.status(401).json({ error: 'Invalid virifecation to get account' });
         }
@@ -164,7 +160,7 @@ const profile = async (req, res, next) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-
+      
         res.status(200).json({ profile });
 
     } catch (error) {

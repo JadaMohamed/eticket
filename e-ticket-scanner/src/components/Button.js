@@ -1,8 +1,22 @@
-import {StyleSheet, Text, View, Pressable, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {width} from '../constants/Layout';
 
-const Button = ({onPress, borderColor, title, width = "100%", height = 50, backgroundColor = '#D9D9D9', textColor = "#30194F"}) => {
+const Button = ({
+  onPress,
+  borderColor,
+  title,
+  width = '100%',
+  height = 50,
+  backgroundColor = '#D9D9D9',
+  textColor = '#30194F',
+}) => {
   const pressableWidth = width - 30;
   const minWidth = 350;
 
@@ -20,7 +34,7 @@ const Button = ({onPress, borderColor, title, width = "100%", height = 50, backg
         alignItems: 'center',
         alignSelf: 'center',
         borderColor: borderColor,
-        borderWidth: borderColor ? 1: 0
+        borderWidth: borderColor ? 1 : 0,
       }}>
       <Text style={{color: textColor}}>{title}</Text>
     </TouchableOpacity>

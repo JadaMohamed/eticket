@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../css/moreby.css";
 import Card from "../event/eventcard";
 import { eventData, account } from "../data";
+import Axios from "axios";
+import { BASE_URL } from "../../Constants";
 
 function MoreBy(props) {
+  const [events, setEvents] = useState([]);
+
+  const getEvents = async () => {
+    try {
+      const response = await Axios.get(`${BASE_URL}/api/events`);
+
+      setEvents(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    console.log("searcing for events");
+    getEvents();
+  }, []);
   return (
     <div className="localevents more-by">
       <div className="localevent-container">
@@ -11,48 +28,19 @@ function MoreBy(props) {
           More by <span>OrganizerName</span>
         </div>
         <div className="cards">
-          {eventData.map((eventData) => (
+          {events.map((event) => (
             <Card
-              key={eventData.eventId}
-              image={eventData.image}
-              title={eventData.title}
-              price={eventData.price}
-              location={eventData.location}
-              category={eventData.category}
-              date={eventData.date}
-            />
-          ))}
-          {eventData.map((eventData) => (
-            <Card
-              key={eventData.eventId}
-              image={eventData.image}
-              title={eventData.title}
-              price={eventData.price}
-              location={eventData.location}
-              category={eventData.category}
-              date={eventData.date}
-            />
-          ))}
-          {eventData.map((eventData) => (
-            <Card
-              key={eventData.eventId}
-              image={eventData.image}
-              title={eventData.title}
-              price={eventData.price}
-              location={eventData.location}
-              category={eventData.category}
-              date={eventData.date}
-            />
-          ))}
-          {eventData.map((eventData) => (
-            <Card
-              key={eventData.eventId}
-              image={eventData.image}
-              title={eventData.title}
-              price={eventData.price}
-              location={eventData.location}
-              category={eventData.category}
-              date={eventData.date}
+              key={event.eventId}
+              image={
+                event.Event_Images.length > 0
+                  ? event.Event_Images[0].img_url
+                  : null
+              } // select the first image
+              title={event.title}
+              price={event.price}
+              location={event.location}
+              category={event.event_type}
+              date={event.start_time}
             />
           ))}
         </div>

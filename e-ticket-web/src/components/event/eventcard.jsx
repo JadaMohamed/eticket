@@ -2,7 +2,8 @@ import React from "react";
 import "../../css/card.css";
 import { useNavigate } from "react-router-dom";
 import CountdownDate from "../common/countdown";
-import Image from "../../img/event-image.jpg";
+// import Image from "../../img/event-image.jpg";
+import { Image } from "cloudinary-react";
 
 function Card(props) {
   const Nav = useNavigate();
@@ -14,7 +15,8 @@ function Card(props) {
       onClick={() => Nav("/events", { replace: true })}
     >
       <div className="previewimage">
-        <img src={Image} alt="" />
+        <Image cloudName="djjwswdo4" publicId={props.image} />
+        {/* <img src={Image} alt="" /> */}
       </div>
       <div className="event-infos">
         <div className="infos-container">
