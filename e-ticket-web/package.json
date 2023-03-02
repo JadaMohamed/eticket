@@ -2,7 +2,6 @@
   "name": "e-ticket-web",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://e-ticket-server.onrender.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -44,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "dotenv": "^16.0.3",
     "react-router-dom": "^6.4.4"
   }
 }
