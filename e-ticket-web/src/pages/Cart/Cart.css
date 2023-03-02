@@ -1,0 +1,9 @@
+.content-cart-page {
+    background-color: var(--White);
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 8px;
+}
+.content-cart-page-container {
+    padding: 5px 0;
+}

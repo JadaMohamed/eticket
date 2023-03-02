@@ -1,0 +1,228 @@
+.create-event-container form {
+    max-width: 1000px;
+    background-color: var(--White);
+    margin: auto;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.create-event-container form .form-container {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-between;
+}
+.create-event-container form .form-container .bottom-form-container {
+    padding: 20px 0 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: end;
+}
+.create-event-container form .form-container .bottom-form-container .next {
+    padding: 8px 15px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: var(--White);
+    background-color: var(--Purple);
+    transition: 0.3s ease;
+}
+.create-event-container form .form-container .bottom-form-container .next:hover {
+    opacity: 0.9;
+}
+.create-event-container form .form-container .bottom-form-container .back {
+    padding: 8px 15px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--Purple);
+    cursor: pointer;
+    color: var(--Purple);
+    background-color: #552e8805;
+    transition: 0.3s ease;
+}
+.create-event-container form .form-container .bottom-form-container .back:hover {
+    opacity: 0.9;
+}
+.create-event-container form .form-container .top-form-container .row-section {
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+.create-event-container form .form-container .top-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.create-event-container form .form-container .top-form-container .row-section .left-side-row-section {
+    width: 40%;
+}
+.create-event-container form .form-container .top-form-container .row-section .right-side-row-section {
+    width: 100%;
+}
+.create-event-container form .form-container .top-form-container .row-section .splited {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.create-event-container form .form-container .top-form-container .row-section .splited .instructions {
+    text-align: right;
+    line-height: 5px;
+}
+.create-event-container form .form-container .top-form-container .row-section .title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.create-event-container form .form-container .top-form-container .row-section .instructions {
+    font-size: 14px;
+    color: var(--Grey1);
+    width: 100%;
+}
+.create-event-container form .form-container .top-form-container .row-section .right-side-row-section textarea {
+    width: 100%;
+    outline: none;
+    border-radius: 8px;
+    border: 1px solid var(--Grey3);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.create-event-container form .form-container .top-form-container .row-section .right-side-row-section .iconed-input {
+    width: 100%;
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid var(--Grey3);
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    input {
+    width: 100%;
+    outline: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 7px 10px;
+    border: none;
+    font-family: var(--Font);
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    input:focus {
+    border: 1px solid var(--Prple);
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    .icon {
+    padding: 0 10px;
+    color: var(--Grey3);
+}
+/* Change the appearance of the date picker icon */
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url("../../../img/drop.svg") no-repeat;
+    background-size: contain;
+    width: 8px;
+    height: 6px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    input[type="time"]::-webkit-calendar-picker-indicator {
+    background: url("../../../img/drop.svg") no-repeat;
+    background-size: contain;
+    width: 8px;
+    height: 6px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    select {
+    width: 100%;
+    outline: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 7px 10px;
+    border: none;
+    font-family: var(--Font);
+}
+.create-event-container
+    form
+    .form-container
+    .top-form-container
+    .row-section
+    .right-side-row-section
+    .iconed-input
+    .iconed-input-container
+    select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-image: url("../../../img/drop.svg");
+    background-repeat: no-repeat;
+    background-position: center right;
+    margin-right: 15px; /* adjust to the width of the icon */
+}

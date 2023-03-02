@@ -1,0 +1,30 @@
+.container {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 0px 30px;
+}
+.container .welcome .hi {
+    font-size: 22px;
+    font-weight: 600;
+}
+.container .welcome .inst {
+    color: var(--Grey1);
+    font-size: 14px;
+}
+.container .cards-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+}
+.container .images {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    width: 100%;
+}
+.container .images img {
+    width: 100%;
+}

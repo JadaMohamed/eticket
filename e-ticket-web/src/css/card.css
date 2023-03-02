@@ -1,0 +1,196 @@
+/************************ Event Card ************************/
+.cards {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+.cards .cardevent {
+  cursor: pointer;
+  border: 1px solid var(--Purple10);
+  border-radius: 10px;
+  user-select: none;
+  transition: transform 0.3s ease-in-out;
+}
+.cards .cardevent:hover {
+  /* box-shadow: var(--Green50) 0px 1px 4px; */
+  /* background-color: var(--LighterPurple); */
+  /* transform: scale(1.01); */
+}
+.cards .cardevent .previewimage {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+  overflow: hidden;
+}
+.cards .cardevent .previewimage:hover img {
+  transform: scale(1.02);
+}
+.previewimage img {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+.cards .cardevent .event-infos {
+  margin: 10px;
+}
+.cards .cardevent .event-infos .event-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.cards .cardevent .event-infos .inf {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: var(--Grey1);
+  font-weight: 500;
+}
+.cards .cardevent .event-infos .local span {
+  font-size: 17px !important;
+}
+.cards .cardevent .event-infos .inf span {
+  font-size: 1rem;
+  margin-right: 5px;
+  color: var(--Purple);
+  font-weight: 600;
+}
+.inf .calculated-date {
+  font-weight: 600;
+}
+.cards .cardevent .event-infos .event-category {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  background-color: var(--LighterPurple);
+  padding: 1px 6px 2px 6px;
+  width: fit-content;
+  height: auto;
+  border: 1px solid var(--Purple10);
+  color: var(--Purple);
+  display: flex;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 0.7rem;
+}
+.cards .cardevent .event-infos .shopping {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.cards .cardevent .event-infos .shopping .priceing {
+  display: flex;
+  flex-direction: column;
+}
+.cards .cardevent .event-infos .shopping .action {
+  display: flex;
+  font-weight: 400;
+  align-items: center;
+  gap: 10px;
+  max-height: 33.3px;
+}
+.cards .cardevent .event-infos .shopping .action .add-to-cart-btn {
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  font-size: 0.8rem;
+  gap: 5px;
+  padding: 8px 10px;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--Purple10);
+  color: var(--Purple);
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+}
+.cards .cardevent .event-infos .shopping .action .add-to-cart-btn span {
+  font-size: 1rem;
+}
+.cards .cardevent .event-infos .shopping .action .add-to-cart-btn:hover {
+  color: white;
+  background-color: var(--Purple60);
+}
+.cards .cardevent .event-infos .shopping .action .buy-btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--Green);
+  /* background-color: var(--Green); */
+  background: var(--Green);
+  background: linear-gradient(200deg, var(--Green) 3%, var(--Green80) 100%);
+  color: #fff;
+  padding: 5.5px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: 0.2s ease-in-out;
+}
+.cards .cardevent .event-infos .shopping .action .buy-btn:hover {
+  background-color: var(--Green80);
+}
+.cards .cardevent .event-infos .shopping .priceing .start-at {
+  font-size: 0.8rem;
+  color: var(--Grey1);
+}
+.eventprice .price {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--Purple);
+}
+.eventprice .curr {
+  font-size: 0.6rem;
+  font-weight: 400;
+  margin-left: 3px;
+}
+/*****************************************/
+@media only screen and (max-width: 880px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ********* ADD TO CART Ripple effect ********* */
+/* .add-to-cart-btn:hover {
+  background: var(--Green) radial-gradient(circle, transparent 1%, var(--Green50) 1%) center/15000%;
+} */
+.add-to-cart-btn:active {
+  background-size: 100%;
+  transition: background 0.2s;
+}
+/* ********* ADD TO CART Button animation ******** */
+.add-to-cart-btn:active {
+  animation: press 0.2s 1 linear;
+}
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes bounce {
+  50% {
+    transform: rotate(5deg) translate(20px, -50px);
+  }
+  to {
+    transform: scale(0.9) rotate(10deg) translate(50px, -80px);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,87 @@
+.row-section .right-side-row-section .collector-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.row-section .right-side-row-section .collector-row :first-child {
+    width: 100%;
+}
+.row-section .right-side-row-section .collector-row button {
+    border: 1px solid var(--Purple);
+    border-radius: 8px;
+    background-color: var(--White);
+    color: var(--Purple);
+    cursor: pointer;
+    transition: var(--Trans03);
+}
+.row-section .right-side-row-section .collector-row button:hover {
+    background-color: var(--Purple10);
+}
+.row-section .right-side-row-section .collector-row button span {
+    display: flex;
+    font-size: 18px;
+    padding: 0 8px;
+}
+.row-section .right-side-row-section .collector-row button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+.row-section .right-side-row-section .collector-row input::placeholder {
+    opacity: 0.5; /* set the opacity to 50% */
+}
+.row-section .right-side-row-section .collector-row input {
+    width: 60%;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 7px 10px;
+    border: none;
+    outline: none;
+    border: 1px solid var(--Grey3);
+    border-radius: 8px;
+    font-family: var(--Font);
+}
+.row-section .right-side-row-section .collector-row input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.row-section .collectors {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pricing-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid var(--Grey3);
+}
+.pricing-input input {
+    border: none !important;
+}
+.pricing-input span {
+    font-size: 14px;
+    padding: 0 8px;
+    border-left: 1px solid var(--Grey3);
+    font-weight: 500;
+    color: var(--Grey1);
+}
+.add-btn button {
+    border-radius: 8px;
+    background-color: var(--White);
+    color: var(--White);
+    background-color: var(--Purple);
+    border: none;
+    cursor: pointer;
+    transition: var(--Trans03);
+}
+.add-btn button :hover {
+    opacity: 0.9;
+}
+.add-btn button span {
+    padding: 8px;
+    font-size: 18px;
+    display: flex;
+}

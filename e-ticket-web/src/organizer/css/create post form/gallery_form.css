@@ -1,0 +1,102 @@
+.create-event-container form .form-container .event-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.create-event-container form .form-container .labels .title {
+    font-size: 18px;
+    font-weight: 700;
+}
+.create-event-container form .form-container .labels .instructions {
+    font-size: 14px;
+    color: var(--Grey1);
+}
+.create-event-container form .form-container .event-gallery .import-images .import-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.create-event-container form .form-container .event-gallery .import-images .import-cards .import-card {
+    border: 1px dashed var(--Grey3);
+    border-radius: 8px;
+    min-height: 180px;
+}
+.create-event-container
+    form
+    .form-container
+    .event-gallery
+    .import-images
+    .import-cards
+    .import-card
+    .import-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+    height: 100%;
+    font-size: 14px;
+    color: var(--Grey1);
+    cursor: pointer;
+    user-select: none;
+}
+
+.create-event-container
+    form
+    .form-container
+    .event-gallery
+    .import-images
+    .import-cards
+    .import-card
+    .import-card-container
+    .icon {
+    width: 34px;
+    height: 34px;
+    color: var(--Purple);
+    background-color: var(--Purple10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.create-event-container form .form-container .import-cards .import-card .import-card-container .content span {
+    color: var(--Purple);
+    font-weight: 500;
+}
+.create-event-container form .form-container .tandance-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.create-event-container form .form-container .tandance-gallery .import-cards .import-card .import-card-container .icon {
+    width: 34px;
+    height: 34px;
+    color: var(--Purple);
+    background-color: var(--Purple10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.create-event-container form .form-container .tandance-gallery .import-cards .import-card .import-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+    height: 100%;
+    font-size: 14px;
+    color: var(--Grey1);
+    cursor: pointer;
+    cursor: pointer;
+}
+.create-event-container form .form-container .tandance-gallery .import-cards .import-card {
+    max-width: 290px;
+    border: 1px dashed var(--Grey3);
+    border-radius: 8px;
+    height: 290px;
+}

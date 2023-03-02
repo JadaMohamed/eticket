@@ -1,0 +1,110 @@
+.margin-top {
+    margin-top: 40px;
+}
+.search-container {
+    max-width: 1200px;
+    padding: 30px 30px 1px 30px;
+    margin: auto;
+    background-color: var(--White);
+    border-radius: 8px;
+}
+.search-filter {
+    border-bottom: 1px solid var(--Purple10);
+    background-color: var(--White);
+    user-select: none;
+}
+.search-filter .search-filter-container {
+    margin: auto;
+    max-width: 1200px;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+}
+.search-filter .search-filter-container .bottom-search-filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 33.2px;
+    align-items: center;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: 500;
+    color: var(--Grey1);
+    align-items: center;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side .filter {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-direction: row-reverse;
+    border: 1px solid var(--Grey3);
+    padding: 5px 10px;
+    border-radius: 8px;
+    align-items: center;
+    font-weight: 400 !important;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side .filter .content {
+    line-height: 0;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side .filter .close {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+    background-color: var(--White);
+    transition: 0.3s ease;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side .filter .close :hover {
+    opacity: 0.6;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side .filter .close span {
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+.search-filter .search-filter-container .bottom-search-filter .left-side .search-keyword span {
+    font-weight: 700;
+    color: var(--Purple);
+}
+.search-filter .search-filter-container .top-search-filter {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    font-weight: 500;
+    color: var(--Grey1);
+}
+.search-filter .search-filter-container .top-search-filter .filter-input {
+    display: flex;
+    flex-direction: row;
+    color: var(--Purple);
+    background-color: var(--Purple10);
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 8px;
+}
+.search-filter .search-filter-container .top-search-filter .filter-input span {
+    font-size: 20px;
+}
+.search-filter .search-filter-container .top-search-filter .filter-input select {
+    border: none;
+    padding: 5px 8px;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    color: var(--Purple);
+}
+.search-filter .search-filter-container .bottom-search-filter .right-side {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--Purple);
+    cursor: pointer;
+}
+.search-filter .search-filter-container .bottom-search-filter .right-side:hover {
+    opacity: 0.9;
+}

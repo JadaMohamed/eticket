@@ -1,0 +1,60 @@
+.SalesCardDash {
+    width: 100%;
+}
+
+.SalesCardDash .SalesCardDash-container {
+    width: 100%;
+    background-color: var(--DarkPurple);
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--White);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.SalesCardDash .SalesCardDash-container .counted-sales {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+.SalesCardDash .SalesCardDash-container .counted-sales span {
+    font-size: 2rem;
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 48;
+}
+
+.SalesCardDash .SalesCardDash-container .counted-sales .total {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+.SalesCardDash .SalesCardDash-container .counted-sales .total .sales {
+    font-size: 26px;
+    font-weight: 600;
+}
+.SalesCardDash .SalesCardDash-container .counted-sales .total .of {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--Grey1);
+}
+.SalesCardDash .SalesCardDash-container .progress-bar {
+    margin-top: 20px;
+}
+.SalesCardDash .SalesCardDash-container .progress-bar .counting {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.SalesCardDash .SalesCardDash-container .progress-bar .bar {
+    width: 100%;
+    height: 10px;
+    border-radius: 2px;
+    background-color: var(--Grey2);
+}
+.SalesCardDash .SalesCardDash-container .progress-bar .progress {
+    height: 100%;
+    width: 75%;
+    background-color: var(--Purple60);
+    border-radius: 2px;
+}

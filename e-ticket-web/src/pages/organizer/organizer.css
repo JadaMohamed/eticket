@@ -1,0 +1,85 @@
+.organizer-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0px 30px 0px 30px;
+    background-color: var(--White);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.organizer-container .top-content .banner {
+    background-color: var(--Purple10);
+    min-height: 220px;
+}
+.organizer-container .top-content .infos-nav {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--Purple10);
+}
+.organizer-container .top-content .infos-nav .infos {
+    display: flex;
+    flex-direction: column;
+}
+.organizer-container .top-content .infos-nav .navigation .btn {
+    padding: 0 30px 10px 30px;
+    cursor: pointer;
+    color: var(--Grey1);
+}
+.organizer-container .top-content .infos-nav .navigation .active {
+    border-bottom: 3px solid var(--Purple);
+    color: var(--Purple);
+}
+.organizer-container .top-content .infos-nav .navigation {
+    display: flex;
+    flex-direction: row;
+    font-weight: 500;
+}
+.organizer-container .top-content .infos-nav .infos .top-infos {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+    margin: 0 30px;
+    align-items: center;
+    position: relative;
+    top: -40px;
+}
+.organizer-container .top-content .infos-nav .infos .top-infos .avatar {
+    min-width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid var(--White);
+    background-color: antiquewhite;
+}
+.organizer-container .top-content .infos-nav .infos .top-infos .name-discreption {
+    margin-top: 10px;
+}
+.organizer-container .top-content .infos-nav .infos .top-infos .name-discreption .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+.organizer-container .top-content .infos-nav .infos .top-infos .name-discreption .discreption {
+    color: var(--Grey1);
+}
+.organizer-container .top-content .infos-nav .infos .bottom-infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.organizer-container .top-content .infos-nav .infos .social-media {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    gap: 5px;
+}
+.organizer-container .top-content .infos-nav .infos .social-media span {
+    padding: 7px 8px;
+    border-radius: 8px;
+    color: var(--Grey1);
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+.organizer-container .top-content .infos-nav .infos .social-media span:hover {
+    background-color: var(--Purple10);
+}

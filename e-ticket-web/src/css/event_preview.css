@@ -1,0 +1,201 @@
+.event-preview {
+    max-width: 1200px;
+    background-color: var(--White);
+    margin: auto;
+    border-radius: 8px;
+}
+.event-preview .event-preview-container {
+    margin: 40px 30px 0 30px;
+    padding: 30px 0;
+    display: flex;
+    gap: 20px;
+}
+.event-preview .event-preview-container .leftside {
+    max-width: 55%;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.event-preview .event-preview-container .leftside .images .selected-image {
+    min-height: 280px;
+    background-color: var(--Purple30);
+    border-radius: 8px;
+
+    margin-bottom: 10px;
+}
+.event-preview .event-preview-container .leftside .images .image-slider {
+    display: flex;
+    gap: 10px;
+}
+.event-preview .event-preview-container .leftside .images .image {
+    width: 100px;
+    height: 50px;
+    background-color: var(--Green30);
+    border-radius: 8px;
+}
+.event-preview .event-preview-container .leftside .images .image:first-child {
+    background-color: var(--Green80);
+}
+.event-preview .event-preview-container .leftside .event-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+.event-preview .event-preview-container .leftside .title {
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.event-preview .event-preview-container .leftside .title .line {
+    height: 1px;
+    width: 100%;
+    background-color: var(--Grey3);
+}
+.event-preview .event-preview-container .right-side {
+    border: 1px solid var(--Grey3);
+    width: 100%;
+    border-radius: 8px;
+    height: 100%;
+}
+.event-preview .event-preview-container .right-side .right-side-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .label {
+    font-weight: 500;
+    color: var(--Grey1);
+}
+.event-preview .event-preview-container .right-side .right-side-container .data-collector select {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid var(--Grey3);
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 8px;
+    appearance: none;
+    cursor: pointer;
+    color: var(--Green);
+}
+.event-preview .event-preview-container .right-side .right-side-container .quantity-collector {
+    display: flex;
+    align-items: end;
+    gap: 10%;
+}
+.event-preview .event-preview-container .right-side .right-side-container .quantity-collector .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    background-color: var(--Green50);
+    color: var(--White);
+    font-weight: 600;
+}
+.event-preview .event-preview-container .right-side .right-side-container .quantity-collector .quantity-selector .btn {
+    padding: 5px 10px;
+    background-color: var(--White);
+    color: var(--Green);
+    font-weight: 800;
+    border: 1px solid var(--Green50);
+    min-width: 34px;
+    border-radius: 8px;
+    text-align: center;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.event-preview
+    .event-preview-container
+    .right-side
+    .right-side-container
+    .quantity-collector
+    .quantity-selector
+    .btn:hover {
+    background-color: var(--Green);
+    color: var(--White);
+}
+.event-preview .event-preview-container .right-side .right-side-container .quantity-collector .quantity-statu {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--Green);
+}
+.event-preview .event-preview-container .right-side .right-side-container .event-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .event-infos span {
+    color: var(--Green);
+    font-size: 16px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .event-infos .inf {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+.event-preview .event-preview-container .right-side .right-side-container .total-price .calculated-price {
+    font-weight: 600;
+    color: var(--Green);
+    font-size: 24px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .total-price .calculated-price span {
+    font-size: 12px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .btns .btn {
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.event-preview .event-preview-container .right-side .right-side-container .btns .add-tocart-btn {
+    color: var(--Green);
+    border: 1px solid var(--Green);
+}
+.event-preview .event-preview-container .right-side .right-side-container .btns .buy-now-btn {
+    background-color: var(--Green);
+    color: var(--White);
+}
+.event-preview .event-preview-container .right-side .right-side-container .btns .instruction {
+    color: var(--Grey1);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.event-preview .event-preview-container .right-side .right-side-container .btns .instruction span {
+    font-size: 14px;
+}
+.organizer {
+    color: var(--Grey1);
+}
+.organizer span {
+    color: var(--Green);
+    font-weight: 600;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.organizer span:hover {
+    text-decoration: underline;
+}
+.more-by .section-title span {
+    color: var(--Green);
+    font-weight: 600;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.more-by .section-title span:hover {
+    text-decoration: underline;
+}
