@@ -66,7 +66,7 @@ const register = async (req, res, next) => {
             httpOnly: true,
             // secure: process.env.NODE_ENV === 'production',
             // maxAge: 60 * 60 * 24 * 10 , 
-            // sameSite: 'strict',
+             sameSite: 'strict',
             // path: '/',
         }).status(201).json({ account });
     } catch (error) {
@@ -111,10 +111,12 @@ const login = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
-            // maxAge: 60 * 60 * 24 * 10 , 
-            // sameSite: 'strict',
-            // path: '/',
+            sameSite: 'none',
+            secure: true,
+            // // secure: process.env.NODE_ENV === 'production',
+            // // maxAge: 60 * 60 * 24 * 10 , 
+            //  sameSite: 'None',
+            // // path: '/',
         }).status(201).json({ profile });
     } catch (error) {
         next(error);
