@@ -1,7 +1,6 @@
 {
   
   "proxy":"https://e-ticket-server.onrender.com",
-  "proxy-this one for development after change":"http://localhost:8000",
   "name": "e-ticket-web",
   "version": "0.1.0",
   "private": true,
