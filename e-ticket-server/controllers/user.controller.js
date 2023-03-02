@@ -81,6 +81,7 @@ const register = async (req, res, next) => {
 
 
 const login = async (req, res, next) => {
+    console.log(req.body)
     const { email, password } = req.body;
 
     // Validate input data
