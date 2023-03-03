@@ -53,6 +53,22 @@ const getTicketsByClientId = async (req, res) => {
     }
 };
 
+const getTicketsByEventId = async (req, res) => {
+    const { eventId } = req.params;
+
+    try {
+        const tickets = await ticketService.getTicketsByEventId(eventId);
+        if(tickets){
+            res.json(tickets);
+        }else{
+            res.status(404).json({ error: `No tickets found for this eventid:${eventId}` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 const getAllTickets = async (req, res) => {
     try {
         const tickets = await ticketService.getAllTickets();
@@ -103,5 +119,6 @@ export default {
     getAllTickets,
     deleteticketById,
     updateTicket,
+    getTicketsByEventId,
     
 };

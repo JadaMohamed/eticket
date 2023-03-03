@@ -41,6 +41,7 @@ import clientRoutes from "./routes/client.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import accountRoutes from "./routes/account.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import scannerRoutes from "./routes/scanner.routes.js";
 import {
   verifyAdmin,
   verifyClientOrAdmin,
@@ -90,8 +91,9 @@ app.use("/api/tickets", verifyJwt, ticketRoutes);
 app.use("/api/client-wait-lists", verifyJwt, clientWaitListRoutes);
 app.use("/api/clients", verifyJwt, verifyClientOrAdmin, clientRoutes);
 app.use("/api/admins", verifyJwt, verifyAdmin, adminRoutes);
-app.use("/api/accounts", verifyJwt, accountRoutes);
+app.use("/api/accounts", accountRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/scanner", scannerRoutes);
 
 app.get("/", (req, res) => {
   res.send(

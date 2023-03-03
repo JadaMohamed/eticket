@@ -7,6 +7,7 @@ router.post('/', ticketController.createTicket);
 router.post('/many', ticketController.createManyTicket);
 router.get('/', ticketController.getAllTickets);
 router.get('/client/:clientId', ticketController.getTicketsByClientId);
+router.get('/event/:eventId', ticketController.getTicketsByEventId);
 router.delete('/:id', ticketController.deleteticketById);
 router.put('/:id', ticketController.updateTicket);
 

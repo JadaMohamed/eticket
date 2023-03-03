@@ -16,6 +16,14 @@ const getTicketsByClientId = async (clientId) => {
     return tickets;
 };
 
+const getTicketsByEventId = async (eventId) => {
+    const tickets = await prisma.ticket.findMany({
+        where: { event_id: Number(eventId) },
+    });
+
+    return tickets;
+};
+
 const getAllTickets = async () => {
     return prisma.ticket.findMany({
         include:{
@@ -43,4 +51,5 @@ export default {
     getAllTickets,
     deleteticketById,
     updateTicket,
+    getTicketsByEventId
 };

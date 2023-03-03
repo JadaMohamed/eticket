@@ -93,11 +93,35 @@ const getAllAccounts = async (req, res) => {
     }
 };
 
+
+
+const loginToAccount = async (req, res) => {
+    const {email,password}=req.body;
+
+    try {
+        const account = await accountService.findAccountByEmailAndPassword(email, password);
+
+        if (account) {
+            res.json(account.account_id);
+        } else {
+            res.status(404).json({ error: `Account with id ${email} AND ${password} not found` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
+
+
+
 export default {
     createAccount,
     createManyAccount,
     getAccountById,
     updateAccount,
     deleteAccount,
-    getAllAccounts
+    getAllAccounts,
+    loginToAccount
 };
