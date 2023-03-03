@@ -24,7 +24,7 @@ const Home = ({route, navigation}) => {
   useEffect(() => {
     const fetchEvents = async () => {
       const response = await fetch(
-        `https://e-ticket-server.onrender.com/api/organizers/${route.params?.org_id}`,
+        `https://e-ticket-server.onrender.com/api/scanner/organizers/${route.params?.org_id}`,
       );
       const data = await response.json();
       setEvents(data.Events);

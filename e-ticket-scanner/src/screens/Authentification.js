@@ -21,7 +21,7 @@ const Authentification = ({navigation}) => {
 
   const fetchOrganizer = async accountId => {
     const response = await fetch(
-      `https://e-ticket-server.onrender.com/api/organizers/account/${accountId}`,
+      `https://e-ticket-server.onrender.com/api/scanner/organizers/account/${accountId}`,
     );
 
     if (!response.ok) {
@@ -34,7 +34,7 @@ const Authentification = ({navigation}) => {
   const signInHandler = async () => {
     try {
       const response = await fetch(
-        'https://e-ticket-server.onrender.com/api/accounts/login',
+        'https://e-ticket-server.onrender.com/api/scanner/accounts/login',
         {
           method: 'POST',
           headers: {

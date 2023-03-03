@@ -25,7 +25,7 @@ const QrScanner = ({ route, navigation }) => {
 
     const fetchTickets = async () => {
         const response = await fetch(
-            `https://e-ticket-server.onrender.com/api/tickets/event/${route.params.event_id}`,
+            `https://e-ticket-server.onrender.com/api/scanner/tickets/event/${route.params.event_id}`,
         );
         const data = await response.json();
         setTickets(data);

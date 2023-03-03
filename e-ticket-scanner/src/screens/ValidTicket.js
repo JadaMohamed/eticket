@@ -10,7 +10,7 @@ import { widthPercentageToDP } from '../constants/Layout'
 const ValidTicket = ({ route, navigation }) => {
   const doneHandler = () => navigation.pop();
   function updateTicket(ticketId) {
-    fetch(`https://e-ticket-server.onrender.com/api/tickets/${ticketId}`, {
+    fetch(`https://e-ticket-server.onrender.com/api/scanner/tickets/${ticketId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
