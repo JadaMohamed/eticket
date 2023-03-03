@@ -111,9 +111,7 @@ const login = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            secure: true,
-            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
-            sameSite: 'none',
+            sameSite: 'strict',
             path: '/',
             domain:'.onrender.com', // parent domain
         }).status(201).json({ profile });
