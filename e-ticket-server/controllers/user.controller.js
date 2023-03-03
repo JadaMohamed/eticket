@@ -113,8 +113,8 @@ const login = async (req, res, next) => {
             httpOnly: true,
             sameSite: 'strict',
             path: '/',
-            domain:'.onrender.com', // parent domain
-        }).status(201).json({ profile });
+            // domain: 'e-ticket-live.onrender.com',
+        }).status(200).json({ message: 'Login successful', profile });
     } catch (error) {
         // next(error);
         console.error(error);
