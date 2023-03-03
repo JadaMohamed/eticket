@@ -111,13 +111,15 @@ const login = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
-            // maxAge: 60 * 60 * 24 * 10 , 
-            // sameSite: 'strict',
-            // path: '/',
+            secure: true,
+            maxAge: 60 * 60 * 24 * 2 * 1000,//2days 
+            sameSite: 'strict',
+            path: '/',
         }).status(201).json({ profile });
     } catch (error) {
-        next(error);
+        // next(error);
+        console.error(error);
+        res.status(500).json({ error: 'Server error to login' });
     }
 };
 
@@ -160,7 +162,7 @@ const profile = async (req, res, next) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-      
+
         res.status(200).json({ profile });
 
     } catch (error) {

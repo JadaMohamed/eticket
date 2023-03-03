@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [profile, setProfile] = useState(null);
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const { data } = await axios.get("/api/user/profile", { withCredentials: true });
+                const { data } = await axios.get(`${apiUrl}/api/user/profile`, { withCredentials: true });
                 setProfile(data);
             } catch (err) {
                 console.log(err);
@@ -34,7 +34,7 @@ export const AuthContextProvider = ({ children }) => {
     const login = async (payload) => {
         try {
             const apiResponse = await axios.post(
-                "/api/user/login",
+                `${apiUrl}/api/user/login`,
                 payload,
                 { withCredentials: true }
             );
@@ -46,7 +46,7 @@ export const AuthContextProvider = ({ children }) => {
     };
 
     const logout = async () => {
-        await axios.get("/api/user/logout",
+        await axios.get(`${ apiUrl } /api/user/logout`,
             { withCredentials: true }
         );
         setProfile(null);

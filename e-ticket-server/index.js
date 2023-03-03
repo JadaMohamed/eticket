@@ -58,8 +58,10 @@ app.use(express.json());
 const corsOptions = {
   origin: [
     "http://localhost:8001",
+    "http://localhost:8000",
     "http://localhost:300",
     "http://localhost:3001",
+    "https://e-ticket-live.onrender.com",
   ], // replace with your frontend app URL
   credentials: true, // allow cookies and other credentials
 };
