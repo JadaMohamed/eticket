@@ -41,6 +41,22 @@ const getOrganizerById = async (req, res) => {
     }
 };
 
+const getOrganizerByAccountId = async (req, res) => {
+    const { account_id } = req.params;
+
+    try {
+        const organizer = await organizerService.getOrganizerByAccountId(parseInt(account_id));
+        if(organizer){
+            res.status(200).json(organizer);
+        }else{
+            res.status(404).json({ error: `No organizer found with this account id:${account_id}` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 const getAllOrganizers = async (req, res) => {
     try {
         const organizers = await organizerService.getAllOrganizers();
@@ -67,6 +83,7 @@ const deleteOrganizerById = async (req, res) => {
     }
 };
 
+
 const updateOrganizer = async (req, res) => {
     const id = req.params.id;
     const updates = req.body;
@@ -92,4 +109,5 @@ export default {
     createManyOrganizers,
     deleteOrganizerById,
     updateOrganizer,
+    getOrganizerByAccountId,
 };

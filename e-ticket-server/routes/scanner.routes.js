@@ -7,7 +7,7 @@ const router = Router();
 
 
 router.post('/accounts/login', accountController.loginToAccount);
-router.get('/accounts/:id', accountController.getAccountById);
+router.get('/organizers/account/:account_id', organizersController.getOrganizerByAccountId);
 router.get('/organizers/:org_id', organizersController.getOrganizerById);
 router.get('/tickets/event/:eventId', ticketController.getTicketsByEventId);
 router.put('/tickets/:id', ticketController.updateTicket);

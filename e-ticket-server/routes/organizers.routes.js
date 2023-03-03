@@ -7,6 +7,7 @@ router.post('/', organizersController.createOrganizer);
 router.post('/many', organizersController.createManyOrganizers);
 router.get('/', organizersController.getAllOrganizers);
 router.get('/:org_id', organizersController.getOrganizerById);
+router.get('/account/:account_id', organizersController.getOrganizerByAccountId);
 router.delete('/:id', organizersController.deleteOrganizerById);
 router.put('/:id', organizersController.updateOrganizer);
 
