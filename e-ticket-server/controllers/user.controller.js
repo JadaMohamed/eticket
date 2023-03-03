@@ -115,6 +115,7 @@ const login = async (req, res, next) => {
             maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
             sameSite: 'None',
             path: '/',
+            domain: '.onrender.com'
         }).status(200).json({ profile });
     } catch (error) {
         // next(error);
