@@ -111,7 +111,7 @@ const login = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            secure: true,
+            secure: false, // or remove this line
             maxAge: 60 * 60 * 24 * 2 * 1000,//2days 
             sameSite: 'strict',
             path: '/',
@@ -125,7 +125,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        console.log(req.user)
+        // console.log(req.user)
         // generate JWT
         const eticketjwt = jwt.sign({
             // accountId: req.user.accountId
@@ -146,11 +146,11 @@ const logout = async (req, res, next) => {
 
 const profile = async (req, res, next) => {
     try {
-        console.log(req.user)
+        // console.log(req.user)
 
         const account = await accountService.getAccountById(req.user.accountId);
-        console.log('account')
-        console.log(account)
+        // console.log('account')
+        // console.log(account)
         if (!account) {
             return res.status(401).json({ error: 'Invalid virifecation to get account' });
         }

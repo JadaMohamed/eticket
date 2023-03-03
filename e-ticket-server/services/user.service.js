@@ -87,12 +87,8 @@ const findAccountByEmailAndPassword = async (email, password) => {
     if (!user) {
         return null;
     }
-    console.log('----------------')
-    console.log(user)
     return {account,user};
 };
-
-
 
 
 export default { createUser, findAccountByEmailAndPassword };
