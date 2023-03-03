@@ -27,9 +27,9 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     //To test you can use:
-    // Admin:      Email: davidwang@example.com , Pass: password789
-    // Organizer:  Email: organizer@example.com , Pass: organizerpassword
-    // Client:     Email: bobsmith@example.com  , Pass: password789
+    // Admin:      Email: admin@gmail.com , Pass: password
+    // Organizer:  Email: organizer@gmail.com , Pass: password
+    // Client:     Email: client@gmail.com  , Pass: password
 
     const login = async (payload) => {
         try {
