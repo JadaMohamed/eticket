@@ -115,7 +115,8 @@ const login = async (req, res, next) => {
             maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
             sameSite: 'none',
             path: '/',
-            domain: 'e-ticket-live.onrender.com,localhost:3000,localhost:3001,localhost:8001,localhost:8000', // add your domain here
+            domain: 'e-ticket-live.onrender.com', // add your domain here
+            //,localhost:3000,localhost:3001,localhost:8001,localhost:8000
         }).status(201).json({ profile });
     } catch (error) {
         // next(error);
