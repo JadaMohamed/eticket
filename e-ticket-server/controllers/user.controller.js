@@ -111,10 +111,11 @@ const login = async (req, res, next) => {
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            secure: false, // or remove this line
-            maxAge: 60 * 60 * 24 * 2 * 1000,//2days 
-            sameSite: 'strict',
+            secure: true,
+            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+            sameSite: 'none',
             path: '/',
+            domain: 'e-ticket-live.onrender.com,localhost:3000,localhost:3001,localhost:8001,localhost:8000', // add your domain here
         }).status(201).json({ profile });
     } catch (error) {
         // next(error);
