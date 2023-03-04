@@ -40,7 +40,7 @@ export default function LoginPopup(props) {
           />
         </div>
         <div className="close" onClick={() => props.setTrigger(false)}>
-          <span class="material-symbols-outlined">cancel</span>
+          <span className="material-symbols-outlined">cancel</span>
         </div>
         <div className="title-instructions element">
           <div className="title">Sign In</div>
@@ -52,7 +52,7 @@ export default function LoginPopup(props) {
           <div className="element-c email">
             <label htmlFor="email">Email</label>
             <div className="login-input">
-              <span class="material-symbols-outlined">mail</span>
+              <span className="material-symbols-outlined">mail</span>
               <input
                 className="form-input"
                 type="email"
@@ -65,7 +65,7 @@ export default function LoginPopup(props) {
           <div className="element-c password">
             <label htmlFor="password">Password</label>
             <div className="login-input password-input">
-              <span class="material-symbols-outlined" onClick={toggleVisibility}>visibility_off</span>
+              <span className="material-symbols-outlined" onClick={toggleVisibility}>visibility_off</span>
               <input className="form-input" type={isVisible ? "" : "password"} id="first-name" ref={password} required />
             </div>
             <div className="forgot-password">Forgot Password</div>

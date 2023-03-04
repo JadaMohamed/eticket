@@ -7,10 +7,11 @@ import { BASE_URL } from "../../Constants";
 
 function MoreBy(props) {
   const [events, setEvents] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const getEvents = async () => {
     try {
-      const response = await Axios.get(`${BASE_URL}/api/events`);
+      const response = await Axios.get(`${apiUrl}/api/events`);
 
       setEvents(response.data);
     } catch (error) {

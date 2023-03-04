@@ -1,1 +1,1 @@
-export const BASE_URL = "https://e-ticket-server.onrender.com";
+// export const BASE_URL = "https://e-ticket-server.onrender.com";

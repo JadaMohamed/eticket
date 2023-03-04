@@ -11,6 +11,7 @@ import "./Search.css";
 function Search() {
   let { value } = useParams("a");
   const [events, setEvents] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const searchEvents = async (keyword) => {
     if (keyword?.length < 1) {
@@ -18,7 +19,7 @@ function Search() {
     }
     try {
       const response = await Axios.get(
-        `${BASE_URL}/api/events/search?keyword=${keyword}`
+        `${apiUrl}/api/events/search?keyword=${keyword}`
       );
       setEvents(response.data);
     } catch (error) {

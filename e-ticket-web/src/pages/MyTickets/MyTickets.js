@@ -9,7 +9,6 @@ import AuthContext from "../../Auth/AuthContext";
 
 function MyTickets() {
   const { profile } = useContext(AuthContext);
-  // console.log("my tucjets",profile.profile.account.account_type)
 
   // The profile.profile thingy is so dumb btw.
   if (!(profile?.profile?.account?.account_type === "client")) {

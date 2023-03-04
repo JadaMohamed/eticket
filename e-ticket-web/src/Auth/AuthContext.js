@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [profile, setProfile] = useState(null);
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,6 +19,8 @@ export const AuthContextProvider = ({ children }) => {
         const fetchUserProfile = async () => {
             try {
                 const { data } = await axios.get(`${apiUrl}/api/user/profile`, { withCredentials: true });
+                
+                setLoggedIn(true);
                 setProfile(data);
             } catch (err) {
                 console.log(err);
@@ -38,8 +41,21 @@ export const AuthContextProvider = ({ children }) => {
                 payload,
                 { withCredentials: true }
             );
+             setLoggedIn(true);
              setProfile(apiResponse.data);
-             navigate("/"); 
+
+             switch(profile?.profile?.account?.account_type){
+                case "client":
+                    navigate("/"); 
+                    break;
+                case "organizer":
+                    navigate("/organizer/dashboard");
+                    break;
+                case "admin":
+                    navigate("/admin");
+                    break;
+             }
+
         } catch (err) {
             console.log(err);
         }
@@ -50,10 +66,11 @@ export const AuthContextProvider = ({ children }) => {
             { withCredentials: true }
         );
         setProfile(null);
+        setLoggedIn(false);
     }
 
     return (
-        <AuthContext.Provider value={{ profile, login, logout }}>
+        <AuthContext.Provider value={{ profile, login, logout, isLoggedIn }}>
             {children}
         </AuthContext.Provider>
     );
