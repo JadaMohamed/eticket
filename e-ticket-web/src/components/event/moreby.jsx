@@ -31,7 +31,8 @@ function MoreBy(props) {
         <div className="cards">
           {events.map((event) => (
             <Card
-              key={event.eventId}
+              key={event.event_id}
+              eventid={event.event_id}
               image={
                 event.Event_Images.length > 0
                   ? event.Event_Images[0].img_url

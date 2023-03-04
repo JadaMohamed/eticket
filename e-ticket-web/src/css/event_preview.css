@@ -20,18 +20,27 @@
     min-height: 280px;
     background-color: var(--Purple30);
     border-radius: 8px;
-
+    display: flex;
+    overflow: hidden;
     margin-bottom: 10px;
+}
+.event-preview .event-preview-container .leftside .images .selected-image img {
+    width: 100%;
 }
 .event-preview .event-preview-container .leftside .images .image-slider {
     display: flex;
     gap: 10px;
 }
+.event-preview .event-preview-container .leftside .images .image-slider img {
+    width: 100%;
+}
 .event-preview .event-preview-container .leftside .images .image {
     width: 100px;
-    height: 50px;
+    height: 60px;
     background-color: var(--Green30);
     border-radius: 8px;
+    overflow: hidden;
+    display: flex;
 }
 .event-preview .event-preview-container .leftside .images .image:first-child {
     background-color: var(--Green80);

@@ -9,23 +9,28 @@ function Card(props) {
   const Nav = useNavigate();
 
   return (
-    <div
-      className="cardevent"
-      key={props.id}
-      onClick={() => Nav("/events", { replace: true })}
-    >
-      <div className="previewimage">
+    <div className="cardevent" key={props.id}>
+      <div
+        className="previewimage cta"
+        onClick={() => Nav(`/events/${props.eventid}`, { replace: false })}
+      >
         <Image cloudName="djjwswdo4" publicId={props.image} />
         {/* <img src={Image} alt="" /> */}
       </div>
       <div className="event-infos">
         <div className="infos-container">
-          <div className="event-title">{props.title}</div>
-          <div className="local inf">
+          <div
+            className="event-title cta"
+            onClick={() => Nav(`/events/${props.eventid}`, { replace: false })}
+          >
+            {props.title}
+            {props.eventid}
+          </div>
+          <div className="local inf cta">
             <span className="material-symbols-outlined">distance</span>
             {props.location}
           </div>
-          <div className="date inf">
+          <div className="date inf cta">
             <span className="material-symbols-outlined">hourglass_top</span>
             <CountdownDate date={props.date} />
           </div>

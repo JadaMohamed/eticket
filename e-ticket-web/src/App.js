@@ -23,7 +23,7 @@ import { ProtectOrganizer } from "./Auth/ProtectOrganizer";
 function App() {
   return (
     <BrowserRouter>
-      <AuthContextProvider >
+      <AuthContextProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
@@ -35,7 +35,8 @@ function App() {
           <Route element={<ProtectClient />}>
             <Route path="/cart" element={<Cart />} />
             <Route path="/mytickets" element={<MyTickets />} />
-            <Route path="/events" element={<Events />} />
+            <Route path="/events/:value" element={<Events />} />
+            {/* <Route path="/events" element={<Events />} /> */}
           </Route>
 
           <Route path="*" element={<Eror404 />} />
@@ -50,12 +51,14 @@ function App() {
             <Route path="/organizer/tickets" element={<Tickets />} />
             <Route path="/organizer/sales" element={<Sales />} />
             <Route path="/organizer/manageqr" element={<Manage_qr />} />
-            <Route path="/organizer/events/createevent" element={<Createevent />} />
+            <Route
+              path="/organizer/events/createevent"
+              element={<Createevent />}
+            />
             <Route path="/organizer" element={<Organizer />} />
           </Route>
-
         </Routes>
-      </AuthContextProvider >
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }

@@ -4,6 +4,7 @@ import { eventData, account } from "../data";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../Constants";
+import loader from "../../img/loading.svg";
 
 function LocalEvents(props) {
   const [levents, setEvents] = useState([]);
@@ -29,28 +30,34 @@ function LocalEvents(props) {
           {account.map((userinfos) => {
             return <div className="user-city">{userinfos.City}</div>;
           })}
-          <span className="material-symbols-outlined">person_pin_circle</span>
         </div>
-        <div className="cards">
-          {levents
-            .filter((levent) => levent.location.includes("Agadir"))
-            .slice(0, 4)
-            .map((levent) => (
-              <Card
-                key={levent.eventId}
-                image={
-                  levent.Event_Images.length > 0
-                    ? levent.Event_Images[0].img_url
-                    : null
-                } // select the first image
-                title={levent.title}
-                price={levent.price}
-                location={levent.location}
-                category={levent.event_type}
-                date={levent.start_time}
-              />
-            ))}
-        </div>
+        {levents.length > 0 ? (
+          <div className="cards">
+            {levents
+              .filter((levent) => levent.location.includes("Agadir"))
+              .slice(0, 4)
+              .map((levent) => (
+                <Card
+                  key={levent.event_id}
+                  eventid={levent.event_id}
+                  image={
+                    levent.Event_Images.length > 0
+                      ? levent.Event_Images[0].img_url
+                      : null
+                  } // select the first image
+                  title={levent.title}
+                  price={levent.price}
+                  location={levent.location}
+                  category={levent.event_type}
+                  date={levent.start_time}
+                />
+              ))}
+          </div>
+        ) : (
+          <div className="loading">
+            <img src={loader} />
+          </div>
+        )}
       </div>
     </div>
   );

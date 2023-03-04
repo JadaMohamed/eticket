@@ -1,8 +1,17 @@
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
 import "./Settings.css";
+import { useContext, useEffect } from "react";
+import AuthContext from "../../Auth/AuthContext";
 
 function Settings() {
+  // const { profile } = useContext(AuthContext);
+  // useEffect(() => {
+  //   if (profile && profile.account) {
+  //     console.log("yyyyyyyyyyy" + profile.account);
+  //   }
+  // }, [profile]);
+
   return (
     <>
       <Navbar />
@@ -43,9 +52,8 @@ function Settings() {
                     <input
                       className="collector-100"
                       type="text"
-                      id="email"  
+                      id="email"
                       value={"olaymouriss@email.com"}
-                      
                     />
                   </div>
                 </div>

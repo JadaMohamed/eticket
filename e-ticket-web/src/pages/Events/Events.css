@@ -1,0 +1,7 @@
+.loading {
+    display: flex;
+    justify-content: center;
+}
+.loading img {
+    max-width: 50px;
+}

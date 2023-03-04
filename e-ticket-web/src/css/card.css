@@ -8,11 +8,13 @@
   margin-bottom: 50px;
 }
 .cards .cardevent {
-  cursor: pointer;
   border: 1px solid var(--Purple10);
   border-radius: 10px;
   user-select: none;
   transition: transform 0.3s ease-in-out;
+}
+.cards .cardevent .cta {
+  cursor: pointer;
 }
 .cards .cardevent:hover {
   /* box-shadow: var(--Green50) 0px 1px 4px; */

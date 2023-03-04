@@ -5,6 +5,7 @@ import eventImage from "../../img/event-image.jpg";
 import FYEvents from "../../components/home/foryou_events";
 import { BASE_URL } from "../../Constants";
 import Axios from "axios";
+import loader from "../../img/loading.svg";
 import { useEffect, useState } from "react";
 
 function LocalEvents(props) {
@@ -26,23 +27,30 @@ function LocalEvents(props) {
     <div className="localevents">
       <div className="localevent-container">
         <div className="section-title">Suggestions </div>
-        <div className="cards">
-          {events.map((event) => (
-            <Card
-              key={event.eventId}
-              image={
-                event.Event_Images.length > 0
-                  ? event.Event_Images[0].img_url
-                  : null
-              } // select the first image
-              title={event.title}
-              price={event.price}
-              location={event.location}
-              category={event.event_type}
-              date={event.start_time}
-            />
-          ))}
-        </div>
+        {events.length > 0 ? (
+          <div className="cards">
+            {events.map((event) => (
+              <Card
+                key={event.event_id}
+                eventid={event.event_id}
+                image={
+                  event.Event_Images.length > 0
+                    ? event.Event_Images[0].img_url
+                    : null
+                } // select the first image
+                title={event.title}
+                price={event.price}
+                location={event.location}
+                category={event.event_type}
+                date={event.start_time}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="loading">
+            <img src={loader} />
+          </div>
+        )}
       </div>
     </div>
   );
