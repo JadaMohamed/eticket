@@ -117,7 +117,7 @@ function Navbar(props) {
                     <div className="avatar">
                       <Image
                         cloudName="djjwswdo4"
-                        publicId="e_ticket/useravatar/download_vgtpzy"
+                        publicId={profile?.profile?.account?.avatar}
                       />
                     </div>
                     <div className="right-side"></div>
@@ -147,7 +147,7 @@ function Navbar(props) {
                     <div className="avatar">
                       <Image
                         cloudName="djjwswdo4"
-                        publicId="e_ticket/useravatar/download_vgtpzy"
+                        publicId={profile?.profile?.account?.avatar}
                       />
                     </div>
                     <div className="right-side">
