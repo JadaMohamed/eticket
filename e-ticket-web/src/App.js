@@ -19,6 +19,7 @@ import Organizer from "./pages/organizer/organizer";
 import { AuthContextProvider } from "./Auth/AuthContext";
 import { ProtectClient } from "./Auth/ProtectClient";
 import { ProtectOrganizer } from "./Auth/ProtectOrganizer";
+import SignIn from "./pages/SignUp/signin";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
       <AuthContextProvider>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/registration" element={<SignIn />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/example/:meow" element={<Example />} />
           {/* An example of a react route */}
           <Route path="/example" element={<Example />} />

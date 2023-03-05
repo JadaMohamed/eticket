@@ -12,6 +12,7 @@
   border-radius: 10px;
   user-select: none;
   transition: transform 0.3s ease-in-out;
+  position: relative;
 }
 .cards .cardevent .cta {
   cursor: pointer;
@@ -73,16 +74,20 @@
 .cards .cardevent .event-infos .event-category {
   margin-top: 5px;
   margin-bottom: 10px;
-  background-color: var(--LighterPurple);
   padding: 1px 6px 2px 6px;
   width: fit-content;
   height: auto;
-  border: 1px solid var(--Purple10);
+  /* border: 1px solid var(--Purple10); */
   color: var(--Purple);
   display: flex;
   text-align: center;
   border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 5px;
+  z-index: 9;
   font-size: 0.7rem;
+  background-color: #ffffffc7;
 }
 .cards .cardevent .event-infos .shopping {
   display: flex;

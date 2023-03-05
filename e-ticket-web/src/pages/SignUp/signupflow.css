@@ -1,0 +1,42 @@
+.signup-flow {
+    margin-top: 20px;
+    width: 100%;
+}
+.signup-flow .signup-flow-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.signup-flow .signup-flow-container .step {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.signup-flow .signup-flow-container .step .number {
+    width: 28px;
+    height: 28px;
+    background-color: var(--Purple30);
+    color: var(--White);
+    font-weight: 500;
+    border-radius: 15px;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signup-flow .signup-flow-container .material-symbols-outlined {
+    color: var(--Purple30);
+    font-size: 0.9rem;
+}
+.signup-flow .signup-flow-container .step .named {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    color: var(--Purple30);
+}
+.signup-flow .signup-flow-container .active .named {
+    color: black !important;
+}
+.signup-flow .signup-flow-container .active .number {
+    background-color: var(--Purple);
+}

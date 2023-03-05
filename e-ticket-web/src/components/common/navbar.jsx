@@ -23,7 +23,7 @@ function Navbar(props) {
       handleSearch();
     }
   };
-  
+
   useEffect(() => {
     let handler = (e) => {
       if (!menuRef.current.contains(e.target)) {
@@ -35,7 +35,7 @@ function Navbar(props) {
       document.removeEventListener("mousedown", handler);
     };
   });
-  
+
   return (
     <nav className="nav">
       <div className="nav-container">
@@ -141,7 +141,18 @@ function Navbar(props) {
                 <div>
                   <span className="material-symbols-outlined">login</span>
                 </div>
-                Log In
+                Sign in
+              </div>
+              <div
+                className="dropdown-item"
+                onClick={() => {
+                  Nav("/registration", { replace: false });
+                }}
+              >
+                <div>
+                  <span className="material-symbols-outlined">login</span>
+                </div>
+                Sign Up
               </div>
             </div>
           </div>
