@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import logo from "../../img/logo.svg";
 import "../../css/navbar.css";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +6,12 @@ import Axios from "axios";
 import { BASE_URL } from "../../Constants";
 import Search from "../../pages/Search/Search";
 import LoginPopup from "./loginpopup";
+import AuthContext from "../../Auth/AuthContext";
+import { Image } from "cloudinary-react";
 
 function Navbar(props) {
+  const { profile, isLoggedIn } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const [keyword, setKeyword] = useState("");
   const [open, setOpen] = useState(false);
   const [popupLogin, setpoupLogin] = useState(false);
@@ -17,7 +21,9 @@ function Navbar(props) {
   const handleSearch = () => {
     if (keyword?.length) Nav(`/search/${keyword}`, { replace: true });
   };
-
+  const logoutSubmit = async (event) => {
+    logout();
+  };
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSearch();
@@ -35,7 +41,10 @@ function Navbar(props) {
       document.removeEventListener("mousedown", handler);
     };
   });
-
+  useEffect(() => {
+    console.log("from navbar");
+    console.log(profile);
+  }, [profile]);
   return (
     <nav className="nav">
       <div className="nav-container">
@@ -94,68 +103,144 @@ function Navbar(props) {
                   local_activity
                 </span>
               </div>
-              <div
-                onClick={() => {
-                  setOpen(!open);
-                }}
-                className="btn menu-trigger"
-                id="me"
-                title="Me"
-                ref={menuRef}
-              >
-                <span className="material-symbols-outlined">person_pin</span>
-              </div>
+              {isLoggedIn ? (
+                <div
+                  className="btn menu-trigger user-infos"
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                  id="me"
+                  title={`${profile?.profile?.account?.first_name} ${profile?.profile?.account?.last_name}`}
+                  ref={menuRef}
+                >
+                  <div className="user-infos-container">
+                    <div className="avatar">
+                      <Image
+                        cloudName="djjwswdo4"
+                        publicId="e_ticket/useravatar/download_vgtpzy"
+                      />
+                    </div>
+                    <div className="right-side"></div>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                  className="btn menu-trigger"
+                  id="me"
+                  title="Me"
+                  ref={menuRef}
+                >
+                  <span className="material-symbols-outlined">person_pin</span>
+                </div>
+              )}
             </div>
           </div>
-          <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
-            <div className="dropdown-items">
-              <div
-                className="dropdown-item"
-                onClick={() => Nav("/settings", { replace: true })}
-              >
-                <div>
-                  <span className="material-symbols-outlined">edit_square</span>
+          {isLoggedIn ? (
+            <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+              <div className="dropdown-items">
+                <div className="user-infos">
+                  <div className="label">ACCOUNT</div>
+                  <div className="user-infos-container">
+                    <div className="avatar">
+                      <Image
+                        cloudName="djjwswdo4"
+                        publicId="e_ticket/useravatar/download_vgtpzy"
+                      />
+                    </div>
+                    <div className="right-side">
+                      <div className="name-last">
+                        {profile?.profile?.account?.first_name}{" "}
+                        {profile?.profile?.account?.last_name}
+                      </div>
+                      <div className="email">
+                        {profile?.profile?.account?.email}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                Settings
-              </div>
-              <div className="dropdown-item">
-                <div>
-                  <span className="material-symbols-outlined">language</span>
+                <div
+                  className="dropdown-item"
+                  onClick={() => Nav("/settings", { replace: true })}
+                >
+                  <div>
+                    <span className="material-symbols-outlined">
+                      edit_square
+                    </span>
+                  </div>
+                  Settings
                 </div>
-                English
-              </div>
-              <div className="dropdown-item">
-                <div>
-                  <span className="material-symbols-outlined">
-                    contact_support
-                  </span>
+                <div className="dropdown-item">
+                  <div>
+                    <span className="material-symbols-outlined">language</span>
+                  </div>
+                  English
                 </div>
-                Support
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  setpoupLogin(true);
-                }}
-              >
-                <div>
-                  <span className="material-symbols-outlined">login</span>
+                <div className="dropdown-item">
+                  <div>
+                    <span className="material-symbols-outlined">
+                      contact_support
+                    </span>
+                  </div>
+                  Support
                 </div>
-                Sign in
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => {
-                  Nav("/registration", { replace: false });
-                }}
-              >
-                <div>
-                  <span className="material-symbols-outlined">login</span>
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    logoutSubmit();
+                  }}
+                >
+                  <div>
+                    <span className="material-symbols-outlined">logout</span>
+                  </div>
+                  Sign Out
                 </div>
-                Sign Up
               </div>
             </div>
-          </div>
+          ) : (
+            <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+              <div className="dropdown-items">
+                <div className="dropdown-item">
+                  <div>
+                    <span className="material-symbols-outlined">language</span>
+                  </div>
+                  English
+                </div>
+                <div className="dropdown-item">
+                  <div>
+                    <span className="material-symbols-outlined">
+                      contact_support
+                    </span>
+                  </div>
+                  Support
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    setpoupLogin(true);
+                  }}
+                >
+                  <div>
+                    <span className="material-symbols-outlined">login</span>
+                  </div>
+                  Sign in
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    Nav("/registration", { replace: false });
+                  }}
+                >
+                  <div>
+                    <span className="material-symbols-outlined">login</span>
+                  </div>
+                  Sign Up
+                </div>
+              </div>
+            </div>
+          )}
           <div>
             <div className="humber-menu btn">
               <span className="material-symbols-outlined">menu_open</span>

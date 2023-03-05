@@ -4,76 +4,74 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const [profile, setProfile] = useState(null);
-    const [isLoggedIn, setLoggedIn] = useState(false);
-    const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const [profile, setProfile] = useState(null);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log('profile AuthContext:')
-        console.log(profile);
-    }, [profile])
+  useEffect(() => {
+    console.log("profile AuthContext:");
+    console.log(profile);
+  }, [profile]);
 
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const { data } = await axios.get(`${apiUrl}/api/user/profile`, {
+          withCredentials: true,
+        });
 
-    useEffect(() => {
-        const fetchUserProfile = async () => {
-            try {
-                const { data } = await axios.get(`${apiUrl}/api/user/profile`, { withCredentials: true });
-                
-                setLoggedIn(true);
-                setProfile(data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        fetchUserProfile();
-    }, []);
-
-    //To test you can use:
-    // Admin:      Email: admin@gmail.com , Pass: password
-    // Organizer:  Email: organizer@gmail.com , Pass: password
-    // Client:     Email: client@gmail.com  , Pass: password
-
-    const login = async (payload) => {
-        try {
-            const apiResponse = await axios.post(
-                `${apiUrl}/api/user/login`,
-                payload,
-                { withCredentials: true }
-            );
-             setLoggedIn(true);
-             setProfile(apiResponse.data);
-
-             switch(profile?.profile?.account?.account_type){
-                case "client":
-                    navigate("/"); 
-                    break;
-                case "organizer":
-                    navigate("/organizer/dashboard");
-                    break;
-                case "admin":
-                    navigate("/admin");
-                    break;
-             }
-
-        } catch (err) {
-            console.log(err);
-        }
+        setLoggedIn(true);
+        setProfile(data);
+      } catch (err) {
+        console.log(err);
+      }
     };
+    fetchUserProfile();
+  }, []);
 
-    const logout = async () => {
-        await axios.get(`${ apiUrl } /api/user/logout`,
-            { withCredentials: true }
-        );
-        setProfile(null);
-        setLoggedIn(false);
+  //To test you can use:
+  // Admin:      Email: admin@gmail.com , Pass: password
+  // Organizer:  Email: organizer@gmail.com , Pass: password
+  // Client:     Email: client@gmail.com  , Pass: password
+
+  const login = async (payload) => {
+    try {
+      const apiResponse = await axios.post(
+        `${apiUrl}/api/user/login`,
+        payload,
+        { withCredentials: true }
+      );
+      setLoggedIn(true);
+      setProfile(apiResponse.data);
+
+      switch (profile?.profile?.account?.account_type) {
+        case "client":
+          navigate("/");
+          break;
+        case "organizer":
+          navigate("/organizer/dashboard");
+          break;
+        case "admin":
+          navigate("/admin");
+          break;
+      }
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    return (
-        <AuthContext.Provider value={{ profile, login, logout, isLoggedIn }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logout = async () => {
+    await axios.get(`${apiUrl} /api/user/logout`, { withCredentials: true });
+    setProfile(null);
+    setLoggedIn(false);
+  };
+
+  return (
+    <AuthContext.Provider value={{ profile, login, logout, isLoggedIn }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

@@ -30,7 +30,7 @@
   transition: 0.2s ease-in-out;
   white-space: nowrap;
   user-select: none;
-
+  font-size: 0.8rem;
   -ms-overflow-style: none;
   scrollbar-width: 0px;
 }
@@ -44,7 +44,7 @@
     background-color: var(--Purple10);
   } */
 .subNavbar .snavcontainer ul li span {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .menu-trigger {
   overflow: hidden;

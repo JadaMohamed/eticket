@@ -13,7 +13,7 @@ const Slideelement = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="preview-image-hot">
-        <img src={PreviewHot} alt="" />
+        {/* <img src={PreviewHot} alt="" /> */}
       </div>
       {isHovered && (
         <div className="btn">

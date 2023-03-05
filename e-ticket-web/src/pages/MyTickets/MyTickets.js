@@ -16,12 +16,14 @@ function MyTickets() {
       <>
         <Navbar />
         <SubNavbar />
-        <div className="content-cart-page" style={{alignItems:"center", height: "100vh", justifyContent:"center"}}>
+        <div
+          className="content-cart-page"
+          style={{ alignItems: "center", height: "100vh", textAlign: "center" }}
+        >
           <h1>Please sign in to view your tickets!</h1>
         </div>
       </>
-
-    )
+    );
   }
   return (
     <>

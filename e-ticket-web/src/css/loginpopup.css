@@ -16,7 +16,7 @@
     margin: 20px;
     padding: 30px;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     background-color: var(--White);
     border-radius: 8px;
     display: flex;
@@ -62,22 +62,26 @@
     display: flex;
     align-items: center;
     border: 1px solid var(--Grey3);
-    padding: 4px 8px;
     border-radius: 8px;
+    width: 100%;
     background-color: var(--White);
+    overflow: hidden;
 }
 .login-popup .login-popup-container .element .element-c .password-input {
     flex-direction: row-reverse;
 }
 .login-popup .login-popup-container .element .element-c .login-input span {
-    color: var(--Grey1) 88;
+    color: var(--Grey1);
+    font-size: 1.3rem;
+    padding: 6px 10px;
+    cursor: pointer;
 }
 .login-popup .login-popup-container .element .element-c .login-input input {
     border: none;
     width: 100%;
     outline: none;
-    margin-left: 8px;
-    font-size: 16px;
+    padding: 8px 10px;
+    font-weight: 500;
 }
 .login-popup .login-popup-container .form {
     display: flex;
@@ -92,7 +96,7 @@
     cursor: pointer;
 }
 .login-popup .login-popup-container .form .submit-container {
-    background-color: var(--Green);
+    background-color: var(--Purple);
     padding: 7px 10px;
     color: var(--White);
     font-weight: 500;
@@ -114,7 +118,7 @@
     font-size: 0.8rem;
 }
 .login-popup .login-popup-container .form .sign-up span {
-    color: var(--Green);
+    color: var(--Purple);
     font-weight: 500;
     cursor: pointer;
 }

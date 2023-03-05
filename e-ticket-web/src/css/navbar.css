@@ -94,6 +94,67 @@ nav .nav-container .navmenu .float-btns .float-btns-container {
   display: flex;
   gap: 10px;
 }
+nav .nav-container .user-infos-container {
+  display: flex;
+}
+nav .nav-container .user-infos {
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px !important;
+}
+nav .nav-container .user-infos-container .avatar {
+  width: 26px;
+  height: 26px;
+  background-color: var(--LightPurple);
+  border-radius: 50%;
+  overflow: hidden;
+}
+nav .nav-container .user-infos-container .avatar img {
+  width: 100%;
+}
+
+nav .nav-container .dropdown-menu .dropdown-items .user-infos {
+  display: flex;
+  border-radius: 0 !important;
+  user-select: none;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  margin: 10px 20px;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid var(--Purple10);
+}
+nav .nav-container .dropdown-menu .dropdown-items .user-infos .label {
+  font-size: 12px;
+  font-weight: 600;
+}
+nav .nav-container .dropdown-menu .dropdown-items .user-infos .avatar {
+  width: 34px;
+  height: 34px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+nav .nav-container .dropdown-menu .dropdown-items .user-infos .avatar img {
+  width: 100%;
+}
+nav .nav-container .dropdown-menu .dropdown-items .user-infos .user-infos-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+nav .nav-container .dropdown-menu .dropdown-items .user-infos .right-side .name-last {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--Grey1);
+}
+nav .nav-container .dropdown-menu .dropdown-items .user-infos .right-side .email {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--Grey3);
+}
 /******************** Responsivness **********************/
 nav .nav-container .navmenu .humber-menu {
   display: none;

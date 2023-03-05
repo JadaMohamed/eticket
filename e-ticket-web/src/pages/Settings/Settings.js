@@ -11,7 +11,7 @@ function Settings() {
   //     console.log("yyyyyyyyyyy" + profile.account);
   //   }
   // }, [profile]);
-
+  const { profile, isLoggedIn } = useContext(AuthContext);
   return (
     <>
       <Navbar />
@@ -31,7 +31,7 @@ function Settings() {
                     className="collector-50"
                     type="text"
                     id="first-name"
-                    value={"Olay"}
+                    value={profile?.profile?.account?.first_name}
                   />
                 </div>
                 <div className="collect-data">
@@ -40,7 +40,7 @@ function Settings() {
                     className="collector-50"
                     type="text"
                     id="last-name"
-                    value={"Mouriss"}
+                    value={profile?.profile?.account?.last_name}
                   />
                 </div>
               </div>
@@ -53,7 +53,7 @@ function Settings() {
                       className="collector-100"
                       type="text"
                       id="email"
-                      value={"olaymouriss@email.com"}
+                      value={profile?.profile?.account?.email}
                     />
                   </div>
                 </div>
@@ -64,6 +64,9 @@ function Settings() {
                   <div className="city-drop">
                     <span className="material-symbols-outlined">distance</span>
                     <select name="cities" id="cities">
+                      <option value={profile?.profile?.user?.city}>
+                        {profile?.profile?.user?.city}
+                      </option>
                       <option value="ag">Agadir</option>
                       <option value="ra">Rabat</option>
                       <option value="ca">Casablanca</option>
@@ -148,7 +151,7 @@ function Settings() {
                       className="collector-100"
                       type="text"
                       id="phone-n"
-                      value={"+212 67-93872652"}
+                      value={profile?.profile?.account?.phone_number}
                     />
                   </div>
                 </div>
