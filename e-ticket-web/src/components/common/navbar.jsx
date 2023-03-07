@@ -8,6 +8,7 @@ import Search from "../../pages/Search/Search";
 import LoginPopup from "./loginpopup";
 import AuthContext from "../../Auth/AuthContext";
 import { Image } from "cloudinary-react";
+import SignUpNav from "./SignUpNav";
 
 function Navbar(props) {
   const { profile, isLoggedIn } = useContext(AuthContext);
@@ -15,6 +16,7 @@ function Navbar(props) {
   const [keyword, setKeyword] = useState("");
   const [open, setOpen] = useState(false);
   const [popupLogin, setpoupLogin] = useState(false);
+  const [popupSignUp, setpopupSignup] = useState(false);
   const Nav = useNavigate();
   let menuRef = useRef();
 
@@ -124,17 +126,23 @@ function Navbar(props) {
                   </div>
                 </div>
               ) : (
-                <div
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                  className="btn menu-trigger"
-                  id="me"
-                  title="Me"
-                  ref={menuRef}
-                >
-                  <span className="material-symbols-outlined">person_pin</span>
-                </div>
+                <>
+                  {/* <div className="login-btn cta btn">Connexion</div>
+                  <div className="logout-btn cta btn">Sign Up</div> */}
+                  <div
+                    onClick={() => {
+                      setOpen(!open);
+                    }}
+                    className="btn menu-trigger"
+                    id="me"
+                    title="Me"
+                    ref={menuRef}
+                  >
+                    <span className="material-symbols-outlined">
+                      person_pin
+                    </span>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -219,6 +227,20 @@ function Navbar(props) {
                 <div
                   className="dropdown-item"
                   onClick={() => {
+                    setpopupSignup(true);
+                  }}
+                  // onClick={() => {
+                  //   Nav("/registration", { replace: false });
+                  // }}
+                >
+                  <div>
+                    <span class="material-symbols-outlined">person_add</span>
+                  </div>
+                  Sign Up
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
                     setpoupLogin(true);
                   }}
                 >
@@ -226,17 +248,6 @@ function Navbar(props) {
                     <span className="material-symbols-outlined">login</span>
                   </div>
                   Sign in
-                </div>
-                <div
-                  className="dropdown-item"
-                  onClick={() => {
-                    Nav("/registration", { replace: false });
-                  }}
-                >
-                  <div>
-                    <span className="material-symbols-outlined">login</span>
-                  </div>
-                  Sign Up
                 </div>
               </div>
             </div>
@@ -249,6 +260,7 @@ function Navbar(props) {
         </div>
       </div>
       {popupLogin && <LoginPopup setTrigger={setpoupLogin} />}
+      {popupSignUp && <SignUpNav setTrigger={setpopupSignup} />}
     </nav>
   );
 }

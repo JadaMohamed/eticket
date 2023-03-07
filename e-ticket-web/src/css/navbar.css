@@ -41,6 +41,11 @@ nav .nav-container .navmenu .btn:hover {
   cursor: pointer;
   background-color: var(--LighterPurple);
 }
+nav .nav-container .navmenu .cta {
+  font-size: 14px !important;
+  border: 1px solid var(--Purple);
+  padding: 8px 20px !important;
+}
 nav .nav-container .search {
   border-radius: 8px;
   margin: auto;
@@ -77,6 +82,7 @@ nav .nav-container .nav-search .nav-search-container .btn {
   border-bottom-right-radius: 8px;
   transition: 0.2s ease-in-out;
 }
+
 nav .nav-container .nav-search .nav-search-container .btn:hover {
   background-color: var(--LighterPurple);
 }

@@ -37,9 +37,10 @@ const BrandInfos = () => {
         <div className="label">Social links </div>
         <select
           id="social-platform"
-          value={selectedPlatform}
+          value="Add social link"
           onChange={handlePlatformChange}
         >
+          <option value="Add social link">Add social link</option>
           <option value="instagram">Instagram</option>
           <option value="facebook">Facebook</option>
           <option value="twitter">Twitter</option>

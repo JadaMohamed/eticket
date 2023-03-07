@@ -1,0 +1,178 @@
+.signin-popup {
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: 5s ease-in-out;
+}
+.signin-popup .signin-popup-container {
+    background-color: aquamarine;
+    position: relative;
+    margin: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 700px;
+    background-color: var(--White);
+    border-radius: 8px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    box-shadow: var(--CardShadow);
+}
+.signin-popup .signin-popup-container .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    color: var(--Grey1);
+    cursor: pointer;
+    user-select: none;
+}
+.signin-popup .signin-popup-container .title-instructions {
+    padding: 0 !important;
+}
+.signin-popup .signin-popup-container .who-mi {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.signin-popup .signin-popup-container .title-instructions .title {
+    font-size: 24px;
+    font-weight: 600;
+}
+.signin-popup .signin-popup-container .title-instructions .instructions {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--Grey1);
+}
+.signin-popup .signin-popup-container .element {
+    padding: 0 10%;
+    display: flex;
+    flex-direction: column;
+}
+.signin-popup .signin-popup-container .element .element-c {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.signin-popup .signin-popup-container .element .element-c label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--Grey1);
+    margin-bottom: 5px;
+}
+.signin-popup .signin-popup-container .element .element-c .signin-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--Grey3);
+    border-radius: 8px;
+    width: 100%;
+    background-color: var(--White);
+    overflow: hidden;
+}
+.signin-popup .signin-popup-container .element .element-c .password-input {
+    flex-direction: row-reverse;
+}
+.signin-popup .signin-popup-container .element .element-c .signin-input span {
+    color: var(--Grey1);
+    font-size: 1.3rem;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+.signin-popup .signin-popup-container .element .element-c .signin-input input {
+    border: none;
+    width: 100%;
+    outline: none;
+    padding: 8px 10px;
+    font-weight: 500;
+}
+.signin-popup .signin-popup-container .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.signin-popup .signin-popup-container .form .forgot-password {
+    font-size: 0.7rem;
+    text-align: end;
+    color: var(--Grey1) 88;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.signin-popup .signin-popup-container .form .submit-container {
+    background-color: var(--Purple);
+    padding: 7px 10px;
+    color: var(--White);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.signin-popup .signin-popup-container .form .submit-container:hover {
+    opacity: 0.9;
+}
+.signin-popup .signin-popup-container .form .sign-up {
+    flex-direction: row !important;
+    gap: 5px !important;
+    text-align: center;
+    justify-content: center;
+    color: var(--Grey1);
+    font-size: 0.8rem;
+}
+.signin-popup .signin-popup-container .form .sign-up span {
+    color: var(--Purple);
+    font-weight: 500;
+    cursor: pointer;
+}
+.signin-popup .signin-popup-container .select-user-type {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.signin-popup .signin-popup-container .select-user-type .user-type {
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--Grey3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: 0.3s ease-in-out;
+}
+.signin-popup .signin-popup-container .select-user-type .user-type:hover {
+    transform: scale(1.01);
+    opacity: 0.9;
+}
+.signin-popup .signin-popup-container .select-user-type .user-organizer {
+    background-color: var(--Purple);
+}
+.signin-popup .signin-popup-container .select-user-type .user-buyer {
+    background-color: var(--Purple30);
+}
+.signin-popup .signin-popup-container .select-user-type .user-type .user-type-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--White);
+}
+.signin-popup .signin-popup-container .select-user-type .user-type .description {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #ffffffc4;
+}
+.signin-popup .signin-popup-container .select-user-type .user-type span {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 50%;
+    border: 1px solid var(--White);
+    color: var(--White);
+    transition: 0.3s ease-in-out;
+}
+.signin-popup .signin-popup-container .select-user-type .user-type span:hover {
+    background-color: #ffffff27;
+}

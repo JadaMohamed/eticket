@@ -62,7 +62,11 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await axios.get(`${apiUrl} /api/user/logout`, { withCredentials: true });
+    console.log("Signing out.....");
+
+    await axios.get(`${apiUrl}/api/user/logout`, { withCredentials: true });
+    console.log("Signed out.....");
+
     setProfile(null);
     setLoggedIn(false);
   };

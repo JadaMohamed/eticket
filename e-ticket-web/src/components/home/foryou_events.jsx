@@ -10,11 +10,14 @@ import { useEffect, useState } from "react";
 
 function LocalEvents(props) {
   const [events, setEvents] = useState([]);
+  const [startAt, setStartAt] = useState();
   const apiUrl = process.env.REACT_APP_API_URL;
   const getEvents = async () => {
     try {
       const response = await Axios.get(`${apiUrl}/api/events`);
       setEvents(response.data);
+      console.log("jjjjjjjj");
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +42,7 @@ function LocalEvents(props) {
                     : null
                 } // select the first image
                 title={event.title}
-                price={event.price}
+                price={event?.SeatCategory[0]?.type_price}
                 location={event.location}
                 category={event.event_type}
                 date={event.start_time}

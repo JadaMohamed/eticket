@@ -24,10 +24,9 @@ function Card(props) {
             onClick={() => Nav(`/events/${props.eventid}`, { replace: false })}
           >
             {props.title}
-            {props.eventid}
           </div>
           <div className="local inf cta">
-            <span className="material-symbols-outlined">distance</span>
+            <span className="material-symbols-outlined">location_on</span>
             {props.location}
           </div>
           <div className="date inf cta">
@@ -39,7 +38,7 @@ function Card(props) {
             <div className="priceing">
               <span className="start-at">Start at</span>
               <div className="eventprice">
-                <span className="price">{props.price}</span>
+                <span className="price">{props.price ? props.price : 99}</span>
                 <span className="curr">MAD</span>
               </div>
             </div>
