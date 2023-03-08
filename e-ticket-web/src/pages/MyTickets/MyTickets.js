@@ -4,11 +4,27 @@ import MyTicketsHeader from "../../components/ticket/myticketsheader";
 import TicketsHead from "../../components/ticket/myticketproductsheader";
 import Ticket from "../../components/ticket/ticket";
 import "./MyTickets.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Auth/AuthContext";
+import Axios from "axios";
 
 function MyTickets() {
   const { profile } = useContext(AuthContext);
+  const [tickets, setTickets] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const getTicketsByClientId = async () => {
+    try {
+      const response = await Axios.get(`${apiUrl}/api/tickets/client/${profile.user.client_id}`, { withCredentials: true });
+      setTickets(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  useEffect(() => {
+    getTicketsByClientId();
+  }, []);
 
   // The profile.profile thingy is so dumb btw.
   if (!(profile?.account?.account_type === "client")) {
@@ -33,7 +49,11 @@ function MyTickets() {
       <div className="content-cart-page">
         <div className="content-cart-page-container">
           <TicketsHead />
-          <Ticket />
+          {tickets && tickets.map((ticket) => (
+            <div key={ticket.ticket_id}>
+              <Ticket ticket={ticket} />
+            </div>
+          ))}
         </div>
       </div>
     </>

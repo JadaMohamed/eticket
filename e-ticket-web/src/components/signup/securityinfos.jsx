@@ -4,7 +4,7 @@ const SecurityInfos = () => {
   return (
     <>
       <div className="row1 pass">
-        <div className="label">Email *</div>
+        <div className="label">Password *</div>
         <div className="iconed-input">
           <div className="icon">
             <span class="material-symbols-outlined btn">visibility_off</span>
