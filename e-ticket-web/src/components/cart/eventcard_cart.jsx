@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../css/eventcard_cart.css";
 import CountdownDate from "../common/countdown";
-import EventImage from "../../img/event-image.jpg";
+import { Image } from "cloudinary-react";
 
 function EventCard_Cart(props) {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(props.quantity);
 
   const incrementQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-      console.log(quantity);
+    const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
+    const index = storedEvents.findIndex(
+      (event) => event.eventId === props.eventId
+    );
+    if (index !== -1) {
+      storedEvents[index].quantity++;
+      setQuantity(storedEvents[index].quantity);
+      localStorage.setItem("cart", JSON.stringify(storedEvents));
     }
   };
 
+  const decrementQuantity = () => {
+    const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
+    const index = storedEvents.findIndex(
+      (event) => event.eventId === props.eventId
+    );
+    if (index !== -1 && storedEvents[index].quantity > 1) {
+      storedEvents[index].quantity--;
+      setQuantity(storedEvents[index].quantity);
+      localStorage.setItem("cart", JSON.stringify(storedEvents));
+    }
+  };
+  useEffect(() => {
+    const currentQuantity = parseInt(localStorage.getItem(props.eventId));
+    if (currentQuantity) {
+      setQuantity(currentQuantity);
+    }
+  }, [props.eventId]);
   return (
     <div className="event-card-cart">
       <div className="event-card-cart-container">
@@ -27,7 +45,7 @@ function EventCard_Cart(props) {
             className="more-event-on-mobile"
           />
           <div className="preview-image">
-            <img src={EventImage} alt="" />
+            <Image cloudName="djjwswdo4" publicId={props.image} />
           </div>
           <div className="event-inf">
             <div className="event-title">{props.title}</div>
@@ -46,7 +64,7 @@ function EventCard_Cart(props) {
           <div className="slecting-cat-quan">
             <div className="seat-category">
               <span className="seat-static-title">Category : </span>
-              Standar
+              {props.seatCategory}
             </div>
             <div className="quantity">
               <span
@@ -69,7 +87,7 @@ function EventCard_Cart(props) {
           <div className="pricing">
             <div className="title-pricing">Total Price :</div>
             <div className="total-price">
-              299<span>MAD</span>
+              00<span>MAD</span>
             </div>
           </div>
           <div className="actions" title="More events">

@@ -19,6 +19,27 @@ function Navbar(props) {
   const [popupSignUp, setpopupSignup] = useState(false);
   const Nav = useNavigate();
   let menuRef = useRef();
+  // const [numcartproducts, setNumcartproducts] = useState(
+  //   JSON.parse(localStorage.getItem("cart")).length
+  // );
+
+  // useEffect(() => {
+  //   // Update numcartproducts whenever the cart items are changed
+  //   setNumcartproducts(JSON.parse(localStorage.getItem("cart"))?.length);
+  // }, [localStorage.getItem("cart")]);
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  const initialNumCartProducts = cart?.length ?? 0;
+
+  const [numcartproducts, setNumcartproducts] = useState(
+    initialNumCartProducts
+  );
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      setNumcartproducts(cart.length);
+    }
+  }, [localStorage.getItem("cart")]);
 
   const handleSearch = () => {
     if (keyword?.length) Nav(`/search/${keyword}`, { replace: true });
@@ -87,10 +108,13 @@ function Navbar(props) {
               </div>
               <div
                 onClick={() => Nav("/cart", { replace: true })}
-                className={`btn ${props.active === "cart" ? "active" : ""}`}
+                className={`btn crt ${props.active === "cart" ? "active" : ""}`}
                 id="cart"
                 title="Cart"
               >
+                <div className="nbprd">
+                  {numcartproducts ? numcartproducts : ""}
+                </div>
                 <span className="material-symbols-outlined">shopping_cart</span>
               </div>
               <div

@@ -29,6 +29,21 @@ nav .nav-container .navmenu {
   gap: 10px;
   align-items: center;
 }
+nav .nav-container .navmenu .crt {
+  position: relative;
+}
+nav .nav-container .navmenu .nbprd {
+  background-color: red;
+  color: #fff;
+  border: 1px solid var(--White);
+  font-size: 10px;
+  font-weight: 700 !important;
+  position: absolute;
+  padding: 0.8px 4px;
+  border-radius: 50%;
+  top: -2px;
+  right: -1px;
+}
 nav .nav-container .navmenu .btn {
   display: flex;
   flex-direction: column;

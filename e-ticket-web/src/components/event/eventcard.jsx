@@ -7,6 +7,44 @@ import { Image } from "cloudinary-react";
 
 function Card(props) {
   const Nav = useNavigate();
+  const handleAdd = () => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart or create an empty array
+    const productId = props.eventid;
+    let productExists = false;
+
+    // Check if product is already in the cart
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].eventId === productId) {
+        cart[i].quantity++;
+        cart[i].totalPrice += 99;
+        productExists = true;
+        break;
+      }
+    }
+
+    // Add product to cart if it doesn't exist
+    if (!productExists) {
+      const cartObj = {
+        imagePublicId: props.image,
+        date: props.date,
+        address: props.location,
+        title: props.title,
+        eventId: productId,
+        quantity: 1,
+        eventCategory: props.category,
+        seatCategory: "Basic",
+        totalPrice: 99,
+      };
+      if (!Array.isArray(cart)) {
+        cart = [cartObj];
+      } else {
+        cart.push(cartObj);
+      }
+    }
+
+    // Update cart in local storage
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
 
   return (
     <div className="cardevent" key={props.id}>
@@ -43,8 +81,7 @@ function Card(props) {
               </div>
             </div>
             <div className="action">
-              {/* <div className="buy-btn">Buy now</div> */}
-              <div className="add-to-cart-btn">
+              <div className="add-to-cart-btn" onClick={handleAdd}>
                 <span className="material-symbols-outlined">
                   add_shopping_cart
                 </span>

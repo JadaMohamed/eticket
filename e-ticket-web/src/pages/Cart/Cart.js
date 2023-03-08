@@ -4,8 +4,13 @@ import SubNavbar from "../../components/common/subnavbar";
 import ProductsHeader from "../../components/cart/productsheader";
 import EventCard_Cart from "../../components/cart/eventcard_cart";
 import "./Cart.css";
+import { useState } from "react";
 
 function Cart() {
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+
   return (
     <>
       <Navbar active="cart" />
@@ -15,24 +20,18 @@ function Cart() {
         <div className="content-cart-page-container">
           <ProductsHeader />
           <div className="event-card-cart-table">
-            <EventCard_Cart
-              date="2023-08-05T15:00:00"
-              title="Marrakech Art Exhibition"
-              eventCategory="Art | Culture"
-              location="Marrakech"
-            />
-            <EventCard_Cart
-              date="2023-08-05T15:00:00"
-              title="Marrakech Art Exhibition"
-              eventCategory="Art | Culture"
-              location="Marrakech"
-            />
-            <EventCard_Cart
-              date="2023-08-05T15:00:00"
-              title="Marrakech Art Exhibition"
-              eventCategory="Art | Culture"
-              location="Marrakech"
-            />
+            {cart.map((item) => (
+              <EventCard_Cart
+                eventId={item.eventId}
+                date={item.date}
+                title={item.title}
+                eventCategory={item.eventCategory}
+                location={item.address}
+                image={item.imagePublicId}
+                quantity={item.quantity}
+                seatCategory={item.seatCategory}
+              />
+            ))}
           </div>
         </div>
       </div>
