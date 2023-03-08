@@ -11,7 +11,7 @@ function MyTickets() {
   const { profile } = useContext(AuthContext);
 
   // The profile.profile thingy is so dumb btw.
-  if (!(profile?.profile?.account?.account_type === "client")) {
+  if (!(profile?.account?.account_type === "client")) {
     return (
       <>
         <Navbar />

@@ -31,7 +31,7 @@ function Settings() {
                     className="collector-50"
                     type="text"
                     id="first-name"
-                    value={profile?.profile?.account?.first_name}
+                    value={profile?.account?.first_name}
                   />
                 </div>
                 <div className="collect-data">
@@ -40,7 +40,7 @@ function Settings() {
                     className="collector-50"
                     type="text"
                     id="last-name"
-                    value={profile?.profile?.account?.last_name}
+                    value={profile?.account?.last_name}
                   />
                 </div>
               </div>
@@ -53,7 +53,7 @@ function Settings() {
                       className="collector-100"
                       type="text"
                       id="email"
-                      value={profile?.profile?.account?.email}
+                      value={profile?.account?.email}
                     />
                   </div>
                 </div>
@@ -64,8 +64,8 @@ function Settings() {
                   <div className="city-drop">
                     <span className="material-symbols-outlined">distance</span>
                     <select name="cities" id="cities">
-                      <option value={profile?.profile?.user?.city}>
-                        {profile?.profile?.user?.city}
+                      <option value={profile?.user?.city}>
+                        {profile?.user?.city}
                       </option>
                       <option value="ag">Agadir</option>
                       <option value="ra">Rabat</option>
@@ -151,7 +151,7 @@ function Settings() {
                       className="collector-100"
                       type="text"
                       id="phone-n"
-                      value={profile?.profile?.account?.phone_number}
+                      value={profile?.account?.phone_number}
                     />
                   </div>
                 </div>
