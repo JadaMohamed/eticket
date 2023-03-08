@@ -112,9 +112,11 @@ function Navbar(props) {
                 id="cart"
                 title="Cart"
               >
-                <div className="nbprd">
-                  {numcartproducts ? numcartproducts : ""}
-                </div>
+                {numcartproducts ? (
+                  <div className="nbprd"> {numcartproducts} </div>
+                ) : (
+                  ""
+                )}
                 <span className="material-symbols-outlined">shopping_cart</span>
               </div>
               <div

@@ -23,7 +23,7 @@ export const eventData = [
     location: "Tangier",
     price: 49,
     category: "Food | Drink",
-    title: "Tangier Food and Wine Tasting",
+    title: "Tangier Food Tasting",
     date: "2023-06-22T19:00:00",
   },
   {

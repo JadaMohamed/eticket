@@ -7,3 +7,8 @@
 .content-cart-page-container {
     padding: 5px 0;
 }
+.empty-cart {
+    margin: auto;
+    text-align: center;
+    padding: 200px;
+}

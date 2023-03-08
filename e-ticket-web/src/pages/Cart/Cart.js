@@ -18,20 +18,24 @@ function Cart() {
       <CartHeader />
       <div className="content-cart-page">
         <div className="content-cart-page-container">
-          <ProductsHeader />
           <div className="event-card-cart-table">
-            {cart.map((item) => (
-              <EventCard_Cart
-                eventId={item.eventId}
-                date={item.date}
-                title={item.title}
-                eventCategory={item.eventCategory}
-                location={item.address}
-                image={item.imagePublicId}
-                quantity={item.quantity}
-                seatCategory={item.seatCategory}
-              />
-            ))}
+            {cart.length > 0 ? <ProductsHeader /> : ""}
+            {cart.length > 0 ? (
+              cart.map((item) => (
+                <EventCard_Cart
+                  eventId={item.eventId}
+                  date={item.date}
+                  title={item.title}
+                  eventCategory={item.eventCategory}
+                  location={item.address}
+                  image={item.imagePublicId}
+                  quantity={item.quantity}
+                  seatCategory={item.seatCategory}
+                />
+              ))
+            ) : (
+              <div className="empty-cart">Nothing to show</div>
+            )}
           </div>
         </div>
       </div>
