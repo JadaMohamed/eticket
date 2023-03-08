@@ -12,7 +12,6 @@ export const ProtectClient = () => {
     
     return (
         <>
-            {console.log('from protect client ', profile)}
             {profile && profile.account && profile.account.account_type === 'client' ? <Outlet /> : <Navigate to='/' />}
         </>
     );
