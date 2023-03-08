@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
         });
 
         setLoggedIn(true);
-        setProfile(data);
+        setProfile(data.profile);
       } catch (err) {
         console.log(err);
       }
@@ -43,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
         { withCredentials: true }
       );
       setLoggedIn(true);
-      setProfile(apiResponse.data);
+      setProfile(apiResponse.data.profile);
       if (apiResponse.data.profile.account.account_type) {
         switch (apiResponse.data.profile.account.account_type) {
           case "client":
