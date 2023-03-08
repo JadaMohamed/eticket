@@ -44,17 +44,19 @@ export const AuthContextProvider = ({ children }) => {
       );
       setLoggedIn(true);
       setProfile(apiResponse.data);
-
-      switch (profile?.profile?.account?.account_type) {
-        case "client":
-          navigate("/");
-          break;
-        case "organizer":
-          navigate("/organizer/dashboard");
-          break;
-        case "admin":
-          navigate("/admin");
-          break;
+      if (apiResponse.data.profile.account.account_type) {
+        switch (apiResponse.data.profile.account.account_type) {
+          case "client":
+            navigate("/");
+            break;
+          case "organizer":
+            navigate("/organizer/dashboard");
+            break;
+          case "admin":
+            navigate("/admin");
+            break;
+          default:
+        }
       }
     } catch (err) {
       console.log(err);

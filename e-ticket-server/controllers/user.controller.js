@@ -59,15 +59,15 @@ const register = async (req, res, next) => {
         const eticketjwt = jwt.sign({
             accountId: account.account_id,
             userType: account.account_type
-        }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
+        }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
 
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
-            // maxAge: 60 * 60 * 24 * 10 , 
-            // sameSite: 'strict',
-            // path: '/',
+            secure: true,
+            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+            sameSite: 'None',
+            path: '/',
         }).status(201).json({ account });
     } catch (error) {
         if (error.code === '23505') {
@@ -106,7 +106,7 @@ const login = async (req, res, next) => {
         const eticketjwt = jwt.sign({
             accountId: profile.account.account_id,
             userType: profile.account.account_type
-        }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
+        }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
 
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
@@ -125,23 +125,17 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        // console.log(req.user)
-        // generate JWT
-        const eticketjwt = jwt.sign({
-            // accountId: req.user.accountId
-        }, process.env.JWT_SECRET_KEY, { expiresIn: '2s' });
-
-        // Set JWT as a cookie in the response
-        res.clearCookie('eticketjwt', eticketjwt, {
+        // Clear authentication cookie
+        res.clearCookie('eticketjwt', {
             httpOnly: true,
-            // maxAge: 9000,
-        }).status(200).json({ message: 'user logout seccessufy' });
+        });
+        res.status(200).json({ message: 'user logout successfully' });
 
     } catch (error) {
         next(error);
     }
-
 }
+
 
 
 const profile = async (req, res, next) => {
