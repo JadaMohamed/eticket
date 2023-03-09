@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
 import logo from "../../img/log-dark.svg";
@@ -10,9 +10,35 @@ import BrandInfos from "../../components/signup/brandinfos";
 import useMultiplePageForm from "../../organizer/components/useMultiplePageForm.ts";
 
 const SignUp = () => {
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    description: "",
+    instagram: "",
+    facebook: "",
+    twitter: ""
+  });
+
+  useEffect(() => {
+    console.log('000000000000000000000000000000');
+    console.log(formData)
+   
+  }, [formData])
+  
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-    useMultiplePageForm([<BasicInfos />, <SecurityInfos />, <BrandInfos />]);
-  return (
+    useMultiplePageForm([
+      <BasicInfos formData={formData} setFormData={setFormData} />,
+      <SecurityInfos formData={formData} setFormData={setFormData} />,
+      <BrandInfos formData={formData} setFormData={setFormData} />,
+    ]);
+
+    return (
     <>
       <Navbar />
       <SubNavbar />
