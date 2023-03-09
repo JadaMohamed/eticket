@@ -27,17 +27,12 @@ const SignUp = () => {
     Twitter: ""
   });
 
-  useEffect(() => {
-    console.log('000000000000000000000000000000');
-    console.log(formData)
-
-  }, [formData])
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isLastStep) {
       if (isSubmitting) {
         try {
+          console.log('data has send for register org');
           const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
           console.log(response.data);
           // Handle success case here
