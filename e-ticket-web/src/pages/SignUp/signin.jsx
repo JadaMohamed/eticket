@@ -57,7 +57,6 @@ const SignUp = () => {
 
   useEffect(() => {
     if (profile?.account?.account_type === 'organizer') {
-      console.log(profile);
       navigate('/organizer/dashboard');
     }
   }, [profile, navigate]);
