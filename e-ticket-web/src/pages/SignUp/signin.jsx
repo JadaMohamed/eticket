@@ -13,6 +13,7 @@ import axios from "axios";
 const SignUp = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -29,24 +30,34 @@ const SignUp = () => {
   useEffect(() => {
     console.log('000000000000000000000000000000');
     console.log(formData)
-   
+
   }, [formData])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isLastStep) {
-    try {
-      const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
-      console.log(response.data);
-      // Handle success case here
-    } catch (error) {
-      console.error(error);
-      // Handle error case here
+      if (isSubmitting) {
+        try {
+          const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
+          console.log(response.data);
+          // Handle success case here
+        } catch (error) {
+          console.error(error);
+          // Handle error case here
+        }
+      } else {
+        //this is to avoid sending data imadiatly when click the Next and navigate to the LastStep
+        console.log('ready to send')
+        setIsSubmitting(true)
+      }
     }
-  }
   };
 
-  
+  const handleBackClick = () => {
+    setIsSubmitting(false);
+    back();
+  }
+
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
@@ -55,7 +66,7 @@ const SignUp = () => {
       <BrandInfos formData={formData} setFormData={setFormData} />,
     ]);
 
-    return (
+  return (
     <>
       <Navbar />
       <SubNavbar />
@@ -72,16 +83,16 @@ const SignUp = () => {
               Already a member? <span>Login</span>
             </div>
             <SignUpFlow activestep={`${currentStepIndex + 1}`} />
-              <form  onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} >
               <div className="form-container">
                 <div className="top-form-container">{step}</div>
                 <div className="bottom-form-container">
                   {!isFirstStep && (
-                    <button className="back" type="button" onClick={back}>
+                    <button className="back" type="button" onClick={handleBackClick}>
                       Back
                     </button>
                   )}
-                    <button className="next" type="submit" onClick={next}>
+                  <button className="next" type="submit" onClick={next}>
                     {isLastStep ? "Sign Up " : "Next"}
                   </button>
                 </div>
