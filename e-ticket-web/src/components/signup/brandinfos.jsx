@@ -12,7 +12,7 @@ const BrandInfos = ({ formData, setFormData }) => {
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
-    setFormData({ ...formData, description: event.target.value });
+    setFormData({ ...formData, Description: event.target.value });
   };
 
   const handleInstagramChange = (event) => {

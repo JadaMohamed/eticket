@@ -28,13 +28,13 @@ const SecurityInfos = ({ formData, setFormData }) => {
           <div className="icon">
             <span class="material-symbols-outlined btn">visibility_off</span>
           </div>
-          <input type="text" value={password} onChange={handlePasswordChange} required />
+          <input type="password" value={password} onChange={handlePasswordChange} required />
         </div>
       </div>
       <div className="row2">
         <div className="column">
           <div className="label">Confirm password *</div>
-          <input type="text" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
+          <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
           <div className="instructions">
             8 characters or longer. Combine upper and lowercase letters and
             numbers.

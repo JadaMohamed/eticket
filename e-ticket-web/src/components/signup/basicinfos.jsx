@@ -51,7 +51,7 @@ const BasicInfos = ({ formData, setFormData }) => {
           <div className="icon">
             <span class="material-symbols-outlined">mail</span>
           </div>
-          <input type="text" value={email} onChange={handleEmailChange} required />
+          <input type="email" value={email} onChange={handleEmailChange} required />
         </div>
       </div>
       <div className="row1">
