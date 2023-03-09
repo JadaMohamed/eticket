@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
 import logo from "../../img/log-dark.svg";
@@ -9,8 +9,15 @@ import SecurityInfos from "../../components/signup/securityinfos";
 import BrandInfos from "../../components/signup/brandinfos";
 import useMultiplePageForm from "../../organizer/components/useMultiplePageForm.ts";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../Auth/AuthContext";
+
 
 const SignUp = () => {
+  const { profile, setProfile } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,6 +25,7 @@ const SignUp = () => {
     first_name: "",
     last_name: "",
     email: "",
+    city: "",
     password: "",
     confirmPassword: "",
     phone_number: "",
@@ -32,21 +40,28 @@ const SignUp = () => {
     if (isLastStep) {
       if (isSubmitting) {
         try {
-          console.log('data has send for register org');
           const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
           console.log(response.data);
-          // Handle success case here
+          setProfile(response.data.profile)
         } catch (error) {
           console.error(error);
-          // Handle error case here
         }
       } else {
         //this is to avoid sending data imadiatly when click the Next and navigate to the LastStep
-        console.log('ready to send')
         setIsSubmitting(true)
       }
     }
   };
+
+
+
+  useEffect(() => {
+    if (profile?.account?.account_type === 'organizer') {
+      console.log(profile);
+      navigate('/organizer/dashboard');
+    }
+  }, [profile, navigate]);
+
 
   const handleBackClick = () => {
     setIsSubmitting(false);
