@@ -2,20 +2,20 @@ import React, { useState } from "react";
 
 const BasicInfos = ({ formData, setFormData }) => {
 
-  const [firstName, setFirstName] = useState(formData.firstName);
-  const [lastName, setLastName] = useState(formData.lastName);
+  const [firstName, setFirstName] = useState(formData.first_name);
+  const [lastName, setLastName] = useState(formData.last_name);
   const [email, setEmail] = useState(formData.email);
   const [city, setCity] = useState(formData.city);
   const [avatar, setAvatar] = useState(formData.avatar);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
-    setFormData({ ...formData, firstName: event.target.value });
+    setFormData({ ...formData, first_name: event.target.value });
   };
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
-    setFormData({ ...formData, lastName: event.target.value });
+    setFormData({ ...formData, last_name: event.target.value });
   };
 
   const handleEmailChange = (event) => {

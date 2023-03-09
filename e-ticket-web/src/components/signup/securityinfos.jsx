@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const SecurityInfos = ({ formData, setFormData }) => {
   const [password, setPassword] = useState(formData.password);
   const [confirmPassword, setConfirmPassword] = useState(formData.confirmPassword);
-  const [phoneNumber, setPhoneNumber] = useState(formData.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(formData.phone_number);
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -17,7 +17,7 @@ const SecurityInfos = ({ formData, setFormData }) => {
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
-    setFormData({ ...formData, phoneNumber: event.target.value });
+    setFormData({ ...formData, phone_number: event.target.value });
   };
 
   return (

@@ -8,16 +8,18 @@ import BasicInfos from "../../components/signup/basicinfos";
 import SecurityInfos from "../../components/signup/securityinfos";
 import BrandInfos from "../../components/signup/brandinfos";
 import useMultiplePageForm from "../../organizer/components/useMultiplePageForm.ts";
+import axios from "axios";
 
 const SignUp = () => {
 
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
+    phone_number: "",
     Description: "",
     Instagram: "",
     Facebook: "",
@@ -29,6 +31,21 @@ const SignUp = () => {
     console.log(formData)
    
   }, [formData])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (isLastStep) {
+    try {
+      const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
+      console.log(response.data);
+      // Handle success case here
+    } catch (error) {
+      console.error(error);
+      // Handle error case here
+    }
+  }
+  };
+
   
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
@@ -55,7 +72,7 @@ const SignUp = () => {
               Already a member? <span>Login</span>
             </div>
             <SignUpFlow activestep={`${currentStepIndex + 1}`} />
-            <form action="">
+              <form  onSubmit={handleSubmit} >
               <div className="form-container">
                 <div className="top-form-container">{step}</div>
                 <div className="bottom-form-container">
@@ -64,7 +81,7 @@ const SignUp = () => {
                       Back
                     </button>
                   )}
-                  <button className="next" type="button" onClick={next}>
+                    <button className="next" type="submit" onClick={next}>
                     {isLastStep ? "Sign Up " : "Next"}
                   </button>
                 </div>

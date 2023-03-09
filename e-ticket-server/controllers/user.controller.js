@@ -169,7 +169,7 @@ const profile = async (req, res, next) => {
 
 
 const registerOrganizer = async (req, res, next) => {
-    const { first_name, last_name, email, city, avatar, phone_number, password, Description, Instagram, Facebook, Twitter } = req.body;
+    const { first_name, last_name, email, city, avatar, phone_number, password, confirmPassword, Description, Instagram, Facebook, Twitter } = req.body;
 
 
     // Validate input data
@@ -189,7 +189,10 @@ const registerOrganizer = async (req, res, next) => {
     if (!password || password.length < 6) {
         errors.push('Password must be at least 6 characters long');
     }
-    if (phone_number && !validator.isMobilePhone(phone_number, 'any')) {
+    if (password !== confirmPassword) {
+        errors.push('Password and confirmPassword are not mach');
+    }
+    if (!phone_number || !validator.isMobilePhone(phone_number, 'any')) {
         errors.push('Invalid phone number');
     }
     if (city && !validator.isAscii(city)) {
