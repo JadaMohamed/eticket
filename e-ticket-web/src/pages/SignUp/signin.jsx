@@ -18,10 +18,10 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     phoneNumber: "",
-    description: "",
-    instagram: "",
-    facebook: "",
-    twitter: ""
+    Description: "",
+    Instagram: "",
+    Facebook: "",
+    Twitter: ""
   });
 
   useEffect(() => {
