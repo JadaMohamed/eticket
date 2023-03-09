@@ -24,7 +24,7 @@ function MyTickets() {
   
   useEffect(() => {
     getTicketsByClientId();
-  }, []);
+  },[]);
 
   // The profile.profile thingy is so dumb btw.
   if (!(profile?.account?.account_type === "client")) {

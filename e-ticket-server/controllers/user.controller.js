@@ -4,6 +4,7 @@ import validator from 'validator';
 
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import organizersService from '../services/organizers.service.js';
 dotenv.config();
 
 // // Import cookie package
@@ -167,7 +168,114 @@ const profile = async (req, res, next) => {
 }
 
 
+const registerOrganizer = async (req, res, next) => {
+    const { first_name, last_name, email, city, avatar, phone_number, password, Description, Instagram, Facebook, Twitter } = req.body;
+
+
+    // Validate input data
+    const errors = [];
+    // if (!account_type || !['admin', 'organizer', 'client'].includes(account_type)) {
+    //     errors.push('Invalid account type');
+    // }
+    if (!first_name) {
+        errors.push('First name is required');
+    }
+    if (!last_name) {
+        errors.push('Last name is required');
+    }
+    if (!email || !validator.isEmail(email)) {
+        errors.push('Invalid email');
+    }
+    if (!password || password.length < 6) {
+        errors.push('Password must be at least 6 characters long');
+    }
+    if (phone_number && !validator.isMobilePhone(phone_number, 'any')) {
+        errors.push('Invalid phone number');
+    }
+    if (city && !validator.isAscii(city)) {
+        errors.push('Invalid city');
+    }
+    if (avatar && !validator.isURL(avatar)) {
+        errors.push('Invalid avatar URL');
+    }
+    if (Description && !validator.isAscii(Description)) {
+        errors.push('Invalid description');
+    }
+    if (Instagram && !validator.isURL(Instagram)) {
+        errors.push('Invalid Instagram URL');
+    }
+    if (Facebook && !validator.isURL(Facebook)) {
+        errors.push('Invalid Facebook URL');
+    }
+    if (Twitter && !validator.isURL(Twitter)) {
+        errors.push('Invalid Twitter URL');
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    }
+
+    // Check if user with same email and password exists
+    const existingAccount = await accountService.findAccountByEmailAndPassword(email, password);
+    if (existingAccount) {
+        return res.status(400).json({ errors: ['User with this email and password already exists'] });
+    }
+    // Check if user with same first_name and last_name exists
+    const existingAccountFirstLastName = await accountService.findAccountByFirstLastName(first_name, last_name);
+    if (existingAccountFirstLastName) {
+        return res.status(400).json({ errors: ['User with this first_name and last_name already exists'] });
+    }
+
+    const existingAccountByPhone = await accountService.findAccountByPhone(phone_number);
+    if (existingAccountByPhone) {
+        return res.status(400).json({ errors: ['User with this Phone Number already exists'] });
+    }
+
+    try {
+        // create account
+        const account = await accountService.createAccount({ first_name, last_name, email, password, account_type: 'organizer', avatar, phone_number });
+        if (!account) {
+            return res.status(400).json({ msg: "account not created correctly" })
+        }
+        // create user
+        const account_id = account.account_id;
+        const organizer = await organizersService.createOrganizer({ account_id, Instagram, Facebook, Twitter, Description, city });
+        if (!organizer) {
+            return res.status(400).json({ msg: "Organizer not created correctly" })
+        }
+        
+        // create profile object
+        const profile = {
+            account: { ...account },
+            organizer: { ...organizer }
+        };
+
+        // generate JWT
+        const eticketjwt = jwt.sign({
+            accountId: account.account_id,
+            userType: account.account_type
+        }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
+
+        // Set JWT as a cookie in the response
+        res.cookie('eticketjwt', eticketjwt, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+            sameSite: 'None',
+            path: '/',
+        }).status(201).json({ profile });
+    } catch (error) {
+        if (error.code === '23505') {
+            // Unique constraint violation
+            return res.status(400).json({ errors: ['Email or phone number is already in use'] });
+        }
+        next(error);
+    }
+};
 
 
 
-export default { register, login, profile, logout };
+
+
+
+export default { register, login, profile, logout, registerOrganizer };

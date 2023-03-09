@@ -11,7 +11,11 @@ const getTicketsByClientId = async (clientId) => {
     const tickets = await prisma.ticket.findMany({
         where: { client_id: Number(clientId) },
         include: {
-            Event: true,
+            Event: {
+                include: {
+                    Event_Images: true, // Include the Images table
+                },
+            },
         },
     });
 
