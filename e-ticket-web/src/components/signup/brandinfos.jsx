@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 const BrandInfos = () => {
   const [selectedPlatform, setSelectedPlatform] = useState("");
@@ -25,18 +25,12 @@ const BrandInfos = () => {
     newSocialLinks.splice(index, 1);
     setSocialLinks(newSocialLinks);
   };
-
-  // data to send//
-  const Description = useRef("");
-  const Twitter = useRef("");
-  const Facebook = useRef("");
-  const Instagram = useRef("");
   return (
     <>
       <div className="row2">
         <div className="column">
           <div className="label">Description *</div>
-          <textarea rows="5" ref={Description}></textarea>
+          <textarea rows="5"></textarea>
         </div>
       </div>
       <div>
@@ -62,7 +56,6 @@ const BrandInfos = () => {
                     type="text"
                     value={socialLink.link}
                     onChange={(event) => handleLinkChange(event, index)}
-                    ref={Instagram}
                   />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
                     <i class="fa-regular fa-trash-can"></i>
@@ -78,7 +71,6 @@ const BrandInfos = () => {
                     type="text"
                     value={socialLink.link}
                     onChange={(event) => handleLinkChange(event, index)}
-                    ref={Facebook}
                   />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
                     <i class="fa-regular fa-trash-can"></i>
@@ -94,7 +86,6 @@ const BrandInfos = () => {
                     type="text"
                     value={socialLink.link}
                     onChange={(event) => handleLinkChange(event, index)}
-                    ref={Twitter}
                   />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
                     <i class="fa-regular fa-trash-can"></i>
