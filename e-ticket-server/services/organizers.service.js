@@ -1,9 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
 const createOrganizer = async (data) => {
-   return prisma.organizer.create({ data, });
+    try {
+        const organizer = await prisma.organizer.create({
+            data: {
+                ...data,
+            },
+        });
+        return organizer;
+    } catch (error) {
+        throw new Error(`Failed to create organizer: ${error.message}`);
+    }
 };
 
 const getOrganizerById = async (org_id) => {
