@@ -15,12 +15,10 @@ import AuthContext from "../../Auth/AuthContext";
 
 const SignUp = () => {
   const { profile, setProfile } = useContext(AuthContext);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
-
-  const apiUrl = process.env.REACT_APP_API_URL;
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorField, setErrorField] = useState("");
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -38,21 +36,22 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isLastStep) {
-      if (isSubmitting) {
-        try {
-          const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
-          console.log(response.data);
-          setProfile(response.data.profile)
-        } catch (error) {
-          console.error(error);
-        }
-      } else {
-        //this is to avoid sending data imadiatly when click the Next and navigate to the LastStep
-        setIsSubmitting(true)
+      if (!formData.Description) {
+        setErrorField("Please enter your account description*");
+        return;
+      } else if (formData.Description.length < 12) {
+        setErrorField("Please enter a valid description*");
+        return;
+      }
+      try {
+        const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
+        console.log(response.data);
+        setProfile(response.data.profile)
+      } catch (error) {
+        console.error(error);
       }
     }
   };
-
 
 
   useEffect(() => {
@@ -63,8 +62,85 @@ const SignUp = () => {
 
 
   const handleBackClick = () => {
-    setIsSubmitting(false);
     back();
+    setErrorField("");
+  }
+
+  const validateFirstStep = () => {
+    if (!formData.first_name) {
+      setErrorField("Please enter your first name*");
+      return false;
+    }
+
+    if (!formData.last_name) {
+      setErrorField("Please enter your last name*");
+      return false;
+    }
+
+    if (!formData.email) {
+      setErrorField("Please enter your email*");
+      return false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setErrorField("Please enter a valid email*");
+      return false;
+    }
+
+    if (!formData.city) {
+      setErrorField("Please enter your city*");
+      return false;
+    }
+    return true;
+  };
+
+  const validateSecondStep = () => {
+    if (!formData.password) {
+      setErrorField("Please enter your password*");
+      return false;
+    } else if (formData.password.length < 8) {
+      setErrorField("Password should be at least 8 characters*");
+      return false;
+    }
+
+    if (!formData.confirmPassword) {
+      setErrorField("Please confirm your password*");
+      return false;
+    } else if (formData.password !== formData.confirmPassword) {
+      setErrorField("Passwords do not match*");
+      return false;
+    }
+
+    if (!formData.phone_number) {
+      setErrorField("Please enter your phone number*");
+      return false;
+    } else if (!/^\d{10}$/.test(formData.phone_number)) {
+      setErrorField("Please enter a valid phone number*");
+      return false;
+    }
+
+    return true;
+  };
+
+
+
+  const handleNextClick = () => {
+    if (isFirstStep) {
+      const isValid = validateFirstStep();
+      if (isValid) {
+        // proceed to the next step
+        next();
+        setErrorField("");
+      }
+    }
+
+    if (!isFirstStep && !isLastStep) {
+      const isValid = validateSecondStep();
+      if (isValid) {
+        // proceed to the next step
+        next();
+        setErrorField("")
+      }
+    }
+
   }
 
 
@@ -95,15 +171,19 @@ const SignUp = () => {
             <form onSubmit={handleSubmit} >
               <div className="form-container">
                 <div className="top-form-container">{step}</div>
+                <div style={{ color: 'red' }}>{errorField}</div>
                 <div className="bottom-form-container">
                   {!isFirstStep && (
                     <button className="back" type="button" onClick={handleBackClick}>
                       Back
                     </button>
                   )}
-                  <button className="next" type="submit" onClick={next}>
-                    {isLastStep ? "Sign Up " : "Next"}
-                  </button>
+                  {!isLastStep && <button className="next" type="button" onClick={handleNextClick}>
+                    Next
+                  </button>}
+                  {isLastStep && <button className="next" type="submit" >
+                    Sign Up
+                  </button>}
                 </div>
               </div>
             </form>
