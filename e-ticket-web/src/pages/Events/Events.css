@@ -1,7 +1,8 @@
 .loading {
     display: flex;
     justify-content: center;
+    margin-top: 11%;
 }
 .loading img {
-    max-width: 50px;
+    max-width: 30px;
 }

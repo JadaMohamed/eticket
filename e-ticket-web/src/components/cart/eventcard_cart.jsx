@@ -85,7 +85,7 @@ function EventCard_Cart(props) {
             </div>
           </div>
           <div className="pricing">
-            <div className="title-pricing">Total Price :</div>
+            <div className="title-pricing">Total price</div>
             <div className="total-price">
               00<span>MAD</span>
             </div>

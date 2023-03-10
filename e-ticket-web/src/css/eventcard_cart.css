@@ -2,14 +2,14 @@
     align-items: center;
     margin: auto;
     max-width: 1200px;
-    padding: 10px 50px;
+    padding: 0px 50px;
 }
 .event-card-cart .event-card-cart-container {
     display: grid;
     grid-template-columns: 1.8fr 2fr;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--Purple10);
+    /* border-bottom: 1px solid var(--Purple10); */
     padding-bottom: 20px;
     padding-top: 20px;
 }
@@ -22,7 +22,7 @@
     max-height: 100px;
     max-width: 160px;
     height: 100%;
-    background-color: var(--Green50);
+    background-color: var(--Purple10);
     border-radius: 10px;
     width: 100%;
     display: flex;
@@ -39,6 +39,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.7);
 }
 .event-card-cart .event-card-cart-container .event-infos .inf {
     display: flex;
@@ -53,7 +54,7 @@
     font-size: 1rem !important;
     margin-right: 5px;
 
-    color: var(--Purple);
+    color: var(--Purple60);
 }
 .event-card-cart .event-card-cart-container .date span {
     font-size: 14px !important;
@@ -119,7 +120,7 @@
 }
 .event-card-cart .event-card-cart-container .quantity .btn:hover {
     background-color: var(--Purple);
-    color: white;
+    color: var(--White);
 }
 .event-card-cart .event-card-cart-container .pricing .total-price {
     font-size: 1.2rem;

@@ -121,16 +121,19 @@
     margin: auto;
     max-width: 1200px;
     user-select: none;
+    display: none;
 }
 .products-header .products-header-container {
-    margin: 20px 50px 0px 10px;
-    border-bottom: 1px solid var(--Purple10);
+    /* margin: 20px 50px 0px 10px; */
+    background-color: aqua;
+    margin: auto 50px;
+    /* border-bottom: 1px solid var(--Purple10); */
 }
 .products-header .products-header-container .head {
     margin-left: 10%;
     text-align: center;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1.3fr 1.1fr 1fr 1fr;
     justify-content: space-between;
     gap: 20px;
     align-items: center;

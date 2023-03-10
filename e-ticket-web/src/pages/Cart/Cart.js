@@ -19,7 +19,7 @@ function Cart() {
       <div className="content-cart-page">
         <div className="content-cart-page-container">
           <div className="event-card-cart-table">
-            {cart.length > 0 ? <ProductsHeader /> : ""}
+            {/* {cart.length > 0 ? <ProductsHeader /> : ""} */}
             {cart.length > 0 ? (
               cart.map((item) => (
                 <EventCard_Cart

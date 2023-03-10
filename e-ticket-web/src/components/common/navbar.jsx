@@ -278,11 +278,7 @@ function Navbar(props) {
               </div>
             </div>
           )}
-          <div>
-            <div className="humber-menu btn">
-              <span className="material-symbols-outlined">menu_open</span>
-            </div>
-          </div>
+          <div></div>
         </div>
       </div>
       {popupLogin && <LoginPopup setTrigger={setpoupLogin} />}

@@ -8,6 +8,7 @@
 .localevents .localevent-container {
     margin: 40px 30px 30px;
     padding-top: 20px;
+    min-height: 300px;
 }
 .localevents .localevent-container .section-title {
     margin-bottom: 20px;
