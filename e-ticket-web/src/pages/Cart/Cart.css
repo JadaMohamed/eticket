@@ -9,6 +9,7 @@
 }
 .content-cart-page-container {
     padding: 5px 0;
+    min-height: 300px;
 }
 .empty-cart {
     margin: auto;

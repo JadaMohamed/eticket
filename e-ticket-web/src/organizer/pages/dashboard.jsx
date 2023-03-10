@@ -6,6 +6,7 @@ import SalesCardDash from "../components/salescard_dash";
 import SalesCard from "../components/salesofevent";
 import left from "../../img/left.svg";
 import right from "../../img/right.svg";
+import RecentOrders from "../components/recent_orders";
 
 function Dashboard() {
   return (
@@ -31,6 +32,7 @@ function Dashboard() {
             <img src={right} alt="" />
           </div>
         </div>
+        <RecentOrders />
       </div>
     </div>
   );

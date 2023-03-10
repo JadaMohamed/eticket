@@ -30,14 +30,14 @@ function App() {
           <Route path="/registration" element={<SignIn />} />
           <Route path="/home" element={<Home />} />
           <Route path="/example/:meow" element={<Example />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/mytickets" element={<MyTickets />} />
+          <Route path="/events/:value" element={<Events />} />
           {/* An example of a react route */}
           <Route path="/example" element={<Example />} />
 
           {/* only for the client and admin */}
           <Route element={<ProtectClient />}>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/mytickets" element={<MyTickets />} />
-            <Route path="/events/:value" element={<Events />} />
             {/* <Route path="/events" element={<Events />} /> */}
           </Route>
 

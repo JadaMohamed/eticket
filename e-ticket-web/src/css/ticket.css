@@ -2,7 +2,7 @@
     align-items: center;
     margin: auto;
     max-width: 1200px;
-    padding: 10px 50px;
+    padding: 0px 50px;
 }
 .ticket-card .ticket-card-container {
     display: flex;
@@ -18,11 +18,16 @@
     align-items: center;
 }
 .ticket-card .ticket-card-container .preview-image {
-    min-height: 100px;
-    min-width: 170px;
+    max-height: 100px;
+    max-width: 170px;
     height: 100%;
-    background-color: var(--Green50);
+    background-color: var(--Purple10);
     border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+}
+.ticket-card .ticket-card-container .preview-image img {
+    width: 100%;
 }
 .ticket-card .ticket-card-container .event-title {
     font-weight: 600;
@@ -31,29 +36,35 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.7) !important;
 }
 .ticket-card .ticket-card-container .event-category {
     user-select: none;
     margin-top: 5px;
     margin-bottom: 10px;
-    background-color: var(--Purple10);
-    padding: 1px 5px;
-    border: 1px solid var(--Purple30);
-    max-width: 98px;
-    border-radius: 10px;
+    padding: 1px 6px 2px 6px;
+    border: 1px solid var(--Purple10);
+    border-radius: 8px;
+    background-color: var(--LighterPurple);
     font-size: 0.7rem;
+    width: fit-content;
 }
 .ticket-card .ticket-card-container .ticket-infos .inf {
     display: flex;
     align-items: center;
     margin-bottom: 3px;
     user-select: none;
+    font-weight: 500;
+    color: var(--Grey1);
     font-size: 0.86rem;
 }
 .ticket-card .ticket-card-container .inf span {
-    font-size: 1rem;
+    font-size: 1rem !important;
     margin-right: 5px;
-    color: var(--Green);
+    color: var(--Purple60);
+}
+.ticket-card .ticket-card-container .date span {
+    font-size: 14px !important;
 }
 .ticket-card .ticket-card-container .active-on-mobile {
     display: none;
@@ -80,6 +91,7 @@
 .ticket-card .ticket-card-container .ticket-consult .btns .btn span {
     font-size: 1.4rem;
 }
+
 .ticket-card .ticket-card-container .ticket-consult .btns .download-ticket {
     border: 1px solid var(--Green50);
     color: var(--Green);
