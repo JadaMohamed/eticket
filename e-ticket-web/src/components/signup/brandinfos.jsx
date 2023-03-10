@@ -1,8 +1,34 @@
 import React, { useState } from "react";
 
-const BrandInfos = () => {
+const BrandInfos = ({ formData, setFormData }) => {
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [socialLinks, setSocialLinks] = useState([]);
+
+  //data to send
+  const [Description, setDescription] = useState(formData.Description);
+   const [Instagram, setInstagram] = useState(formData.Instagram);
+  const [Facebook, setFacebook] = useState(formData.Facebook);
+  const [Twitter, setTwitter] = useState(formData.Twitter);
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+    setFormData({ ...formData, Description: event.target.value });
+  };
+
+  const handleInstagramChange = (event) => {
+     setInstagram(event.target.value);
+    setFormData({ ...formData, Instagram: event.target.value });
+  };
+
+  const handleFacebookChange = (event) => {
+     setFacebook(event.target.value);
+    setFormData({ ...formData, Facebook: event.target.value });
+  };
+
+  const handleTwitterChange = (event) => {
+     setTwitter(event.target.value);
+    setFormData({ ...formData, Twitter: event.target.value });
+  };
 
   const handlePlatformChange = (event) => {
     const platform = event.target.value;
@@ -23,14 +49,14 @@ const BrandInfos = () => {
   const handleDeleteLink = (index) => {
     const newSocialLinks = [...socialLinks];
     newSocialLinks.splice(index, 1);
-    setSocialLinks(newSocialLinks);
+    setSocialLinks(newSocialLinks);  
   };
   return (
     <>
       <div className="row2">
         <div className="column">
           <div className="label">Description *</div>
-          <textarea rows="5"></textarea>
+          <textarea rows="5" onChange={handleDescriptionChange} value={Description}></textarea>
         </div>
       </div>
       <div>
@@ -54,8 +80,16 @@ const BrandInfos = () => {
                   <input
                     id={`instagram-link-${index}`}
                     type="text"
-                    value={socialLink.link}
-                    onChange={(event) => handleLinkChange(event, index)}
+                    //I remove the socialLink.link beause when you goback and return to link ???????
+                    //the value disapeare from the input .
+                    //but when using the value={Instagram} the values keep even if you navigate back
+                    
+                    // value={socialLink.link}
+                    value={Instagram}
+                    onChange={(event) => {
+                      handleLinkChange(event, index);
+                      handleInstagramChange(event);
+                    }}
                   />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
                     <i class="fa-regular fa-trash-can"></i>
@@ -69,9 +103,12 @@ const BrandInfos = () => {
                   <input
                     id={`facebook-link-${index}`}
                     type="text"
-                    value={socialLink.link}
-                    onChange={(event) => handleLinkChange(event, index)}
-                  />
+                    //value={socialLink.link}
+                    value={Facebook}
+                    onChange={(event) => {
+                      handleLinkChange(event, index);
+                      handleFacebookChange(event);
+                    }}                  />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
                     <i class="fa-regular fa-trash-can"></i>
                   </button>
@@ -84,9 +121,12 @@ const BrandInfos = () => {
                   <input
                     id={`twitter-link-${index}`}
                     type="text"
-                    value={socialLink.link}
-                    onChange={(event) => handleLinkChange(event, index)}
-                  />
+                    //value={socialLink.link}
+                    value={Twitter}
+                    onChange={(event) => {
+                      handleLinkChange(event, index);
+                      handleTwitterChange(event);
+                    }}                  />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
                     <i class="fa-regular fa-trash-can"></i>
                   </button>

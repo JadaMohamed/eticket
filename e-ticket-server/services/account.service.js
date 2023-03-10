@@ -67,6 +67,25 @@ const findAccountByEmailAndPassword = async (email, password) => {
 
     return account;
 };
+async function findAccountByFirstLastName(firstName, lastName) {
+    const account = await prisma.account.findUnique({
+        where: {
+            first_name_last_name: {
+                first_name: firstName,
+                last_name: lastName,
+            },
+        },
+    })
+    return account
+}
+async function findAccountByPhone(phone_number) {
+    const account = await prisma.account.findUnique({
+        where: {
+            phone_number,
+        },
+    });
+    return account
+}
 
 export default {
     createAccount,
@@ -75,5 +94,7 @@ export default {
     updateAccount,
     deleteAccount,
     getAllAccounts,
-    findAccountByEmailAndPassword
+    findAccountByEmailAndPassword,
+    findAccountByFirstLastName,
+    findAccountByPhone
 };

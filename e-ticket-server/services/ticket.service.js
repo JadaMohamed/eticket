@@ -3,14 +3,20 @@ const prisma = new PrismaClient();
 
 
 const createTicket = async (data) => {
-    const newTicket = await prisma.ticket.create({data, });
+    const newTicket = await prisma.ticket.create({ data, });
     return newTicket;
 };
 
 const getTicketsByClientId = async (clientId) => {
     const tickets = await prisma.ticket.findMany({
         where: { client_id: Number(clientId) },
-        // include: { Event: true },
+        include: {
+            Event: {
+                include: {
+                    Event_Images: true, // Include the Images table
+                },
+            },
+        },
     });
 
     return tickets;
@@ -26,8 +32,8 @@ const getTicketsByEventId = async (eventId) => {
 
 const getAllTickets = async () => {
     return prisma.ticket.findMany({
-        include:{
-            Paid_Tickets_Orders:true,
+        include: {
+            Paid_Tickets_Orders: true,
         }
     });
 };

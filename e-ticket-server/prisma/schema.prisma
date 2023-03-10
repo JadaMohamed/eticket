@@ -38,7 +38,12 @@ model Organizer {
   org_id        Int     @id @default(autoincrement())
   org_country   String  @default("My Country") @db.VarChar(50)
   personalStore String  @default("My personal Store") @db.VarChar(150)
+  Instagram     String  @default("no Instagram link") @db.VarChar(150)
+  Facebook      String  @default("no Facebook link") @db.VarChar(150)
+  Twitter       String  @default("no Twitter link") @db.VarChar(150)
   account_id    Int     @unique
+  city          String  @default("My City") @db.VarChar(50)
+  Description   String  @default("Organizer description for account") @db.VarChar(500)
   Events        Event[]
   Account       Account @relation(fields: [account_id], references: [account_id], onDelete: Cascade, map: "FK_Organizer_Account")
 

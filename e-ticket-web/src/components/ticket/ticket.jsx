@@ -1,7 +1,7 @@
 import React from "react";
 import '../../css/ticket.css';
 
-function Ticket(props) {
+function Ticket({ticket}) {
     return (
         <div className="ticket-card-table">
             <div className="ticket-card">
@@ -9,22 +9,23 @@ function Ticket(props) {
                     <div className="ticket-infos">
                         <input type="checkbox" name="selected-product" className="disable-on-mobile" title="Select" />
                         <div className="preview-image">
-                            <img src="" alt="" />
+                            {/* this image need to be styled */}
+                            <img src={ticket.Event.brand_url} alt="" style={{ width: '170px' }} />
                         </div>
                         <div className="event-inf">
                             <div className="event-title">
-                                This suppose to be a title
+                                {ticket.Event.title}
                             </div>
                             <div className="event-category">
-                                Theater | Cinema
+                                {ticket.Event.event_type}
                             </div>
                             <div className="local inf">
                                 <span className="material-symbols-outlined">location_on</span>
-                                Megarama Agadir
+                                {ticket.Event.location}
                             </div>
                             <div className="date inf">
                                 <span className="material-symbols-outlined">hourglass_top</span>
-                                2022-05-12T23:50:21
+                                {ticket.Event.start_time}
                             </div>
                         </div>
                     </div>
@@ -43,7 +44,7 @@ function Ticket(props) {
                     </div>
                 </div>
             </div>
-            <div className="ticket-card">
+            {/* <div className="ticket-card">
                 <div className="ticket-card-container">
                     <div className="ticket-infos">
                         <input type="checkbox" name="selected-product" className="disable-on-mobile" title="Select" />
@@ -81,7 +82,7 @@ function Ticket(props) {
                         <input type="checkbox" name="selected-product" className="select-ticket-mobile" />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 

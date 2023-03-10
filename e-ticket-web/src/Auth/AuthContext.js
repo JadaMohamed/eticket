@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
         });
 
         setLoggedIn(true);
-        setProfile(data);
+        setProfile(data.profile);
       } catch (err) {
         console.log(err);
       }
@@ -43,18 +43,20 @@ export const AuthContextProvider = ({ children }) => {
         { withCredentials: true }
       );
       setLoggedIn(true);
-      setProfile(apiResponse.data);
-
-      switch (profile?.profile?.account?.account_type) {
-        case "client":
-          navigate("/");
-          break;
-        case "organizer":
-          navigate("/organizer/dashboard");
-          break;
-        case "admin":
-          navigate("/admin");
-          break;
+      setProfile(apiResponse.data.profile);
+      if (apiResponse.data.profile.account.account_type) {
+        switch (apiResponse.data.profile.account.account_type) {
+          case "client":
+            navigate("/");
+            break;
+          case "organizer":
+            navigate("/organizer/dashboard");
+            break;
+          case "admin":
+            navigate("/admin");
+            break;
+          default:
+        }
       }
     } catch (err) {
       console.log(err);
@@ -72,7 +74,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ profile, login, logout, isLoggedIn }}>
+    <AuthContext.Provider value={{ profile, login, logout, isLoggedIn, setProfile  }}>
       {children}
     </AuthContext.Provider>
   );

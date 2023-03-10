@@ -138,14 +138,14 @@ function Navbar(props) {
                     setOpen(!open);
                   }}
                   id="me"
-                  title={`${profile?.profile?.account?.first_name} ${profile?.profile?.account?.last_name}`}
+                  title={`${profile?.account?.first_name} ${profile?.account?.last_name}`}
                   ref={menuRef}
                 >
                   <div className="user-infos-container">
                     <div className="avatar">
                       <Image
                         cloudName="djjwswdo4"
-                        publicId={profile?.profile?.account?.avatar}
+                        publicId={profile?.account?.avatar}
                       />
                     </div>
                     <div className="right-side"></div>
@@ -181,16 +181,16 @@ function Navbar(props) {
                     <div className="avatar">
                       <Image
                         cloudName="djjwswdo4"
-                        publicId={profile?.profile?.account?.avatar}
+                        publicId={profile?.account?.avatar}
                       />
                     </div>
                     <div className="right-side">
                       <div className="name-last">
-                        {profile?.profile?.account?.first_name}{" "}
-                        {profile?.profile?.account?.last_name}
+                        {profile?.account?.first_name}{" "}
+                        {profile?.account?.last_name}
                       </div>
                       <div className="email">
-                        {profile?.profile?.account?.email}
+                        {profile?.account?.email}
                       </div>
                     </div>
                   </div>
