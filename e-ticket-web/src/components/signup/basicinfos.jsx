@@ -32,7 +32,7 @@ const BasicInfos = ({ formData, setFormData }) => {
     setAvatar(event.target.value);
     setFormData({ ...formData, avatar: event.target.value });
   };
-
+  //
   return (
     <>
       <div className="row2">

@@ -223,12 +223,7 @@ const registerOrganizer = async (req, res, next) => {
     if (existingAccount) {
         return res.status(400).json({ errors: ['User with this email and password already exists'] });
     }
-    // Check if user with same first_name and last_name exists
-    const existingAccountFirstLastName = await accountService.findAccountByFirstLastName(first_name, last_name);
-    if (existingAccountFirstLastName) {
-        return res.status(400).json({ errors: ['User with this first_name and last_name already exists'] });
-    }
-
+   
     const existingAccountByPhone = await accountService.findAccountByPhone(phone_number);
     if (existingAccountByPhone) {
         return res.status(400).json({ errors: ['User with this Phone Number already exists'] });
