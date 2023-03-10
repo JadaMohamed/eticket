@@ -45,7 +45,6 @@ const SignUp = () => {
       }
       try {
         const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
-        console.log(response.data);
         setProfile(response.data.profile)
       } catch (error) {
         console.error(error);
