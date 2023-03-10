@@ -235,7 +235,7 @@ const registerOrganizer = async (req, res, next) => {
         if (!account) {
             return res.status(400).json({ msg: "account not created correctly" })
         }
-        // create user
+        // create organizer
         const account_id = account.account_id;
         const organizer = await organizersService.createOrganizer({ account_id, Instagram, Facebook, Twitter, Description, city });
         if (!organizer) {
