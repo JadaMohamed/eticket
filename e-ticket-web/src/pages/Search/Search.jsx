@@ -7,6 +7,7 @@ import SubNavbar from "../../components/common/subnavbar";
 import Card from "../../components/event/eventcard";
 import { BASE_URL } from "../../Constants";
 import "./Search.css";
+import loader from "../../img/loading.svg";
 
 function Search() {
   let { value } = useParams("a");
@@ -38,17 +39,23 @@ function Search() {
       <div className="margin-top"></div>
       <div className="search-container">
         <div className="cards">
-          {events.map((eventData) => (
-            <Card
-              key={eventData.event_id}
-              image={eventData.image}
-              title={eventData.title}
-              price={eventData.price}
-              location={eventData.location}
-              category={eventData.event_type}
-              date={eventData.start_time}
-            />
-          ))}
+          {events.length > 0 ? (
+            events.map((eventData) => (
+              <Card
+                key={eventData.event_id}
+                image={eventData.image}
+                title={eventData.title}
+                price={eventData.price}
+                location={eventData.location}
+                category={eventData.event_type}
+                date={eventData.start_time}
+              />
+            ))
+          ) : (
+            <div className="loading">
+              <img src={loader} />
+            </div>
+          )}
         </div>
       </div>
     </>

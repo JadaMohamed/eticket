@@ -1,0 +1,31 @@
+.recentorders {
+    padding: 30px;
+    background-color: var(--White);
+    border-radius: 8px;
+}
+.recentorders .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 18px;
+}
+.recentorders .header span {
+    padding: 7px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+.recentorders .header span:hover {
+    background-color: var(--LighterPurple);
+}
+.recentorders .head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--Purple10);
+}

@@ -3,6 +3,7 @@ import logo from "../../img/logo.svg";
 import "../../css/SignUpNav.css";
 import AuthContext from "../../Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import organizer from "../../img/organizer.svg";
 
 export default function SignUpNav(props) {
   const [isVisible, setVisible] = useState(false);
@@ -40,11 +41,11 @@ export default function SignUpNav(props) {
               Nav("/registration", { replace: false });
             }}
           >
+            {/* <img src={organizer} alt="" className="bg" /> */}
             <div className="user-type-title">Organizer</div>
             <div className="description">
               Lorem ipsum dolor rerum consequatur expedita corporis commodi
-              explicabo repudiandae itaque, earum delectus dolor! Voluptates,
-              adipisci.
+              explicabo repudiandae itaque.
             </div>
             <div className="arrow-icon">
               <span class="material-symbols-outlined">arrow_forward</span>
@@ -54,8 +55,7 @@ export default function SignUpNav(props) {
             <div className="user-type-title">Buyer</div>
             <div className="description">
               Lorem ipsum dolor rerum consequatur expedita corporis commodi
-              explicabo repudiandae itaque, earum delectus dolor! Voluptates,
-              adipisci.
+              explicabo repudiandae itaque.
             </div>
             <div className="arrow-icon">
               <span class="material-symbols-outlined">arrow_forward</span>

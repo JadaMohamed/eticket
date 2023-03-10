@@ -26,7 +26,7 @@
     transition: 0.2s ease-in-out;
 }
 .mytickets-header .mytickets-header-container .mytickets-header-left input {
-    padding: 10px 8px;
+    padding: 10px 15px;
     outline: none;
     border: none;
     border-radius: 10px;
@@ -41,11 +41,11 @@
 }
 .mytickets-header .mytickets-header-container .mytickets-header-left .btn:hover {
     cursor: pointer;
-    background-color: var(--Purple10);
+    background-color: var(--LighterPurple);
 }
 .mytickets-header .mytickets-header-container .mytickets-header-left .cart-search {
     display: flex;
-    background-color: var(--Purple10);
+    background-color: var(--LighterPurple);
     border-radius: 10px;
 }
 .mytickets-header .mytickets-header-container .mytickets-header-right {
@@ -55,29 +55,18 @@
     align-items: center;
 }
 .mytickets-header .mytickets-header-container .mytickets-header-right .much-selected span {
-    color: var(--Green);
+    color: var(--Purple);
     font-weight: 500;
 }
 .mytickets-header .mytickets-header-container .mytickets-header-right .pay-selected-incart {
     cursor: pointer;
-    background-color: var(--Green);
+    background-color: var(--Purple);
     color: var(--White);
     padding: 6px 10px;
     border-radius: 10px;
     display: flex;
     transition: 0.2s ease-in-out;
     text-align: center;
-}
-.mytickets-header .mytickets-header-container .mytickets-header-right .pay-selected-incart .curr {
-    font-size: 0.6rem;
-}
-.mytickets-header .mytickets-header-container .mytickets-header-right .pay-selected-incart:hover {
-    background-color: var(--Green80);
-    box-shadow: var(--Green50) 0px 1px 4px;
-}
-.price-section {
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 @media only screen and (max-width: 678px) {

@@ -1,0 +1,12 @@
+.content-cart-page-not-signed {
+    margin-top: 20px;
+    min-height: 420px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-color: var(--White);
+    border-radius: 8px;
+}
+.content-cart-page-not-signed .content {
+    margin: auto;
+}
