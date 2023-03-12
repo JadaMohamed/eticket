@@ -13,10 +13,12 @@ function Settings() {
   const [email, setEmail] = useState(profile?.account?.email);
   const [city, setCity] = useState(profile?.user?.city);
   const [avatar, setAvatar] = useState(profile?.account?.avatar);
-  const [currentPassword, setCurrentPassword] = useState();
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
   const [phone_number, setPhoneNumber] = useState(profile?.account?.phone_number);
+  const [fieldError, setfieldError] = useState("");
+
 
   const UpdatePersonaldetails = async (event) => {
     event.preventDefault();
@@ -69,8 +71,81 @@ function Settings() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const validateSecurityDetails = () => {
+    if (!currentPassword) {
+      setfieldError('please inter your current password');
+       return false;
+    }
+    
+    if (currentPassword !== profile.account.password) {
+      setfieldError('current password is not correct');
+       return false;
+    }
+    
+    if (!newPassword1) {
+      setfieldError('please enter a new password');
+       return false;
+    }
+    
+    if (newPassword1.length<8) {
+      setfieldError('new password should containe 8 characters at lest');
+       return false;
+    }
+    
+    if (newPassword1 !== newPassword2) {
+      setfieldError('New Password and Confirm Password are not mach');
+       return  false;
+    } 
+    
+    if (!phone_number) {
+      setfieldError("Please enter your phone number");
+      return false;
+    } 
+     if (!/^\d{10}$/.test(phone_number)) {
+      setfieldError("Please enter a valid phone number");
+      return false;
+    }
+    return true;
 
   };
+
+  const UpdateSecurityDetails = async (event) => {
+    const isValid = validateSecurityDetails();
+    if (!isValid) {
+      return;
+    }else{
+      setfieldError("");
+    }
+    try {
+      const updatedData = {
+        phone_number,
+        password: newPassword1,
+
+      }
+      //update accounte
+      const response = await axios.put(`${apiUrl}/api/accounts/${profile.account.account_id}`, updatedData, { withCredentials: true });
+      // update the account in profile
+      setProfile(prevProfile => {
+        return {
+          ...prevProfile,
+          account: {
+            ...prevProfile.account,
+            ...response.data
+          }
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+
+
+
 
   return (
     <>
@@ -180,24 +255,30 @@ function Settings() {
                   <div className="label">Current Password</div>
                   <input
                     className="collector-100 collector-input"
-                    type="text"
+                    type="password"
                     id="current-password"
+                    onChange={e => setCurrentPassword(e.target.value)}
+                    value={currentPassword}
                   />
                 </div>
                 <div className="collect-data">
                   <div className="label">New Password</div>
                   <input
                     className="collector-100 collector-input"
-                    type="text"
+                    type="password"
                     id="new-password1"
+                    onChange={e => setNewPassword1(e.target.value)}
+                    value={newPassword1}
                   />
                 </div>
                 <div className="collect-data">
                   <div className="label">Confirm Password</div>
                   <input
                     className="collector-100 collector-input"
-                    type="text"
+                    type="password"
                     id="new-password2"
+                    onChange={e => setNewPassword2(e.target.value)}
+                    value={newPassword2}
                   />
                 </div>
                 <div className="instructions">
@@ -215,18 +296,20 @@ function Settings() {
                       type="text"
                       id="phone-n"
                       value={phone_number}
+                      onChange={e => setPhoneNumber(e.target.value)}
                     />
                   </div>
                 </div>
                 <div className="instructions">Verification required</div>
               </div>
             </div>
+            <div style={{color:'red'}}>{fieldError}</div> 
             <div className="personal-infos-bottom">
               <div className="cancel-btn" title="Cancel">
                 <div>Cancel</div>
               </div>
               <div className="save-change-btn" title="Save Changes">
-                <div>Save Changes</div>
+                <div onClick={UpdateSecurityDetails}>Save Changes</div>
               </div>
             </div>
           </div>
