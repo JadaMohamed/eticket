@@ -187,7 +187,6 @@ function Settings() {
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: { "Content-type": "application/json" },
       });
-      console.log(uploadedResponse.data);
     } catch (erroe) {}
   };
   const previewFile = (file) => {
