@@ -1,0 +1,19 @@
+.container .orga-page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--White);
+    border-radius: 8px;
+}
+.container .orga-page-content .content-section-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.container .orga-page-content img {
+    width: 100%;
+}
+.selected-event-stats {
+    display: flex;
+    gap: 20px;
+}

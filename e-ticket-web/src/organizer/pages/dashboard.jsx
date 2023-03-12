@@ -7,6 +7,7 @@ import SalesCard from "../components/salesofevent";
 import left from "../../img/left.svg";
 import right from "../../img/right.svg";
 import RecentOrders from "../components/recent_orders";
+import "../css/index.css";
 
 function Dashboard() {
   return (

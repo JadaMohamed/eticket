@@ -132,11 +132,10 @@ nav .nav-container .user-infos-container .avatar {
   border-radius: 50%;
   overflow: hidden;
 }
-nav .nav-container .user-infos-container .avatar img {
+.user-infos-container .avatar img {
   width: 100%;
 }
-
-nav .nav-container .dropdown-menu .dropdown-items .user-infos {
+.dropdown-menu .dropdown-items .user-infos {
   display: flex;
   border-radius: 0 !important;
   user-select: none;
@@ -147,31 +146,31 @@ nav .nav-container .dropdown-menu .dropdown-items .user-infos {
   padding-bottom: 10px !important;
   border-bottom: 1px solid var(--Purple10);
 }
-nav .nav-container .dropdown-menu .dropdown-items .user-infos .label {
+.dropdown-menu .dropdown-items .user-infos .label {
   font-size: 12px;
   font-weight: 600;
 }
-nav .nav-container .dropdown-menu .dropdown-items .user-infos .avatar {
+.dropdown-menu .dropdown-items .user-infos .avatar {
   width: 34px;
   height: 34px;
   overflow: hidden;
   border-radius: 50%;
 }
-nav .nav-container .dropdown-menu .dropdown-items .user-infos .avatar img {
+.dropdown-menu .dropdown-items .user-infos .avatar img {
   width: 100%;
 }
-nav .nav-container .dropdown-menu .dropdown-items .user-infos .user-infos-container {
+.dropdown-menu .dropdown-items .user-infos .user-infos-container {
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
 }
-nav .nav-container .dropdown-menu .dropdown-items .user-infos .right-side .name-last {
+.dropdown-menu .dropdown-items .user-infos .right-side .name-last {
   font-size: 14px;
   font-weight: 500;
   color: var(--Grey1);
 }
-nav .nav-container .dropdown-menu .dropdown-items .user-infos .right-side .email {
+.dropdown-menu .dropdown-items .user-infos .right-side .email {
   font-size: 12px;
   font-weight: 500;
   color: var(--Grey3);
