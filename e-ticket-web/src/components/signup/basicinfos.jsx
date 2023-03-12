@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const BasicInfos = ({ formData, setFormData }) => {
-
   const [firstName, setFirstName] = useState(formData.first_name);
   const [lastName, setLastName] = useState(formData.last_name);
   const [email, setEmail] = useState(formData.email);
@@ -38,11 +37,21 @@ const BasicInfos = ({ formData, setFormData }) => {
       <div className="row2">
         <div className="column">
           <div className="label">First name *</div>
-          <input type="text" value={firstName} onChange={handleFirstNameChange} required />
+          <input
+            type="text"
+            value={firstName}
+            onChange={handleFirstNameChange}
+            required
+          />
         </div>
         <div className="column">
           <div className="label">Last name *</div>
-          <input type="text" value={lastName} onChange={handleLastNameChange} required />
+          <input
+            type="text"
+            value={lastName}
+            onChange={handleLastNameChange}
+            required
+          />
         </div>
       </div>
       <div className="row1">
@@ -51,7 +60,12 @@ const BasicInfos = ({ formData, setFormData }) => {
           <div className="icon">
             <span class="material-symbols-outlined">mail</span>
           </div>
-          <input type="email" value={email} onChange={handleEmailChange} required />
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
         </div>
       </div>
       <div className="row1">
@@ -60,7 +74,12 @@ const BasicInfos = ({ formData, setFormData }) => {
           <div className="icon">
             <span class="material-symbols-outlined">location_on</span>
           </div>
-          <input type="text" value={city} onChange={handleCityChange} required />
+          <input
+            type="text"
+            value={city}
+            onChange={handleCityChange}
+            required
+          />
         </div>
       </div>
       <div className="row1">

@@ -12,7 +12,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Auth/AuthContext";
 
-
 const SignUp = () => {
   const { profile, setProfile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -30,10 +29,11 @@ const SignUp = () => {
     Description: "",
     Instagram: "",
     Facebook: "",
-    Twitter: ""
+    Twitter: "",
   });
 
   const handleSubmit = async (event) => {
+    console.log("Signing UP.....");
     event.preventDefault();
     if (isLastStep) {
       if (!formData.Description) {
@@ -44,26 +44,28 @@ const SignUp = () => {
         return;
       }
       try {
-        const response = await axios.post(`${apiUrl}/api/user/registerorganizer`, formData, { withCredentials: true });
-        setProfile(response.data.profile)
+        const response = await axios.post(
+          `${apiUrl}/api/user/registerorganizer`,
+          formData,
+          { withCredentials: true }
+        );
+        setProfile(response.data.profile);
       } catch (error) {
         console.error(error);
       }
     }
   };
 
-
   useEffect(() => {
-    if (profile?.account?.account_type === 'organizer') {
-      navigate('/organizer/dashboard');
+    if (profile?.account?.account_type === "organizer") {
+      navigate("/organizer/dashboard");
     }
   }, [profile, navigate]);
-
 
   const handleBackClick = () => {
     back();
     setErrorField("");
-  }
+  };
 
   const validateFirstStep = () => {
     if (!formData.first_name) {
@@ -118,9 +120,6 @@ const SignUp = () => {
 
     return true;
   };
-
-
-
   const handleNextClick = () => {
     if (isFirstStep) {
       const isValid = validateFirstStep();
@@ -136,12 +135,10 @@ const SignUp = () => {
       if (isValid) {
         // proceed to the next step
         next();
-        setErrorField("")
+        setErrorField("");
       }
     }
-
-  }
-
+  };
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
@@ -167,22 +164,34 @@ const SignUp = () => {
               Already a member? <span>Login</span>
             </div>
             <SignUpFlow activestep={`${currentStepIndex + 1}`} />
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit}>
               <div className="form-container">
                 <div className="top-form-container">{step}</div>
-                <div style={{ color: 'red' }}>{errorField}</div>
+                <div style={{ color: "red" }}>{errorField}</div>
                 <div className="bottom-form-container">
                   {!isFirstStep && (
-                    <button className="back" type="button" onClick={handleBackClick}>
+                    <button
+                      className="back"
+                      type="button"
+                      onClick={handleBackClick}
+                    >
                       Back
                     </button>
                   )}
-                  {!isLastStep && <button className="next" type="button" onClick={handleNextClick}>
-                    Next
-                  </button>}
-                  {isLastStep && <button className="next" type="submit" >
-                    Sign Up
-                  </button>}
+                  {!isLastStep && (
+                    <button
+                      className="next"
+                      type="button"
+                      onClick={handleNextClick}
+                    >
+                      Next
+                    </button>
+                  )}
+                  {isLastStep && (
+                    <button className="next" type="submit">
+                      Sign Up
+                    </button>
+                  )}
                 </div>
               </div>
             </form>

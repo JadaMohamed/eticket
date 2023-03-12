@@ -94,9 +94,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/scanner", scannerRoutes);
 
 app.get("/", (req, res) => {
-  res.send(
-    "If you see this, you are the best person in the world! but go to /api instead :^)"
-  );
+  res.send("This is e-ticket.com api but go to /api instead :^)");
 });
 
 app.use(handleError);
@@ -119,7 +117,7 @@ app.get("/api/images", async (req, res) => {
   res.send(publicIds);
 });
 
-app.post("/api/upload", async (req, res) => {
+app.post("/api/images/upload", async (req, res) => {
   try {
     const fileStr = req.body.data;
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
@@ -132,7 +130,7 @@ app.post("/api/upload", async (req, res) => {
     res.status(500).json({ err: "somthing went wrong" });
   }
 });
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Application started on port ${PORT}!`);
