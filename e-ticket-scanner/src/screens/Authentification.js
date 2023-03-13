@@ -10,6 +10,7 @@ import Button from '../components/Button';
 //FIXME: SVG Works fine in chrome, but in android it's not why ?.
 const Authentification = ({navigation}) => {
   const [email, setEmail] = useState('');
+  const [signinin, setsigninin] = useState(false);
   const [password, setPassword] = useState('');
 
   const emailChangeHandler = value => setEmail(value);
@@ -43,11 +44,10 @@ const Authentification = ({navigation}) => {
           body: JSON.stringify({email, password}),
         },
       );
-
+      setsigninin(false);
       if (!response.ok) {
         Alert.alert('Login Error :', 'Invalid email or password');
       }
-
       const accountId = await response.json();
       const organizer = await fetchOrganizer(accountId);
       console.log(organizer);
@@ -60,7 +60,11 @@ const Authentification = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Header style={styles.headerImage} />
+        {/* <Header /> */}
+        <Image
+          source={require('../assets/Authentification/Header.png')}
+          style={styles.headerImage}
+        />
         <Logo style={styles.logo} />
       </View>
       <View style={styles.authenticationSection}>
@@ -81,7 +85,14 @@ const Authentification = ({navigation}) => {
           isVisible={true}
         />
         <Spacer size={15} />
-        <Button onPress={signInHandler} title={'Sign In'} height={40} />
+        <Button
+          onPress={() => {
+            signInHandler();
+            setsigninin(true);
+          }}
+          title={signinin ? 'Please wait...' : 'Sign In'}
+          height={40}
+        />
       </View>
     </View>
   );
@@ -103,6 +114,9 @@ const styles = StyleSheet.create({
   headerImage: {
     position: 'absolute',
     top: -40,
+    width: '100%',
+    height: '100%',
+    aspectRatio: 1,
   },
   logo: {
     position: 'absolute',

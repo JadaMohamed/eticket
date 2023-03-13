@@ -67,14 +67,16 @@ export const AuthContextProvider = ({ children }) => {
     console.log("Signing out.....");
 
     await axios.get(`${apiUrl}/api/user/logout`, { withCredentials: true });
-    console.log("Signed out.....");
+    console.log("Signed out...");
 
-    setProfile(null);
-    setLoggedIn(false);
+    // setProfile(null);
+    // setLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ profile, login, logout, isLoggedIn, setProfile  }}>
+    <AuthContext.Provider
+      value={{ profile, login, logout, isLoggedIn, setProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );
