@@ -90,6 +90,8 @@ model Event {
   is_review_enabled     Boolean
   is_approved           Boolean
   title                 String                @default("My event title") @db.VarChar(100)
+  created_at            DateTime              @default(now())
+  updated_at            DateTime              @updatedAt
   ClientWaitList        ClientWaitList[]
   Organizer             Organizer             @relation(fields: [org_id], references: [org_id], onDelete: Cascade, map: "FK_Event_Organizer")
   Event_Images          Event_Images[]
