@@ -84,6 +84,23 @@ const updateOrdersCart = async (req, res) => {
     }
 };
 
+const getRecentOrdersByOrganizer = async (req, res) => {
+    const org_id = req.params.orgId;
+    try {
+        const recentOrders = await ordersCartService.getRecentOrdersByOrganizer(org_id);
+
+        if (recentOrders && recentOrders.length > 0) {
+            res.status(200).json(recentOrders);
+        } else {
+            res.status(404).json({ error: `No Orders found for organizer with ID ${org_id}` });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to get recent orders' });
+    }
+};
+
 
 
 export default {
@@ -93,4 +110,5 @@ export default {
     getOrderById,
     deleteOrdersCarttById,
     updateOrdersCart,
+    getRecentOrdersByOrganizer,
 };
