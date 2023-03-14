@@ -130,7 +130,7 @@ const logout = async (req, res, next) => {
         res.clearCookie('eticketjwt', {
             httpOnly: true,
             secure: true,
-            maxAge: 60 * 2 * 1000, // 2s
+            maxAge: 2 * 1000, // 2s
             sameSite: 'None',
             path: '/',
         });
