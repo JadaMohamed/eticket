@@ -66,7 +66,23 @@ const eventService = {
     });
     return events;
   },
+
+
+  getLastThreeEventsForOrganizer: async (orgId) => {
+    const events = await prisma.event.findMany({
+      where: {
+        org_id: orgId,
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+      take: 3,
+    });
+    return events;
+  },
+  
 };
+
 
 export default eventService;
 

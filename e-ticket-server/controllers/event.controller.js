@@ -101,7 +101,27 @@ const eventController = {
         }
     },
 
+
+    getLastThreeEventsForOrganizer: async (req, res) => {
+        const orgId = Number(req.params.orgId);
+
+        try {
+            const events = await eventService.getLastThreeEventsForOrganizer(orgId);
+
+            if (events && events.length > 0) {
+                res.status(200).json(events);
+            } else {
+                res.status(404).json({ error: `No events found for organizer with ID ${orgId}` });
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    },
+
 };
+
+
 
 export default eventController;
 
