@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../css/dashboard.css";
 import OrNavigationBar from "../components/navigation_bar";
 import SideBar from "../components/side_bar";
@@ -8,8 +8,32 @@ import left from "../../img/left.svg";
 import right from "../../img/right.svg";
 import RecentOrders from "../components/recent_orders";
 import "../css/index.css";
+import Axios from "axios";
+import AuthContext from "../../Auth/AuthContext";
 
 function Dashboard() {
+  const { profile } = useContext(AuthContext);
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const [lastThreeEvents, setLastThreeEvents] = useState([])
+  const getLastThreeEventsForOrganizer = async () => {
+    try {
+      const response = await Axios.get(
+        `${apiUrl}/api/events/organizer/${profile.user.org_id}/last-three`,
+        { withCredentials: true }
+      );
+      console.log(response.data)
+      setLastThreeEvents(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getLastThreeEventsForOrganizer();
+  }, []);
+  console.log(lastThreeEvents[0])
+
   return (
     <div>
       <OrNavigationBar />
@@ -21,9 +45,9 @@ function Dashboard() {
         </div>
         <div className="cards-container">
           <SalesCardDash sales="239" totalSeats="320" />
-          <SalesCard sales="39" totalSeats="80" />
-          <SalesCard sales="55" totalSeats="80" />
-          <SalesCard sales="145" totalSeats="160" />
+          {lastThreeEvents[2] && <SalesCard sales={lastThreeEvents[2].number_sold_tickets} totalSeats={lastThreeEvents[2].max_number_attendants} />}
+          {lastThreeEvents[1] && <SalesCard sales={lastThreeEvents[1].number_sold_tickets} totalSeats={lastThreeEvents[1].max_number_attendants} />}
+          {lastThreeEvents[0] && <SalesCard sales={lastThreeEvents[0].number_sold_tickets} totalSeats={lastThreeEvents[0].max_number_attendants} />}
         </div>
         <div className="images">
           <div className="left">
