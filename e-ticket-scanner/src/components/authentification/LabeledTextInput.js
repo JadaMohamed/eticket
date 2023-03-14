@@ -1,6 +1,14 @@
-import {StyleSheet, Text, View, TextInput, Pressable, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
-import Visibility from '../../assets/Authentification/Visibility.svg';
+import Visibilityoff from '../../assets/Authentification/Visibilityoff.svg';
+import Visibilityon from '../../assets/Authentification/visibilityon.svg';
 
 const LabeledTextInput = ({
   label,
@@ -34,7 +42,7 @@ const LabeledTextInput = ({
               else setVisible(true);
             }}
             style={styles.visibilityIcon}>
-            <Visibility />
+            {visible ? <Visibilityoff /> : <Visibilityon />}
           </TouchableOpacity>
         )}
       </View>
