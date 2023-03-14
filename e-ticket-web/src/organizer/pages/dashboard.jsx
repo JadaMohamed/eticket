@@ -15,7 +15,9 @@ function Dashboard() {
   const { profile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const [lastThreeEvents, setLastThreeEvents] = useState([])
+  const [lastThreeEvents, setLastThreeEvents] = useState([]);
+  const [eventsStats, setEventsStats] = useState();
+
   const getLastThreeEventsForOrganizer = async () => {
     try {
       const response = await Axios.get(
@@ -23,7 +25,8 @@ function Dashboard() {
         { withCredentials: true }
       );
       console.log(response.data)
-      setLastThreeEvents(response.data)
+      setLastThreeEvents(response.data.events);
+      setEventsStats(response.data.eventsStats);
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +35,6 @@ function Dashboard() {
   useEffect(() => {
     getLastThreeEventsForOrganizer();
   }, []);
-  console.log(lastThreeEvents[0])
 
   return (
     <div>
@@ -44,7 +46,7 @@ function Dashboard() {
           <div className="inst">Welcome back to your dashboard !</div>
         </div>
         <div className="cards-container">
-          <SalesCardDash sales="239" totalSeats="320" />
+          {eventsStats && <SalesCardDash sales={eventsStats.totalSoldTickets} totalSeats={eventsStats.totalMaxAttendees} />}
           {lastThreeEvents[2] && <SalesCard sales={lastThreeEvents[2].number_sold_tickets} totalSeats={lastThreeEvents[2].max_number_attendants} />}
           {lastThreeEvents[1] && <SalesCard sales={lastThreeEvents[1].number_sold_tickets} totalSeats={lastThreeEvents[1].max_number_attendants} />}
           {lastThreeEvents[0] && <SalesCard sales={lastThreeEvents[0].number_sold_tickets} totalSeats={lastThreeEvents[0].max_number_attendants} />}
