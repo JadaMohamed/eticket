@@ -35,17 +35,18 @@ model Admin {
 }
 
 model Organizer {
-  org_id        Int     @id @default(autoincrement())
-  org_country   String  @default("My Country") @db.VarChar(50)
-  personalStore String  @default("My personal Store") @db.VarChar(150)
-  Instagram     String  @default("no Instagram link") @db.VarChar(150)
-  Facebook      String  @default("no Facebook link") @db.VarChar(150)
-  Twitter       String  @default("no Twitter link") @db.VarChar(150)
-  account_id    Int     @unique
-  city          String  @default("My City") @db.VarChar(50)
-  Description   String  @default("Organizer description for account") @db.VarChar(500)
+  org_id        Int           @id @default(autoincrement())
+  org_country   String        @default("My Country") @db.VarChar(50)
+  personalStore String        @default("My personal Store") @db.VarChar(150)
+  Instagram     String        @default("no Instagram link") @db.VarChar(150)
+  Facebook      String        @default("no Facebook link") @db.VarChar(150)
+  Twitter       String        @default("no Twitter link") @db.VarChar(150)
+  account_id    Int           @unique
+  city          String        @default("My City") @db.VarChar(50)
+  Description   String        @default("Organizer description for account") @db.VarChar(500)
   Events        Event[]
-  Account       Account @relation(fields: [account_id], references: [account_id], onDelete: Cascade, map: "FK_Organizer_Account")
+  Account       Account       @relation(fields: [account_id], references: [account_id], onDelete: Cascade, map: "FK_Organizer_Account")
+  Orders_Cart   Orders_Cart[]
 
   @@index([account_id])
 }
@@ -90,6 +91,8 @@ model Event {
   is_review_enabled     Boolean
   is_approved           Boolean
   title                 String                @default("My event title") @db.VarChar(100)
+  created_at            DateTime              @default(now())
+  updated_at            DateTime              @updatedAt
   ClientWaitList        ClientWaitList[]
   Organizer             Organizer             @relation(fields: [org_id], references: [org_id], onDelete: Cascade, map: "FK_Event_Organizer")
   Event_Images          Event_Images[]
@@ -140,11 +143,14 @@ model Orders_Cart {
   event_id            Int
   ticket_type_id      Int
   client_id           Int
+  org_id              Int                  
   is_paid             Boolean
+  Organizer           Organizer             @relation(fields: [org_id], references: [org_id], onDelete: Cascade, map: "FK_Orders_Cart_Organizer")
   Client              Client                @relation(fields: [client_id], references: [client_id], onDelete: Cascade, map: "FK_Orders_Cart_Client")
   Event               Event                 @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Orders_Cart_Event")
   Paid_Tickets_Orders Paid_Tickets_Orders[]
 
+  @@index([org_id])
   @@index([client_id])
   @@index([event_id])
 }

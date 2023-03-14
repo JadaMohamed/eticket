@@ -66,7 +66,47 @@ const eventService = {
     });
     return events;
   },
+
+
+  getLastThreeEventsForOrganizer: async (orgId) => {
+    const events = await prisma.event.findMany({
+      where: {
+        org_id: orgId,
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+      take: 3,
+    });
+    return events;
+  },
+
+  getOrganizerEventStats: async (orgId) => {
+    const events = await prisma.event.findMany({
+      where: {
+        org_id: orgId,
+      },
+      select: {
+        number_sold_tickets: true,
+        max_number_attendants: true,
+      },
+    });
+
+    const totalSoldTickets = events.reduce((acc, curr) => acc + curr.number_sold_tickets, 0);
+    const totalMaxAttendees = events.reduce((acc, curr) => acc + curr.max_number_attendants, 0);
+
+    return {
+      totalSoldTickets,
+      totalMaxAttendees,
+    };
+  },
+
+
+
 };
+
+
+
 
 export default eventService;
 

@@ -9,7 +9,7 @@ const createOrder = async (data) => {
 const getAllOrders = async () => {
     return prisma.orders_Cart.findMany({
         include: {
-             Event: true,
+            Event: true,
             Paid_Tickets_Orders: true,
         }
     });
@@ -18,7 +18,7 @@ const getAllOrders = async () => {
 
 const getOrderById = async (id) => {
     return prisma.orders_Cart.findUnique({
-        where: { order_id:  parseInt(id) },
+        where: { order_id: parseInt(id) },
         include: {
             Event: true,
             Paid_Tickets_Orders: true,
@@ -45,10 +45,38 @@ const updateOrdersCart = async (orderId, updatedData) => {
     }
 };
 
+const getRecentOrdersByOrganizer = async (id) => {
+    const orders = await prisma.orders_Cart.findMany({
+        where: { org_id: parseInt(id) },
+        orderBy: {
+            Ordered_at: 'desc', // Order by the Ordered_at field in descending order to get the most recent orders first
+        },
+        take: 10, // Limit the results to the 10 most recent orders
+        include: {
+            Client: {
+                select: {
+                    // client_id: true,
+                    Account: {
+                        select: {
+                            first_name: true,
+                            last_name: true,
+                            email: true,
+                            avatar: true,  
+                        }
+                    }
+                },
+            },
+        },
+    });
+
+    return orders;
+}
+
 export default {
     createOrder,
     getAllOrders,
     getOrderById,
     deleteOrdersCarttById,
-    updateOrdersCart
+    updateOrdersCart,
+    getRecentOrdersByOrganizer
 };
