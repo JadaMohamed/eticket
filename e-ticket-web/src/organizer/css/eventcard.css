@@ -1,0 +1,81 @@
+.organizer-cardevent .with-title {
+    position: relative;
+}
+.organizer-cardevent .with-title .event-title {
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+    font-weight: 500;
+    color: var(--Grey1);
+    font-size: 16px;
+}
+.organizer-cardevent .oevent-infos-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+.organizer-cardevent .oevent-infos-actions .oevent-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.organizer-cardevent .oevent-infos-actions .oevent-infos span {
+    color: var(--Grey1);
+}
+.organizer-cardevent .oevent-infos-actions .oevent-infos .sales-process {
+    background-color: var(--Purple10);
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.organizer-cardevent .oevent-infos-actions .oevent-infos .sales-process .percent {
+    width: 70%;
+    background-color: var(--Purple);
+    height: 4px;
+}
+.oinfos {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.oevent-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.oevent-actions .change-statu {
+    width: 100%;
+    display: flex;
+}
+.oevent-actions .change-statu .label {
+    margin: auto;
+    background-color: var(--Purple60);
+    width: 100%;
+    text-align: center;
+    color: var(--White);
+    padding: 7px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+.oevent-actions .change-statu .label:hover {
+    opacity: 0.9;
+}
+.oevent-actions .actions {
+    display: flex;
+    gap: 10px;
+}
+.oevent-actions .actions .act {
+    display: flex;
+}
+.oevent-actions .actions .act span {
+    border: 1px solid var(--Purple60);
+    padding: 5px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    color: var(--Purple60);
+    cursor: pointer;
+}

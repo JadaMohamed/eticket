@@ -9,7 +9,7 @@ td {
 }
 .sales-table table td {
     border-bottom: 1px solid var(--LightPurple);
-    padding: 7px 0 7px 10px;
+    padding: 10px 0 10px 10px;
     font-size: 0.9rem;
     color: var(--Grey1);
 }

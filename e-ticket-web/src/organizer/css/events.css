@@ -1,0 +1,35 @@
+.container .orga-page-content .filter-svents {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--Purple10);
+    color: var(--Purple30);
+    gap: 15px;
+    user-select: none;
+    cursor: pointer;
+}
+.container .orga-page-content .filter-svents .filter-ev {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    padding-bottom: 3px;
+    align-items: center;
+}
+.container .orga-page-content .filter-svents .active {
+    font-weight: 600;
+    color: var(--Purple);
+    border-bottom: 2px solid var(--Purple);
+}
+.container .orga-page-content .filter-svents .active span {
+    border-color: var(--Purple) !important;
+}
+.container .orga-page-content .filter-svents .filter-ev span {
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-bottom: 5px; */
+    border-radius: 50%;
+    /* border: 1px solid var(--Purple30); */
+}

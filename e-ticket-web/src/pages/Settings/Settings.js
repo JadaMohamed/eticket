@@ -3,7 +3,7 @@ import SubNavbar from "../../components/common/subnavbar";
 import "./Settings.css";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Auth/AuthContext";
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 function Settings() {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -151,7 +151,6 @@ function Settings() {
       console.error(error);
     }
   };
-
   ////upload image
   const [imageIds, setImageIds] = useState();
   const loadImages = async () => {
@@ -189,6 +188,19 @@ function Settings() {
       });
     } catch (erroe) {}
   };
+  // const uploadImage = async (base64EncodedImage) => {
+  //   try {
+  //     await Axios.put(
+  //       `${apiUrl}/api/images/upload/`,
+  //       { data: base64EncodedImage },
+  //       {
+  //         headers: { "Content-type": "application/json" },
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);

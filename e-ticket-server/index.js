@@ -68,8 +68,8 @@ const corsOptions = {
 // Enable CORS middleware with options
 app.use(cors(corsOptions));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
 app.use("/api/events", eventRoutes);
@@ -104,8 +104,8 @@ app.use(handleError);
 // const app = express();
 // const { cloudinary } = require("./cloudinary/cloudinary");
 import cloudinary from "./cloudinary/cloudinary.js";
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// app.use(express.json({ limit: "50mb" }));
+// app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.get("/api/images", async (req, res) => {
   const { resources } = await cloudinary.search

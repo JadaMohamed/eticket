@@ -3,6 +3,7 @@ import "../../css/card.css";
 import { useNavigate } from "react-router-dom";
 import CountdownDate from "../common/countdown";
 // import Image from "../../img/event-image.jpg";
+import Expired from "../../img/end.svg";
 import { Image } from "cloudinary-react";
 
 function Card(props) {
@@ -11,7 +12,6 @@ function Card(props) {
     let cart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart or create an empty array
     const productId = props.eventid;
     let productExists = false;
-
     // Check if product is already in the cart
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].eventId === productId) {
@@ -21,7 +21,6 @@ function Card(props) {
         break;
       }
     }
-
     // Add product to cart if it doesn't exist
     if (!productExists) {
       const cartObj = {
@@ -41,17 +40,17 @@ function Card(props) {
         cart.push(cartObj);
       }
     }
-
     // Update cart in local storage
     localStorage.setItem("cart", JSON.stringify(cart));
   };
-
+  const isExpired = new Date(props.date) < new Date();
   return (
     <div className="cardevent" key={props.id}>
       <div
         className="previewimage cta"
         onClick={() => Nav(`/events/${props.eventid}`, { replace: false })}
       >
+        {isExpired ? <img src={Expired} className="expiredimage" /> : ""}
         <Image cloudName="djjwswdo4" publicId={props.image} />
         {/* <img src={Image} alt="" /> */}
       </div>
@@ -69,7 +68,15 @@ function Card(props) {
           </div>
           <div className="date inf cta">
             <span className="material-symbols-outlined">hourglass_top</span>
-            <CountdownDate date={props.date} />
+
+            {isExpired ? (
+              <div className="calculated-date expired">
+                <span>0</span> d <span>0</span> h <span>0 </span>
+                min <span>0</span> sec
+              </div>
+            ) : (
+              <CountdownDate date={props.date} />
+            )}
           </div>
           <div className="event-category">{props.category}</div>
           <div className="shopping">
