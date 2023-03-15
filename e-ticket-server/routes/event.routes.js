@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/', verifyJwt, verifyOrganizerOrAdmin, eventController.createEvent);
 router.post('/many', verifyJwt, verifyAdmin, eventController.createManyEvent);
+router.post('/create/:orgId', verifyJwt, verifyOrganizerOrAdmin, eventController.createOrganizerEvent);
 router.get('/', eventController.getAllEvents);
 router.get('/search', eventController.searchEvents);
 router.get('/:id', eventController.getEventById);
