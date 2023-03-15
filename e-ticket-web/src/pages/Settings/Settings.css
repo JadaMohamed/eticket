@@ -124,6 +124,7 @@ select::-ms-expand {
 }
 .avatar-collector .display .current-avatar img {
     width: 100%;
+    object-fit: cover;
 }
 .avatar-collector .display .drag-drop-space {
     padding: 30px;
@@ -179,7 +180,7 @@ select::-ms-expand {
 .personal-infos-bottom .save-change-btn {
     cursor: pointer;
     border-radius: 8px;
-    background-color: var(--Green);
+    background-color: var(--Purple);
     padding: 7px 20px;
     color: var(--White);
     transition: 0.3s;
