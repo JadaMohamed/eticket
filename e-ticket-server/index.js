@@ -122,9 +122,11 @@ app.post("/api/images/upload", async (req, res) => {
     const fileStr = req.body.data;
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "e_ticket",
+      folder: "e_ticket/useravatar",
     });
     console.log(uploadedResponse);
-    res.json({ msg: "meow de meow" });
+    const url = uploadedResponse.secure_url;
+    res.json({ url });
   } catch (error) {
     console.log(error);
     res.status(500).json({ err: "somthing went wrong" });
