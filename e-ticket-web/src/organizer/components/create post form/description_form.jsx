@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 
-const Description_form = () => {
-  const [description, setDescription] = useState("");
-  const [eventCategory, setEventCategory] = useState("");
+const Description_form = ({ eventData, setEventData }) => {
+  const [description, setDescription] = useState(eventData.description);
+  const [eventCategory, setEventCategory] = useState(eventData.eventCategory);
 
   const handleDescriptionChange = (event) => {
     if (event.target.value.length > 300) {
       return;
     }
     setDescription(event.target.value);
+    setEventData((prevData) => ({
+      ...prevData,
+      description: event.target.value,
+    }));
   };
 
   const handleEventCategoryChange = (event) => {
     setEventCategory(event.target.value);
+    setEventData((prevData) => ({
+      ...prevData,
+      eventCategory: event.target.value,
+    }));
   };
 
   return (

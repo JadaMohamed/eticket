@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "../../css/create post form/index.css";
 
 const Overview_form = ({ eventData, setEventData }) => {
-  const [eventTitle, setEventTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
+  const [eventTitle, setEventTitle] = useState(eventData.eventTitle);
+  const [date, setDate] = useState(eventData.date);
+  const [time, setTime] = useState(eventData.time);
+  const [address1, setAddress1] = useState(eventData.address1);
+  const [address2, setAddress2] = useState(eventData.address2);
 
   const handleAddress1Change = (e) => {
     if (e.target.value.length >50){

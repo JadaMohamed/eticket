@@ -20,6 +20,9 @@ export const Createevent = () => {
     address2: "",
     // Pricing_form coming data
     categories: [{ name: "", price: "", numSeats: "" }],
+    // Description_form coming data
+    description:"",
+    eventCategory:"Festivale | Concert",
 
   });
 
