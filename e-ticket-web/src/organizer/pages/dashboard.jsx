@@ -24,7 +24,7 @@ function Dashboard() {
         `${apiUrl}/api/events/organizer/${profile.user.org_id}/last-three`,
         { withCredentials: true }
       );
-      console.log(response.data)
+      // console.log(response.data)
       setLastThreeEvents(response.data.events);
       setEventsStats(response.data.eventsStats);
     } catch (error) {

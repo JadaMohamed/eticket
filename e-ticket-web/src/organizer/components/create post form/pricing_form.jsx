@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../css/create post form/pricing.css";
 
-const Pricing_form = () => {
-  const [categories, setCategories] = useState([
-    { name: "", price: "", numSeats: "" },
-  ]);
+const Pricing_form = ({ eventData, setEventData }) => {
+  const [categories, setCategories] = useState(eventData.categories);
+
+  useEffect(() => {
+    // console.log(categories)
+    setEventData((prevEventData) => ({
+      ...prevEventData,
+      categories: categories,
+    }));
+  }, [categories]);
+
+
+ // console.log(categories)
 
   function handleAddCategory(event) {
     event.preventDefault();
+    const isValid = categories.every((category) => {
+      return category.name.trim() !== "" &&
+        category.price.trim() !== "" &&
+        category.numSeats.trim() !== "";
+    });
+    if (!isValid) {
+      return;
+    }
     const newCategories = [
       ...categories,
       { name: "", price: "", numSeats: "" },
     ];
     setCategories(newCategories);
+    
+
   }
 
   function handleRemoveCategory(index) {
