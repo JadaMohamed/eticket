@@ -45,6 +45,10 @@ export const AuthContextProvider = ({ children }) => {
       setLoggedIn(true);
       setProfile(apiResponse.data.profile);
       if (apiResponse.data.profile.account.account_type) {
+        localStorage.setItem(
+          "usertype",
+          apiResponse.data.profile.account.account_type
+        );
         switch (apiResponse.data.profile.account.account_type) {
           case "client":
             navigate("/");

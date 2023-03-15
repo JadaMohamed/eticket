@@ -2,11 +2,13 @@ import react, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../../Auth/AuthContext";
 import { Image } from "cloudinary-react";
 import "../css/navigation_bar.css";
+import { useNavigate } from "react-router-dom";
 
 function OrNavigationBar() {
   const [open, setOpen] = useState(false);
   const { logout } = useContext(AuthContext);
   const { profile, isLoggedIn } = useContext(AuthContext);
+  const Nav = useNavigate();
   let menuRef = useRef();
   useEffect(() => {
     let handler = (e) => {
@@ -68,11 +70,14 @@ function OrNavigationBar() {
                 </div>
               </div>
             </div>
-            <div className="dropdown-item">
+            <div
+              className="dropdown-item"
+              onClick={() => Nav("/settings", { replace: true })}
+            >
               <div>
-                <span className="material-symbols-outlined">language</span>
+                <span className="material-symbols-outlined">edit_square</span>
               </div>
-              English
+              Settings
             </div>
             <div className="dropdown-item">
               <div>
@@ -81,12 +86,6 @@ function OrNavigationBar() {
                 </span>
               </div>
               Support
-            </div>
-            <div className="dropdown-item">
-              <div>
-                <span class="material-symbols-outlined">person_add</span>
-              </div>
-              Sign Up
             </div>
             <div
               className="dropdown-item"

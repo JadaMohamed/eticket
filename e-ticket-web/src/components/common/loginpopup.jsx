@@ -10,6 +10,7 @@ export default function LoginPopup(props) {
   const password = useRef("");
   const { login } = useContext(AuthContext);
   const Nav = useNavigate();
+
   const loginSubmit = async (event) => {
     event.preventDefault();
     let payload = {
