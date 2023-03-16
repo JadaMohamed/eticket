@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--Purple10);
+    /* border-bottom: 1px solid var(--Purple10); */
     padding-bottom: 20px;
     padding-top: 20px;
 }
@@ -93,18 +93,18 @@
 }
 
 .ticket-card .ticket-card-container .ticket-consult .btns .download-ticket {
-    border: 1px solid var(--Green50);
-    color: var(--Green);
+    border: 1px solid var(--Purple60);
+    color: var(--Purple);
     transition: var(--Trans03);
 }
 .ticket-card .ticket-card-container .ticket-consult .btns .download-ticket:hover {
-    background-color: var(--LighterGreen);
+    background-color: var(--LighterPurple);
 }
 .ticket-card .ticket-card-container .ticket-consult .btns .preview-ticket {
-    border: 1px solid var(--Green50);
+    border: 1px solid var(--Purple60);
     color: var(--White);
     transition: var(--Trans03);
-    background-color: var(--Green);
+    background-color: var(--Purple);
 }
 .ticket-card .ticket-card-container .ticket-consult .btns .preview-ticket:hover {
     opacity: 0.9;

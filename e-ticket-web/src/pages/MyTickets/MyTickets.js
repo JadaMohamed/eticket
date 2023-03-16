@@ -49,9 +49,9 @@ function MyTickets() {
     <>
       <Navbar />
       <SubNavbar />
+      <MyTicketsHeader />
       <div className="content-cart-page">
         <div className="content-cart-page-container">
-          {/* <TicketsHead /> */}
           {tickets.length > 0 ? (
             tickets.map((ticket) => (
               <div key={ticket.ticket_id}>

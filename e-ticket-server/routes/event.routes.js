@@ -16,6 +16,7 @@ router.post(
 );
 router.post("/many", verifyJwt, verifyAdmin, eventController.createManyEvent);
 router.get("/", eventController.getAllEvents);
+router.get("/topsalesevents", eventController.getTopSalesEvents);
 router.get("/search", eventController.searchEvents);
 router.get("/:id", eventController.getEventById);
 router.delete(
@@ -36,6 +37,7 @@ router.get(
   verifyOrganizerOrAdmin,
   eventController.getLastThreeEventsForOrganizer
 );
+
 router.get(
   "/organizer/:orgId/all-events",
   eventController.getAllOrganizerEvents
@@ -78,6 +80,7 @@ router.get(
   verifyOrganizerOrAdmin,
   eventController.getLastThreeEventsForOrganizer
 );
+
 export default router;
 
 // import express from 'express';
