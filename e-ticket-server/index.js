@@ -132,6 +132,21 @@ app.post("/api/images/upload", async (req, res) => {
     res.status(500).json({ err: "somthing went wrong" });
   }
 });
+app.post("/api/images/eventimages/upload", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "e_ticket",
+      folder: "e_ticket/eventsimages",
+    });
+    console.log(uploadedResponse);
+    const url = uploadedResponse.secure_url;
+    res.json({ url });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ err: "somthing went wrong" });
+  }
+});
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

@@ -104,6 +104,7 @@ const loginToAccount = async (req, res) => {
         if (account) {
             res.json(account.account_id);
         } else {
+            console.log(`Account with id ${email} AND ${password} not found`)
             res.status(404).json({ error: `Account with id ${email} AND ${password} not found` });
         }
     } catch (err) {

@@ -33,6 +33,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/mytickets" element={<MyTickets />} />
           <Route path="/events/:value" element={<Events />} />
+          <Route path="/organizer/:orgID" element={<Organizer />} />
           {/* An example of a react route */}
           <Route path="/example" element={<Example />} />
 
@@ -57,7 +58,6 @@ function App() {
               path="/organizer/events/createevent"
               element={<Createevent />}
             />
-            <Route path="/organizer" element={<Organizer />} />
           </Route>
         </Routes>
       </AuthContextProvider>

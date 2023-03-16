@@ -4,33 +4,28 @@ import Order from "./order";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 
-
 const RecentOrders = () => {
   const { profile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [recentOrders, setRecentOrders] = useState([]);
 
-
   const getRecentOrdersByOrganizer = async () => {
-
     try {
       const response = await Axios.get(
         `${apiUrl}/api/orders-cart/organizer/${profile.user.org_id}/recent`,
         { withCredentials: true }
       );
-      setRecentOrders(response.data)
+      setRecentOrders(response.data);
       // console.log(response.data)
-
     } catch (error) {
-      console.error(error);
+      console.error("Organizer don't have any events yet");
     }
   };
 
   useEffect(() => {
     getRecentOrdersByOrganizer();
   }, [profile]);
-
 
   return (
     <div className="recentorders">
@@ -61,14 +56,18 @@ const RecentOrders = () => {
             email={order.Client.Account ? order.Client.Account.email : ""}
             eventid={order.event_id}
             amount={order.total_price}
-            buyername={order.Client.Account ? order.Client.Account.first_name + " " + order.Client.Account.last_name : ""}
+            buyername={
+              order.Client.Account
+                ? order.Client.Account.first_name +
+                  " " +
+                  order.Client.Account.last_name
+                : ""
+            }
             ordernumber={order.order_id}
             date={order.Ordered_at}
           />
         ))
       )}
-
-
 
       {/* <Order
         avatar=""

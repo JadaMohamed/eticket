@@ -5,6 +5,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import FlashOff from '../assets/Scanner/FlashOff.svg';
 import ArrowBack from '../assets/Scanner/ArrowBack.svg';
+import { API_URL } from '../constants/Api';
 
 const iconsWidthHeight = 20;
 const padding = 60;
@@ -25,7 +26,7 @@ const QrScanner = ({ route, navigation }) => {
 
     const fetchTickets = async () => {
         const response = await fetch(
-            `https://e-ticket-server.onrender.com/api/scanner/tickets/event/${route.params.event_id}`,
+            `${API_URL}/api/scanner/tickets/event/${route.params.event_id}`,
         );
         const data = await response.json();
         setTickets(data);
@@ -38,12 +39,13 @@ const QrScanner = ({ route, navigation }) => {
 
     const handleBarCodeScanned = ({ type, data }) => {
         const ticket = tickets.find((ticketObj) => ticketObj.qrcode === data);
+        console.log(ticket);
         if (!ticket) {
-            navigation.replace("InvalidTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id })
-        } else if (ticket.isscanned === true) {
-            navigation.replace("RecordedTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id })
+            navigation.replace("InvalidTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id, num_uses: ticket?.num_uses })
+        } else if (Number(ticket?.num_uses) > 0) {
+            navigation.replace("RecordedTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id, num_uses: ticket?.num_uses })
         } else {
-            navigation.replace("ValidTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id })
+            navigation.replace("ValidTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id,  num_uses: ticket?.num_uses })
         }
     };
     return (

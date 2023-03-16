@@ -67,14 +67,13 @@ const eventService = {
     return events;
   },
 
-
   getLastThreeEventsForOrganizer: async (orgId) => {
     const events = await prisma.event.findMany({
       where: {
         org_id: orgId,
       },
       orderBy: {
-        created_at: 'desc',
+        created_at: "desc",
       },
       take: 3,
     });
@@ -92,21 +91,42 @@ const eventService = {
       },
     });
 
-    const totalSoldTickets = events.reduce((acc, curr) => acc + curr.number_sold_tickets, 0);
-    const totalMaxAttendees = events.reduce((acc, curr) => acc + curr.max_number_attendants, 0);
+    const totalSoldTickets = events.reduce(
+      (acc, curr) => acc + curr.number_sold_tickets,
+      0
+    );
+    const totalMaxAttendees = events.reduce(
+      (acc, curr) => acc + curr.max_number_attendants,
+      0
+    );
 
     return {
       totalSoldTickets,
       totalMaxAttendees,
     };
   },
-
-
-
+  getAllOrganizerEvents: async (orgId) => {
+    const events = await prisma.event.findMany({
+      where: {
+        org_id: Number(orgId),
+      },
+      include: {
+        Event_Images: true,
+      },
+    });
+    return events;
+  },
+  getOrganizerProfileById: async (orgId) => {
+    return prisma.organizer.findUnique({
+      where: {
+        org_id: Number(orgId),
+      },
+      include: {
+        Events: true,
+      },
+    });
+  },
 };
-
-
-
 
 export default eventService;
 

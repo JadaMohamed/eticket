@@ -19,7 +19,35 @@
 .create-event-container form .form-container .event-gallery .import-images .import-cards .import-card {
     border: 1px dashed var(--Grey3);
     border-radius: 8px;
-    min-height: 180px;
+    height: 180px;
+    position: relative;
+    /* aspect-ratio: 16/9; */
+    width: 100%;
+    overflow: hidden;
+}
+.create-event-container form .form-container .event-gallery .import-images .import-cards .import-card input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: transparent;
+    cursor: pointer;
+}
+.create-event-container form .form-container .event-gallery .import-images .import-cards .import-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.create-event-container
+    form
+    .form-container
+    .event-gallery
+    .import-images
+    .import-cards
+    .import-card
+    input::file-selector-button {
+    display: none;
 }
 .create-event-container
     form
@@ -29,6 +57,7 @@
     .import-cards
     .import-card
     .import-card-container {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 10px;

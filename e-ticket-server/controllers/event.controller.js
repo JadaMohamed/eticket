@@ -3,129 +3,191 @@ import eventService from '../services/event.service.js';
 import seatCategoryService from '../services/seat-category.service.js';
 
 const eventController = {
+  getAllEvents: async (req, res) => {
+    try {
+      const events = await eventService.getAllEvents();
+      res.status(200).json(events);
+    } catch (err) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ error: "Internal server error to get all event " });
+    }
+  },
 
-    getAllEvents: async (req, res) => {
-        try {
-            const events = await eventService.getAllEvents();
-            res.status(200).json(events);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error to get all event ' });
-        }
-    },
+  createEvent: async (req, res) => {
+    const eventData = req.body;
+    try {
+      const newEvent = await eventService.createEvent(eventData);
+      res.json(newEvent);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to create event" });
+    }
+  },
+  createManyEvent: async (req, res) => {
+    const { EventsData } = req.body;
+    try {
+      const newEvents = await Promise.all(
+        EventsData.map((Event) => eventService.createEvent(Event))
+      );
+      res.json(newEvents);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to create many Event" });
+    }
+  },
 
-    createEvent: async (req, res) => {
-        const eventData = req.body;
-        try {
-            const newEvent = await eventService.createEvent(eventData);
-            res.json(newEvent);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Failed to create event' });
-        }
-    },
-    createManyEvent: async (req, res) => {
-        const { EventsData } = req.body;
-        try {
-            const newEvents = await Promise.all(
-                EventsData.map(Event =>
-                    eventService.createEvent(Event)
-                )
-            );
-            res.json(newEvents);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Failed to create many Event' });
-        }
-    },
+  getEventById: async (req, res) => {
+    const eventId = Number(req.params.id);
+    try {
+      const event = await eventService.getEventById(eventId);
+      if (event) {
+        res.status(200).json(event);
+      } else {
+        res.status(404).json({ error: `Event with ID ${eventId} not found` });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
+  deleteEventById: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const deletedEvent = await eventService.deleteEventById(parseInt(id));
+      if (deletedEvent) {
+        res.json(deletedEvent);
+      } else {
+        res.status(404).json({ error: `Event with id ${id} not found` });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
-    getEventById: async (req, res) => {
-        const eventId = Number(req.params.id);
-        try {
-            const event = await eventService.getEventById(eventId);
-            if (event) {
-                res.status(200).json(event);
-            } else {
-                res.status(404).json({ error: `Event with ID ${eventId} not found` });
-            }
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
+  updateEvent: async (req, res) => {
+    const id = req.params.id;
+    const eventData = req.body;
 
+    try {
+      const updatedEvent = await eventService.updateEvent(id, eventData);
 
-    deleteEventById: async (req, res) => {
-        const id = req.params.id;
-        try {
-            const deletedEvent = await eventService.deleteEventById(parseInt(id));
-            if (deletedEvent) {
-                res.json(deletedEvent);
-            } else {
-                res.status(404).json({ error: `Event with id ${id} not found` });
-            }
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
+      if (updatedEvent) {
+        res.json(updatedEvent);
+      } else {
+        res.status(404).json({ error: `Event with id ${id} not found` });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
+  searchEvents: async (req, res) => {
+    try {
+      const keyword = req.query.keyword;
+      const events = await eventService.searchEvents(keyword);
+      res.status(200).json(events);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error ???");
+    }
+  },
 
-    updateEvent: async (req, res) => {
-        const id = req.params.id;
-        const eventData = req.body;
+  getLastThreeEventsForOrganizer: async (req, res) => {
+    const orgId = Number(req.params.orgId);
 
-        try {
-            const updatedEvent = await eventService.updateEvent(id, eventData);
+    try {
+      const events = await eventService.getLastThreeEventsForOrganizer(orgId);
+      const eventsStats = await eventService.getOrganizerEventStats(orgId);
 
-            if (updatedEvent) {
-                res.json(updatedEvent);
-            } else {
-                res.status(404).json({ error: `Event with id ${id} not found` });
-            }
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
+      if (events && events.length > 0) {
+        const response = {
+          events: events,
+          eventsStats: eventsStats,
+        };
+        res.status(200).json(response);
+      } else {
+        res
+          .status(404)
+          .json({ error: `No events found for organizer with ID ${orgId}` });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
+  getOrganizerEventStats: async (req, res) => {
+    const { orgId } = req.params;
+    try {
+      const eventStats = await eventService.getOrganizerEventStats(orgId);
+      res.status(200).json(eventStats);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
+  getAllOrganizerEvents: async (req, res) => {
+    const { orgId } = req.params;
+    try {
+      const events = await eventService.getAllOrganizerEvents(orgId);
+      res.status(200).json(events);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Something went wrong" });
+    }
+  },
 
-    searchEvents: async (req, res) => {
-        try {
-            const keyword = req.query.keyword;
-            const events = await eventService.searchEvents(keyword);
-            res.status(200).json(events);
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error ???');
-        }
-    },
+  getOrganizerProfileById: async (req, res) => {
+    const { org_id } = req.params;
+    try {
+      const organizer = await eventService.getOrganizerProfileById(org_id);
+      res.status(200).json(organizer);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
+  searchEvents: async (req, res) => {
+    try {
+      const keyword = req.query.keyword;
+      const events = await eventService.searchEvents(keyword);
+      res.status(200).json(events);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error ???");
+    }
+  },
 
-    getLastThreeEventsForOrganizer: async (req, res) => {
-        const orgId = Number(req.params.orgId);
+  getLastThreeEventsForOrganizer: async (req, res) => {
+    const orgId = Number(req.params.orgId);
 
-        try {
-            const events = await eventService.getLastThreeEventsForOrganizer(orgId);
-            const eventsStats = await eventService.getOrganizerEventStats(orgId);
+    try {
+      const events = await eventService.getLastThreeEventsForOrganizer(orgId);
+      const eventsStats = await eventService.getOrganizerEventStats(orgId);
 
-
-            if (events && events.length > 0) {
-                const response = {
-                    events: events,
-                    eventsStats: eventsStats,
-                };
-                res.status(200).json(response);
-            } else {
-                res.status(404).json({ error: `No events found for organizer with ID ${orgId}` });
-            }
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
+      if (events && events.length > 0) {
+        const response = {
+          events: events,
+          eventsStats: eventsStats,
+        };
+        res.status(200).json(response);
+      } else {
+        res
+          .status(404)
+          .json({ error: `No events found for organizer with ID ${orgId}` });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 
     getOrganizerEventStats: async (req, res) => {
         const { orgId } = req.params;
@@ -222,29 +284,7 @@ const eventController = {
     }
 };
 
-
-
-
 export default eventController;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import {eventService} from '../services/event.service.js';
 
@@ -292,47 +332,9 @@ export default eventController;
 //     }
 // };
 
-
-
 // module.exports = {
 //     createEvent,
 // };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // //1--Get all events
 // const getAllevents = async (req, res) => {
@@ -346,7 +348,6 @@ export default eventController;
 //         res.status(400).json({ error: error.message });
 //     }
 // };
-
 
 // //2--Get single event
 // const getevent = async (req, res) => {
@@ -362,12 +363,10 @@ export default eventController;
 //     }
 // };
 
-
 // //3--post a new event
 // const createevent = async (req, res) => { // listen to post request on '/'
 
 //     const { title, load, reps } = req.body // destructuring the request body to extract the title, load, and reps
-
 
 //     let emptyFields = []
 
@@ -383,7 +382,6 @@ export default eventController;
 //     if (emptyFields.length > 0) {
 //         return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
 //     }
-
 
 //     //add doc to db
 //     try {
@@ -407,7 +405,6 @@ export default eventController;
 //         res.status(400).json({ error: error.message });
 //     }
 // };
-
 
 // //5-- Update event in the database
 // const updateevent = async (req, res) => {

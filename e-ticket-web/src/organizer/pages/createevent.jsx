@@ -12,11 +12,10 @@ import Gallery_form from "../components/create post form/gallery_form";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 
-
 export const Createevent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const [imageCollector, setImages] = useState({ images: ["", "", ""] });
   const { profile } = useContext(AuthContext);
-
 
   const [eventData, setEventData] = useState({
     // Overview_form coming data
@@ -36,27 +35,47 @@ export const Createevent = () => {
     //Gallery_form
     Event_Images: [{ img_url: "url1.com" }, { img_url: "url2.com" }, { img_url: "url3.com" }],
 
+    images: ["", "", ""],
   });
-
+  const handleSubmitFile = (e) => {
+    // e.preventDefault();
+    if (!eventData.images) return;
+    return uploadImage(eventData.images);
+  };
+  const uploadImage = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    try {
+      const response = await fetch(`${apiUrl}/api/images/eventimages/upload/`, {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { "Content-type": "application/json" },
+      });
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
   useEffect(() => {
-    console.log(eventData)
+    console.log(eventData);
+    console.log(imageCollector);
   }, [eventData]);
-
 
   // Convert date and time to ISO format
   const convertToIsoDateTime = () => {
     const [month, day, year] = eventData.date.split("-");
     const [hours, minutes] = eventData.time.split(":");
     const dateTime = new Date(year, month - 1, day, hours, minutes);
-    console.log(dateTime)
+    console.log(dateTime);
     return dateTime.toISOString();
   };
 
   // Remove date and time properties from eventData and add isoDateTimeString instead
   const prepareEventDataForSubmit = () => {
     const startTime = convertToIsoDateTime();
-    console.log("startTime")
-    console.log(startTime)
+    console.log("startTime");
+    console.log(startTime);
     const { date, time, ...eventDataWithoutDateTime } = eventData;
     const eventDataWithStartTime = {
       ...eventDataWithoutDateTime,
@@ -80,14 +99,12 @@ export const Createevent = () => {
       }
     }
   };
-
-
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
       <Overview_form eventData={eventData} setEventData={setEventData} />,
       <Pricing_form eventData={eventData} setEventData={setEventData} />,
       <Description_form eventData={eventData} setEventData={setEventData} />,
-      <Gallery_form eventData={eventData} setEventData={setEventData} />,
+      <Gallery_form imageCollector={imageCollector} setImages={setImages} />,
       <Tickets_form eventData={eventData} setEventData={setEventData} />,
     ]);
 
@@ -108,8 +125,18 @@ export const Createevent = () => {
                   Back
                 </button>
               )}
-              {!isLastStep && <button className="next" type="button" onClick={next}>  Continue </button>}
-              {isLastStep && <button className="next" type="button" onClick={handlePublish}> Publish </button>}
+              {!isLastStep && (
+                <button className="next" type="button" onClick={next}>
+                  {" "}
+                  Continue{" "}
+                </button>
+              )}
+              {isLastStep && (
+                <button className="next" type="button" onClick={handlePublish}>
+                  {" "}
+                  Publish{" "}
+                </button>
+              )}
               {/* <button className="next" type="button" onClick={next}>
                 {isLastStep ? "Publish " : "Continue"}
               </button> */}

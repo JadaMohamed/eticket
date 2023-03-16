@@ -1,19 +1,16 @@
-import {StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useRef, useCallback, useEffect, useMemo, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../assets/Logo.svg';
 import OrganizerInformations from '../components/home/OrganizerInformations';
 import Spacer from '../components/Spacer';
-// import BottomSheet from '@gorhom/bottom-sheet';
 import EventCard from '../components/home/EventCard';
 import QrCodeScanner from '../assets/Home/QrCodeScanner.svg';
 import Check from '../assets/Home/Check.svg';
-import * as Animatable from 'react-native-animatable';
 import {MotiView} from 'moti';
 import {AnimatePresence} from 'moti/build';
-import VSpacer from '../components/VSpacer';
-import {height} from '../constants/Layout';
 import EventsList from '../components/home/EventsList';
+import { API_URL } from '../constants/Api';
 
 const ABottomSheet = React.lazy(() => import('@gorhom/bottom-sheet'));
 const BottomSheet = React.memo(ABottomSheet);
@@ -24,7 +21,7 @@ const Home = ({route, navigation}) => {
   useEffect(() => {
     const fetchEvents = async () => {
       const response = await fetch(
-        `https://e-ticket-server.onrender.com/api/scanner/organizers/${route.params?.org_id}`,
+        `${API_URL}/api/scanner/organizers/${route.params?.org_id}`,
       );
       const data = await response.json();
       setEvents(data.Events);
@@ -38,8 +35,8 @@ const Home = ({route, navigation}) => {
   const snapPoints = useMemo(() => ['40%', '100%'], []);
 
   const expandFull = useCallback(() => {
-    bottomSheetRef.current.snapToIndex(1);
     setFullyExpanded(true);
+    bottomSheetRef.current.snapToIndex(1);
   }, []);
 
   const selectedEventHandler = useCallback(index => {
@@ -49,8 +46,8 @@ const Home = ({route, navigation}) => {
 
   const fabPressHandler = useCallback(() => {
     if (isFullyExpanded) {
-      bottomSheetRef.current.snapToIndex(0);
       setFullyExpanded(false);
+      bottomSheetRef.current.snapToIndex(0);
     } else {
       navigation.push('Scanner', {
         event_id: events[selectedEventCard].event_id,
@@ -70,7 +67,6 @@ const Home = ({route, navigation}) => {
         snapPoints={snapPoints}
         backgroundStyle={{backgroundColor: '#EFE4FC'}}
         animateOnMount={true}
-        // onChange={handleSheetChanges}
       >
         <View style={styles.bottomSheetContainer}>
           <Text style={styles.headerText}>Choose Event</Text>
