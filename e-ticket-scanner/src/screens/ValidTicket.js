@@ -6,17 +6,19 @@ import ValidMark from "../assets/Validation/ValidMark.svg"
 import Spacer from '../components/Spacer'
 import Button from '../components/Button'
 import { widthPercentageToDP } from '../constants/Layout'
+import { API_URL } from '../constants/Api'
 
 const ValidTicket = ({ route, navigation }) => {
   const doneHandler = () => navigation.pop();
+  console.log("ticket num uses : ", route.params.num_uses);
   function updateTicket(ticketId) {
-    fetch(`https://e-ticket-server.onrender.com/api/scanner/tickets/${ticketId}`, {
+    fetch(`${API_URL}/api/scanner/tickets/${ticketId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        isscanned: true
+        num_uses: Number(route.params.num_uses) + 1
       })
     })
       .then(response => {
@@ -32,7 +34,6 @@ const ValidTicket = ({ route, navigation }) => {
       .catch(error => {
         console.error('There was a problem updating the resource:', error);
       });
-
   }
   return (
     <LinearGradient colors={['#30882E', '#FFFFFF']} style={styles.container}>

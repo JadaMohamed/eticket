@@ -103,6 +103,7 @@ const updateTicket = async (req, res) => {
         if (updatedTicket) {
             res.json(updatedTicket);
         } else {
+            console.log(`Ticket with id ${id} not found`)
             res.status(404).json({ error: `Ticket with id ${id} not found` });
         }
     } catch (err) {
