@@ -28,7 +28,7 @@ function Dashboard() {
       setLastThreeEvents(response.data.events);
       setEventsStats(response.data.eventsStats);
     } catch (error) {
-      console.error(error);
+      console.error("Organizer dont have events");
     }
   };
 
@@ -46,10 +46,30 @@ function Dashboard() {
           <div className="inst">Welcome back to your dashboard !</div>
         </div>
         <div className="cards-container">
-          {eventsStats && <SalesCardDash sales={eventsStats.totalSoldTickets} totalSeats={eventsStats.totalMaxAttendees} />}
-          {lastThreeEvents[2] && <SalesCard sales={lastThreeEvents[2].number_sold_tickets} totalSeats={lastThreeEvents[2].max_number_attendants} />}
-          {lastThreeEvents[1] && <SalesCard sales={lastThreeEvents[1].number_sold_tickets} totalSeats={lastThreeEvents[1].max_number_attendants} />}
-          {lastThreeEvents[0] && <SalesCard sales={lastThreeEvents[0].number_sold_tickets} totalSeats={lastThreeEvents[0].max_number_attendants} />}
+          {eventsStats && (
+            <SalesCardDash
+              sales={eventsStats.totalSoldTickets}
+              totalSeats={eventsStats.totalMaxAttendees}
+            />
+          )}
+          {lastThreeEvents[2] && (
+            <SalesCard
+              sales={lastThreeEvents[2].number_sold_tickets}
+              totalSeats={lastThreeEvents[2].max_number_attendants}
+            />
+          )}
+          {lastThreeEvents[1] && (
+            <SalesCard
+              sales={lastThreeEvents[1].number_sold_tickets}
+              totalSeats={lastThreeEvents[1].max_number_attendants}
+            />
+          )}
+          {lastThreeEvents[0] && (
+            <SalesCard
+              sales={lastThreeEvents[0].number_sold_tickets}
+              totalSeats={lastThreeEvents[0].max_number_attendants}
+            />
+          )}
         </div>
         <div className="images">
           <div className="left">

@@ -24,7 +24,7 @@ function SideBar(props) {
               }}
             >
               <div className="btn-container">
-                <span class="material-symbols-outlined">dashboard</span>
+                <span className="material-symbols-outlined">dashboard</span>
                 <div className="name">Dashboard</div>
               </div>
             </div>
@@ -35,7 +35,9 @@ function SideBar(props) {
               }}
             >
               <div className="btn-container">
-                <span class="material-symbols-outlined">calendar_month</span>{" "}
+                <span className="material-symbols-outlined">
+                  calendar_month
+                </span>{" "}
                 <div className="name">Events</div>
               </div>
             </div>
@@ -46,7 +48,7 @@ function SideBar(props) {
               }}
             >
               <div className="btn-container">
-                <span class="material-symbols-outlined">sell</span>{" "}
+                <span className="material-symbols-outlined">sell</span>{" "}
                 <div className="name">Sales</div>
               </div>
             </div>
@@ -57,7 +59,7 @@ function SideBar(props) {
               }}
             >
               <div className="btn-container">
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                   confirmation_number
                 </span>{" "}
                 <div className="name">Tickets</div>
@@ -70,7 +72,9 @@ function SideBar(props) {
               }}
             >
               <div className="btn-container">
-                <span class="material-symbols-outlined">qr_code_scanner</span>{" "}
+                <span className="material-symbols-outlined">
+                  qr_code_scanner
+                </span>{" "}
                 <div className={`name ${sidebar ? "active-name" : ""}`}>
                   Manage QR
                 </div>
@@ -81,7 +85,7 @@ function SideBar(props) {
         {/* <div className="bottom routes-btns">
           <div className="btn">
             <div className="btn-container">
-              <span class="material-symbols-outlined">logout</span>
+              <span className="material-symbols-outlined">logout</span>
               <div className="name">Log out</div>
             </div>
           </div>
@@ -93,7 +97,7 @@ function SideBar(props) {
           }}
         >
           <div className="pin-unpin-container">
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
               {sidebar ? "arrow_forward_ios" : "arrow_back_ios"}
             </span>
           </div>

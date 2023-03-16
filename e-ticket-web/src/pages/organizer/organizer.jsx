@@ -1,15 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
 import Card from "../../components/event/eventcard";
 import eventImage from "../../img/event-image.jpg";
 import { eventData, account } from "../../components/data";
-
+import Axios from "axios";
 import "./organizer.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Organizer = () => {
-  const shuffledData = eventData.sort(() => 0.5 - Math.random());
+  let { orgID } = useParams();
   const [activeTab, setActiveTab] = useState("events");
+  const [events, setEvents] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const Nav = useNavigate();
+  const getOrganizer = async () => {
+    try {
+      const response = await Axios.get(
+        `${apiUrl}/api/events/organizer-profile/${orgID}`
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getEvents = async () => {
+    try {
+      const response = await Axios.get(
+        `${apiUrl}/api/events/organizer/${orgID}/all-events`
+      );
+      setEvents(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const now = new Date();
+  const A = events.filter((event) => new Date(event.start_time) > now);
+  const B = events.filter((event) => new Date(event.start_time) <= now);
+  useEffect(() => {
+    getEvents();
+    getOrganizer();
+  }, []);
   return (
     <>
       <Navbar />
@@ -68,7 +99,7 @@ const Organizer = () => {
                   setActiveTab("pevents");
                 }}
               >
-                Past Events
+                Past events
               </div>
             </div>
           </div>
@@ -78,26 +109,37 @@ const Organizer = () => {
             <div className="localevent-container">
               <div className="cards">
                 {activeTab === "event"
-                  ? shuffledData.map((eventData) => (
+                  ? A.map((event) => (
                       <Card
-                        key={eventData.eventId}
-                        image={eventImage}
-                        title={eventData.title}
-                        price={eventData.price}
-                        location={eventData.location}
-                        category={eventData.category}
-                        date={eventData.date}
+                        key={event.event_id}
+                        eventid={event.event_id}
+                        image={
+                          event.Event_Images?.length > 0
+                            ? event.Event_Images[0].img_url
+                            : null
+                        }
+                        title={event.title}
+                        price={event.price}
+                        location={event.location}
+                        category={event.event_type}
+                        date={event.start_time}
                       />
                     ))
-                  : shuffledData.map((eventData) => (
+                  : activeTab === "pevents" &&
+                    B.map((event) => (
                       <Card
-                        key={eventData.eventId}
-                        image={eventImage}
-                        title={eventData.title}
-                        price={eventData.price}
-                        location={eventData.location}
-                        category={eventData.category}
-                        date={eventData.date}
+                        key={event.event_id}
+                        eventid={event.event_id}
+                        image={
+                          event.Event_Images?.length > 0
+                            ? event.Event_Images[0].img_url
+                            : null
+                        }
+                        title={event.title}
+                        price={event.price}
+                        location={event.location}
+                        category={event.event_type}
+                        date={event.start_time}
                       />
                     ))}
               </div>

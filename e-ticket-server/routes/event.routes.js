@@ -1,31 +1,50 @@
-import express from 'express';
-import eventController from '../controllers/event.controller.js';
-import { verifyAdmin, verifyJwt, verifyOrganizerOrAdmin } from '../middleware/authMiddleware.js';
+import express from "express";
+import eventController from "../controllers/event.controller.js";
+import {
+  verifyAdmin,
+  verifyJwt,
+  verifyOrganizerOrAdmin,
+} from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post('/', verifyJwt, verifyOrganizerOrAdmin, eventController.createEvent);
-router.post('/many', verifyJwt, verifyAdmin, eventController.createManyEvent);
-router.get('/', eventController.getAllEvents);
-router.get('/search', eventController.searchEvents);
-router.get('/:id', eventController.getEventById);
-router.delete('/:id', verifyJwt, verifyOrganizerOrAdmin, eventController.deleteEventById);
-router.put('/:id', verifyJwt, verifyOrganizerOrAdmin, eventController.updateEvent);
-router.get('/organizer/:orgId/last-three', verifyJwt, verifyOrganizerOrAdmin, eventController.getLastThreeEventsForOrganizer);
-
+router.post(
+  "/",
+  verifyJwt,
+  verifyOrganizerOrAdmin,
+  eventController.createEvent
+);
+router.post("/many", verifyJwt, verifyAdmin, eventController.createManyEvent);
+router.get("/", eventController.getAllEvents);
+router.get("/search", eventController.searchEvents);
+router.get("/:id", eventController.getEventById);
+router.delete(
+  "/:id",
+  verifyJwt,
+  verifyOrganizerOrAdmin,
+  eventController.deleteEventById
+);
+router.put(
+  "/:id",
+  verifyJwt,
+  verifyOrganizerOrAdmin,
+  eventController.updateEvent
+);
+router.get(
+  "/organizer/:orgId/last-three",
+  verifyJwt,
+  verifyOrganizerOrAdmin,
+  eventController.getLastThreeEventsForOrganizer
+);
+router.get(
+  "/organizer/:orgId/all-events",
+  eventController.getAllOrganizerEvents
+);
+router.get(
+  "/organizer-profile/:orgId",
+  eventController.getOrganizerProfileById
+);
 export default router;
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import express from 'express';
 // import {

@@ -18,14 +18,13 @@ function Events() {
     try {
       const response = await Axios.get(`${apiUrl}/api/events/${keyword}`);
       setEvent(response.data);
-      console.log("event" + event);
+      console.log(event);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
     searchEvent(value);
-    console.log("ssearching for eventid " + value);
   }, [value]);
 
   return (
@@ -35,7 +34,7 @@ function Events() {
       {event ? (
         <>
           <EventPreview event={event} />
-          <MoreBy />
+          <MoreBy id={event?.org_id} />
         </>
       ) : (
         <div className="loading">

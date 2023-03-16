@@ -189,9 +189,7 @@ function Navbar(props) {
                         {profile?.account?.first_name}{" "}
                         {profile?.account?.last_name}
                       </div>
-                      <div className="email">
-                        {profile?.account?.email}
-                      </div>
+                      <div className="email">{profile?.account?.email}</div>
                     </div>
                   </div>
                 </div>
@@ -206,20 +204,14 @@ function Navbar(props) {
                   </div>
                   Settings
                 </div>
-                <div className="dropdown-item">
-                  <div>
-                    <span className="material-symbols-outlined">language</span>
-                  </div>
-                  English
-                </div>
-                <div className="dropdown-item">
+                {/* <div className="dropdown-item">
                   <div>
                     <span className="material-symbols-outlined">
                       contact_support
                     </span>
                   </div>
                   Support
-                </div>
+                </div> */}
                 <div
                   className="dropdown-item"
                   onClick={() => {
@@ -236,20 +228,14 @@ function Navbar(props) {
           ) : (
             <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
               <div className="dropdown-items">
-                <div className="dropdown-item">
-                  <div>
-                    <span className="material-symbols-outlined">language</span>
-                  </div>
-                  English
-                </div>
-                <div className="dropdown-item">
+                {/* <div className="dropdown-item">
                   <div>
                     <span className="material-symbols-outlined">
                       contact_support
                     </span>
                   </div>
                   Support
-                </div>
+                </div> */}
                 <div
                   className="dropdown-item"
                   onClick={() => {

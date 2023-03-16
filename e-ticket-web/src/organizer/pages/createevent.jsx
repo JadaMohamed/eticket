@@ -11,6 +11,8 @@ import Pricing_form from "../components/create post form/pricing_form";
 import Gallery_form from "../components/create post form/gallery_form";
 
 export const Createevent = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const [imageCollector, setImages] = useState({ images: ["", "", ""] });
   const [eventData, setEventData] = useState({
     // Overview_form coming data
     eventTitle: "",
@@ -21,22 +23,41 @@ export const Createevent = () => {
     // Pricing_form coming data
     categories: [{ name: "", price: "", numSeats: "" }],
     // Description_form coming data
-    description:"",
-    eventCategory:"Festivale | Concert",
-
+    description: "",
+    eventCategory: "Festivale | Concert",
+    images: ["", "", ""],
   });
-
+  const handleSubmitFile = (e) => {
+    // e.preventDefault();
+    if (!eventData.images) return;
+    return uploadImage(eventData.images);
+  };
+  const uploadImage = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    try {
+      const response = await fetch(`${apiUrl}/api/images/eventimages/upload/`, {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { "Content-type": "application/json" },
+      });
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
   useEffect(() => {
-    console.log(eventData)
+    console.log(eventData);
+    console.log(imageCollector);
   }, [eventData]);
-
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
       <Overview_form eventData={eventData} setEventData={setEventData} />,
       <Pricing_form eventData={eventData} setEventData={setEventData} />,
       <Description_form eventData={eventData} setEventData={setEventData} />,
-      <Gallery_form eventData={eventData} setEventData={setEventData} />,
+      <Gallery_form imageCollector={imageCollector} setImages={setImages} />,
       <Tickets_form eventData={eventData} setEventData={setEventData} />,
     ]);
 
