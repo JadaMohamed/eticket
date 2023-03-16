@@ -31,6 +31,7 @@ export const AuthContextProvider = ({ children }) => {
         );
 
       } catch (err) {
+        localStorage.removeItem("usertype");
         console.log(err);
       }
     };
