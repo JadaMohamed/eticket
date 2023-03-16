@@ -46,7 +46,7 @@ const updateOrdersCart = async (orderId, updatedData) => {
 };
 
 const getRecentOrdersByOrganizer = async (id) => {
-    const orders = await prisma.orders_Cart.findMany({
+    const recentOrders = await prisma.orders_Cart.findMany({
         where: { org_id: parseInt(id) },
         orderBy: {
             Ordered_at: 'desc', // Order by the Ordered_at field in descending order to get the most recent orders first
@@ -61,7 +61,7 @@ const getRecentOrdersByOrganizer = async (id) => {
                             first_name: true,
                             last_name: true,
                             email: true,
-                            avatar: true,  
+                            avatar: true,
                         }
                     }
                 },
@@ -69,7 +69,32 @@ const getRecentOrdersByOrganizer = async (id) => {
         },
     });
 
-    return orders;
+    return recentOrders;
+}
+const getAllOrdersByOrganizer = async (id) => {
+    const allOrders = await prisma.orders_Cart.findMany({
+        where: { org_id: parseInt(id) },
+        orderBy: {
+            Ordered_at: 'desc',
+        },
+        // no Limit
+        include: {
+            Client: {
+                select: {
+                    Account: {
+                        select: {
+                            first_name: true,
+                            last_name: true,
+                            email: true,
+                            avatar: true,
+                        }
+                    }
+                },
+            },
+        },
+    });
+
+    return allOrders;
 }
 
 export default {
@@ -78,5 +103,6 @@ export default {
     getOrderById,
     deleteOrdersCarttById,
     updateOrdersCart,
-    getRecentOrdersByOrganizer
+    getRecentOrdersByOrganizer,
+    getAllOrdersByOrganizer,
 };
