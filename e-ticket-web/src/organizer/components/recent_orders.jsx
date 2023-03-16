@@ -25,7 +25,7 @@ const RecentOrders = () => {
 
   useEffect(() => {
     getRecentOrdersByOrganizer();
-  }, []);
+  }, [profile]);
 
   return (
     <div className="recentorders">

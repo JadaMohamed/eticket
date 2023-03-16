@@ -8,6 +8,7 @@ router.post('/many', ordersCartController.createManyOrder);
 router.get('/', ordersCartController.getAllOrders);
 router.get('/:orders_Cart_id', ordersCartController.getOrderById);
 router.get('/organizer/:orgId/recent', ordersCartController.getRecentOrdersByOrganizer);
+router.get('/organizer/:orgId/all', ordersCartController.getAllOrdersByOrganizer);
 router.delete('/:id', ordersCartController.deleteOrdersCarttById);
 router.put('/:order_id', ordersCartController.updateOrdersCart);
 

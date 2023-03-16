@@ -5,17 +5,19 @@ import AuthContext from './AuthContext';
 export const ProtectClient = () => {
     const { profile } = useContext(AuthContext);
 
+            if (profile) {
+            const accountType = profile.account?.account_type;
+            if (accountType === 'client' || accountType === 'admin') {
+                return <Outlet />;
+            }
+        } else {
+            const userType = localStorage.getItem('usertype');
+            if (userType === 'client' || userType === 'admin') {
+                return <Outlet />;
+            }
+        }
+        return <Navigate to="/" />;
     
-    // This made a problem with the Cart and MyTickets pages, because no account users can't access cart and mytickets pages
-    // no account users aren't supposed to access myticets page anyway so we show an error message
-    // when they don't have access instead, therefore i think ProtectClient is pointless ?
-    
-    return (
-        <>
-            {profile && profile.account && profile.account.account_type === 'client' ? <Outlet /> : <Navigate to='/' />}
-        </>
-    );
-        
 };
 
 

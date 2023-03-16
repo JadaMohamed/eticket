@@ -6,17 +6,18 @@ import RecordedMark from "../assets/Validation/RecordedMark.svg"
 import Spacer from '../components/Spacer'
 import Button from '../components/Button'
 import { widthPercentageToDP } from '../constants/Layout'
+import { API_URL } from '../constants/Api'
 
 const RecordedTicket = ({ route, navigation }) => {
   const doneHandler = () => navigation.pop();
   function updateTicket(ticketId) {
-    fetch(`https://e-ticket-server.onrender.com/api/scanner/tickets/${ticketId}`, {
+    fetch(`${API_URL}/api/scanner/tickets/${ticketId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        isscanned: true
+        num_uses: Number(route.params.num_uses) + 1
       })
     })
       .then(response => {

@@ -151,6 +151,57 @@ const eventController = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
+
+  searchEvents: async (req, res) => {
+    try {
+      const keyword = req.query.keyword;
+      const events = await eventService.searchEvents(keyword);
+      res.status(200).json(events);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error ???");
+    }
+  },
+
+  getLastThreeEventsForOrganizer: async (req, res) => {
+    const orgId = Number(req.params.orgId);
+
+    try {
+      const events = await eventService.getLastThreeEventsForOrganizer(orgId);
+      const eventsStats = await eventService.getOrganizerEventStats(orgId);
+
+      if (events && events.length > 0) {
+        const response = {
+          events: events,
+          eventsStats: eventsStats,
+        };
+        res.status(200).json(response);
+      } else {
+        res
+          .status(404)
+          .json({ error: `No events found for organizer with ID ${orgId}` });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
+
+  getOrganizerEventStats: async (req, res) => {
+    const { orgId } = req.params;
+    try {
+      const eventStats = await eventService.getOrganizerEventStats(orgId);
+      res.status(200).json(eventStats);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
+  createOrganizerEvent: async (req, res) => {
+    const { orgId } = req.params;
+    console.log(orgId);
+    console.log(req.body);
+  },
 };
 
 export default eventController;

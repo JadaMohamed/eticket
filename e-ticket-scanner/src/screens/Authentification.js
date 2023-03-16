@@ -6,23 +6,24 @@ import {width} from '../constants/Layout';
 import LabeledTextInput from '../components/authentification/LabeledTextInput';
 import Spacer from '../components/Spacer';
 import Button from '../components/Button';
+import { API_URL } from '../constants/Api';
 
 //FIXME: SVG Works fine in chrome, but in android it's not why ?.
 const Authentification = ({navigation}) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('organizer@example.com');
+  const [password, setPassword] = useState('organizerpassword');
   const [signinin, setsigninin] = useState(false);
-  const [password, setPassword] = useState('');
 
   const emailChangeHandler = value => setEmail(value);
   const passwordChangeHandler = value => setPassword(value);
   const navigateToEvents = useCallback(
-    orgId => navigation.navigate('Home', {org_id: orgId}),
+    orgId => navigation.replace('Home', {org_id: orgId}),
     [],
   );
 
   const fetchOrganizer = async accountId => {
     const response = await fetch(
-      `https://e-ticket-server.onrender.com/api/scanner/organizers/account/${accountId}`,
+      `${API_URL}/api/scanner/organizers/account/${accountId}`,
     );
 
     if (!response.ok) {
@@ -35,7 +36,7 @@ const Authentification = ({navigation}) => {
   const signInHandler = async () => {
     try {
       const response = await fetch(
-        'https://e-ticket-server.onrender.com/api/scanner/accounts/login',
+        `${API_URL}/api/scanner/accounts/login`,
         {
           method: 'POST',
           headers: {
@@ -54,6 +55,7 @@ const Authentification = ({navigation}) => {
       navigateToEvents(organizer.org_id);
     } catch (error) {
       console.error('Failed to login :', error);
+      setsigninin(false);
     }
   };
 
@@ -109,7 +111,6 @@ const styles = StyleSheet.create({
   header: {
     position: 'relative',
     height: '55%',
-    // FIXME: Shadow isn't working for whatever reason.
   },
   headerImage: {
     position: 'absolute',

@@ -53,6 +53,7 @@ const EventsList = ({selectedEvent, selectedEventHandler, data}) => {
           showsVerticalScrollIndicator={false}
           estimatedItemSize={200}
           ListFooterComponent={() => <VSpacer size={50} />}
+          keyExtractor={(item, index) => `${index}`}
           renderItem={({item, index}) => (
             <MotiView
               from={{opacity: 0, translateY: -30}}

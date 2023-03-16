@@ -34,7 +34,7 @@ function Dashboard() {
 
   useEffect(() => {
     getLastThreeEventsForOrganizer();
-  }, []);
+  }, [profile]);
 
   return (
     <div>
