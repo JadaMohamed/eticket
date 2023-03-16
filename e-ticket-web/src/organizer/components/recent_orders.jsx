@@ -29,7 +29,7 @@ const RecentOrders = () => {
 
   useEffect(() => {
     getRecentOrdersByOrganizer();
-  }, []);
+  }, [profile]);
 
 
   return (
