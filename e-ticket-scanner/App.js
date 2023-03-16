@@ -14,7 +14,7 @@ const App = () => {
       }
     };
     setNavigationBarColor('#30194F');
-  });
+  }, []);
   return (
     <NavigationContainer>
       <StatusBar hidden />

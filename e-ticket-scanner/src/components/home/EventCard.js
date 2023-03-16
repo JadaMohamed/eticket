@@ -7,7 +7,8 @@ const EventCard = ({ isSelected, isList, title, date, location }) => {
       style={[
         styles.container,
         {
-          borderWidth: isSelected ? 2 : 0,
+          borderWidth: 2,
+          borderColor: isSelected ? '#552E88' : "transparent"
         },
       ]}>
       <View style={styles.imageContainer}></View>
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#552E88',
   },
   imageContainer: {
     backgroundColor: '#9982B8',
