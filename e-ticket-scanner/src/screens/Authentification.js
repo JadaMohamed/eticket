@@ -9,14 +9,14 @@ import Button from '../components/Button';
 
 //FIXME: SVG Works fine in chrome, but in android it's not why ?.
 const Authentification = ({navigation}) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('organizer@example.com');
+  const [password, setPassword] = useState('organizerpassword');
   const [signinin, setsigninin] = useState(false);
-  const [password, setPassword] = useState('');
 
   const emailChangeHandler = value => setEmail(value);
   const passwordChangeHandler = value => setPassword(value);
   const navigateToEvents = useCallback(
-    orgId => navigation.navigate('Home', {org_id: orgId}),
+    orgId => navigation.replace('Home', {org_id: orgId}),
     [],
   );
 
