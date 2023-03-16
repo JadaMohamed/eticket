@@ -19,16 +19,21 @@ export const Createevent = () => {
 
   const [eventData, setEventData] = useState({
     // Overview_form coming data
-    eventTitle: "",
-    date: "",
-    time: "",
-    address1: "",
-    address2: "",
+    eventTitle: "my nice event title",
+    date: "03-20-2023",
+    time: "20:00",
+    finish_time: "2023-03-21T20:00:00.000Z",
+    duration:"10h",
+    address1: "my address 1",
+    address2: "my second adress",
+    trailer_video_url:"youtube.trailer_video_url.com",
     // Pricing_form coming data
-    categories: [{ name: "", price: "", numSeats: "" }],
+    categories: [{ name: "vip", price: 50, numSeats: 33, }, { name: "basic", price: 20, numSeats: 100, }],
     // Description_form coming data
-    description: "",
+    description: "this is my event discription",
     eventCategory: "Festivale | Concert",
+    //Gallery_form
+    Event_Images: [{ img_url: "url1.com" }, { img_url: "url2.com" }, { img_url: "url3.com" }],
 
     images: ["", "", ""],
   });

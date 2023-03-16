@@ -174,10 +174,10 @@ model SeatCategory {
   event_id         Int
   type_name        String @db.VarChar(50)
   type_price       Int
-  type_description String @db.VarChar(50)
+  type_description String @default("seat description") @db.VarChar(50)
   number_max       Int
   number_avialable Int
-  max_uses         Int
+  max_uses         Int    @default(1)
   Event            Event  @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_SeatCategory_Event")
 
   @@index([event_id])
