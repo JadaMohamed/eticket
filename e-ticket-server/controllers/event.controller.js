@@ -135,7 +135,14 @@ const eventController = {
             res.status(500).json({ error: 'Internal server error' });
         }
     },
+    createOrganizerEvent: async (req, res) => {
+        const { orgId } = req.params;
+        console.log(orgId)
+        console.log(req.body)
+
+    }
 };
+
 
 
 

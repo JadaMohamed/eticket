@@ -20,7 +20,7 @@ const RecentOrders = () => {
         { withCredentials: true }
       );
       setRecentOrders(response.data)
-      console.log(response.data)
+      // console.log(response.data)
 
     } catch (error) {
       console.error(error);
@@ -29,7 +29,7 @@ const RecentOrders = () => {
 
   useEffect(() => {
     getRecentOrdersByOrganizer();
-  }, []);
+  }, [profile]);
 
 
   return (

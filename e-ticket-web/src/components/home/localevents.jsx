@@ -26,15 +26,12 @@ function LocalEvents(props) {
     <div className="localevents">
       <div className="localevent-container">
         <div className="section-title">
-          Local events :
-          {account.map((userinfos) => {
-            return <div className="user-city">{userinfos.City}</div>;
-          })}
+          Local events :<div className="user-city">{props.city}</div>
         </div>
         {levents.length > 0 ? (
           <div className="cards">
             {levents
-              .filter((levent) => levent.location.includes("Agadir"))
+              .filter((levent) => levent.location.includes(props.city))
               .slice(0, 4)
               .map((levent) => (
                 <Card

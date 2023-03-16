@@ -19,7 +19,7 @@ function Home() {
       <Navbar />
       <SubNavbar />
       <HeroSlider />
-      <LocalEvents />
+      <LocalEvents city={profile?.user?.city} />
       <FYEvents />
     </div>
   );

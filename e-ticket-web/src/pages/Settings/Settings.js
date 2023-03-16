@@ -16,19 +16,21 @@ function Settings() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
+  const [savingperso, setSavingperso] = useState(false);
+  const [savingsuc, setSavingsuc] = useState(false);
   const [phone_number, setPhoneNumber] = useState(
     profile?.account?.phone_number
   );
   const [fieldError, setfieldError] = useState("");
 
-  const UpdatePersonaldetails = async (event) => {
-    event.preventDefault();
+  const UpdatePersonaldetails = async (av) => {
+    // event.preventDefault();
     const updatedAccount = {
       first_name,
       last_name,
       email,
       phone_number,
-      avatar,
+      avatar: av,
     };
     try {
       //update accounte
@@ -80,6 +82,7 @@ function Settings() {
     } catch (error) {
       console.error(error);
     }
+    setSavingperso(false);
   };
 
   const validateSecurityDetails = () => {
@@ -150,44 +153,40 @@ function Settings() {
     } catch (error) {
       console.error(error);
     }
+    setSavingsuc(false);
   };
   ////upload image
   const [imageIds, setImageIds] = useState();
-  const loadImages = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/api/images`);
-      const data = await res.json();
-      console.log(data);
-      setImageIds(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    loadImages();
-  }, []);
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const [changeAvatar, setChangeAvatar] = useState(false);
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     previewFile(file);
+    setChangeAvatar(true);
   };
   const handleSubmitFile = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (!previewSource) return;
-    uploadImage(previewSource);
+    return uploadImage(previewSource);
   };
   const uploadImage = async (base64EncodedImage) => {
     console.log(base64EncodedImage);
     try {
-      await fetch(`${apiUrl}/api/images/upload/`, {
+      const response = await fetch(`${apiUrl}/api/images/upload/`, {
         method: "POST",
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: { "Content-type": "application/json" },
       });
-    } catch (erroe) {}
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
+
   // const uploadImage = async (base64EncodedImage) => {
   //   try {
   //     await Axios.put(
@@ -207,6 +206,17 @@ function Settings() {
     reader.onloadend = () => {
       setPreviewSource(reader.result);
     };
+  };
+  const updateperso = () => {
+    handleSubmitFile()
+      .then((result) => {
+        setAvatar(result);
+        UpdatePersonaldetails(result); // assign the result to a variable
+      })
+      .catch((error) => {
+        console.error(error); // handle any errors that occur while handling the Promise objects
+      });
+    setChangeAvatar(false);
   };
   return (
     <>
@@ -314,10 +324,13 @@ function Settings() {
               <div
                 className="save-change-btn"
                 title="Save Changes"
-                onClick={handleSubmitFile}
+                onClick={() => {
+                  changeAvatar ? updateperso() : UpdatePersonaldetails(avatar);
+                  setSavingperso(true);
+                }}
               >
                 {/* <div onClick={UpdatePersonaldetails}>Save Changes</div> */}
-                <div>Save Changes</div>
+                <div>{savingperso ? "Please wait..." : "Save Changes"}</div>
               </div>
             </div>
           </div>
@@ -386,7 +399,14 @@ function Settings() {
                 <div>Cancel</div>
               </div>
               <div className="save-change-btn" title="Save Changes">
-                <div onClick={UpdateSecurityDetails}>Save Changes</div>
+                <div
+                  onClick={() => {
+                    UpdateSecurityDetails();
+                    setSavingsuc(true);
+                  }}
+                >
+                  {savingsuc ? "Please wait..." : "Save Changes"}
+                </div>
               </div>
             </div>
           </div>

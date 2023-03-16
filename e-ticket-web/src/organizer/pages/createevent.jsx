@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Createeventflow from "../components/createeventflow";
 import OrNavigationBar from "../components/navigation_bar";
 import SideBar from "../components/side_bar";
@@ -9,15 +9,81 @@ import Description_form from "../components/create post form/description_form";
 import Tickets_form from "../components/create post form/tickets_form";
 import Pricing_form from "../components/create post form/pricing_form";
 import Gallery_form from "../components/create post form/gallery_form";
+import Axios from "axios";
+import AuthContext from "../../Auth/AuthContext";
+
 
 export const Createevent = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const { profile } = useContext(AuthContext);
+
+
+  const [eventData, setEventData] = useState({
+    // Overview_form coming data
+    eventTitle: "",
+    date: "",
+    time: "",
+    address1: "",
+    address2: "",
+    // Pricing_form coming data
+    categories: [{ name: "", price: "", numSeats: "" }],
+    // Description_form coming data
+    description: "",
+    eventCategory: "Festivale | Concert",
+
+  });
+
+  useEffect(() => {
+    console.log(eventData)
+  }, [eventData]);
+
+
+  // Convert date and time to ISO format
+  const convertToIsoDateTime = () => {
+    const [month, day, year] = eventData.date.split("-");
+    const [hours, minutes] = eventData.time.split(":");
+    const dateTime = new Date(year, month - 1, day, hours, minutes);
+    console.log(dateTime)
+    return dateTime.toISOString();
+  };
+
+  // Remove date and time properties from eventData and add isoDateTimeString instead
+  const prepareEventDataForSubmit = () => {
+    const startTime = convertToIsoDateTime();
+    console.log("startTime")
+    console.log(startTime)
+    const { date, time, ...eventDataWithoutDateTime } = eventData;
+    const eventDataWithStartTime = {
+      ...eventDataWithoutDateTime,
+      startTime,
+    };
+    return eventDataWithStartTime;
+  };
+
+  const handlePublish = async (event) => {
+    event.preventDefault();
+    if (isLastStep) {
+      const preparedEventData = prepareEventDataForSubmit();
+      try {
+        const response = await Axios.post(
+          `${apiUrl}/api/events/create/${profile.user.org_id}`,
+          preparedEventData,
+          { withCredentials: true }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
-      <Overview_form />,
-      <Pricing_form />,
-      <Description_form />,
-      <Gallery_form />,
-      <Tickets_form />,
+      <Overview_form eventData={eventData} setEventData={setEventData} />,
+      <Pricing_form eventData={eventData} setEventData={setEventData} />,
+      <Description_form eventData={eventData} setEventData={setEventData} />,
+      <Gallery_form eventData={eventData} setEventData={setEventData} />,
+      <Tickets_form eventData={eventData} setEventData={setEventData} />,
     ]);
 
   // const {steps, currentStepIndex, step , isFirstStep, isLastStep}
@@ -37,9 +103,11 @@ export const Createevent = () => {
                   Back
                 </button>
               )}
-              <button className="next" type="button" onClick={next}>
+              {!isLastStep && <button className="next" type="button" onClick={next}>  Continue </button>}
+              {isLastStep && <button className="next" type="button" onClick={handlePublish}> Publish </button>}
+              {/* <button className="next" type="button" onClick={next}>
                 {isLastStep ? "Publish " : "Continue"}
-              </button>
+              </button> */}
             </div>
           </div>
         </form>

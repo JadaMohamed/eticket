@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Description_form = () => {
+const Description_form = ({ eventData, setEventData }) => {
+  const [description, setDescription] = useState(eventData.description);
+  const [eventCategory, setEventCategory] = useState(eventData.eventCategory);
+
+  const handleDescriptionChange = (event) => {
+    if (event.target.value.length > 300) {
+      return;
+    }
+    setDescription(event.target.value);
+    setEventData((prevData) => ({
+      ...prevData,
+      description: event.target.value,
+    }));
+  };
+
+  const handleEventCategoryChange = (event) => {
+    setEventCategory(event.target.value);
+    setEventData((prevData) => ({
+      ...prevData,
+      eventCategory: event.target.value,
+    }));
+  };
+
   return (
     <>
       <div className="row-section">
@@ -12,8 +34,14 @@ const Description_form = () => {
           </div>
         </div>
         <div className="right-side-row-section splited">
-          <textarea name="event-title" id="" rows="8"></textarea>
-          <div className="instructions">0/300 max</div>
+          <textarea
+            name="event-title"
+            id=""
+            rows="8"
+            value={description}
+            onChange={handleDescriptionChange}
+          ></textarea>
+          <div className="instructions">{description.length}/300 max</div>
         </div>
       </div>
       <div className="row-section">
@@ -28,12 +56,17 @@ const Description_form = () => {
           <div className="iconed-input">
             <div className="iconed-input-container">
               <span class="material-symbols-outlined icon">category</span>
-              <select name="event-category" id="">
-                <option value="">Festivale | Concert</option>
-                <option value="">Family</option>
-                <option value="">Theater | Cinema</option>
-                <option value="">Sport</option>
-                <option value="">Course | Lecture</option>
+              <select
+                name="event-category"
+                id=""
+                value={eventCategory}
+                onChange={handleEventCategoryChange}
+              >
+                <option value="Festivale | Concert">Festivale | Concert</option>
+                <option value="Family">Family</option>
+                <option value="Theater | Cinema">Theater | Cinema</option>
+                <option value="Sport">Sport</option>
+                <option value="Course | Lecture">Course | Lecture</option>
               </select>
             </div>
           </div>

@@ -129,6 +129,10 @@ const logout = async (req, res, next) => {
         // Clear authentication cookie
         res.clearCookie('eticketjwt', {
             httpOnly: true,
+            secure: true,
+            maxAge: 2 * 1000, // 2s
+            sameSite: 'None',
+            path: '/',
         });
         res.status(200).json({ message: 'user logout successfully' });
 

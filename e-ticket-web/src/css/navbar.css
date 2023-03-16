@@ -131,9 +131,12 @@ nav .nav-container .user-infos-container .avatar {
   background-color: var(--LightPurple);
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
 }
 .user-infos-container .avatar img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .dropdown-menu .dropdown-items .user-infos {
   display: flex;
