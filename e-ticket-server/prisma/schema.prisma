@@ -79,7 +79,7 @@ model Event {
   duration              String
   trailer_video_url     String                @default("https://www.youtube.com/watch?v=6v18uaoyeHw") @db.VarChar(200)
   description           String                @db.VarChar(500)
-  brand_url             String                @default("https://www.guardiandisplay.co.uk/file_upload/images/galleries/event-branding/EB2.jpg") @db.VarChar(100)
+  brand_url             String                @default("https://www.guardiandisplay.co.uk/file_upload/images/galleries/event-branding/EB2.jpg") @db.VarChar(160)
   location              String                @default("Location") @db.VarChar(50)
   start_time            DateTime              @db.DateTime(0)
   finish_time           DateTime              @db.DateTime(0)
