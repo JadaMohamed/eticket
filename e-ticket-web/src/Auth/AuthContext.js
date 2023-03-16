@@ -23,6 +23,13 @@ export const AuthContextProvider = ({ children }) => {
 
         setLoggedIn(true);
         setProfile(data.profile);
+        //if the user edit the local storage variable 
+        //when reload this will update the localStorage
+        localStorage.setItem(
+          "usertype",
+          data.profile.account.account_type
+        );
+
       } catch (err) {
         console.log(err);
       }
