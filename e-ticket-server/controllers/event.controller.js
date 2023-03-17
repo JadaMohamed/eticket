@@ -188,8 +188,6 @@ const eventController = {
         try {
             const newEvent = await eventService.createEvent(eventDataWithoutNullProperties);
             if (newEvent) {
-                console.log('newEvent')
-                console.log(newEvent)
                 console.log('event created sucssussfly')
             }
             //get SeatCategorys from requist
@@ -247,9 +245,7 @@ const eventController = {
     },
     getTopSalesEvents: async (req, res) => {
         try {
-            console.log("Searching......top sales............");
             const events = await eventService.getTopSalesEvents();
-            //  console.log(events);
             res.status(200).json(events);
         } catch (err) {
             console.error(err);

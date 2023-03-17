@@ -142,7 +142,6 @@ const eventService = {
       },
       take: 10,
     });
-    console.log(events);
     return events;
   },
 
