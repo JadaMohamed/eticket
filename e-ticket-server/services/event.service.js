@@ -61,13 +61,17 @@ const eventService = {
             OR: [
               { description: { contains: keyword } },
               { location: { contains: keyword } },
-              { title: { contains: keyword } }
-            ]
+              { title: { contains: keyword } },
+            ],
           },
-          allfilters.categories.length > 0 ? { event_type: { in: allfilters.categories } } : {},
-          allfilters.cities.length > 0 ? { location: { in: allfilters.cities } } : {}
-        ]
-      }
+          allfilters.categories.length > 0
+            ? { event_type: { in: allfilters.categories } }
+            : {},
+          allfilters.cities.length > 0
+            ? { location: { in: allfilters.cities } }
+            : {},
+        ],
+      },
     });
     return events;
   },
@@ -113,7 +117,7 @@ const eventService = {
   getAllOrganizerEvents: async (orgId) => {
     const events = await prisma.event.findMany({
       where: {
-        org_id: Number(orgId),
+        org_id: parseInt(orgId),
       },
       include: {
         Event_Images: true,
@@ -124,7 +128,7 @@ const eventService = {
   getOrganizerProfileById: async (orgId) => {
     return prisma.organizer.findUnique({
       where: {
-        org_id: 2,
+        org_id: parseInt(orgId),
       },
       include: {
         Events: true,
@@ -148,11 +152,11 @@ const eventService = {
 
   getAllEventsCategories: async () => {
     const categories = await prisma.event.findMany({
-      distinct: ['event_type'],
+      distinct: ["event_type"],
       select: {
         event_type: true,
-      }
-    })
+      },
+    });
     return categories;
   },
 };

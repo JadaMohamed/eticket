@@ -29,7 +29,7 @@ function MoreBy(props) {
     <div className="localevents more-by">
       <div className="localevent-container">
         <div className="section-title">
-          More by <span onClick={Nav("/organizer/1")}>{props.id}</span>
+          More by <span onClick={() => Nav("/organizer/1")}>{props.id}</span>
         </div>
         <div className="cards">
           {events.map((event) => (
