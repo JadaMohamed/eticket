@@ -84,12 +84,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: 5px 15px;
+    border-radius: 8px;
     cursor: pointer;
 }
 .ticket-card .ticket-card-container .ticket-consult .btns .btn span {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .ticket-card .ticket-card-container .ticket-consult .btns .download-ticket {

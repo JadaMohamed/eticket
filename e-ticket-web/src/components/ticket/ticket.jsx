@@ -2,9 +2,11 @@ import React from "react";
 import "../../css/ticket.css";
 import CountdownDate from "../common/countdown";
 
-function Ticket({ ticket }) {
+function Ticket({ ticket, onClick, selectedTicket }) {
+  const isSelected = ticket.ticket_id === selectedTicket?.ticket_id;
+
   return (
-    <div className="ticket-card-table">
+    <div className={`ticket-card-table ${isSelected ? "selected" : ""}`}>
       <div className="ticket-card">
         <div className="ticket-card-container">
           <div className="ticket-infos">
@@ -37,7 +39,10 @@ function Ticket({ ticket }) {
                 <span className="material-symbols-outlined">download</span>
                 Download
               </div>
-              <div className="preview-ticket btn">
+              <div
+                className="preview-ticket btn"
+                onClick={() => onClick(ticket)}
+              >
                 <span className="material-symbols-outlined">
                   qr_code_scanner
                 </span>

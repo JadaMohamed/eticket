@@ -14,3 +14,31 @@
     margin: auto;
     margin-top: 40px;
 }
+.poup-qrcode {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.194);
+}
+.poup-qrcode-container {
+    margin: auto;
+    height: 300px;
+    background-color: var(--White);
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.poup-qrcode-container .close {
+    position: absolute;
+    color: var(--Grey3);
+    cursor: pointer;
+    bottom: -50px;
+    padding: 5px;
+    background-color: var(--White);
+    display: flex;
+    border-radius: 50%;
+}
