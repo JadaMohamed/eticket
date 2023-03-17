@@ -17,7 +17,7 @@ router.post(
 router.post("/many", verifyJwt, verifyAdmin, eventController.createManyEvent);
 router.post("/search", eventController.searchEvents);
 router.get("/", eventController.getAllEvents);
-router.get("/topsalesevents", eventController.getTopSalesEvents);
+// router.get("/topsalesevents", eventController.getTopSalesEvents);
 router.get("/:id", eventController.getEventById);
 router.delete(
   "/:id",

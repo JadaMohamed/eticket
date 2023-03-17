@@ -17,11 +17,11 @@ function Search() {
   const [allfilters, setAllfilters] = useState({
     categories: [],
     cities: [],
-  })
+  });
 
-  useEffect(() => {
-    console.log(allfilters)
-  }, [allfilters])
+  // useEffect(() => {
+  //   console.log(allfilters)
+  // }, [allfilters])
   
 
   const searchEvents = async (keyword) => {
@@ -35,6 +35,7 @@ function Search() {
        { allfilters: allfilters}
       );
       setEvents(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +43,7 @@ function Search() {
   useEffect(() => {
     searchEvents(value);
     console.log("ssearching for keyword " + value);
-  }, [value]);
+  }, [value, allfilters]);
   return (
     <>
       <Navbar />

@@ -14,6 +14,8 @@ const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
     { value: "Family", label: "Family" },
     { value: "Theater | Cinema", label: "Theater | Cinema" },
     { value: "Sport", label: "Sport" },
+    { value: "Food | Drink", label: "Food | Drink" },
+    { value: "Education", label: "Education" },
     { value: "Course | Lecture", label: "Course | Lecture" },
   ];
 

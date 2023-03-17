@@ -97,27 +97,28 @@ const eventController = {
         }
     },
 
-  getOrganizerProfileById: async (req, res) => {
-    const { org_id } = req.params;
-    try {
-      const organizer = await eventService.getOrganizerProfileById(org_id);
-      res.status(200).json(organizer);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  },
+    getOrganizerProfileById: async (req, res) => {
+        const { org_id } = req.params;
+        try {
+            const organizer = await eventService.getOrganizerProfileById(org_id);
+            res.status(200).json(organizer);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: "Internal server error" });
+        }
+    },
 
-  searchEvents: async (req, res) => {
-    try {
-      const keyword = req.query.keyword;
-      const events = await eventService.searchEvents(keyword);
-      res.status(200).json(events);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error ???");
-    }
-  },
+    searchEvents: async (req, res) => {
+        try {
+            const { allfilters }=req.body;
+            const keyword = req.query.keyword;
+            const events = await eventService.searchEvents(keyword, allfilters);
+            res.status(200).json(events);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Internal Server Error ???");
+        }
+    },
 
     getLastThreeEventsForOrganizer: async (req, res) => {
         const orgId = Number(req.params.orgId);

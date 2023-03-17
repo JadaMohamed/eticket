@@ -52,17 +52,22 @@ const eventService = {
       data,
     });
   },
-
-  searchEvents: async (keyword) => {
+  
+  searchEvents: async (keyword, allfilters) => {
     const events = await prisma.event.findMany({
       where: {
-        OR: [
-          { description: { contains: keyword } },
-          { location: { contains: keyword } },
-          { event_type: { contains: keyword } },
-          { title: { contains: keyword } },
-        ],
-      },
+        AND: [
+          {
+            OR: [
+              { description: { contains: keyword } },
+              { location: { contains: keyword } },
+              { title: { contains: keyword } }
+            ]
+          },
+          allfilters.categories.length > 0 ? { event_type: { in: allfilters.categories } } : {},
+          allfilters.cities.length > 0 ? { location: { in: allfilters.cities } } : {}
+        ]
+      }
     });
     return events;
   },
