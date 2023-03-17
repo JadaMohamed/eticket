@@ -62,15 +62,13 @@ export const Createevent = () => {
     return new Promise((resolve, reject) => {
       uploadfiles()
         .then((result) => {
-          setEventData((prevState) => ({
-            ...prevState,
-            Event_Images: [
-              ...prevState.Event_Images,
-              { img_url: result[0] },
-              { img_url: result[1] ? result[1] : "" },
-              { img_url: result[2] ? result[2] : "" },
-            ],
-          }));
+          eventData.Event_Images.push({ img_url: result[0] });
+          if (result[1]) {
+            eventData.Event_Images.push({ img_url: result[1] });
+          } 
+          if (result[2]) {
+            eventData.Event_Images.push({ img_url: result[2] });
+          }
           resolve();
           return result;
         })
@@ -124,6 +122,7 @@ export const Createevent = () => {
     event.preventDefault();
     try {
       await handleUpload(); // Wait for images to be uploaded before continuing
+      console.log('creating event')
       if (isLastStep) {
         const preparedEventData = prepareEventDataForSubmit();
         const response = await Axios.post(
