@@ -86,7 +86,7 @@ app.use("/api/notifications", verifyJwt, notificationsRoutes);
 app.use("/api/orders-cart", verifyJwt, ordersCartRoutes);
 app.use("/api/organizers", verifyJwt, verifyOrganizerOrAdmin, organizersRoutes);
 app.use("/api/paid-tickets-orders", verifyJwt, paidTicketsOrdersRoutes);
-app.use("/api/seat-categories", seatCategoryRoutes);
+app.use("/api/seat-categories", verifyJwt, seatCategoryRoutes);
 app.use("/api/tickets", verifyJwt, ticketRoutes);
 app.use("/api/client-wait-lists", verifyJwt, clientWaitListRoutes);
 app.use("/api/clients", verifyJwt, verifyClientOrAdmin, clientRoutes);
