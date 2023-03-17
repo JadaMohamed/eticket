@@ -35,11 +35,7 @@ export const Createevent = () => {
     description: "this is my event discription",
     eventCategory: "Festivale | Concert",
     //Gallery_form
-    Event_Images: [
-      { img_url: "url1.com" },
-      { img_url: "url1.com" },
-      { img_url: "url1.com" },
-    ],
+    Event_Images: [],
   });
   // const handleSubmitFile = (e) => {
   //   // e.preventDefault();
@@ -63,17 +59,29 @@ export const Createevent = () => {
     }
   };
   const handleUpload = () => {
-    uploadfiles()
-      .then((result) => {
-        console.log(result);
-        return result;
-      })
-      .catch((error) => {
-        console.error(error); // handle any errors that occur while handling the Promise objects
-      });
+    return new Promise((resolve, reject) => {
+      uploadfiles()
+        .then((result) => {
+          setEventData((prevState) => ({
+            ...prevState,
+            Event_Images: [
+              ...prevState.Event_Images,
+              { img_url: result[0] },
+              { img_url: result[1] ? result[1] : "" },
+              { img_url: result[2] ? result[2] : "" },
+            ],
+          }));
+          resolve();
+          return result;
+        })
+        .catch((error) => {
+          reject(error);
+          console.error(error); // handle any errors that occur while handling the Promise objects
+        });
+    });
   };
   useEffect(() => {
-    console.log(hostedImages);
+    console.log(eventData);
   }, [eventData]);
   const uploadImage = async (base64EncodedImage) => {
     console.log(base64EncodedImage);
@@ -114,31 +122,15 @@ export const Createevent = () => {
 
   const handlePublish = async (event) => {
     event.preventDefault();
-
     try {
       await handleUpload(); // Wait for images to be uploaded before continuing
-
-      setEventData((prevState) => ({
-        ...prevState,
-        Event_Images: [
-          ...prevState.Event_Images,
-          { img_url: hostedImages[0] },
-          { img_url: hostedImages[1] },
-          { img_url: hostedImages[2] },
-        ],
-      }));
-
       if (isLastStep) {
         const preparedEventData = prepareEventDataForSubmit();
-        try {
-          const response = await Axios.post(
-            `${apiUrl}/api/events/create/${profile.user.org_id}`,
-            preparedEventData,
-            { withCredentials: true }
-          );
-        } catch (error) {
-          console.error(error);
-        }
+        const response = await Axios.post(
+          `${apiUrl}/api/events/create/${profile.user.org_id}`,
+          preparedEventData,
+          { withCredentials: true }
+        );
       }
     } catch (error) {
       console.error(error);
@@ -169,13 +161,6 @@ export const Createevent = () => {
       <div className="create-event-container">
         <Createeventflow activestep={`${currentStepIndex + 1}`} />
         <form action="">
-          <h1
-            onClick={() => {
-              handleUpload();
-            }}
-          >
-            go
-          </h1>
           <div className="form-container">
             <div className="top-form-container">{step}</div>
             <div className="bottom-form-container">

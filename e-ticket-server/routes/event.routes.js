@@ -7,7 +7,12 @@ import {
 } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
-
+router.post(
+  "/create/:orgId",
+  verifyJwt,
+  verifyOrganizerOrAdmin,
+  eventController.createOrganizerEvent
+);
 router.get(
   "/organizer/:orgId/all-events",
   eventController.getAllOrganizerEvents
@@ -16,6 +21,7 @@ router.get(
   "/organizer-profile/:orgId",
   eventController.getOrganizerProfileById
 );
+
 router.post(
   "/",
   verifyJwt,
@@ -45,13 +51,6 @@ router.get(
   verifyJwt,
   verifyOrganizerOrAdmin,
   eventController.getLastThreeEventsForOrganizer
-);
-
-router.post(
-  "/create/:orgId",
-  verifyJwt,
-  verifyOrganizerOrAdmin,
-  eventController.createOrganizerEvent
 );
 
 export default router;
