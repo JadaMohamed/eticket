@@ -151,6 +151,19 @@
 .active-on-mobile {
     display: none;
 }
+
+#seat-categories {
+    width: 60%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid var(--Grey3);
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 8px;
+    appearance: none;
+    cursor: pointer;
+    color: var(--Green);
+}
 /*************** ***************************/
 @media only screen and (max-width: 906px) {
     .event-card-cart {

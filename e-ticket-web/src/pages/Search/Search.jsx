@@ -29,11 +29,12 @@ function Search() {
        { allfilters: allfilters}
       );
       setEvents(response.data);
-      // console.log(response.data)
+      console.log(response.data)
     } catch (error) {
       console.error(error);
     }
   };
+  console.log("yo yo : ", events);
   useEffect(() => {
     searchEvents(value);
     console.log("ssearching for keyword " + value);
@@ -49,7 +50,7 @@ function Search() {
           {events.length > 0 ? (
             events.map((eventData) => (
               <Card
-                key={eventData.event_id}
+                eventId={eventData.event_id}
                 image={eventData.brand_url}
                 title={eventData.title}
                 price={eventData.price}

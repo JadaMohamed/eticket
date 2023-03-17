@@ -9,5 +9,6 @@ router.get('/', seatCategoryController.getAllSeatCategories);
 router.get('/:id', seatCategoryController.getSeatCategorieById);
 router.delete('/:id', seatCategoryController.deleteSeatCategoryById);
 router.put('/:id', seatCategoryController.updateSeatCategory);
+router.get('/event/:id', seatCategoryController.getEventCategories)
 
 export default router;
