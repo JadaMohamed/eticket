@@ -38,7 +38,7 @@ function Createeventflow(props) {
           <div className="number">
             <span>4</span>
           </div>
-          <div className="named">Gallery</div>
+          <div className="named">Tickets</div>
         </div>
         <span class="material-symbols-outlined">chevron_right</span>
         <div
@@ -47,8 +47,9 @@ function Createeventflow(props) {
           <div className="number">
             <span>5</span>
           </div>
-          <div className="named">Tickets</div>
+          <div className="named">Gallery</div>
         </div>
+
         <span class="material-symbols-outlined">chevron_right</span>
         <div
           className={`step ${props.activestep === "6" ? "active-step" : ""}`}

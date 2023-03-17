@@ -1,0 +1,47 @@
+.preview-ticket-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px dashed var(--Purple30);
+    user-select: none;
+    border-radius: 8px;
+}
+.preview-ticket {
+    margin-top: 20px;
+    color: var(--Grey2);
+    /* margin: 20px; */
+}
+.preview-ticket-container .left-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.preview-ticket-container .left-side .left-top {
+    font-size: 14px;
+}
+.preview-ticket-container .left-side .left-bottom {
+    font-size: 12px;
+}
+.preview-ticket-container .left-side .left-top .title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 20px;
+}
+.preview-ticket-container .right-side .right-container {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    padding-left: 20px;
+    border-left: 1px dashed var(--Purple10);
+}
+.preview-ticket-container .right-side .right-container .right {
+    display: flex;
+    font-weight: 600;
+    font-size: 14px;
+}
+.preview-ticket-container .right-side .right-container .right img {
+    width: 100%;
+}

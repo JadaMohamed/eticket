@@ -180,7 +180,7 @@ function Settings() {
         headers: { "Content-type": "application/json" },
       });
       const data = await response.json();
-      return data.url;
+      return data.secure_url;
     } catch (error) {
       console.error(error);
       throw error;
