@@ -174,7 +174,7 @@ function Settings() {
   const uploadImage = async (base64EncodedImage) => {
     console.log(base64EncodedImage);
     try {
-      const response = await fetch(`${apiUrl}/api/images/upload/`, {
+      const response = await fetch(`${apiUrl}/api/images/avatar/upload/`, {
         method: "POST",
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: { "Content-type": "application/json" },
@@ -212,6 +212,7 @@ function Settings() {
       .then((result) => {
         setAvatar(result);
         UpdatePersonaldetails(result); // assign the result to a variable
+        console.log(avatar);
       })
       .catch((error) => {
         console.error(error); // handle any errors that occur while handling the Promise objects
