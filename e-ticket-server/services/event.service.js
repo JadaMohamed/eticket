@@ -119,12 +119,26 @@ const eventService = {
   getOrganizerProfileById: async (orgId) => {
     return prisma.organizer.findUnique({
       where: {
-        org_id: Number(orgId),
+        org_id: 2,
       },
       include: {
         Events: true,
       },
     });
+  },
+  getTopSalesEvents: async () => {
+    const events = await prisma.event.findMany({
+      include: {
+        Event_Images: true,
+        // number_sold_tickets: true,
+      },
+      orderBy: {
+        number_sold_tickets: "desc",
+      },
+      take: 10,
+    });
+    console.log(events);
+    return events;
   },
 };
 

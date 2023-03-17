@@ -7,6 +7,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
-    <Footer />
+    <div style={{ marginTop: "50px" }}></div>
+    {/* <Footer /> */}
   </React.StrictMode>
 );

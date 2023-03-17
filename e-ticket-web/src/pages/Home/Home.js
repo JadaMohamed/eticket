@@ -19,7 +19,7 @@ function Home() {
       <Navbar />
       <SubNavbar />
       <HeroSlider />
-      <LocalEvents city={profile?.user?.city} />
+      {isLoggedIn ? <LocalEvents city={profile?.user?.city} /> : ""}
       <FYEvents />
     </div>
   );

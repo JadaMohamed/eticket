@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "../../css/slide_element.css";
 import { SwiperSlide } from "swiper/react";
 import PreviewHot from "../../img/event-image.jpg";
+import { useNavigate } from "react-router-dom";
 
-const Slideelement = () => {
+const Slideelement = (props) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  const Nav = useNavigate();
   return (
     <div
       className="hot-event-container"
@@ -13,10 +14,13 @@ const Slideelement = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="preview-image-hot">
-        {/* <img src={PreviewHot} alt="" /> */}
+        <img src={props.event.brand_url} alt="" />
       </div>
       {isHovered && (
-        <div className="btn">
+        <div
+          className="btn"
+          onClick={() => Nav(`/events/${props.evnt.eventid}`)}
+        >
           <div className="btn-otainer">FIND OUT MORE</div>
         </div>
       )}
