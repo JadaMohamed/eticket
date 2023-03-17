@@ -52,7 +52,7 @@ const eventService = {
       data,
     });
   },
-  
+
   searchEvents: async (keyword, allfilters) => {
     const events = await prisma.event.findMany({
       where: {
@@ -144,6 +144,16 @@ const eventService = {
     });
     console.log(events);
     return events;
+  },
+
+  getAllEventsCategories: async () => {
+    const categories = await prisma.event.findMany({
+      distinct: ['event_type'],
+      select: {
+        event_type: true,
+      }
+    })
+    return categories;
   },
 };
 

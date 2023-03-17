@@ -17,7 +17,8 @@ router.post(
 router.post("/many", verifyJwt, verifyAdmin, eventController.createManyEvent);
 router.post("/search", eventController.searchEvents);
 router.get("/", eventController.getAllEvents);
-// router.get("/topsalesevents", eventController.getTopSalesEvents);
+router.get("/allcategory", eventController.getAllEventsCategories);
+// router.get("/topsalesevents", eventController.getTopSalesEvents);//I did not find the controller
 router.get("/:id", eventController.getEventById);
 router.delete(
   "/:id",
@@ -47,39 +48,13 @@ router.get(
   eventController.getOrganizerProfileById
 );
 router.post(
-  "/",
-  verifyJwt,
-  verifyOrganizerOrAdmin,
-  eventController.createEvent
-);
-router.post("/many", verifyJwt, verifyAdmin, eventController.createManyEvent);
-router.post(
   "/create/:orgId",
   verifyJwt,
   verifyOrganizerOrAdmin,
   eventController.createOrganizerEvent
 );
-router.get("/", eventController.getAllEvents);
-router.get("/search", eventController.searchEvents);
-router.get("/:id", eventController.getEventById);
-router.delete(
-  "/:id",
-  verifyJwt,
-  verifyOrganizerOrAdmin,
-  eventController.deleteEventById
-);
-router.put(
-  "/:id",
-  verifyJwt,
-  verifyOrganizerOrAdmin,
-  eventController.updateEvent
-);
-router.get(
-  "/organizer/:orgId/last-three",
-  verifyJwt,
-  verifyOrganizerOrAdmin,
-  eventController.getLastThreeEventsForOrganizer
-);
+
+
 
 export default router;
 

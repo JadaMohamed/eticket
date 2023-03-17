@@ -110,7 +110,7 @@ const eventController = {
 
     searchEvents: async (req, res) => {
         try {
-            const { allfilters }=req.body;
+            const { allfilters } = req.body;
             const keyword = req.query.keyword;
             const events = await eventService.searchEvents(keyword, allfilters);
             res.status(200).json(events);
@@ -235,6 +235,16 @@ const eventController = {
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: 'Failed to create event' });
+        }
+    },
+
+    getAllEventsCategories: async (req, res) => {
+        try {
+            const categories = await eventService.getAllEventsCategories();
+            res.status(200).json({categories});
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: "Internal server error to get all categories " });
         }
     },
 };

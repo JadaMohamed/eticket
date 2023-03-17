@@ -1,23 +1,48 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "../../css/searchfilter.css";
 // import Select from "react-select";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
 const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [filters, setFilters] = useState([]);
+   const [categories, setCategories] = useState([]);
 
-  const categories = [
-    { value: "Festival | Concert", label: "Festival | Concert" },
-    { value: "Family", label: "Family" },
-    { value: "Theater | Cinema", label: "Theater | Cinema" },
-    { value: "Sport", label: "Sport" },
-    { value: "Food | Drink", label: "Food | Drink" },
-    { value: "Education", label: "Education" },
-    { value: "Course | Lecture", label: "Course | Lecture" },
-  ];
+
+  const getAllEventsCategories = async () => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/events/allcategory`);
+      console.log(response.data)
+      //fill categories with data
+      const categoryOptions = response.data.categories.map((category) => ({
+        value: category.event_type,
+        label: category.event_type,
+      }));
+      setCategories(categoryOptions);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getAllEventsCategories();
+  }, [])
+
+
+  // const categories = [
+  //   { value: "Festival | Concert", label: "Festival | Concert" },
+  //   { value: "Family", label: "Family" },
+  //   { value: "Theater | Cinema", label: "Theater | Cinema" },
+  //   { value: "Sport", label: "Sport" },
+  //   { value: "Food | Drink", label: "Food | Drink" },
+  //   { value: "Education", label: "Education" },
+  //   { value: "Course | Lecture", label: "Course | Lecture" },
+  // ];
 
   const cities = [
     { value: "Agadir", label: "Agadir" },

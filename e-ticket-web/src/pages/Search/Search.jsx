@@ -19,23 +19,17 @@ function Search() {
     cities: [],
   });
 
-  // useEffect(() => {
-  //   console.log(allfilters)
-  // }, [allfilters])
-  
-
   const searchEvents = async (keyword) => {
     if (keyword?.length < 1) {
       return;
     }
     try {
-      console.log(allfilters)
       const response = await Axios.post(
         `${apiUrl}/api/events/search?keyword=${keyword}`,
        { allfilters: allfilters}
       );
       setEvents(response.data);
-      console.log(response.data)
+      // console.log(response.data)
     } catch (error) {
       console.error(error);
     }
