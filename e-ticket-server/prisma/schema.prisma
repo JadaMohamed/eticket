@@ -131,7 +131,7 @@ model Event {
 model Event_Images {
   img_id   Int    @id @default(autoincrement())
   event_id Int
-  img_url  String @db.VarChar(70)
+  img_url  String @db.VarChar(200)
   Event    Event  @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Event_Images_Event")
 
   @@index([event_id])

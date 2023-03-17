@@ -213,7 +213,8 @@ const eventController = {
             //
             console.log('*************newSeatCategorys')
             console.log(newSeatCategorys)
-
+            console.log('immmmmmmmmmmmmmmmmmmmmm')
+            console.log(req.body.Event_Images);
 
             const Event_Images = req.body.Event_Images.map(image => {
                 return {
@@ -241,25 +242,25 @@ const eventController = {
     getAllEventsCategories: async (req, res) => {
         try {
             const categories = await eventService.getAllEventsCategories();
-            res.status(200).json({categories});
+            res.status(200).json({ categories });
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: "Internal server error to get all categories " });
         }
     },
     getTopSalesEvents: async (req, res) => {
-    try {
-      console.log("Searching......top sales............");
-      const events = await eventService.getTopSalesEvents();
-      console.log(events);
-      res.status(200).json(events);
-    } catch (err) {
-      console.error(err);
-      res
-        .status(500)
-        .json({ error: "Internal server error get events for slider" });
-    }
-  },
+        try {
+            console.log("Searching......top sales............");
+            const events = await eventService.getTopSalesEvents();
+            //  console.log(events);
+            res.status(200).json(events);
+        } catch (err) {
+            console.error(err);
+            res
+                .status(500)
+                .json({ error: "Internal server error get events for slider" });
+        }
+    },
 };
 
 
