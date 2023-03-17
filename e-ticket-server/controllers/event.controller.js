@@ -213,9 +213,6 @@ const eventController = {
             //
             console.log('*************newSeatCategorys')
             console.log(newSeatCategorys)
-            console.log('immmmmmmmmmmmmmmmmmmmmm')
-            console.log(req.body.Event_Images);
-
             const Event_Images = req.body.Event_Images.map(image => {
                 return {
                     event_id: newEvent.event_id,
