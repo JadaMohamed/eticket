@@ -17,6 +17,11 @@ const getSeatCategorieById = async (seat_categ_id) => {
     });
 };
 
+const getEventCategories = async (event_id) => {
+    return prisma.seatCategory.findMany({
+        where: { event_id: parseInt(event_id) },
+    });
+};
 
 const deleteSeatCategoryById = async (id) => {
     return await prisma.seatCategory.delete({
@@ -37,4 +42,5 @@ export default {
     getSeatCategorieById,
     deleteSeatCategoryById,
     updateSeatCategory,
+    getEventCategories
 };

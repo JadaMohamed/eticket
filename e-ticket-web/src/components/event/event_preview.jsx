@@ -52,7 +52,7 @@ function EventPreview(props) {
           <div className="right-side-container">
             <div className="data-collector">
               <div className="label">Seat Category</div>
-              <select name="seat-category" id="seat-category">
+              <select name="seat-category" id="seat-categories">
                 <option value="bas">Basic 200MAD</option>
                 <option value="vip">VIP 300MAD</option>
                 <option value="bst">Back Stage 500MAD</option>

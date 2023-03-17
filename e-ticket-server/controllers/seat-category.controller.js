@@ -97,6 +97,22 @@ const updateSeatCategory = async (req, res) => {
     }
 };
 
+const getEventCategories = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const eventCategories = await seatCategoryService.getEventCategories(id);
+
+        if(eventCategories) {
+            res.json(eventCategories);
+        } else {
+            res.status(404).json({ error: `Event with id: ${id} seat categories not found`});
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
 export default {
     createSeatCategory,
@@ -105,4 +121,5 @@ export default {
     getSeatCategorieById,
     deleteSeatCategoryById,
     updateSeatCategory,
+    getEventCategories
 };
