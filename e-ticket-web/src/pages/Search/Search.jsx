@@ -56,7 +56,7 @@ function Search() {
             events.map((eventData) => (
               <Card
                 key={eventData.event_id}
-                image={eventData.image}
+                image={eventData.brand_url}
                 title={eventData.title}
                 price={eventData.price}
                 location={eventData.location}
