@@ -52,6 +52,9 @@
     flex-direction: column;
     gap: 2px;
 }
+.login-popup .login-popup-container .element .submit {
+    margin-top: 20px;
+}
 .login-popup .login-popup-container .element .element-c label {
     font-size: 0.9rem;
     font-weight: 500;

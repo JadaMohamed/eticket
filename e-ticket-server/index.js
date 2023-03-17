@@ -40,6 +40,8 @@ import clientWaitListRoutes from "./routes/client-wait-list.routes.js";
 import clientRoutes from "./routes/client.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import accountRoutes from "./routes/account.routes.js";
+import cardRoutes from "./routes/card.routes.js";
+import transactionRoutes from "./routes/transaction.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import scannerRoutes from "./routes/scanner.routes.js";
 import {
@@ -90,6 +92,8 @@ app.use("/api/client-wait-lists", verifyJwt, clientWaitListRoutes);
 app.use("/api/clients", verifyJwt, verifyClientOrAdmin, clientRoutes);
 app.use("/api/admins", verifyJwt, verifyAdmin, adminRoutes);
 app.use("/api/accounts", accountRoutes);
+app.use("/api/card", cardRoutes);
+app.use("/api/transaction", transactionRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/scanner", scannerRoutes);
 

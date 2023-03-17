@@ -76,7 +76,7 @@ export default function LoginPopup(props) {
                 required
               />
             </div>
-            <div className="forgot-password">Forgot Password</div>
+            {/* <div className="forgot-password">Forgot Password</div> */}
           </div>
           <div className="element-c submit">
             {/* where is button */}

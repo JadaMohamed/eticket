@@ -21,9 +21,32 @@ model Account {
   Admin         Admin[]
   Notifications Notifications[]
   Organizer     Organizer[]
-  Client        Client[]
+  Card          Card[]
+  Client        Client?
 
   @@index([first_name, last_name])
+}
+
+model Card {
+  id           Int           @id @default(autoincrement())
+  cardNumber   String        @unique
+  cvc          String
+  sold         Float
+  expiresAt    DateTime
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  account      Account       @relation(fields: [accountId], references: [account_id])
+  accountId    Int
+  transactions Transaction[]
+}
+
+model Transaction {
+  id           Int      @id @default(autoincrement())
+  amount       Float
+  createdAt    DateTime @default(now())
+  card         Card     @relation(fields: [cardId], references: [id])
+  cardId       Int
+  description String
 }
 
 model Admin {
@@ -108,7 +131,7 @@ model Event {
 model Event_Images {
   img_id   Int    @id @default(autoincrement())
   event_id Int
-  img_url  String @db.VarChar(70)
+  img_url  String @db.VarChar(200)
   Event    Event  @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Event_Images_Event")
 
   @@index([event_id])

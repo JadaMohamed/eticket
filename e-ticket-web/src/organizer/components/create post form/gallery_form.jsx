@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../../css/create post form/gallery_form.css";
 
-const Gallery_form = ({ imageCollector, setImages }) => {
-  const [previewSources, setPreviewSources] = useState(imageCollector.images);
+const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  // const [previewSources, setPreviewSources] = useState(imageCollector.images);
   const [fileInputStates, setFileInputStates] = useState(Array(3).fill(null));
 
   const previewFile = (file, index) => {
@@ -28,7 +29,42 @@ const Gallery_form = ({ imageCollector, setImages }) => {
     }));
     previewFile(file, index);
   };
-
+  // const uploadfiles = () => {
+  //   const promises = [];
+  //   if (!previewSources) {
+  //     return Promise.resolve([]);
+  //   } else {
+  //     for (let i = 0; i < previewSources.length; i++) {
+  //       if (previewSources[i] === "") break;
+  //       promises.push(uploadImage(previewSources[i]));
+  //     }
+  //     return Promise.all(promises);
+  //   }
+  // };
+  // const handleUpload = () => {
+  //   uploadfiles()
+  //     .then((result) => {
+  //       console.log(result);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error); // handle any errors that occur while handling the Promise objects
+  //     });
+  // };
+  // const uploadImage = async (base64EncodedImage) => {
+  //   console.log(base64EncodedImage);
+  //   try {
+  //     const response = await fetch(`${apiUrl}/api/images/upload/`, {
+  //       method: "POST",
+  //       body: JSON.stringify({ data: base64EncodedImage }),
+  //       headers: { "Content-type": "application/json" },
+  //     });
+  //     const data = await response.json();
+  //     return data.url;
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // };
   useEffect(() => {
     console.log(previewSources);
   });
@@ -36,7 +72,14 @@ const Gallery_form = ({ imageCollector, setImages }) => {
     <>
       <div className="event-gallery">
         <div className="labels">
-          <div className="title">Event Gallery</div>
+          <div
+            className="title"
+            // onClick={() => {
+            //   handleUpload();
+            // }}
+          >
+            Event Gallery
+          </div>
           <div className="instructions">
             Up to 3 images sit amet consectetur. Suspendisse tincidunt viverra
             olor sit amet consectetur.
