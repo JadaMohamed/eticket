@@ -14,13 +14,25 @@ function Search() {
   const [events, setEvents] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const [allfilters, setAllfilters] = useState({
+    categories: [],
+    cities: [],
+  })
+
+  useEffect(() => {
+    console.log(allfilters)
+  }, [allfilters])
+  
+
   const searchEvents = async (keyword) => {
     if (keyword?.length < 1) {
       return;
     }
     try {
-      const response = await Axios.get(
-        `${apiUrl}/api/events/search?keyword=${keyword}`
+      console.log(allfilters)
+      const response = await Axios.post(
+        `${apiUrl}/api/events/search?keyword=${keyword}`,
+       { allfilters: allfilters}
       );
       setEvents(response.data);
     } catch (error) {
@@ -35,7 +47,7 @@ function Search() {
     <>
       <Navbar />
       <SubNavbar />
-      <SearchFilter searchKeyword={`${value}`} />
+      <SearchFilter searchKeyword={value} allfilters={allfilters} setAllfilters={setAllfilters} />
       <div className="margin-top"></div>
       <div className="search-container">
         <div className="cards">

@@ -4,7 +4,7 @@ import "../../css/searchfilter.css";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
-const SearchFilter = (props) => {
+const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [filters, setFilters] = useState([]);
@@ -29,6 +29,11 @@ const SearchFilter = (props) => {
     if (!filters.includes(category) && category !== "") {
       setSelectedCategory(category);
       setFilters([...filters, category]);
+      //add category also in allfilters
+      setAllfilters(prevAllfilters => ({
+        ...prevAllfilters,
+        categories: [...prevAllfilters.categories, category]
+      }));
     }
   };
 
@@ -37,18 +42,39 @@ const SearchFilter = (props) => {
     if (!filters.includes(city) && city !== "") {
       setSelectedCity(city);
       setFilters([...filters, city]);
+      //add city also in allfilters
+      setAllfilters(prevAllfilters => ({
+        ...prevAllfilters,
+        cities: [...prevAllfilters.cities, city]
+      }));
     }
   };
 
   const handleDeleteFilter = (filter) => {
     const newFilters = filters.filter((f) => f !== filter);
     setFilters(newFilters);
+    // remove filter from allfilters
+    setAllfilters(prevAllfilters => {
+      const newCategories = prevAllfilters.categories.filter(c => c !== filter);
+      const newCities = prevAllfilters.cities.filter(city => city !== filter);
+      return {
+        categories: newCategories,
+        cities: newCities
+      };
+    });
+
   };
 
   const handleClearAllFilters = () => {
     setFilters([]);
     setSelectedCategory("");
     setSelectedCity("");
+    // clear the allfilters
+    setAllfilters({
+      categories: [],
+      cities: []
+    });
+
   };
   return (
     <div className="search-filter">
@@ -81,7 +107,7 @@ const SearchFilter = (props) => {
         <div className="bottom-search-filter">
           <div className="left-side">
             <div className="search-keyword">
-              Search result for : <span>"{props.searchKeyword}"</span>
+              Search result for : <span>"{searchKeyword}"</span>
             </div>
             {filters.map((filter) => (
               <div key={filter} className="filter">
