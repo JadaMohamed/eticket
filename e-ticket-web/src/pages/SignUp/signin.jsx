@@ -19,15 +19,15 @@ const SignUp = () => {
   const [previewSource, setPreviewSource] = useState("");
   const [errorField, setErrorField] = useState("");
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
+    first_name: "myfirstname",
+    last_name: "lastname",
     email: "",
-    city: "",
+    city: "agadir",
     avatar: "",
-    password: "",
-    confirmPassword: "",
+    password: "00000000",
+    confirmPassword: "00000000",
     phone_number: "",
-    Description: "",
+    Description: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
     Instagram: "",
     Facebook: "",
     Twitter: "",
@@ -44,11 +44,11 @@ const SignUp = () => {
         setErrorField("Please enter a valid description*");
         return;
       }
-      uploadImage()
+      uploadImage(previewSource)
         .then((result) => {
           console.log(result);
-          createAccount(); // assign the result to a variable
           formData.avatar = result;
+          createAccount(); // assign the result to a variable
         })
         .catch((error) => {
           console.error(error); // handle any errors that occur while handling the Promise objects
@@ -70,6 +70,27 @@ const SignUp = () => {
       throw error;
     }
   };
+
+
+  // const uploadImage = async (base64EncodedImage) => {
+  //   console.log('function upldoad image...........')
+  //   console.log(base64EncodedImage);
+  //   try {
+  //     const response = await fetch(`${apiUrl}/api/images/avatar/upload/`, {
+  //       method: "POST",
+  //       body: JSON.stringify({ data: base64EncodedImage }),
+  //       headers: { "Content-type": "application/json" },
+  //     });
+  //     const data = await response.json();
+  //     return data.url;
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // };
+
+
+
   useEffect(() => {
     if (profile?.account?.account_type === "organizer") {
       navigate("/organizer/dashboard");
