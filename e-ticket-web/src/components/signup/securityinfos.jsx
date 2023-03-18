@@ -2,7 +2,10 @@ import React, { useState } from "react";
 
 const SecurityInfos = ({ formData, setFormData }) => {
   const [password, setPassword] = useState(formData.password);
-  const [confirmPassword, setConfirmPassword] = useState(formData.confirmPassword);
+  const [visibility, setVisibility] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState(
+    formData.confirmPassword
+  );
   const [phoneNumber, setPhoneNumber] = useState(formData.phone_number);
 
   const handlePasswordChange = (event) => {
@@ -25,16 +28,31 @@ const SecurityInfos = ({ formData, setFormData }) => {
       <div className="row1 pass">
         <div className="label">Password *</div>
         <div className="iconed-input">
-          <div className="icon">
-            <span class="material-symbols-outlined btn">visibility_off</span>
-          </div>
-          <input type="password" value={password} onChange={handlePasswordChange} required />
+          <span
+            class="material-symbols-outlined btn"
+            onClick={() => {
+              setVisibility(!visibility);
+            }}
+          >
+            {visibility ? "visibility" : "visibility_off"}
+          </span>
+          <input
+            type={`${visibility ? "text" : "password"}`}
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
         </div>
       </div>
       <div className="row2">
         <div className="column">
           <div className="label">Confirm password *</div>
-          <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
+          <input
+            type={`${visibility ? "text" : "password"}`}
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            required
+          />
           <div className="instructions">
             8 characters or longer. Combine upper and lowercase letters and
             numbers.
@@ -44,10 +62,13 @@ const SecurityInfos = ({ formData, setFormData }) => {
       <div className="row1">
         <div className="label">Phone *</div>
         <div className="iconed-input">
-          <div className="icon">
-            <span class="material-symbols-outlined">phone</span>
-          </div>
-          <input type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+          <span class="material-symbols-outlined">phone</span>
+          <input
+            type="number"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            required
+          />
         </div>
       </div>
     </>
