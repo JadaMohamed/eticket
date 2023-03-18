@@ -13,7 +13,7 @@ function Cart() {
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
-  console.log("cart ", cart);
+  const myRef = useRef(null);
   const [checkOut, setCheckOut] = useState(false);
   const [checkOutData, setCheckOutData] = useState();
   const [selectedCards, setSelectedCards] = useState([]);
@@ -30,7 +30,6 @@ function Cart() {
   const unSelectCard = (eventId) => {
     setSelectedCards((e) => selectedCards.filter((val) => val != eventId));
   };
-
   const deleteFromCart = () => {
     const newCart = cart.filter(
       (item) => !selectedCards.includes(item.eventId)
@@ -43,7 +42,9 @@ function Cart() {
       )
     );
   };
-
+  const scrollToElement = () => {
+    myRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   const selectAll = () => {
     setSelectedCards(cart.map((val) => val.eventId));
   };
@@ -61,6 +62,7 @@ function Cart() {
         totalPrice={totalPrice}
         setCheckOut={setCheckOut}
         isLoggedIn={isLoggedIn}
+        scroll={scrollToElement}
       />
       <div className="content-cart-page">
         <div className="content-cart-page-container">
@@ -95,6 +97,7 @@ function Cart() {
           setCheckOut={setCheckOut}
           client={profile}
           totalPrice={totalPrice}
+          ref={myRef}
         />
       ) : (
         ""

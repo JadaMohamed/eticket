@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-const BasicInfos = ({ formData, setFormData }) => {
+const BasicInfos = ({
+  formData,
+  setFormData,
+  setPreviewSource,
+  previewSource,
+}) => {
   const [firstName, setFirstName] = useState(formData.first_name);
   const [lastName, setLastName] = useState(formData.last_name);
   const [email, setEmail] = useState(formData.email);
@@ -32,6 +37,25 @@ const BasicInfos = ({ formData, setFormData }) => {
     setFormData({ ...formData, avatar: event.target.value });
   };
   //
+  //
+  //
+  //
+  //
+  //
+  //
+  const [fileInputState, setFileInputState] = useState("");
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+
   return (
     <>
       <div className="row2">
@@ -85,13 +109,24 @@ const BasicInfos = ({ formData, setFormData }) => {
       <div className="row1">
         <div className="label">Avatar</div>
         <div className="row2">
-          <div className="preview-avatar"></div>
-          <div className="import-btn">
-            <span class="material-symbols-outlined icon">cloud_upload</span>
-            <span className="content">
-              <span>Click to upload</span> or drag and drop PNG or JPG (max,
-              720x720px)
-            </span>
+          <div className="preview-avatar">
+            {previewSource && <img src={previewSource} />}
+            <img src={avatar} alt="avatar" />
+          </div>
+          <div className="drag-drop-space">
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileInputChange}
+              value={fileInputState}
+            />
+            <div className="upload-icon">
+              <span className="material-symbols-outlined">cloud_upload</span>
+            </div>
+            <div className="instructions">
+              <span>Click to upload</span> or drag and drop SVG, PNG, JPG or GIF
+              (max, 800x800px)
+            </div>
           </div>
         </div>
       </div>

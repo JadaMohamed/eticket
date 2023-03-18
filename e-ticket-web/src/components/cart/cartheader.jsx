@@ -12,11 +12,13 @@ function CartHeader({
   totalPrice,
   setCheckOut,
   isLoggedIn,
+  scroll,
 }) {
   const [login, setpoupLogin] = useState(false);
   const handleCheckOut = () => {
     if (isLoggedIn) {
       setCheckOut(true);
+      scroll();
       return;
     }
     setpoupLogin(true);

@@ -16,13 +16,14 @@ const SignUp = () => {
   const { profile, setProfile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-
+  const [previewSource, setPreviewSource] = useState("");
   const [errorField, setErrorField] = useState("");
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
     city: "",
+    avatar: "",
     password: "",
     confirmPassword: "",
     phone_number: "",
@@ -43,19 +44,32 @@ const SignUp = () => {
         setErrorField("Please enter a valid description*");
         return;
       }
-      try {
-        const response = await axios.post(
-          `${apiUrl}/api/user/registerorganizer`,
-          formData,
-          { withCredentials: true }
-        );
-        setProfile(response.data.profile);
-      } catch (error) {
-        console.error(error);
-      }
+      uploadImage()
+        .then((result) => {
+          console.log(result);
+          createAccount(); // assign the result to a variable
+          formData.avatar = result;
+        })
+        .catch((error) => {
+          console.error(error); // handle any errors that occur while handling the Promise objects
+        });
     }
   };
-
+  const uploadImage = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    try {
+      const response = await fetch(`${apiUrl}/api/images/avatar/upload/`, {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { "Content-type": "application/json" },
+      });
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
   useEffect(() => {
     if (profile?.account?.account_type === "organizer") {
       navigate("/organizer/dashboard");
@@ -139,10 +153,26 @@ const SignUp = () => {
       }
     }
   };
-
+  const createAccount = async () => {
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/user/registerorganizer`,
+        formData,
+        { withCredentials: true }
+      );
+      setProfile(response.data.profile);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
-      <BasicInfos formData={formData} setFormData={setFormData} />,
+      <BasicInfos
+        formData={formData}
+        setFormData={setFormData}
+        setPreviewSource={setPreviewSource}
+        previewSource={previewSource}
+      />,
       <SecurityInfos formData={formData} setFormData={setFormData} />,
       <BrandInfos formData={formData} setFormData={setFormData} />,
     ]);
