@@ -14,6 +14,7 @@ function OrEvents() {
 
   const Nav = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
+  const [allFechedEvents, setAllFechedEvents] = useState([]);
   const [numSilling, setNumSilling] = useState();
   const [numPaused, setNumPaused] = useState();
 
@@ -31,8 +32,9 @@ function OrEvents() {
   async function fetchAllOrganizerEvents() {
     try {
       const response = await Axios.get(`${apiUrl}/api/events/organizer/${profile.user.org_id}/all-events`);
-      // console.log(response.data);
+       console.log(response.data);
       setAllEvents(response.data);
+      setAllFechedEvents(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +44,7 @@ function OrEvents() {
       <OrNavigationBar activepage="Events" />
       <SideBar activeBtn="events" />
       <div className="container">
-        <SearchOrganizer ph="events" />
+        <SearchOrganizer ph="events" setAllEvents={setAllEvents} allFechedEvents={allFechedEvents}/>
         <div className="orga-page-content">
           <div className="filter-svents">
             <div className="all-ev filter-ev active">
@@ -66,11 +68,11 @@ function OrEvents() {
             {allEvents ? (
               allEvents.map((event) => (
                 <EventCard key={event.event_id}
-                 event={event} 
+                  event={event}
                   numSilling={numSilling}
                   setNumSilling={setNumSilling}
                   numPaused={numPaused}
-                   setNumPaused={setNumPaused}/>
+                  setNumPaused={setNumPaused} />
               ))
             ) : (
               <p>No events found.</p>
