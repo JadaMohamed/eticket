@@ -4,26 +4,29 @@ import SubNavbar from "../../components/common/subnavbar";
 import ProductsHeader from "../../components/cart/productsheader";
 import EventCard_Cart from "../../components/cart/eventcard_cart";
 import "./Cart.css";
-import { useRef, useState } from "react";
+import AuthContext from "../../Auth/AuthContext";
+import { useContext, useRef, useState } from "react";
+import PaymentForm from "../../components/common/paymentform";
 
 function Cart() {
+  const { profile, isLoggedIn } = useContext(AuthContext);
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
   console.log("cart ", cart);
+  const [checkOut, setCheckOut] = useState(false);
+  const [checkOutData, setCheckOutData] = useState();
   const [selectedCards, setSelectedCards] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const totalPriceHandler = (old, newP) => {
-    if (isNaN(newP) || isNaN(old))
-      return;
-    setTotalPrice(prev => prev - old + newP);
-  }
+    if (isNaN(newP) || isNaN(old)) return;
+    setTotalPrice((prev) => prev - old + newP);
+  };
   const selectCard = (eventId) => {
-    if(selectedCards.includes(eventId))
-      return;
+    if (selectedCards.includes(eventId)) return;
     setSelectedCards((e) => [...e, eventId]);
   };
-  
+
   const unSelectCard = (eventId) => {
     setSelectedCards((e) => selectedCards.filter((val) => val != eventId));
   };
@@ -42,12 +45,8 @@ function Cart() {
   };
 
   const selectAll = () => {
-      setSelectedCards(cart.map(val => val.eventId));
+    setSelectedCards(cart.map((val) => val.eventId));
   };
-  
-  
-  
-  
 
   return (
     <>
@@ -60,6 +59,7 @@ function Cart() {
         deleteFromCart={deleteFromCart}
         selectAll={selectAll}
         totalPrice={totalPrice}
+        setCheckOut={setCheckOut}
       />
       <div className="content-cart-page">
         <div className="content-cart-page-container">
@@ -89,6 +89,15 @@ function Cart() {
           </div>
         </div>
       </div>
+      {checkOut ? (
+        <PaymentForm
+          setCheckOut={setCheckOut}
+          client={profile}
+          totalPrice={totalPrice}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }

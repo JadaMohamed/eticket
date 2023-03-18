@@ -1,7 +1,16 @@
 import React from "react";
 import "../../css/cartheader.css";
+import PaymentForm from "../common/paymentform";
 
-function CartHeader({ cartLength, selectedItemsLength, selectedItems, deleteFromCart, selectAll, totalPrice }) {
+function CartHeader({
+  cartLength,
+  selectedItemsLength,
+  selectedItems,
+  deleteFromCart,
+  selectAll,
+  totalPrice,
+  setCheckOut,
+}) {
   return (
     <div className="cartheader">
       <div className="cartheader-container">
@@ -24,9 +33,18 @@ function CartHeader({ cartLength, selectedItemsLength, selectedItems, deleteFrom
         </div>
         <div className="cartheader-right">
           <div className="much-selected">
-            <span>{selectedItemsLength}/{cartLength} Items</span> selected
+            <span>
+              {selectedItemsLength}/{cartLength} Items
+            </span>{" "}
+            selected
           </div>
-          <div className="pay-selected-incart" title="Check out">
+          <div
+            className="pay-selected-incart"
+            title="Check out"
+            onClick={() => {
+              setCheckOut(true);
+            }}
+          >
             <div>
               Check out{" "}
               <span className="price-section">
