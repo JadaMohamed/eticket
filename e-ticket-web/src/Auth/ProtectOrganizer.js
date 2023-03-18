@@ -3,21 +3,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import AuthContext from "./AuthContext";
 
 export const ProtectOrganizer = () => {
-  {/* {profile &&
-  profile.account &&
-  (profile.account.account_type === "organizer" ||
-    profile.account.account_type === "admin") ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" />
-
-  )} */}
-  {/* {localStorage.getItem("usertype") === "organizer" ||
-  localStorage.getItem("usertype") === "admin" ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" />
-  )} */}
 
   //****************************************************************************************/
   //now yes if the client or visiter wants to go to dashbord using link after changing the localstorage
