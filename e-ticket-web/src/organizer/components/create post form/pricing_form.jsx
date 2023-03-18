@@ -13,14 +13,14 @@ const Pricing_form = ({ eventData, setEventData }) => {
   }, [categories]);
 
 
- // console.log(categories)
+  // console.log(categories)
 
   function handleAddCategory(event) {
     event.preventDefault();
     const isValid = categories.every((category) => {
       return category.name.trim() !== "" &&
-        category.price.trim() !== "" &&
-        category.numSeats.trim() !== "";
+        category.price !== "" && category.price>0 &&
+        category.numSeats !== "" && category.numSeats;
     });
     if (!isValid) {
       return;
@@ -30,7 +30,7 @@ const Pricing_form = ({ eventData, setEventData }) => {
       { name: "", price: "", numSeats: "" },
     ];
     setCategories(newCategories);
-    
+
 
   }
 
