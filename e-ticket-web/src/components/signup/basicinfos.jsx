@@ -109,9 +109,11 @@ const BasicInfos = ({
       <div className="row1">
         <div className="label">Avatar</div>
         <div className="row2">
-          <div className="preview-avatar">
-            {previewSource && <img src={previewSource} />}
-            <img src={avatar} alt="avatar" />
+          <div className="current-avatar">
+            <div className="avatar-cont">
+              {previewSource && <img src={previewSource} />}
+              <img src={avatar} alt="avatar" />
+            </div>
           </div>
           <div className="drag-drop-space">
             <input

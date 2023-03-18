@@ -145,6 +145,7 @@ select::-ms-expand {
     background-color: transparent;
     color: transparent;
     outline: none;
+    border: none;
 }
 .avatar-collector .display .drag-drop-space input::file-selector-button {
     display: none;

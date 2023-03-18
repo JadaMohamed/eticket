@@ -253,3 +253,39 @@
     border: 1px solid var(--Grey3);
     font-family: var(--Font);
 }
+.drag-drop-space {
+    padding: 30px;
+    text-align: center;
+    /* border: 1px solid var(--Grey3); */
+    width: 100%;
+    border-radius: 8px;
+    align-items: center;
+    position: relative;
+    cursor: pointer !important;
+}
+.current-avatar img {
+    width: 100%;
+    object-fit: cover;
+}
+.drag-drop-space input {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    color: transparent;
+    outline: none;
+}
+.drag-drop-space input::file-selector-button {
+    display: none;
+}
+.current-avatar {
+    border-radius: 50%;
+    background-color: var(--Grey1);
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    aspect-ratio: 1/1;
+}
