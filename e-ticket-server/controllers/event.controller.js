@@ -192,7 +192,7 @@ const eventController = {
         );
 
 
-        //get images from the body request
+        //get images url from the body of request
         const eventImages = req.body.Event_Images.map((image) => {
             return {
                 img_url: image.img_url,
@@ -201,11 +201,14 @@ const eventController = {
         //this is where the urls will be stored befor creating event and Seatcategore
         const Event_ImagesUrls = eventImages.filter((image) => image?.img_url !== undefined);
 
-        //before create Event check if images are exist or quite creation
+        //before create Event check if valide images are exist or quite creation
         if (Event_ImagesUrls.length > 0) {
             console.log('*** checking Event images exist... is ok nice');
-            if (Event_ImagesUrls.length > 4){
-                console.log('****** there are more than 4 imges so create event blocked ..');
+            //check number of imges is less than 4
+            if (Event_ImagesUrls.length > 4) {
+                console.log('Event_ImagesUrls')
+                console.log(Event_ImagesUrls)
+                console.log('****** there are more than 4 imges so create event blocked ..')
                 res.status(400).json({ error: 'there are more than 4 imges so create event blocked' });
                 return;
             }
