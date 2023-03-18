@@ -8,39 +8,73 @@ function EventCard_Cart(props) {
   const [quantity, setQuantity] = useState(props.quantity);
   const [isSelected, setSelected] = useState(props.selectedCards.find((value) => value === props.eventId) ? true : false);
   const [seatCategories, setSeatCategories] = useState();
+  const [selectedSeat, setSelectedSeat] = useState();
   const apiUrl = process.env.REACT_APP_API_URL;
-  // const [price, setPrice] = useState(quantity * props.)
+  const [price, setPrice] = useState(0);
   const getSeatCategories = async () => {
     try {
-      const response = await Axios.get(`${apiUrl}/api/seat-categories/event/${props.eventId}`);
+      const response = await Axios.get(`http://localhost:8000/api/seat-categories/event/${props.eventId}`, {
+        withCredentials: true,
+      });
       setSeatCategories(response.data);
+      setSelectedSeat(response.data[0])
+      setPrice(quantity * response?.data[0]?.type_price);
+      props.totalPriceHandler(price, quantity * response?.data[0]?.type_price);
       console.log("Seat Categories : ", response.data);
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   useEffect(() => {
     getSeatCategories();
   }, [])
+
+  // useEffect(() => {
+  //   if(props.selectedCards.find((value) => value === props.eventId)) {
+  //     setSelected(false);
+  //   } else {
+  //     setSelected(true);
+  //   }
+  // }, [props.selectedCards])
+
   useEffect(() => {
-    if(!props.selectedCards.find((value) => value === props.eventId)) {
-      setSelected(false);
+    console.warn("happened")
+    if(isSelected) {
+      props.setCardSelected(props.eventId);
     } else {
-      setSelected(true);
+      props.setCardUnSelected(props.eventId);
     }
-  }, [props.selectedCards])
-  const selectCheckBoxRef = React.useRef(null);
+  }, [isSelected])
+  
+  const handleSeatChange = (e) => {
+    setSelectedSeat(seatCategories.find((val) => val.seat_categ_id == e.target.value));
+    quantitySetter(1, seatCategories.find((val) => val.seat_categ_id == e.target.value));
+  }
+
+  const quantitySetter = (val, selectedS) => {
+    const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
+    const index = storedEvents.findIndex(
+      (event) => event.eventId === props.eventId
+      );
+    storedEvents[index].quantity = val;
+    setQuantity(storedEvents[index].quantity);
+    setPrice(storedEvents[index].quantity * selectedS.type_price);
+    props.totalPriceHandler(price, storedEvents[index].quantity * selectedS.type_price);
+    localStorage.setItem("cart", JSON.stringify(storedEvents));
+  }
 
   const incrementQuantity = () => {
     const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
     const index = storedEvents.findIndex(
       (event) => event.eventId === props.eventId
-    );
-    if (index !== -1) {
-      storedEvents[index].quantity++;
-      setQuantity(storedEvents[index].quantity);
-      localStorage.setItem("cart", JSON.stringify(storedEvents));
+      );
+      if (index !== -1 && selectedSeat.number_avialable > storedEvents[index].quantity ) {
+        storedEvents[index].quantity++;
+        setQuantity(storedEvents[index].quantity);
+        setPrice(storedEvents[index].quantity * selectedSeat.type_price);
+        props.totalPriceHandler(price, storedEvents[index].quantity * selectedSeat.type_price);
+        localStorage.setItem("cart", JSON.stringify(storedEvents));
     }
   };
 
@@ -52,6 +86,8 @@ function EventCard_Cart(props) {
     if (index !== -1 && storedEvents[index].quantity > 1) {
       storedEvents[index].quantity--;
       setQuantity(storedEvents[index].quantity);
+      setPrice(storedEvents[index].quantity * selectedSeat.type_price);
+      props.totalPriceHandler(price, storedEvents[index].quantity * selectedSeat.type_price);
       localStorage.setItem("cart", JSON.stringify(storedEvents));
     }
   };
@@ -63,26 +99,27 @@ function EventCard_Cart(props) {
     }
   }, [props.eventId]);
 
-  useEffect(() => {
-    if(isSelected) {
-      props.setCardSelected(props.eventId);
-    } else {
-      props.setCardUnSelected(props.eventId);
-    }
-  }, [isSelected])
+
   return (
     <div className="event-card-cart">
       <div className="event-card-cart-container">
         <div className="event-infos">
           <input
-            ref={selectCheckBoxRef}
             type="checkbox"
             name="selected-product"
             className="more-event-on-mobile"
-            checked={isSelected ? "checked" : ""}
-            defaultChecked={isSelected}
+            checked={props.selectedCards.find((value) => value === props.eventId) ? "checked" : ""}
             onChange={() => {
-              setSelected(!isSelected)
+              console.warn("yoyo ??sqdqfs", !isSelected );
+              if(isSelected && props.selectedCards.includes(props.eventId)){
+                props.setCardSelected(props.eventId);
+                setSelected(false)
+              }
+                else {
+                  props.setCardUnSelected(props.eventId);
+                  setSelected(true)
+                } 
+
             }}
           />
           <div className="preview-image">
@@ -106,9 +143,9 @@ function EventCard_Cart(props) {
             <div className="seat-category">
               <span className="seat-static-title">Category : </span>
               {/* {props.seatCategory} */}
-              <select name="seat-category" id="seat-categories">
+              <select name="seat-category" id="seat-categories" onChange={handleSeatChange} value={selectedSeat?.seat_categ_id}>
               {seatCategories && seatCategories.map(val => {
-                return <option>{val.type_name} {val.type_price}MAD</option>
+                return <option value={val.seat_categ_id}>{val.type_name} {val.type_price}MAD</option>
               })}
               </select>
             </div>
@@ -133,7 +170,7 @@ function EventCard_Cart(props) {
           <div className="pricing">
             <div className="title-pricing">Total price</div>
             <div className="total-price">
-              {props.totalPrice}<span>MAD</span>
+              {isNaN(price) ? 0 : price}<span>MAD</span>
             </div>
           </div>
           <div className="actions" title="More events">

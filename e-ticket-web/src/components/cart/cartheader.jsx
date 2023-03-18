@@ -1,14 +1,7 @@
 import React from "react";
 import "../../css/cartheader.css";
 
-function CartHeader({ cartLength, selectedItemsLength, selectedItems, deleteFromCart, selectAll }) {
-  let price = 0;
-  if(selectedItems.length > 0) {
-    price = selectedItems.reduce((acc, curr) => {
-      return acc + curr;
-    })
-  }
-
+function CartHeader({ cartLength, selectedItemsLength, selectedItems, deleteFromCart, selectAll, totalPrice }) {
   return (
     <div className="cartheader">
       <div className="cartheader-container">
@@ -33,11 +26,11 @@ function CartHeader({ cartLength, selectedItemsLength, selectedItems, deleteFrom
           <div className="much-selected">
             <span>{selectedItemsLength}/{cartLength} Items</span> selected
           </div>
-          <div className="pay-selected-incart" title="Chek out">
+          <div className="pay-selected-incart" title="Check out">
             <div>
               Check out{" "}
               <span className="price-section">
-                ( <span className="total-price">{price}</span>
+                ( <span className="total-price">{totalPrice}</span>
                 <span className="curr"> MAD</span> )
               </span>
             </div>

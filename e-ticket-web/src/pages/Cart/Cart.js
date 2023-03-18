@@ -4,41 +4,63 @@ import SubNavbar from "../../components/common/subnavbar";
 import ProductsHeader from "../../components/cart/productsheader";
 import EventCard_Cart from "../../components/cart/eventcard_cart";
 import "./Cart.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function Cart() {
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
-    );
-    console.log("cart : ",cart);
-    const [selectedCards, setSelectedCards] = useState([]);
-
-  const selectCard = (eventId) => {
-    setSelectedCards(e => [...e, eventId]);
+  );
+  console.log("cart ", cart);
+  const [selectedCards, setSelectedCards] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const totalPriceHandler = (old, newP) => {
+    if (isNaN(newP) || isNaN(old))
+      return;
+    setTotalPrice(prev => prev - old + newP);
   }
+  const selectCard = (eventId) => {
+    if(selectedCards.includes(eventId))
+      return;
+    setSelectedCards((e) => [...e, eventId]);
+  };
   
   const unSelectCard = (eventId) => {
-    setSelectedCards(e => selectedCards.filter(val => val != eventId));
-  }
+    setSelectedCards((e) => selectedCards.filter((val) => val != eventId));
+  };
 
   const deleteFromCart = () => {
-    const newCart = cart.filter((item) => !selectedCards.includes(item.eventId));
+    const newCart = cart.filter(
+      (item) => !selectedCards.includes(item.eventId)
+    );
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
     setSelectedCards((prevSelectedCards) =>
-    prevSelectedCards.filter((eventId) => !newCart.find((item) => item.eventId === eventId))
-  );
+      prevSelectedCards.filter(
+        (eventId) => !newCart.find((item) => item.eventId === eventId)
+      )
+    );
   };
 
   const selectAll = () => {
-    setSelectedCards(cart.map(val => val.eventId));
-  }
+      setSelectedCards(cart.map(val => val.eventId));
+  };
   
+  
+  
+  
+
   return (
     <>
       <Navbar active="cart" />
       <SubNavbar />
-      <CartHeader cartLength={cart.length} selectedItemsLength={selectedCards.length} selectedItems={selectedCards} deleteFromCart={deleteFromCart} selectAll={selectAll}/>
+      <CartHeader
+        cartLength={cart.length}
+        selectedItemsLength={selectedCards.length}
+        selectedItems={selectedCards}
+        deleteFromCart={deleteFromCart}
+        selectAll={selectAll}
+        totalPrice={totalPrice}
+      />
       <div className="content-cart-page">
         <div className="content-cart-page-container">
           <div className="event-card-cart-table">
@@ -54,10 +76,11 @@ function Cart() {
                   image={item.imagePublicId}
                   quantity={item.quantity}
                   seatCategory={item.seatCategory}
-                  totalPrice={item.totalPrice}
+                  totalPrice={totalPrice}
                   selectedCards={selectedCards}
                   setCardSelected={selectCard}
                   setCardUnSelected={unSelectCard}
+                  totalPriceHandler={totalPriceHandler}
                 />
               ))
             ) : (
