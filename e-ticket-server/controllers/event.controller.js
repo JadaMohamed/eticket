@@ -171,7 +171,7 @@ const eventController = {
             finish_time: req.body.finish_time,
             //calculate the totalSeats from the table categories
             max_number_attendants: req.body.categories.reduce(
-                (acc, category) => acc + category.numSeats,
+                (acc, category) => acc + parseInt(category.numSeats),
                 0
             ),
             is_start_selling: req.body.is_start_selling, //not
@@ -236,10 +236,10 @@ const eventController = {
                 return {
                     event_id: newEvent.event_id,
                     type_name: category.name,
-                    type_price: category.price,
+                    type_price: parseInt(category.price),
                     type_description: "description seat category",
-                    number_max: category.numSeats,
-                    number_avialable: category.numSeats,
+                    number_max: parseInt(category.numSeats),
+                    number_avialable: parseInt(category.numSeats),
                     max_uses: 1,
                 };
             });
