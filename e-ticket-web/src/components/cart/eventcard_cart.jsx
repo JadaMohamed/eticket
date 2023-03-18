@@ -142,7 +142,7 @@ function EventCard_Cart(props) {
           <div className="slecting-cat-quan">
             <div className="seat-category">
               <span className="seat-static-title">Category : </span>
-              {/* {props.seatCategory} */}
+              
               <select name="seat-category" id="seat-categories" onChange={handleSeatChange} value={selectedSeat?.seat_categ_id}>
               {seatCategories && seatCategories.map(val => {
                 return <option value={val.seat_categ_id}>{val.type_name} {val.type_price}MAD</option>
