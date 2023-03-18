@@ -197,9 +197,9 @@ const eventController = {
         eventDataWithoutNullProperties
       );
       if (newEvent) {
-        console.log("newEvent");
-        console.log(newEvent);
-        console.log("event created sucssussfly");
+        console.log("\nevent created sucssussfly");
+      }else{
+        console.log('event is not creade mybe there is a problem')
       }
       //get SeatCategorys from requist
       const SeatCategorys = req.body.categories.map((category) => {
@@ -219,9 +219,18 @@ const eventController = {
           seatCategoryService.createSeatCategory(SeatCategory)
         )
       );
+      //Confirme create Seat categorys
+      if(newSeatCategorys){
+        console.log('Seat categorys is created sucssusfally')
+      }else{
+        console.log('seat categorys is not created maybe some proble there')
+      }
       //
-      console.log("*************newSeatCategorys");
-      console.log(newSeatCategorys);
+        //
+        console.log('req.body.Event_Images')
+        console.log(req.body.Event_Images)
+
+      //get images from the body request
       const Event_Images = req.body.Event_Images.map((image) => {
         return {
           event_id: newEvent.event_id,
@@ -229,15 +238,19 @@ const eventController = {
         };
       });
 
+      //
+      console.log('Event_Images')
+      console.log(Event_Images)
+      //
       const newEventImages = await Promise.all(
         Event_Images.map((EventImage) =>
           eventImagesService.createEventImage(EventImage)
         )
       );
       //
-      //   console.log("*******newEventImages");
-      //   console.log(newEventImages);
-      //   console.log("end ******************************");
+        console.log("*******newEventImages");
+        console.log(newEventImages);
+        console.log("end ******************************");
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Failed to create event" });
