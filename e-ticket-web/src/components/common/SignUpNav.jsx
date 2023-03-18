@@ -51,7 +51,13 @@ export default function SignUpNav(props) {
               <span class="material-symbols-outlined">arrow_forward</span>
             </div>
           </div>
-          <div className="user-buyer user-type">
+          <div
+            className="user-buyer user-type"
+            onClick={() => {
+              props.signUpClient(true);
+              props.setTrigger(false);
+            }}
+          >
             <div className="user-type-title">Buyer</div>
             <div className="description">
               Lorem ipsum dolor rerum consequatur expedita corporis commodi

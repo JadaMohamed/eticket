@@ -38,7 +38,7 @@ export default function LoginPopup(props) {
           />
         </div>
         <div className="close" onClick={() => props.setTrigger(false)}>
-          <span className="material-symbols-outlined">cancel</span>
+          <span className="material-symbols-outlined">close</span>
         </div>
         <div className="title-instructions element">
           <div className="title">Sign In</div>
@@ -56,6 +56,7 @@ export default function LoginPopup(props) {
                 id="email"
                 ref={userName}
                 required
+                placeholder="Email"
               />
             </div>
           </div>
@@ -74,6 +75,7 @@ export default function LoginPopup(props) {
                 id="first-name"
                 ref={password}
                 required
+                placeholder="Password"
               />
             </div>
             {/* <div className="forgot-password">Forgot Password</div> */}
@@ -88,7 +90,8 @@ export default function LoginPopup(props) {
             Don't have account?{" "}
             <span
               onClick={() => {
-                Nav("/registration", { replace: false });
+                props.setTrigger(false);
+                props.signup(true);
               }}
             >
               Sign Up

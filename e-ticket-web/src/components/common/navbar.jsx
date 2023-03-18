@@ -9,6 +9,7 @@ import LoginPopup from "./loginpopup";
 import AuthContext from "../../Auth/AuthContext";
 import { Image } from "cloudinary-react";
 import SignUpNav from "./SignUpNav";
+import SignUpClient from "./sign_up";
 
 function Navbar(props) {
   const { profile, isLoggedIn } = useContext(AuthContext);
@@ -17,30 +18,21 @@ function Navbar(props) {
   const [open, setOpen] = useState(false);
   const [popupLogin, setpoupLogin] = useState(false);
   const [popupSignUp, setpopupSignup] = useState(false);
-  const Nav = useNavigate();
-  let menuRef = useRef();
-  // const [numcartproducts, setNumcartproducts] = useState(
-  //   JSON.parse(localStorage.getItem("cart")).length
-  // );
-
-  // useEffect(() => {
-  //   // Update numcartproducts whenever the cart items are changed
-  //   setNumcartproducts(JSON.parse(localStorage.getItem("cart"))?.length);
-  // }, [localStorage.getItem("cart")]);
+  const [popupSignUpClient, setpopupSignUpClient] = useState(false);
   const cart = JSON.parse(localStorage.getItem("cart"));
   const initialNumCartProducts = cart?.length ?? 0;
 
   const [numcartproducts, setNumcartproducts] = useState(
     initialNumCartProducts
   );
-
+  const Nav = useNavigate();
+  let menuRef = useRef();
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     if (cart) {
       setNumcartproducts(cart.length);
     }
   }, [localStorage.getItem("cart")]);
-
   const handleSearch = () => {
     if (keyword?.length) Nav(`/search/${keyword}`, { replace: true });
   };
@@ -52,7 +44,6 @@ function Navbar(props) {
       handleSearch();
     }
   };
-
   useEffect(() => {
     let handler = (e) => {
       if (!menuRef.current.contains(e.target)) {
@@ -65,7 +56,6 @@ function Navbar(props) {
     };
   });
   useEffect(() => {
-    console.log("from navbar");
     console.log(profile);
   }, [profile]);
   return (
@@ -121,8 +111,9 @@ function Navbar(props) {
               </div>
               <div
                 onClick={() => Nav("/mytickets", { replace: true })}
-                className={`btn ${props.active === "mytickets" ? "active" : ""
-                  }`}
+                className={`btn ${
+                  props.active === "mytickets" ? "active" : ""
+                }`}
                 id="mytickets"
                 title="My Tickets"
               >
@@ -204,17 +195,21 @@ function Navbar(props) {
                   Settings
                 </div>
 
-                {profile.account.account_type ? <div
-                  className="dropdown-item"
-                  onClick={() => Nav("/organizer/dashboard", { replace: true })}
-                >
-                  <div>
-                    <span class="material-symbols-outlined">
-                      dashboard
-                    </span>
+                {profile.account.account_type ? (
+                  <div
+                    className="dropdown-item"
+                    onClick={() =>
+                      Nav("/organizer/dashboard", { replace: true })
+                    }
+                  >
+                    <div>
+                      <span class="material-symbols-outlined">dashboard</span>
+                    </div>
+                    Dashboard
                   </div>
-                  Dashboard
-                </div> : ""}
+                ) : (
+                  ""
+                )}
                 <div
                   className="dropdown-item"
                   onClick={() => {
@@ -244,9 +239,9 @@ function Navbar(props) {
                   onClick={() => {
                     setpopupSignup(true);
                   }}
-                // onClick={() => {
-                //   Nav("/registration", { replace: false });
-                // }}
+                  // onClick={() => {
+                  //   Nav("/registration", { replace: false });
+                  // }}
                 >
                   <div>
                     <span class="material-symbols-outlined">person_add</span>
@@ -270,8 +265,18 @@ function Navbar(props) {
           <div></div>
         </div>
       </div>
-      {popupLogin && <LoginPopup setTrigger={setpoupLogin} />}
-      {popupSignUp && <SignUpNav setTrigger={setpopupSignup} />}
+      {popupLogin && (
+        <LoginPopup setTrigger={setpoupLogin} signup={setpopupSignup} />
+      )}
+      {popupSignUp && (
+        <SignUpNav
+          setTrigger={setpopupSignup}
+          signUpClient={setpopupSignUpClient}
+        />
+      )}
+      {popupSignUpClient && (
+        <SignUpClient setTrigger={setpopupSignUpClient} login={setpoupLogin} />
+      )}
     </nav>
   );
 }

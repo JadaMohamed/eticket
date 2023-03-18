@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../css/payment_form.css";
-const PaymentForm = ({ setCheckOut, client, totalPrice }) => {
+const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) => {
   const currentYear = new Date().getFullYear();
   const years = [];
   for (let i = 0; i < 20; i++) {
     years.push(currentYear + i);
   }
+
+  useEffect(() => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  }, [])
+  
   return (
-    <div className="payment">
+    <div className="payment" ref={ref}>
       <div className="payment-container">
         <div className="side">
           <div className="payment-details">
@@ -120,6 +125,6 @@ const PaymentForm = ({ setCheckOut, client, totalPrice }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PaymentForm;

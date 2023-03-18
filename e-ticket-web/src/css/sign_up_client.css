@@ -1,0 +1,145 @@
+.sign-up-client {
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    user-select: none;
+    z-index: 9999;
+}
+.sign-up-client .sign-up-client-container {
+    background-color: var(--White);
+    margin: auto;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: var(--CardShadow);
+}
+
+.sign-up-client .sign-up-client-container .sign-up-content {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .title-login .title {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--Purple60);
+}
+.sign-up-client .sign-up-client-container .sign-up-content .title-login .instrs {
+    font-size: 14px;
+    color: var(--Grey3);
+}
+.sign-up-client .sign-up-client-container .sign-up-content .title-login .instrs span {
+    color: var(--Purple60);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .title-login .instrs span:hover {
+    text-decoration: underline;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .header img {
+    height: 30px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 20px;
+    align-items: end;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .personal-informations {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row input {
+    width: 100%;
+    border: 1px solid var(--Grey2);
+    border-radius: 8px;
+    padding: 8px;
+    outline: none;
+    font-size: 16px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row .iconed-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--Grey2);
+    overflow: hidden;
+    border-radius: 8px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row .iconed-input input {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    height: 100%;
+    border: none;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row input::placeholder {
+    color: var(--Grey2);
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row .iconed-input span {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 7px;
+    color: var(--Grey3);
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.sign-up-client .sign-up-client-container .sign-up-content .row .labeled-input label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .row .labeled-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .pass {
+    gap: 10px !important;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .pass span {
+    padding: 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .pass span:hover {
+    background-color: var(--LighterPurple);
+}
+.sign-up-client .sign-up-client-container .sign-up-content .btn {
+    width: 100%;
+    margin-top: 20px;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .btn .btn-container {
+    display: flex;
+    color: var(--White);
+    font-weight: 500;
+    padding: 10px;
+    background-color: var(--Purple);
+    justify-content: center;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+.sign-up-client .sign-up-client-container .sign-up-content .btn .btn-container:hover {
+    opacity: 0.9;
+}
+.sign-up-client .sign-up-client-container .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--Grey3);
+    cursor: pointer;
+    display: flex;
+}
