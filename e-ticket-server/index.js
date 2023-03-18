@@ -133,7 +133,7 @@ app.post("/api/images/avatar/upload", async (req, res) => {
     res.json({ url });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ err: "somthing went wrong" });
+    res.status(500).json({ err: "somthing went wrong to uplad avatar image" });
   }
 });
 app.post("/api/images/eventimages/upload", async (req, res) => {
@@ -148,7 +148,7 @@ app.post("/api/images/eventimages/upload", async (req, res) => {
     res.json({ url });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ err: "somthing went wrong" });
+    res.status(500).json({ err: "somthing went wrong to upload event images" });
   }
 });
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
