@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import seatCategoryController from '../controllers/seat-category.controller.js';
+import { verifyJwt } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
