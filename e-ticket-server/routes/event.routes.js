@@ -12,15 +12,15 @@ router.post(
   verifyJwt,
   verifyOrganizerOrAdmin,
   eventController.createOrganizerEvent
-);
-router.get(
-  "/organizer-profile/:orgId",
-  eventController.getOrganizerProfileById
-);
-router.get(
-  "/organizer/:orgId/all-events",
-  eventController.getAllOrganizerEvents
-);
+  );
+  router.get(
+    "/organizer-profile/:orgId",
+    eventController.getOrganizerProfileById
+    );
+    router.get(
+      "/organizer/:orgId/all-events",
+      eventController.getAllOrganizerEvents
+    );
 router.post(
   "/",
   verifyJwt,

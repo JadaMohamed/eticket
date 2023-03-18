@@ -121,9 +121,8 @@ function Navbar(props) {
               </div>
               <div
                 onClick={() => Nav("/mytickets", { replace: true })}
-                className={`btn ${
-                  props.active === "mytickets" ? "active" : ""
-                }`}
+                className={`btn ${props.active === "mytickets" ? "active" : ""
+                  }`}
                 id="mytickets"
                 title="My Tickets"
               >
@@ -204,14 +203,18 @@ function Navbar(props) {
                   </div>
                   Settings
                 </div>
-                {/* <div className="dropdown-item">
+
+                {profile.account.account_type ? <div
+                  className="dropdown-item"
+                  onClick={() => Nav("/organizer/dashboard", { replace: true })}
+                >
                   <div>
-                    <span className="material-symbols-outlined">
-                      contact_support
+                    <span class="material-symbols-outlined">
+                      dashboard
                     </span>
                   </div>
-                  Support
-                </div> */}
+                  Dashboard
+                </div> : ""}
                 <div
                   className="dropdown-item"
                   onClick={() => {
@@ -241,9 +244,9 @@ function Navbar(props) {
                   onClick={() => {
                     setpopupSignup(true);
                   }}
-                  // onClick={() => {
-                  //   Nav("/registration", { replace: false });
-                  // }}
+                // onClick={() => {
+                //   Nav("/registration", { replace: false });
+                // }}
                 >
                   <div>
                     <span class="material-symbols-outlined">person_add</span>

@@ -19,7 +19,7 @@ const Slideelement = (props) => {
       {isHovered && (
         <div
           className="btn"
-          onClick={() => Nav(`/events/${props.evnt.eventid}`)}
+          onClick={() => { Nav(`/events/${props.event.event_id}`); }}
         >
           <div className="btn-otainer">FIND OUT MORE</div>
         </div>

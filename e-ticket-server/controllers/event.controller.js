@@ -87,13 +87,13 @@ const eventController = {
     },
 
     getAllOrganizerEvents: async (req, res) => {
-        const { orgId } = req.params.orgId;
+        const { orgId } = req.params;
         try {
             const events = await eventService.getAllOrganizerEvents(orgId);
             res.status(200).json(events);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: "Something went wrong" });
+            res.status(500).json({ error: "Something went wrong to get all event of organizer" });
         }
     },
 
