@@ -25,27 +25,27 @@ function EventCard_Cart(props) {
       console.error(error);
     }
   };
+  const triggerSelect = () => {
+    if(!isSelected) {
+      props.setCardSelected(props.eventId);
+    } else {
+      props.setCardUnSelected(props.eventId);
+    }
+    setSelected(prev => !prev)
+  };
+
+  useEffect(() => {
+    if (props.selectedCards.find((value) => value === props.eventId) != undefined) {
+      setSelected(true);
+    } else {
+      setSelected(false);
+    }
+  }, [props.selectedCards])
   
   useEffect(() => {
     getSeatCategories();
   }, [])
 
-  // useEffect(() => {
-  //   if(props.selectedCards.find((value) => value === props.eventId)) {
-  //     setSelected(false);
-  //   } else {
-  //     setSelected(true);
-  //   }
-  // }, [props.selectedCards])
-
-  useEffect(() => {
-    if(isSelected) {
-      props.setCardSelected(props.eventId);
-    } else {
-      props.setCardUnSelected(props.eventId);
-    }
-  }, [isSelected])
-  
   const handleSeatChange = (e) => {
     setSelectedSeat(seatCategories.find((val) => val.seat_categ_id == e.target.value));
     quantitySetter(1, seatCategories.find((val) => val.seat_categ_id == e.target.value));
@@ -55,7 +55,7 @@ function EventCard_Cart(props) {
     const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
     const index = storedEvents.findIndex(
       (event) => event.eventId === props.eventId
-      );
+    );
     storedEvents[index].quantity = val;
     setQuantity(storedEvents[index].quantity);
     setPrice(storedEvents[index].quantity * selectedS.type_price);
@@ -67,13 +67,13 @@ function EventCard_Cart(props) {
     const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
     const index = storedEvents.findIndex(
       (event) => event.eventId === props.eventId
-      );
-      if (index !== -1 && selectedSeat.number_avialable > storedEvents[index].quantity ) {
-        storedEvents[index].quantity++;
-        setQuantity(storedEvents[index].quantity);
-        setPrice(storedEvents[index].quantity * selectedSeat.type_price);
-        props.totalPriceHandler(price, storedEvents[index].quantity * selectedSeat.type_price);
-        localStorage.setItem("cart", JSON.stringify(storedEvents));
+    );
+    if (index !== -1 && selectedSeat.number_avialable > storedEvents[index].quantity) {
+      storedEvents[index].quantity++;
+      setQuantity(storedEvents[index].quantity);
+      setPrice(storedEvents[index].quantity * selectedSeat.type_price);
+      props.totalPriceHandler(price, storedEvents[index].quantity * selectedSeat.type_price);
+      localStorage.setItem("cart", JSON.stringify(storedEvents));
     }
   };
 
@@ -107,19 +107,8 @@ function EventCard_Cart(props) {
             type="checkbox"
             name="selected-product"
             className="more-event-on-mobile"
-            checked={props.selectedCards.find((value) => value === props.eventId) ? "checked" : ""}
-            onChange={() => {
-              console.warn("yoyo ??sqdqfs", !isSelected );
-              if(isSelected && props.selectedCards.includes(props.eventId)){
-                props.setCardSelected(props.eventId);
-                setSelected(false)
-              }
-                else {
-                  props.setCardUnSelected(props.eventId);
-                  setSelected(true)
-                } 
-
-            }}
+            checked={isSelected ? "checked" : ""}
+            onChange={triggerSelect}
           />
           <div className="preview-image">
             <Image cloudName="djjwswdo4" publicId={props.image} />
@@ -141,11 +130,11 @@ function EventCard_Cart(props) {
           <div className="slecting-cat-quan">
             <div className="seat-category">
               <span className="seat-static-title">Category : </span>
-              
+
               <select name="seat-category" id="seat-categories" onChange={handleSeatChange} value={selectedSeat?.seat_categ_id}>
-              {seatCategories && seatCategories.map(val => {
-                return <option value={val.seat_categ_id}>{val.type_name} {val.type_price}MAD</option>
-              })}
+                {seatCategories && seatCategories.map(val => {
+                  return <option value={val.seat_categ_id}>{val.type_name} {val.type_price}MAD</option>
+                })}
               </select>
             </div>
             <div className="quantity">
