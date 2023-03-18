@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/cartheader.css";
 import PaymentForm from "../common/paymentform";
+import LoginPopup from "../common/loginpopup";
 
 function CartHeader({
   cartLength,
@@ -10,7 +11,16 @@ function CartHeader({
   selectAll,
   totalPrice,
   setCheckOut,
+  isLoggedIn,
 }) {
+  const [login, setpoupLogin] = useState(false);
+  const handleCheckOut = () => {
+    if (isLoggedIn) {
+      setCheckOut(true);
+      return;
+    }
+    setpoupLogin(true);
+  };
   return (
     <div className="cartheader">
       <div className="cartheader-container">
@@ -42,7 +52,7 @@ function CartHeader({
             className="pay-selected-incart"
             title="Check out"
             onClick={() => {
-              setCheckOut(true);
+              handleCheckOut();
             }}
           >
             <div>
@@ -55,6 +65,8 @@ function CartHeader({
           </div>
         </div>
       </div>
+
+      {login ? <LoginPopup setTrigger={setpoupLogin} /> : ""}
     </div>
   );
 }

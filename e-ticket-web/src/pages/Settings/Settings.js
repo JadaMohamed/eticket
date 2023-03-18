@@ -32,6 +32,7 @@ function Settings() {
       phone_number,
       avatar: av,
     };
+    console.log("updating.........................");
     try {
       //update accounte
       const response = await axios.put(
@@ -180,26 +181,12 @@ function Settings() {
         headers: { "Content-type": "application/json" },
       });
       const data = await response.json();
-      return data.secure_url;
+      return data.url;
     } catch (error) {
       console.error(error);
       throw error;
     }
   };
-
-  // const uploadImage = async (base64EncodedImage) => {
-  //   try {
-  //     await Axios.put(
-  //       `${apiUrl}/api/images/upload/`,
-  //       { data: base64EncodedImage },
-  //       {
-  //         headers: { "Content-type": "application/json" },
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -211,6 +198,7 @@ function Settings() {
     handleSubmitFile()
       .then((result) => {
         setAvatar(result);
+        console.log("result........" + result);
         UpdatePersonaldetails(result); // assign the result to a variable
         console.log(avatar);
       })

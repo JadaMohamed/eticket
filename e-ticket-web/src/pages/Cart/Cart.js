@@ -60,6 +60,7 @@ function Cart() {
         selectAll={selectAll}
         totalPrice={totalPrice}
         setCheckOut={setCheckOut}
+        isLoggedIn={isLoggedIn}
       />
       <div className="content-cart-page">
         <div className="content-cart-page-container">
