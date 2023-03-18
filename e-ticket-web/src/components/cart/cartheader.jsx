@@ -12,13 +12,12 @@ function CartHeader({
   totalPrice,
   setCheckOut,
   isLoggedIn,
-  scroll,
 }) {
   const [login, setpoupLogin] = useState(false);
   const handleCheckOut = () => {
+
     if (isLoggedIn) {
       setCheckOut(true);
-      scroll();
       return;
     }
     setpoupLogin(true);
@@ -53,9 +52,7 @@ function CartHeader({
           <div
             className="pay-selected-incart"
             title="Check out"
-            onClick={() => {
-              handleCheckOut();
-            }}
+            onClick={handleCheckOut}
           >
             <div>
               Check out{" "}

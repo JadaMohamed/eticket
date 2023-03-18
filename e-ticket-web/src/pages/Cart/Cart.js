@@ -42,9 +42,7 @@ function Cart() {
       )
     );
   };
-  const scrollToElement = () => {
-    myRef.current.scrollIntoView({ behavior: "smooth" });
-  };
+
   const selectAll = () => {
     setSelectedCards(cart.map((val) => val.eventId));
   };
@@ -62,7 +60,6 @@ function Cart() {
         totalPrice={totalPrice}
         setCheckOut={setCheckOut}
         isLoggedIn={isLoggedIn}
-        scroll={scrollToElement}
       />
       <div className="content-cart-page">
         <div className="content-cart-page-container">

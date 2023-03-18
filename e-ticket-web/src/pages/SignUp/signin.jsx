@@ -71,26 +71,6 @@ const SignUp = () => {
     }
   };
 
-
-  // const uploadImage = async (base64EncodedImage) => {
-  //   console.log('function upldoad image...........')
-  //   console.log(base64EncodedImage);
-  //   try {
-  //     const response = await fetch(`${apiUrl}/api/images/avatar/upload/`, {
-  //       method: "POST",
-  //       body: JSON.stringify({ data: base64EncodedImage }),
-  //       headers: { "Content-type": "application/json" },
-  //     });
-  //     const data = await response.json();
-  //     return data.url;
-  //   } catch (error) {
-  //     console.error(error);
-  //     throw error;
-  //   }
-  // };
-
-
-
   useEffect(() => {
     if (profile?.account?.account_type === "organizer") {
       navigate("/organizer/dashboard");

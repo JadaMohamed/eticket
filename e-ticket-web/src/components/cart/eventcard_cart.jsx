@@ -39,7 +39,6 @@ function EventCard_Cart(props) {
   // }, [props.selectedCards])
 
   useEffect(() => {
-    console.warn("happened")
     if(isSelected) {
       props.setCardSelected(props.eventId);
     } else {
