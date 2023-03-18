@@ -65,7 +65,7 @@ export const Createevent = () => {
           eventData.Event_Images.push({ img_url: result[0] });
           if (result[1]) {
             eventData.Event_Images.push({ img_url: result[1] });
-          } 
+          }
           if (result[2]) {
             eventData.Event_Images.push({ img_url: result[2] });
           }
@@ -84,7 +84,7 @@ export const Createevent = () => {
   const uploadImage = async (base64EncodedImage) => {
     console.log(base64EncodedImage);
     try {
-      const response = await fetch(`${apiUrl}/api/images/upload/`, {
+      const response = await fetch(`${apiUrl}/api/images/eventimages/upload/`, {
         method: "POST",
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: { "Content-type": "application/json" },
@@ -122,7 +122,7 @@ export const Createevent = () => {
     event.preventDefault();
     try {
       await handleUpload(); // Wait for images to be uploaded before continuing
-      console.log('creating event')
+      console.log("creating event");
       if (isLastStep) {
         const preparedEventData = prepareEventDataForSubmit();
         const response = await Axios.post(
