@@ -16,7 +16,6 @@ const SearchOrganizer = ({ setAllEvents, allFechedEvents, ph }) => {
   function SearchOrganizerEvent(event) {
     const searchKeyword = event.target.value;
     setKeyword(searchKeyword);
-    console.log(searchKeyword)
     setAllEvents(allFechedEvents.filter((event) =>
       event.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
       event.location.toLowerCase().includes(searchKeyword.toLowerCase()) ||
