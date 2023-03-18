@@ -15,7 +15,7 @@ function MoreBy(props) {
       const response = await Axios.get(
         `${apiUrl}/api/events/organizer/${props.id}/all-events`
       );
-      console.log(response.data);
+      // console.log(response.data);
       setEvents(response.data);
     } catch (error) {
       console.error(error);

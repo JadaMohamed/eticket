@@ -1,32 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/eventcard.css";
-const EventCard = () => {
+import Axios from 'axios'
+
+const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const [isSlling, setisSlling] = useState(event.is_start_selling);
+
+
+  function ConvertDate(isodate) {
+    const date = new Date(isodate);
+    const options = { day: 'numeric', month: 'short' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
+
+  async function switchIsSilling() {
+    try {
+      const response = await Axios.put(`${apiUrl}/api/events/${event.event_id}`,
+        { is_start_selling: !isSlling },
+        { withCredentials: true, });
+      if (response) {
+        // console.log(response.data)
+        if (isSlling) {
+          setNumSilling(numSilling - 1);
+          setNumPaused(numPaused + 1);
+        } else {
+          setNumSilling(numSilling + 1);
+          setNumPaused(numPaused - 1);
+        }
+        setisSlling(response.data.is_start_selling);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <div className="cardevent organizer-cardevent">
       <div className="previewimage with-title">
-        <img src="" alt="" />
-        <div className="event-title">Event title goes here</div>
+        <img src={event.brand_url} alt="" />
+        <div className="event-title">{event.title}</div>
       </div>
       <div className="oevent-infos-actions">
         <div className="oevent-infos">
           <div className="oinfos">
             <div className="start">
-              Start: <span>21 Jan</span>
+              Start: <span>{ConvertDate(event.start_time)}</span>
             </div>
             <div className="addres">
-              At: <span>City goes here</span>
+              At: <span>{event.location}</span>
             </div>
           </div>
           <div className="sales-process">
             <div className="percent"></div>
           </div>
           <div className="svent-statu">
-            Statu: <span> Selling</span>
+            Statu: <span>{isSlling ? "Selling" : "Non-selling"}</span>
           </div>
         </div>
         <div className="oevent-actions">
           <div className="change-statu">
-            <div className="label">Stop selling</div>
+            <div className="label" onClick={switchIsSilling}>{isSlling ? "Stop selling" : "Start selling"}</div>
           </div>
           <div className="actions">
             <div className="stats act">

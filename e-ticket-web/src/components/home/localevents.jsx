@@ -14,7 +14,7 @@ function LocalEvents(props) {
     try {
       const response = await Axios.get(`${apiUrl}/api/events`);
       setEvents(response.data);
-      console.log("Events : ", response.data);
+      // console.log("Events : ", response.data);
     } catch (error) {
       console.error(error);
     }
