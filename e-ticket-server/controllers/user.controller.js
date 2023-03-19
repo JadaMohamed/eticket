@@ -314,6 +314,12 @@ const registerClient = async (req, res, next) => {
         return res.status(400).json({ errors: ['User with this email and password already exists'] });
     }
 
+    // Check email already in use
+    const existingAccountSameEmail = await accountService.findAccountByEmail(email);
+    if (existingAccountSameEmail) {
+        return res.status(400).json({ errors: ['email not eccepted try use an other one'] });
+    }
+
     const existingAccountByPhone = await accountService.findAccountByPhone(phone_number);
     if (existingAccountByPhone) {
         return res.status(400).json({ errors: ['User with this Phone Number already exists'] });

@@ -6,7 +6,7 @@ import AuthContext from "../../Auth/AuthContext";
 
 const SignUpClient = ({ setTrigger, login }) => {
   const [visibility, setvisibility] = useState(false);
-  const {  setProfile } = useContext(AuthContext);
+  const { setProfile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
 
 
@@ -17,6 +17,8 @@ const SignUpClient = ({ setTrigger, login }) => {
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [Errors, setErrors] = useState([]);
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -26,76 +28,84 @@ const SignUpClient = ({ setTrigger, login }) => {
     password: "",
     confirmPassword: "",
   });
-
   const validateFields = () => {
     if (!formData.first_name) {
       setFirstNameError("is required*");
-    }else{
+      return false;
+    } else {
       setFirstNameError("");
     }
 
     if (!formData.last_name) {
       setLastNameError(" is required*");
+      return false;
     } else {
       setLastNameError("");
     }
 
     if (!formData.email) {
       setEmailError(" is required*");
+      return false;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       setEmailError(" not valide*");
+      return false;
     } else {
       setEmailError("");
     }
 
     if (!formData.city) {
       setCityError(" is required*");
+      return false;
     } else {
       setCityError("");
     }
 
+    if (!formData.phone_number) {
+      setPhoneNumberError(" is required*");
+      return false;
+    } else if (!/^\d{10}$/.test(formData.phone_number)) {
+      setPhoneNumberError(" not valide");
+      return false;
+    } else {
+      setPhoneNumberError("");
+    }
+
     if (!formData.password) {
       setPasswordError(" is required*");
+      return false;
     } else if (formData.password.length < 8) {
       setPasswordError(" at least 8 characters*");
+      return false;
     } else {
       setPasswordError("");
     }
 
     if (!formData.confirmPassword) {
       setConfirmPasswordError(" is required*");
+      return false;
     } else if (formData.password !== formData.confirmPassword) {
       setConfirmPasswordError(" not match*");
+      return false;
     } else {
       setConfirmPasswordError("");
     }
-
-    if (!formData.phone_number) {
-      setPhoneNumberError(" is required*");
-    } else if (!/^\d{10}$/.test(formData.phone_number)) {
-      setPhoneNumberError(" not valide");
-    } else {
-      setPhoneNumberError("");
-    }
-
-    if (firstNameError ||lastNameError ||emailError ||cityError ||phoneNumberError || passwordError ||confirmPasswordError){
-      return false;
-      }
-
-      return true;
+    return true;
   };
 
   const registerclient = async () => {
+    setErrors([])
     const isValid = validateFields();
     if (!isValid) {
-      return;
+      return
     }
+
     try {
       const response = await axios.post(
         `${apiUrl}/api/user/registerclient`,
         formData,
         { withCredentials: true, }
       );
+      console.log(response)
       localStorage.setItem(
         "usertype",
         response.data.profile.account.account_type
@@ -105,7 +115,13 @@ const SignUpClient = ({ setTrigger, login }) => {
       if (response.data.profile)
         window.location.reload();
     } catch (error) {
-      console.error(error);
+      const errorData = error.response.data;
+      if (errorData.errors) {
+        setErrors(errorData.errors);
+      } else {
+        console.error(error);
+      }
+
     }
   };
 
@@ -255,6 +271,7 @@ const SignUpClient = ({ setTrigger, login }) => {
                 registerclient();
               }}
             >
+              <div style={{ color: 'red' }}> {Errors[0]}</div>
               <div className="btn-container">Sign Up</div>
             </div>
           </div>

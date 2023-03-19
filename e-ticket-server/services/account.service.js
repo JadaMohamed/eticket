@@ -64,6 +64,19 @@ const findAccountByEmailAndPassword = async (email, password) => {
     if (account.password !== password) {
         return null;
     }
+    return account;
+};
+
+const findAccountByEmail = async (email) => {
+    const account = await prisma.account.findUnique({
+        where: {
+            email,
+        },
+    });
+
+    if (!account) {
+        return null;
+    }
 
     return account;
 };
@@ -95,6 +108,7 @@ export default {
     deleteAccount,
     getAllAccounts,
     findAccountByEmailAndPassword,
+    findAccountByEmail,
     findAccountByFirstLastName,
     findAccountByPhone
 };
