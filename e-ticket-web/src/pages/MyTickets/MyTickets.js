@@ -41,7 +41,7 @@ function MyTickets() {
     getTicketsByClientId();
   }, [profile]);
 
-  // The profile.profile thingy is so dumb btw.
+  console.log("tickets : ", tickets);
   if (!(profile?.account?.account_type === "client")) {
     return (
       <>

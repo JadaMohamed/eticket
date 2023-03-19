@@ -95,6 +95,7 @@ input::-webkit-inner-spin-button {
 
 .sign-up-client .sign-up-client-container .sign-up-content .row .labeled-input label {
     font-weight: 600;
+    font-size: 15px;
     margin-bottom: 5px;
 }
 .sign-up-client .sign-up-client-container .sign-up-content .row .labeled-input {

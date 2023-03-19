@@ -11,6 +11,7 @@ import Pricing_form from "../components/create post form/pricing_form";
 import Gallery_form from "../components/create post form/gallery_form";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
+import ValidateEventInfos from "../components/create post form/validate_event_infos";
 
 export const Createevent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -148,7 +149,10 @@ export const Createevent = () => {
         previewSources={previewSources}
         setPreviewSources={setPreviewSources}
       />,
-      ,
+      <ValidateEventInfos
+        previewSources={previewSources}
+        eventData={eventData}
+      />,
     ]);
 
   // const {steps, currentStepIndex, step , isFirstStep, isLastStep}
