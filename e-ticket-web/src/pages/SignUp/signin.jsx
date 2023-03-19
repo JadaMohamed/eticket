@@ -19,15 +19,15 @@ const SignUp = () => {
   const [previewSource, setPreviewSource] = useState("");
   const [errorField, setErrorField] = useState("");
   const [formData, setFormData] = useState({
-    first_name: "myfirstname",
-    last_name: "lastname",
+    first_name: "",
+    last_name: "",
     email: "",
-    city: "agadir",
+    city: "",
     avatar: "",
-    password: "00000000",
-    confirmPassword: "00000000",
+    password: "",
+    confirmPassword: "",
     phone_number: "",
-    Description: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
+    Description: "",
     Instagram: "",
     Facebook: "",
     Twitter: "",
