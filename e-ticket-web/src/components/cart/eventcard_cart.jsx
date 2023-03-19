@@ -6,18 +6,23 @@ import Axios from "axios";
 
 function EventCard_Cart(props) {
   const [quantity, setQuantity] = useState(props.quantity);
-  const [isSelected, setSelected] = useState(props.selectedCards.find((value) => value === props.eventId) ? true : false);
+  const [isSelected, setSelected] = useState(
+    props.selectedCards.find((value) => value === props.eventId) ? true : false
+  );
   const [seatCategories, setSeatCategories] = useState();
   const [selectedSeat, setSelectedSeat] = useState();
   const apiUrl = process.env.REACT_APP_API_URL;
   const [price, setPrice] = useState(0);
   const getSeatCategories = async () => {
     try {
-      const response = await Axios.get(`http://localhost:8000/api/seat-categories/event/${props.eventId}`, {
-        withCredentials: true,
-      });
+      const response = await Axios.get(
+        `${apiUrl}/api/seat-categories/event/${props.eventId}`,
+        {
+          withCredentials: true,
+        }
+      );
       setSeatCategories(response.data);
-      setSelectedSeat(response.data[0])
+      setSelectedSeat(response.data[0]);
       setPrice(quantity * response?.data[0]?.type_price);
       props.totalPriceHandler(price, quantity * response?.data[0]?.type_price);
       console.log("Seat Categories : ", response.data);
@@ -26,30 +31,37 @@ function EventCard_Cart(props) {
     }
   };
   const triggerSelect = () => {
-    if(!isSelected) {
+    if (!isSelected) {
       props.setCardSelected(props.eventId);
     } else {
       props.setCardUnSelected(props.eventId);
     }
-    setSelected(prev => !prev)
+    setSelected((prev) => !prev);
   };
 
   useEffect(() => {
-    if (props.selectedCards.find((value) => value === props.eventId) != undefined) {
+    if (
+      props.selectedCards.find((value) => value === props.eventId) != undefined
+    ) {
       setSelected(true);
     } else {
       setSelected(false);
     }
-  }, [props.selectedCards])
-  
+  }, [props.selectedCards]);
+
   useEffect(() => {
     getSeatCategories();
-  }, [])
+  }, []);
 
   const handleSeatChange = (e) => {
-    setSelectedSeat(seatCategories.find((val) => val.seat_categ_id == e.target.value));
-    quantitySetter(1, seatCategories.find((val) => val.seat_categ_id == e.target.value));
-  }
+    setSelectedSeat(
+      seatCategories.find((val) => val.seat_categ_id == e.target.value)
+    );
+    quantitySetter(
+      1,
+      seatCategories.find((val) => val.seat_categ_id == e.target.value)
+    );
+  };
 
   const quantitySetter = (val, selectedS) => {
     const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -59,20 +71,29 @@ function EventCard_Cart(props) {
     storedEvents[index].quantity = val;
     setQuantity(storedEvents[index].quantity);
     setPrice(storedEvents[index].quantity * selectedS.type_price);
-    props.totalPriceHandler(price, storedEvents[index].quantity * selectedS.type_price);
+    props.totalPriceHandler(
+      price,
+      storedEvents[index].quantity * selectedS.type_price
+    );
     localStorage.setItem("cart", JSON.stringify(storedEvents));
-  }
+  };
 
   const incrementQuantity = () => {
     const storedEvents = JSON.parse(localStorage.getItem("cart") || "[]");
     const index = storedEvents.findIndex(
       (event) => event.eventId === props.eventId
     );
-    if (index !== -1 && selectedSeat.number_avialable > storedEvents[index].quantity) {
+    if (
+      index !== -1 &&
+      selectedSeat.number_avialable > storedEvents[index].quantity
+    ) {
       storedEvents[index].quantity++;
       setQuantity(storedEvents[index].quantity);
       setPrice(storedEvents[index].quantity * selectedSeat.type_price);
-      props.totalPriceHandler(price, storedEvents[index].quantity * selectedSeat.type_price);
+      props.totalPriceHandler(
+        price,
+        storedEvents[index].quantity * selectedSeat.type_price
+      );
       localStorage.setItem("cart", JSON.stringify(storedEvents));
     }
   };
@@ -86,7 +107,10 @@ function EventCard_Cart(props) {
       storedEvents[index].quantity--;
       setQuantity(storedEvents[index].quantity);
       setPrice(storedEvents[index].quantity * selectedSeat.type_price);
-      props.totalPriceHandler(price, storedEvents[index].quantity * selectedSeat.type_price);
+      props.totalPriceHandler(
+        price,
+        storedEvents[index].quantity * selectedSeat.type_price
+      );
       localStorage.setItem("cart", JSON.stringify(storedEvents));
     }
   };
@@ -97,7 +121,6 @@ function EventCard_Cart(props) {
       setQuantity(currentQuantity);
     }
   }, [props.eventId]);
-
 
   return (
     <div className="event-card-cart">
@@ -131,10 +154,20 @@ function EventCard_Cart(props) {
             <div className="seat-category">
               <span className="seat-static-title">Category : </span>
 
-              <select name="seat-category" id="seat-categories" onChange={handleSeatChange} value={selectedSeat?.seat_categ_id}>
-                {seatCategories && seatCategories.map(val => {
-                  return <option value={val.seat_categ_id}>{val.type_name} {val.type_price}MAD</option>
-                })}
+              <select
+                name="seat-category"
+                id="seat-categories"
+                onChange={handleSeatChange}
+                value={selectedSeat?.seat_categ_id}
+              >
+                {seatCategories &&
+                  seatCategories.map((val) => {
+                    return (
+                      <option value={val.seat_categ_id}>
+                        {val.type_name} {val.type_price}MAD
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="quantity">
@@ -158,7 +191,8 @@ function EventCard_Cart(props) {
           <div className="pricing">
             <div className="title-pricing">Total price</div>
             <div className="total-price">
-              {isNaN(price) ? 0 : price}<span>MAD</span>
+              {isNaN(price) ? 0 : price}
+              <span>MAD</span>
             </div>
           </div>
           <div className="actions" title="More events">
