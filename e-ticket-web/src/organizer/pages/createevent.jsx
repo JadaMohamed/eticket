@@ -12,10 +12,15 @@ import Gallery_form from "../components/create post form/gallery_form";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 import ValidateEventInfos from "../components/create post form/validate_event_infos";
+import { useNavigate } from "react-router-dom";
 
 export const Createevent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const { profile } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [ispublished, setIspublisheds] = useState(false);
+  const [msgeError, setmsgeError] = useState(false);
   const [hostedImages, setHostedImages] = useState([]);
   const [eventData, setEventData] = useState({
     // Overview_form coming data
@@ -38,31 +43,26 @@ export const Createevent = () => {
     //Gallery_form
     Event_Images: [],
   });
-  // const handleSubmitFile = (e) => {
-  //   // e.preventDefault();
-  //   if (!eventData.images) return;
-  //   return uploadImage(eventData.images);
-  // };
 
   const [imageCollector, setImages] = useState({ images: ["", "", ""] });
   const [previewSources, setPreviewSources] = useState(imageCollector.images);
 
   const uploadfiles = () => {
     const promises = [];
-    if (!previewSources) {
-      return Promise.resolve([]);
-    } else {
-      for (let i = 0; i < previewSources.length; i++) {
-        if (previewSources[i] === "") break;
-        promises.push(uploadImage(previewSources[i]));
-      }
-      return Promise.all(promises);
+    for (let i = 0; i < previewSources.length; i++) {
+      if (previewSources[i] === "") continue;
+      promises.push(uploadImage(previewSources[i]));
     }
+    return Promise.all(promises);
   };
+
   const handleUpload = () => {
     return new Promise((resolve, reject) => {
+      //emptying the table of image befor useing it
+      eventData.Event_Images.splice(0, eventData.Event_Images.length);
+      //after upload files puting result urls in the table 
       uploadfiles()
-        .then((result) => {
+      .then((result) => {
           eventData.Event_Images.push({ img_url: result[0] });
           if (result[1]) {
             eventData.Event_Images.push({ img_url: result[1] });
@@ -71,14 +71,14 @@ export const Createevent = () => {
             eventData.Event_Images.push({ img_url: result[2] });
           }
           resolve();
-          return result;
         })
         .catch((error) => {
           reject(error);
-          console.error(error); // handle any errors that occur while handling the Promise objects
+          console.error(error);
         });
     });
   };
+
   useEffect(() => {
     console.log(eventData);
   }, [eventData]);
@@ -109,8 +109,8 @@ export const Createevent = () => {
   // Remove date and time properties from eventData and add isoDateTimeString instead
   const prepareEventDataForSubmit = () => {
     const startTime = convertToIsoDateTime();
-    console.log("startTime");
-    console.log(startTime);
+    // console.log("startTime");
+    // console.log(startTime);
     const { date, time, ...eventDataWithoutDateTime } = eventData;
     const eventDataWithStartTime = {
       ...eventDataWithoutDateTime,
@@ -120,10 +120,22 @@ export const Createevent = () => {
   };
 
   const handlePublish = async (event) => {
+    setmsgeError("");
+    console.log('previewSources')
+    console.log(previewSources)
+    //if all element in the array are empty means user did not choise eny image
+    if (!previewSources.some(elem => elem !== '')) {
+      setmsgeError("you cannot publish event without images");
+      return;
+    }
+    if (ispublished === true) {
+      setmsgeError("Already publishing your event ...")
+      return;
+    }
     event.preventDefault();
+    setIspublisheds(true);
     try {
       await handleUpload(); // Wait for images to be uploaded before continuing
-      console.log("creating event");
       if (isLastStep) {
         const preparedEventData = prepareEventDataForSubmit();
         const response = await Axios.post(
@@ -131,11 +143,23 @@ export const Createevent = () => {
           preparedEventData,
           { withCredentials: true }
         );
+        if (response.status === 200) {
+          navigate("/organizer/events");
+        }
       }
     } catch (error) {
-      console.error(error);
+      if (error.response.data.error) {
+        setmsgeError(error.response.data.error);
+      } else {
+        console.error(error);
+      }
     }
   };
+
+  function handelGoBack() {
+    setmsgeError("");
+    back();
+  }
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
@@ -166,9 +190,10 @@ export const Createevent = () => {
         <form action="">
           <div className="form-container">
             <div className="top-form-container">{step}</div>
+            {msgeError && <div ><span style={{ color: 'red' }}>{msgeError}</span></div>}
             <div className="bottom-form-container">
               {!isFirstStep && (
-                <button className="back" type="button" onClick={back}>
+                <button className="back" type="button" onClick={handelGoBack}>
                   Back
                 </button>
               )}

@@ -122,6 +122,9 @@ const eventService = {
       include: {
         Event_Images: true,
       },
+      orderBy: {
+        created_at: "desc",
+      },
     });
     return events;
   },
