@@ -41,7 +41,7 @@ function HeroSlider() {
           className="mySwiper"
         >
           {events.map((event) => (
-            <SwiperSlide>
+            <SwiperSlide key={event.event_id}>
               <Slideelement event={event} />
             </SwiperSlide>
           ))}
