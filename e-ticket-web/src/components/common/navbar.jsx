@@ -265,14 +265,18 @@ function Navbar(props) {
           <div></div>
         </div>
       </div>
-      {popupLogin && <LoginPopup setTrigger={setpoupLogin} />}
+      {popupLogin && (
+        <LoginPopup setTrigger={setpoupLogin} signup={setpopupSignup} />
+      )}
       {popupSignUp && (
         <SignUpNav
           setTrigger={setpopupSignup}
           signUpClient={setpopupSignUpClient}
         />
       )}
-      {popupSignUpClient && <SignUpClient setTrigger={setpopupSignUpClient} />}
+      {popupSignUpClient && (
+        <SignUpClient setTrigger={setpopupSignUpClient} login={setpoupLogin} />
+      )}
     </nav>
   );
 }

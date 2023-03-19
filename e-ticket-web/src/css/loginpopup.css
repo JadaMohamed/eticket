@@ -9,7 +9,6 @@
     justify-content: center;
     align-items: center;
     user-select: none;
-    transition: 5s ease-in-out;
 }
 .login-popup .login-popup-container {
     position: relative;
@@ -28,22 +27,21 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 0.8rem;
-    color: var(--Grey1);
+    color: var(--Grey2);
     cursor: pointer;
     user-select: none;
 }
 .login-popup .login-popup-container .title-instructions .title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
+    color: var(--Purple60);
 }
 .login-popup .login-popup-container .title-instructions .instructions {
-    font-size: 0.8rem;
+    font-size: 14px;
     font-weight: 400;
-    color: var(--Grey1);
+    color: var(--Grey2);
 }
 .login-popup .login-popup-container .element {
-    padding: 0 10%;
     display: flex;
     flex-direction: column;
 }
@@ -51,20 +49,19 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    width: 100%;
 }
 .login-popup .login-popup-container .element .submit {
     margin-top: 20px;
 }
 .login-popup .login-popup-container .element .element-c label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--Grey1);
-    margin-bottom: 5px;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 .login-popup .login-popup-container .element .element-c .login-input {
     display: flex;
     align-items: center;
-    border: 1px solid var(--Grey3);
+    border: 1px solid var(--Grey2);
     border-radius: 8px;
     width: 100%;
     background-color: var(--White);
@@ -74,7 +71,6 @@
     flex-direction: row-reverse;
 }
 .login-popup .login-popup-container .element .element-c .login-input span {
-    color: var(--Grey1);
     font-size: 1.3rem;
     padding: 6px 10px;
     cursor: pointer;
@@ -84,7 +80,11 @@
     width: 100%;
     outline: none;
     padding: 8px 10px;
+    font-size: 16px;
     font-weight: 500;
+}
+.login-popup .login-popup-container .element .element-c .login-input input::placeholder {
+    color: var(--Grey2);
 }
 .login-popup .login-popup-container .form {
     display: flex;

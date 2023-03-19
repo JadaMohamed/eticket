@@ -4,7 +4,7 @@ import Logo from "../../img/logo.svg";
 import axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 
-const SignUpClient = ({ setTrigger }) => {
+const SignUpClient = ({ setTrigger, login }) => {
   const [visibility, setvisibility] = useState(false);
   const { profile, setProfile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -48,7 +48,15 @@ const SignUpClient = ({ setTrigger }) => {
           <div className="title-login">
             <div className="title">Create new account</div>
             <div className="instrs">
-              Already have an account? <span>Login</span>
+              Already have an account?{" "}
+              <span
+                onClick={() => {
+                  setTrigger(false);
+                  login(true);
+                }}
+              >
+                Login
+              </span>
             </div>
           </div>
           <div className="personal-informations">

@@ -111,8 +111,8 @@ const BasicInfos = ({
         <div className="row2">
           <div className="current-avatar">
             <div className="avatar-cont">
-              {previewSource && <img src={previewSource} />}
-              <img src={avatar} alt="avatar" />
+              {previewSource && <img src={previewSource} alt="avatar" />}
+              {!previewSource && <img src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png" alt="avatar" />}
             </div>
           </div>
           <div className="drag-drop-space">
