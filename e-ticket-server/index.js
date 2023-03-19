@@ -128,7 +128,7 @@ app.post("/api/images/avatar/upload", async (req, res) => {
       upload_preset: "e_ticket",
       folder: "e_ticket/useravatar",
     });
-    console.log(uploadedResponse);
+    // console.log(uploadedResponse);
     const url = uploadedResponse.secure_url;
     res.json({ url });
   } catch (error) {
@@ -143,7 +143,7 @@ app.post("/api/images/eventimages/upload", async (req, res) => {
       upload_preset: "e_ticket",
       folder: "e_ticket/eventsimages",
     });
-    console.log(uploadedResponse);
+    // console.log(uploadedResponse);
     const url = uploadedResponse.public_id;
     res.json({ url });
   } catch (error) {

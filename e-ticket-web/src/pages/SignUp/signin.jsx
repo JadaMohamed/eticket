@@ -34,6 +34,7 @@ const SignUp = () => {
   });
 
   const handleSubmit = async (event) => {
+    setErrorField("");
     console.log("Signing UP.....");
     event.preventDefault();
     if (isLastStep) {
@@ -48,9 +49,12 @@ const SignUp = () => {
         .then((result) => {
           console.log(result);
           formData.avatar = result;
-          createAccount(); // assign the result to a variable
+          if (formData.avatar.length>0){
+            createAccount(); // assign the result to a variable
+          }
         })
         .catch((error) => {
+          setErrorField("Register *'canceled'* you can try again\n check also your net***");
           console.error(error); // handle any errors that occur while handling the Promise objects
         });
     }
@@ -103,6 +107,10 @@ const SignUp = () => {
 
     if (!formData.city) {
       setErrorField("Please enter your city*");
+      return false;
+    }
+    if (previewSource === "") {
+      setErrorField("Please choise profile photo*");
       return false;
     }
     return true;
