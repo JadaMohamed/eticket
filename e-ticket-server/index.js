@@ -1,29 +1,3 @@
-// const express = require("express");
-// const cors = require("cors");
-// const bodyParser = require("body-parser");
-// const eventRoutes = require("./routes/event.routes.js");
-// const eventImagesRoutes = require("./routes/event-images.routes.js");
-// const eventReviewRoutes = require("./routes/event-reviews.routes.js");
-// const notificationsRoutes = require("./routes/notifications.routes.js");
-// const ordersCartRoutes = require("./routes/orders-cart.routes.js");
-// const organizersRoutes = require("./routes/organizers.routes.js");
-// const paidTicketsOrdersRoutes = require("./routes/paid-tickets-orders.routes.js");
-// const seatCategoryRoutes = require("./routes/seat-category.routes.js");
-// const ticketRoutes = require("./routes/ticket.routes.js");
-// const clientWaitListRoutes = require("./routes/client-wait-list.routes.js");
-// const clientRoutes = require("./routes/client.routes.js");
-// const adminRoutes = require("./routes/admin.routes.js");
-// const accountRoutes = require("./routes/account.routes.js");
-// const userRoutes = require("./routes/user.routes.js");
-// const {
-//   verifyAdmin,
-//   verifyClientOrAdmin,
-//   verifyJwt,
-//   verifyOrganizerOrAdmin,
-// } = require("./middleware/authMiddleware.js");
-// const cookieParser = require("cookie-parser");
-// const { handleError } = require("./middleware/errorHandlers.js");
-
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -55,6 +29,11 @@ import { handleError } from "./middleware/errorHandlers.js";
 
 const app = express();
 
+
+// Add middleware to parse request body with a limit of 100 MB
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+
 app.use(express.json());
 
 // Set up CORS options
@@ -69,9 +48,6 @@ const corsOptions = {
 
 // Enable CORS middleware with options
 app.use(cors(corsOptions));
-
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
 app.use("/api/events", eventRoutes);
@@ -104,22 +80,7 @@ app.get("/", (req, res) => {
 app.use(handleError);
 
 //images api XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-
-// const app = express();
-// const { cloudinary } = require("./cloudinary/cloudinary");
 import cloudinary from "./cloudinary/cloudinary.js";
-// app.use(express.json({ limit: "50mb" }));
-// app.use(express.urlencoded({ limit: "50mb", extended: true }));
-
-// app.get("/api/images", async (req, res) => {
-//   const { resources } = await cloudinary.search
-//     .expression("folder:e_ticket")
-//     .sort_by("public_id", "desc")
-//     .execute();
-
-//   const publicIds = resources.map((file) => file.public_id);
-//   res.send(publicIds);
-// });
 
 app.post("/api/images/avatar/upload", async (req, res) => {
   try {
