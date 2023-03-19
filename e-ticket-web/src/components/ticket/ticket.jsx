@@ -1,17 +1,35 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../css/ticket.css";
 import TicketComponent from "../../organizer/components/create post form/ticket_comp";
 import { printComponent, printDiv } from "../../Utils/divToImage";
 import CountdownDate from "../common/countdown";
 
 import "../../organizer/css/create post form/ticket_form.css";
+import Axios from "axios";
 
 function Ticket({ ticket, onClick, selectedTicket }) {
   const isSelected = ticket.ticket_id === selectedTicket?.ticket_id;
+  const apiUrl = process.env.REACT_APP_API_URL;
   const ticketRef = useRef(null);
+  const [seatCategory, setSeatCategory] = useState();
   const downloadTicket = () => {
     printDiv(ticketRef.current)
   }
+  useEffect(() => {
+    const getTicketSeatCategory = async () => {
+      try {
+        const response = await Axios.get(
+          `${apiUrl}/api/seat-categories/${ticket.seat_categ_id}`,
+          { withCredentials: true }
+        );
+        setSeatCategory(response.data.type_name);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getTicketSeatCategory();
+  }, [])
   return (
     <>
     
@@ -67,7 +85,7 @@ function Ticket({ ticket, onClick, selectedTicket }) {
             </div>
           </div>
         </div>
-      <TicketComponent eventData={ticket.Event} ref={ticketRef} qrCode={ticket.qrcode} width={"800px"} visible={false}/>
+      <TicketComponent eventData={ticket.Event} ref={ticketRef} ticketCategory={seatCategory} qrCode={ticket.qrcode} width={"800px"} visible={false} />
       </div>
     </>
   );
