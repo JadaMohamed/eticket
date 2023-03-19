@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../css/eventcard.css";
 import Axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }) => {
+  const Nav = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
   const [isSlling, setisSlling] = useState(event.is_start_selling);
 
@@ -65,7 +67,11 @@ const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }
           </div>
           <div className="actions">
             <div className="stats act">
-              <span class="material-symbols-outlined">equalizer</span>
+              <span class="material-symbols-outlined"
+                onClick={() => Nav(`/events/${event.event_id}`, { replace: false })}
+              >
+                equalizer
+              </span>
             </div>
             <div className="edit act">
               <span class="material-symbols-outlined">edit</span>

@@ -16,7 +16,7 @@ model Account {
   password      String          @db.VarChar(50)
   account_type  String          @db.VarChar(50)
   created_at    DateTime        @default(now())
-  avatar        String          @default("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg") @db.VarChar(150)
+  avatar        String          @default("https://res.cloudinary.com/djjwswdo4/image/upload/v1679165345/e_ticket/useravatar/jzg6gsepwvzpsb0rej7a.jpg") @db.VarChar(150)
   phone_number  String          @unique @db.VarChar(50)
   Admin         Admin[]
   Notifications Notifications[]

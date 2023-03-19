@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/profile', verifyJwt, userController.profile);
 router.post('/register', userController.register);
 router.post('/registerorganizer', userController.registerOrganizer);
+router.post('/registerclient', userController.registerClient);
 router.post('/login', userController.login);
 router.get('/logout', verifyJwt, userController.logout);
 
