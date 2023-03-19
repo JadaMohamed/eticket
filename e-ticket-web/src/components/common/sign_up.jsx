@@ -81,7 +81,7 @@ const SignUpClient = ({ setTrigger, login }) => {
             </div>
             <div className="row">
               <div className="labeled-input">
-                <label>Email</label>
+                <label>City</label>
                 <div className="iconed-input">
                   <span class="material-symbols-outlined">distance</span>
                   <input type="text" placeholder="City" />

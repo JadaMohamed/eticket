@@ -11,7 +11,7 @@
     gap: 20px;
 }
 .event-preview .event-preview-container .leftside {
-    max-width: 55%;
+    width: 100%;
     gap: 20px;
     display: flex;
     flex-direction: column;
@@ -26,6 +26,7 @@
 }
 .event-preview .event-preview-container .leftside .images .selected-image img {
     width: 100%;
+    aspect-ratio: 16/9;
 }
 .event-preview .event-preview-container .leftside .images .image-slider {
     display: flex;
@@ -37,13 +38,13 @@
 .event-preview .event-preview-container .leftside .images .image {
     width: 100px;
     height: 60px;
-    background-color: var(--Green30);
+    background-color: var(--Purple30);
     border-radius: 8px;
     overflow: hidden;
     display: flex;
 }
 .event-preview .event-preview-container .leftside .images .image:first-child {
-    background-color: var(--Green80);
+    background-color: var(--Purple60);
 }
 .event-preview .event-preview-container .leftside .event-title {
     font-size: 24px;
@@ -63,8 +64,8 @@
     background-color: var(--Grey3);
 }
 .event-preview .event-preview-container .right-side {
-    border: 1px solid var(--Grey3);
-    width: 100%;
+    border: 1px solid var(--Grey2);
+    width: 70%;
     border-radius: 8px;
     height: 100%;
 }
@@ -79,7 +80,7 @@
     color: var(--Grey1);
 }
 .event-preview .event-preview-container .right-side .right-side-container .data-collector select {
-    width: 100%;
+    width: 100% !important;
     padding: 10px;
     outline: none;
     border: 1px solid var(--Grey3);
@@ -88,7 +89,7 @@
     margin-top: 8px;
     appearance: none;
     cursor: pointer;
-    color: var(--Green);
+    color: var(--Purple) !important;
 }
 .event-preview .event-preview-container .right-side .right-side-container .quantity-collector {
     display: flex;
@@ -101,16 +102,16 @@
     gap: 15px;
     border-radius: 8px;
     margin-top: 10px;
-    background-color: var(--Green50);
+    background-color: var(--Purple60);
     color: var(--White);
     font-weight: 600;
 }
 .event-preview .event-preview-container .right-side .right-side-container .quantity-collector .quantity-selector .btn {
     padding: 5px 10px;
     background-color: var(--White);
-    color: var(--Green);
+    color: var(--Purple);
     font-weight: 800;
-    border: 1px solid var(--Green50);
+    border: 1px solid var(--Purple60);
     min-width: 34px;
     border-radius: 8px;
     text-align: center;
@@ -124,13 +125,13 @@
     .quantity-collector
     .quantity-selector
     .btn:hover {
-    background-color: var(--Green);
+    background-color: var(--Purple);
     color: var(--White);
 }
 .event-preview .event-preview-container .right-side .right-side-container .quantity-collector .quantity-statu {
     font-size: 20px;
     font-weight: 600;
-    color: var(--Green);
+    color: var(--Purple);
 }
 .event-preview .event-preview-container .right-side .right-side-container .event-infos {
     display: flex;
@@ -138,7 +139,7 @@
     gap: 5px;
 }
 .event-preview .event-preview-container .right-side .right-side-container .event-infos span {
-    color: var(--Green);
+    color: var(--Purple);
     font-size: 16px;
 }
 .event-preview .event-preview-container .right-side .right-side-container .event-infos .inf {
@@ -150,7 +151,7 @@
 }
 .event-preview .event-preview-container .right-side .right-side-container .total-price .calculated-price {
     font-weight: 600;
-    color: var(--Green);
+    color: var(--Purple);
     font-size: 24px;
 }
 .event-preview .event-preview-container .right-side .right-side-container .total-price .calculated-price span {
@@ -170,11 +171,11 @@
     font-weight: 600;
 }
 .event-preview .event-preview-container .right-side .right-side-container .btns .add-tocart-btn {
-    color: var(--Green);
-    border: 1px solid var(--Green);
+    color: var(--Purple);
+    border: 1px solid var(--Purple);
 }
 .event-preview .event-preview-container .right-side .right-side-container .btns .buy-now-btn {
-    background-color: var(--Green);
+    background-color: var(--Purple);
     color: var(--White);
 }
 .event-preview .event-preview-container .right-side .right-side-container .btns .instruction {
@@ -191,7 +192,7 @@
     color: var(--Grey1);
 }
 .organizer span {
-    color: var(--Green);
+    color: var(--Purple);
     font-weight: 600;
     transition: 0.3s ease;
     cursor: pointer;
@@ -200,7 +201,7 @@
     text-decoration: underline;
 }
 .more-by .section-title span {
-    color: var(--Green);
+    color: var(--Purple);
     font-weight: 600;
     transition: 0.3s ease;
     cursor: pointer;
