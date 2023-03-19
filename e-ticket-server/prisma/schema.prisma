@@ -41,11 +41,11 @@ model Card {
 }
 
 model Transaction {
-  id           Int      @id @default(autoincrement())
-  amount       Float
-  createdAt    DateTime @default(now())
-  card         Card     @relation(fields: [cardId], references: [id])
-  cardId       Int
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  createdAt   DateTime @default(now())
+  card        Card     @relation(fields: [cardId], references: [id])
+  cardId      Int
   description String
 }
 
@@ -193,21 +193,23 @@ model Paid_Tickets_Orders {
 }
 
 model SeatCategory {
-  seat_categ_id    Int    @id @default(autoincrement())
+  seat_categ_id    Int      @id @default(autoincrement())
   event_id         Int
-  type_name        String @db.VarChar(50)
+  type_name        String   @db.VarChar(50)
   type_price       Int
-  type_description String @default("seat description") @db.VarChar(50)
+  type_description String   @default("seat description") @db.VarChar(50)
   number_max       Int
   number_avialable Int
-  max_uses         Int    @default(1)
-  Event            Event  @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_SeatCategory_Event")
+  max_uses         Int      @default(1)
+  Event            Event    @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_SeatCategory_Event")
+  Ticket           Ticket[]
 
   @@index([event_id])
 }
 
 model Ticket {
   ticket_id           Int                   @id @default(autoincrement())
+  seat_categ_id       Int
   client_id           Int
   event_id            Int
   qrcode              String                @unique @db.VarChar(100)
@@ -216,6 +218,8 @@ model Ticket {
   num_uses            Int
   Paid_Tickets_Orders Paid_Tickets_Orders[]
   Event               Event                 @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Ticket_Event")
+  SeatCategory        SeatCategory          @relation(fields: [seat_categ_id], references: [seat_categ_id], onDelete: Cascade, map: "FK_Ticket_SeatCategory")
 
   @@index([event_id])
+  @@index([seat_categ_id])
 }
