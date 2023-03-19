@@ -274,6 +274,7 @@ const eventController = {
             console.log("*******newEventImages");
             console.log(newEventImages);
             console.log("End Operation Yes ********** Every think is nice");
+            res.status(200).json({ msg: "event created successfully" });
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: "Failed to create event" });
