@@ -23,7 +23,7 @@ import SignIn from "./pages/SignUp/signin";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/tothepoint_login">
       <AuthContextProvider>
         <Routes>
           <Route path="/" element={<Home />} />
