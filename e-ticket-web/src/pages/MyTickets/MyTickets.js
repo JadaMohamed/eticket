@@ -17,6 +17,8 @@ function MyTickets() {
   };
   const { profile } = useContext(AuthContext);
   const [view, setView] = useState(false);
+  const [Alltickets, setAllTickets] = useState([]);
+  const [keyword, setKeyword] = useState("");
   const [tickets, setTickets] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
   const [selectedTicket, setSelectedTicket] = useState(null);
@@ -26,6 +28,7 @@ function MyTickets() {
         `${apiUrl}/api/tickets/client/${profile.user.client_id}`,
         { withCredentials: true }
       );
+      setAllTickets(response.data);
       setTickets(response.data);
     } catch (error) {
       console.error(error);
@@ -34,6 +37,17 @@ function MyTickets() {
   useEffect(() => {
     console.log(view);
   });
+
+  useEffect(() => {
+    //chearch mytickets implementation
+    setTickets(Alltickets.filter((ticket) =>
+      ticket.Event.title.toLowerCase().includes(keyword.toLowerCase()) ||
+      ticket.Event.location.toLowerCase().includes(keyword.toLowerCase())||
+      ticket.Event.event_type.toLowerCase().includes(keyword.toLowerCase())
+    ));
+  }, [keyword]);
+
+
   useEffect(() => {
     console.log(selectedTicket);
   }, [selectedTicket]);
@@ -60,7 +74,7 @@ function MyTickets() {
     <>
       <Navbar />
       <SubNavbar />
-      <MyTicketsHeader />
+      <MyTicketsHeader keyword={keyword} setKeyword={setKeyword} />
       {view ? (
         <QrCodeViewer code={selectedTicket?.qrcode} view={setView} />
       ) : (
