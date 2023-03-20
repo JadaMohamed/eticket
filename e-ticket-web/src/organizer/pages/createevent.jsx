@@ -29,19 +29,14 @@ export const Createevent = () => {
     eventTitle: "",
     date: "",
     time: "",
-    finish_time: "2023-03-21T20:00:00.000Z",
-    duration: "10h",
     address1: "",
     address2: "",
     trailer_video_url: "",
     // Pricing_form coming data
-    categories: [
-      { name: "vip", price: 50, numSeats: 33 },
-      { name: "basic", price: 20, numSeats: 100 },
-    ],
+    categories: [],
     // Description_form coming data
-    description: "this is my event discription",
-    eventCategory: "Festivale | Concert",
+    description: "",
+    eventCategory: "",
     //Gallery_form
     Event_Images: [],
   });
