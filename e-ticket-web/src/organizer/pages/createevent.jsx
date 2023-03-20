@@ -22,16 +22,18 @@ export const Createevent = () => {
   const [ispublished, setIspublisheds] = useState(false);
   const [msgeError, setmsgeError] = useState(false);
   const [hostedImages, setHostedImages] = useState([]);
+  const [errorField, setErrorField] = useState("");
+
   const [eventData, setEventData] = useState({
     // Overview_form coming data
-    eventTitle: "my nice event title",
-    date: "03-20-2023",
-    time: "20:00",
+    eventTitle: "",
+    date: "",
+    time: "",
     finish_time: "2023-03-21T20:00:00.000Z",
     duration: "10h",
-    address1: "my address 1",
-    address2: "my second adress",
-    trailer_video_url: "youtube.trailer_video_url.com",
+    address1: "",
+    address2: "",
+    trailer_video_url: "",
     // Pricing_form coming data
     categories: [
       { name: "vip", price: 50, numSeats: 33 },
@@ -161,6 +163,45 @@ export const Createevent = () => {
     back();
   }
 
+  const validateFirstStep = () => {
+    if (!eventData.first_name) {
+      setErrorField("Please enter your first name*");
+      return false;
+    }
+
+    if (!eventData.last_name) {
+      setErrorField("Please enter your last name*");
+      return false;
+    }
+
+    if (!eventData.email) {
+      setErrorField("Please enter your email*");
+      return false;
+    } else if (!/\S+@\S+\.\S+/.test(eventData.email)) {
+      setErrorField("Please enter a valid email*");
+      return false;
+    }
+
+    if (!eventData.city) {
+      setErrorField("Please enter your city*");
+      return false;
+    }
+   
+    return true;
+  };
+  function handlenext(){
+    if (isFirstStep) {
+      const isValid = validateFirstStep();
+      if (isValid) {
+        // proceed to the next step
+        next();
+        // setErrorField("");
+      }
+    }
+
+    next();
+  }
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiplePageForm([
       <Overview_form eventData={eventData} setEventData={setEventData} />,
@@ -198,7 +239,7 @@ export const Createevent = () => {
                 </button>
               )}
               {!isLastStep && (
-                <button className="next" type="button" onClick={next}>
+                <button className="next" type="button" onClick={handlenext}>
                   {" "}
                   Continue{" "}
                 </button>
