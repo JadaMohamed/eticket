@@ -48,7 +48,7 @@ export default function SignUpNav(props) {
               explicabo repudiandae itaque.
             </div>
             <div className="arrow-icon">
-              <span class="material-symbols-outlined">arrow_forward</span>
+              <span className="material-symbols-outlined">arrow_forward</span>
             </div>
           </div>
           <div
@@ -64,7 +64,7 @@ export default function SignUpNav(props) {
               explicabo repudiandae itaque.
             </div>
             <div className="arrow-icon">
-              <span class="material-symbols-outlined">arrow_forward</span>
+              <span className="material-symbols-outlined">arrow_forward</span>
             </div>
           </div>
         </div>

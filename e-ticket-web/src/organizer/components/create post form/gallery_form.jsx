@@ -65,18 +65,18 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
   //     throw error;
   //   }
   // };
-  useEffect(() => {
-    console.log(previewSources);
-  });
+  // useEffect(() => {
+  //   console.log(previewSources);
+  // });
   return (
     <>
       <div className="event-gallery">
         <div className="labels">
           <div
             className="title"
-            // onClick={() => {
-            //   handleUpload();
-            // }}
+          // onClick={() => {
+          //   handleUpload();
+          // }}
           >
             Event Gallery
           </div>
@@ -105,7 +105,7 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
                     <img src={previewSources[index]} alt={`Preview ${index}`} />
                   ) : (
                     <>
-                      <span class="material-symbols-outlined icon">
+                      <span className="material-symbols-outlined icon">
                         cloud_upload
                       </span>
                       <span className="content">
@@ -131,7 +131,7 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
         <div className="import-cards">
           <div className="import-card">
             <div className="import-card-container">
-              <span class="material-symbols-outlined icon">cloud_upload</span>
+              <span className="material-symbols-outlined icon">cloud_upload</span>
               <span className="content">
                 <span>Click to upload</span> or drag and drop PNG or JPG(max,
                 720x720px)

@@ -29,7 +29,7 @@ const SecurityInfos = ({ formData, setFormData }) => {
         <div className="label">Password *</div>
         <div className="iconed-input">
           <span
-            class="material-symbols-outlined btn"
+            className="material-symbols-outlined btn"
             onClick={() => {
               setVisibility(!visibility);
             }}
@@ -62,7 +62,7 @@ const SecurityInfos = ({ formData, setFormData }) => {
       <div className="row1">
         <div className="label">Phone *</div>
         <div className="iconed-input">
-          <span class="material-symbols-outlined">phone</span>
+          <span className="material-symbols-outlined">phone</span>
           <input
             type="number"
             value={phoneNumber}

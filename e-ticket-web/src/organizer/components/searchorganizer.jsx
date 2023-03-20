@@ -29,7 +29,7 @@ const SearchOrganizer = ({ setAllEvents, allFechedEvents, ph }) => {
     <div className="search-create-nav">
       <div className="searchbar-organizer">
         <input type="text" value={keyword} onChange={SearchOrganizerEvent} placeholder={`Search ${ph}`} />
-        <span class="material-symbols-outlined">search</span>
+        <span className="material-symbols-outlined">search</span>
       </div>
       <div className="create-event-btn">
         <div
@@ -38,7 +38,7 @@ const SearchOrganizer = ({ setAllEvents, allFechedEvents, ph }) => {
             Nav("/organizer/events/createevent", { replace: true });
           }}
         >
-          <span class="material-symbols-outlined icon">add_circle</span>{" "}
+          <span className="material-symbols-outlined icon">add_circle</span>{" "}
           <span> Create Event</span>
         </div>
       </div>

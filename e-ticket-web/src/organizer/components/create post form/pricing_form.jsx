@@ -19,7 +19,7 @@ const Pricing_form = ({ eventData, setEventData }) => {
     event.preventDefault();
     const isValid = categories.every((category) => {
       return category.name.trim() !== "" &&
-        category.price !== "" && category.price>0 &&
+        category.price !== "" && category.price > 0 &&
         category.numSeats !== "" && category.numSeats;
     });
     if (!isValid) {
@@ -98,13 +98,13 @@ const Pricing_form = ({ eventData, setEventData }) => {
                 onClick={() => handleRemoveCategory(index)}
                 disabled={categories.length === 1 && index === 0}
               >
-                <span class="material-symbols-outlined">remove</span>
+                <span className="material-symbols-outlined">remove</span>
               </button>
             </div>
           ))}
           <div className="add-btn">
             <button type="button" onClick={handleAddCategory}>
-              <span class="material-symbols-outlined">add</span>
+              <span className="material-symbols-outlined">add</span>
             </button>
           </div>
         </div>

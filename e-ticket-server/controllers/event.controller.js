@@ -173,7 +173,7 @@ const eventController = {
                 0
             ),
             is_start_selling: req.body.is_start_selling, //not
-            event_type: req.body.eventCategory,
+            event_type: req.body.eventType,
             is_review_enabled: req.body.is_review_enabled, //not
             is_approved: req.body.is_approved, //not
             title: req.body.eventTitle,

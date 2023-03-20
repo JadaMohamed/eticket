@@ -19,10 +19,10 @@ export const Createevent = () => {
   const { profile } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [ispublished, setIspublisheds] = useState(false);
+  const [ispublished, setIspublished] = useState(false);
   const [msgeError, setmsgeError] = useState(false);
   const [hostedImages, setHostedImages] = useState([]);
-  const [errorField, setErrorField] = useState("");
+  const [createEventStep, setCreateEventStep] = useState(1);
 
   const [eventData, setEventData] = useState({
     // Overview_form coming data
@@ -33,13 +33,16 @@ export const Createevent = () => {
     address2: "",
     trailer_video_url: "",
     // Pricing_form coming data
+    //categoies of tickets in this event
     categories: [],
     // Description_form coming data
     description: "",
-    eventCategory: "",
+    eventType: "",
     //Gallery_form
     Event_Images: [],
   });
+
+
 
   const [imageCollector, setImages] = useState({ images: ["", "", ""] });
   const [previewSources, setPreviewSources] = useState(imageCollector.images);
@@ -59,7 +62,7 @@ export const Createevent = () => {
       eventData.Event_Images.splice(0, eventData.Event_Images.length);
       //after upload files puting result urls in the table 
       uploadfiles()
-      .then((result) => {
+        .then((result) => {
           eventData.Event_Images.push({ img_url: result[0] });
           if (result[1]) {
             eventData.Event_Images.push({ img_url: result[1] });
@@ -130,7 +133,7 @@ export const Createevent = () => {
       return;
     }
     event.preventDefault();
-    setIspublisheds(true);
+    setIspublished(true);
     try {
       await handleUpload(); // Wait for images to be uploaded before continuing
       if (isLastStep) {
@@ -146,6 +149,7 @@ export const Createevent = () => {
       }
     } catch (error) {
       if (error.response.data.error) {
+        setIspublished(false)
         setmsgeError(error.response.data.error);
       } else {
         console.error(error);
@@ -155,45 +159,149 @@ export const Createevent = () => {
 
   function handelGoBack() {
     setmsgeError("");
+    setCreateEventStep(createEventStep - 1)
     back();
   }
 
   const validateFirstStep = () => {
     if (!eventData.first_name) {
-      setErrorField("Please enter your first name*");
+      setmsgeError("Please enter your first name*");
       return false;
     }
 
     if (!eventData.last_name) {
-      setErrorField("Please enter your last name*");
+      setmsgeError("Please enter your last name*");
       return false;
     }
 
     if (!eventData.email) {
-      setErrorField("Please enter your email*");
+      setmsgeError("Please enter your email*");
       return false;
     } else if (!/\S+@\S+\.\S+/.test(eventData.email)) {
-      setErrorField("Please enter a valid email*");
+      setmsgeError("Please enter a valid email*");
       return false;
     }
 
     if (!eventData.city) {
-      setErrorField("Please enter your city*");
+      setmsgeError("Please enter your city*");
       return false;
     }
-   
+
     return true;
   };
-  function handlenext(){
-    if (isFirstStep) {
-      const isValid = validateFirstStep();
-      if (isValid) {
-        // proceed to the next step
-        next();
-        // setErrorField("");
+
+  useEffect(() => {
+    console.log('createEventStep', createEventStep);
+  }, [createEventStep])
+
+  ///////////////////////////////
+  function validateCreateEventStep1() {
+    if (!eventData.eventTitle) {
+      setmsgeError("Please enter a title for the Event");
+      return false;
+    } else if (eventData.eventTitle.trim().length < 5) {
+      setmsgeError("Event title should be at least 5 caracters");
+      return false;
+    }
+
+    const currentDate = new Date();
+    const maxDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+
+    if (!eventData.date) {
+      setmsgeError("Please choose a date for the Event");
+      return false;
+    } else {
+      const selectedDate = new Date(eventData.date);
+      if (selectedDate < maxDate) {
+        setmsgeError("This date is not accepted. Please choose a date after 24 hours from now.");
+        return false;
       }
     }
 
+// Rest of the code when the date is valid
+
+
+
+    if (!eventData.time) {
+      setmsgeError("Please choose a time for the Event");
+      return false;
+    }
+    if (!eventData.address1.trim()) {
+      setmsgeError("Please enter city name for the Event");
+      return false;
+    }
+    if (!eventData.address2.trim()) {
+      setmsgeError("Please add Adress for the Event");
+      return false;
+    }
+    return true;
+  }
+
+  function validateCreateEventStep2() {
+    if (eventData.categories.length<1) {
+      setmsgeError("Please Add Ticket categorie for the Event");
+      return false;
+    } else {
+      const isValid = eventData.categories.every((category) => {
+        return category.name.trim() !== "" &&
+          category.price !== "" && category.price > 0 &&
+          category.numSeats !== "" && category.numSeats;
+      });
+      if (!isValid) {
+        setmsgeError("Please complete your Ticket categorie info the Event");
+        return false;
+      }
+    }
+
+
+    return true;
+  }
+  function validateCreateEventStep3() {
+    if (!eventData.description.trim()) {
+      setmsgeError("Please enter a description for the Event");
+      return false;
+    } else if (eventData.description.trim().length<10) {
+      setmsgeError("Invalide Event description 10 characters at least.");
+      return false;
+    }
+
+    if (!eventData.eventType.trim()) {
+      setmsgeError("Please select or Enter a categorie for the Event");
+      return false;
+    }
+    return true;
+  }
+
+
+  function validateCreateEventStep5() {
+    if (!previewSources.some(elem => elem !== '')) {
+      setmsgeError("Please choose images for the Event.");
+      return false;
+    }
+    return true;
+  }
+
+
+  function handlenext() {
+    setmsgeError("");
+    if (createEventStep === 1 && !validateCreateEventStep1()) {
+      return;
+    }
+    if (createEventStep === 2 && !validateCreateEventStep2()) {
+      return;
+    }
+    if (createEventStep === 3 && !validateCreateEventStep3()) {
+      return;
+    }
+    if (createEventStep === 5 && !validateCreateEventStep5()) {
+      return;
+    }
+
+
+
+
+    setCreateEventStep(createEventStep + 1);
+    setmsgeError("");
     next();
   }
 
@@ -201,7 +309,7 @@ export const Createevent = () => {
     useMultiplePageForm([
       <Overview_form eventData={eventData} setEventData={setEventData} />,
       <Pricing_form eventData={eventData} setEventData={setEventData} />,
-      <Description_form eventData={eventData} setEventData={setEventData} />,
+      <Description_form eventData={eventData} setEventData={setEventData} setmsgeError={setmsgeError} />,
       <Tickets_form eventData={eventData} setEventData={setEventData} />,
       <Gallery_form
         imageCollector={imageCollector}

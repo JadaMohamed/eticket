@@ -13,7 +13,7 @@ const SignUpFlow = (props) => {
             Basic <br></br>Informations
           </div>
         </div>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div className={`step ${props.activestep === "2" ? "active" : ""}`}>
           <div className="number">
             <span>2</span>
@@ -22,7 +22,7 @@ const SignUpFlow = (props) => {
             Security <br></br>Informations
           </div>
         </div>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div className={`step ${props.activestep === "3" ? "active" : ""}`}>
           <div className="number">
             <span>3</span>

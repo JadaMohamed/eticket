@@ -6,7 +6,7 @@ const BrandInfos = ({ formData, setFormData }) => {
 
   //data to send
   const [Description, setDescription] = useState(formData.Description);
-   const [Instagram, setInstagram] = useState(formData.Instagram);
+  const [Instagram, setInstagram] = useState(formData.Instagram);
   const [Facebook, setFacebook] = useState(formData.Facebook);
   const [Twitter, setTwitter] = useState(formData.Twitter);
 
@@ -16,17 +16,17 @@ const BrandInfos = ({ formData, setFormData }) => {
   };
 
   const handleInstagramChange = (event) => {
-     setInstagram(event.target.value);
+    setInstagram(event.target.value);
     setFormData({ ...formData, Instagram: event.target.value });
   };
 
   const handleFacebookChange = (event) => {
-     setFacebook(event.target.value);
+    setFacebook(event.target.value);
     setFormData({ ...formData, Facebook: event.target.value });
   };
 
   const handleTwitterChange = (event) => {
-     setTwitter(event.target.value);
+    setTwitter(event.target.value);
     setFormData({ ...formData, Twitter: event.target.value });
   };
 
@@ -49,7 +49,7 @@ const BrandInfos = ({ formData, setFormData }) => {
   const handleDeleteLink = (index) => {
     const newSocialLinks = [...socialLinks];
     newSocialLinks.splice(index, 1);
-    setSocialLinks(newSocialLinks);  
+    setSocialLinks(newSocialLinks);
   };
   return (
     <>
@@ -76,14 +76,14 @@ const BrandInfos = ({ formData, setFormData }) => {
             <div key={index}>
               {socialLink.platform === "instagram" && (
                 <div className="social-media">
-                  <i class="fa-brands fa-instagram"></i>
+                  <i className="fa-brands fa-instagram"></i>
                   <input
                     id={`instagram-link-${index}`}
                     type="text"
                     //I remove the socialLink.link beause when you goback and return to link ???????
                     //the value disapeare from the input .
                     //but when using the value={Instagram} the values keep even if you navigate back
-                    
+
                     // value={socialLink.link}
                     value={Instagram}
                     onChange={(event) => {
@@ -92,14 +92,14 @@ const BrandInfos = ({ formData, setFormData }) => {
                     }}
                   />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
-                    <i class="fa-regular fa-trash-can"></i>
+                    <i className="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
               )}
 
               {socialLink.platform === "facebook" && (
                 <div className="social-media">
-                  <i class="fa-brands fa-facebook-f"></i>
+                  <i className="fa-brands fa-facebook-f"></i>
                   <input
                     id={`facebook-link-${index}`}
                     type="text"
@@ -108,16 +108,16 @@ const BrandInfos = ({ formData, setFormData }) => {
                     onChange={(event) => {
                       handleLinkChange(event, index);
                       handleFacebookChange(event);
-                    }}                  />
+                    }} />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
-                    <i class="fa-regular fa-trash-can"></i>
+                    <i className="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
               )}
 
               {socialLink.platform === "twitter" && (
                 <div className="social-media">
-                  <i class="fa-brands fa-twitter"></i>
+                  <i className="fa-brands fa-twitter"></i>
                   <input
                     id={`twitter-link-${index}`}
                     type="text"
@@ -126,9 +126,9 @@ const BrandInfos = ({ formData, setFormData }) => {
                     onChange={(event) => {
                       handleLinkChange(event, index);
                       handleTwitterChange(event);
-                    }}                  />
+                    }} />
                   <button type="button" onClick={() => handleDeleteLink(index)}>
-                    <i class="fa-regular fa-trash-can"></i>
+                    <i className="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
               )}

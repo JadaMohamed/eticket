@@ -37,7 +37,7 @@ function Manage_qr() {
                   </div>
                 </div>
                 <div className="dwonload-app">
-                  <span class="material-symbols-outlined">download</span>
+                  <span className="material-symbols-outlined">download</span>
                   <span>Download App</span>
                 </div>
               </div>

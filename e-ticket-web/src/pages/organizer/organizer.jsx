@@ -65,16 +65,16 @@ const Organizer = () => {
                       <div className="name">E-Ticket Production</div>
                       <div className="discreption">{organizer.Description}</div>
                       <div className="social-media">
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                           disabled_by_default
                         </span>
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                           disabled_by_default
                         </span>
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                           disabled_by_default
                         </span>
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                           disabled_by_default
                         </span>
                       </div>
@@ -84,9 +84,8 @@ const Organizer = () => {
                 </div>
                 <div className="navigation">
                   <div
-                    className={`events btn ${
-                      activeTab === "events" ? "active" : ""
-                    }`}
+                    className={`events btn ${activeTab === "events" ? "active" : ""
+                      }`}
                     onClick={() => {
                       setActiveTab("events");
                     }}
@@ -94,9 +93,8 @@ const Organizer = () => {
                     Events
                   </div>
                   <div
-                    className={`past-events btn ${
-                      activeTab === "pevents" ? "active" : ""
-                    }`}
+                    className={`past-events btn ${activeTab === "pevents" ? "active" : ""
+                      }`}
                     onClick={() => {
                       setActiveTab("pevents");
                     }}
@@ -112,38 +110,38 @@ const Organizer = () => {
                   <div className="cards">
                     {activeTab === "event"
                       ? A.map((event) => (
-                          <Card
-                            key={event.event_id}
-                            eventid={event.event_id}
-                            image={
-                              event.Event_Images?.length > 0
-                                ? event.Event_Images[0].img_url
-                                : null
-                            }
-                            title={event.title}
-                            price={event.price}
-                            location={event.location}
-                            category={event.event_type}
-                            date={event.start_time}
-                          />
-                        ))
+                        <Card
+                          key={event.event_id}
+                          eventid={event.event_id}
+                          image={
+                            event.Event_Images?.length > 0
+                              ? event.Event_Images[0].img_url
+                              : null
+                          }
+                          title={event.title}
+                          price={event.price}
+                          location={event.location}
+                          category={event.event_type}
+                          date={event.start_time}
+                        />
+                      ))
                       : activeTab === "pevents" &&
-                        B.map((event) => (
-                          <Card
-                            key={event.event_id}
-                            eventid={event.event_id}
-                            image={
-                              event.Event_Images?.length > 0
-                                ? event.Event_Images[0].img_url
-                                : null
-                            }
-                            title={event.title}
-                            price={event.price}
-                            location={event.location}
-                            category={event.event_type}
-                            date={event.start_time}
-                          />
-                        ))}
+                      B.map((event) => (
+                        <Card
+                          key={event.event_id}
+                          eventid={event.event_id}
+                          image={
+                            event.Event_Images?.length > 0
+                              ? event.Event_Images[0].img_url
+                              : null
+                          }
+                          title={event.title}
+                          price={event.price}
+                          location={event.location}
+                          category={event.event_type}
+                          date={event.start_time}
+                        />
+                      ))}
                   </div>
                 </div>
               </div>

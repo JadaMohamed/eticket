@@ -11,7 +11,7 @@ function SalesCardDash(props) {
             <div className="sales">{props.sales}</div>
             <div className="of">/{props.totalSeats}</div>
           </div>
-          <span class="material-symbols-outlined">toll</span>
+          <span className="material-symbols-outlined">toll</span>
         </div>
         <div className="label">All Time Sales</div>
         <div className="progress-bar">

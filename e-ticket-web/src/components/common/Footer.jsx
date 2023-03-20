@@ -16,13 +16,13 @@ const Footer = () => {
             </div>
             <div className="social-media">
               <div className="facebook sm">
-                <i class="fa-brands fa-facebook-f"></i>
+                <i className="fa-brands fa-facebook-f"></i>
               </div>
-              <div className="instagram sm">
-                <i class="fa-brands fa-instagram"></i>
+              <div classNameName="instagram sm">
+                <i className="fa-brands fa-instagram"></i>
               </div>
               <div className="twitter sm">
-                <i class="fa-brands fa-twitter"></i>
+                <i className="fa-brands fa-twitter"></i>
               </div>
             </div>
           </div>

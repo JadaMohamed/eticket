@@ -167,7 +167,7 @@ const SignUpClient = ({ setTrigger, login }) => {
             setTrigger(false);
           }}
         >
-          <span class="material-symbols-outlined">close</span>
+          <span className="material-symbols-outlined">close</span>
         </div>
         <div className="sign-up-content">
           <div className="header">
@@ -207,7 +207,7 @@ const SignUpClient = ({ setTrigger, login }) => {
               <div className="labeled-input">
                 <label>Email<span style={{ color: 'red' }}>{emailError}</span></label>
                 <div className="iconed-input">
-                  <span class="material-symbols-outlined" >email</span>
+                  <span className="material-symbols-outlined" >email</span>
                   <input type="text" placeholder="Email"
                     onChange={handleEmailChange}
                     value={formData.email} />
@@ -218,7 +218,7 @@ const SignUpClient = ({ setTrigger, login }) => {
               <div className="labeled-input">
                 <label>City<span style={{ color: 'red' }}>{cityError}</span></label>
                 <div className="iconed-input">
-                  <span class="material-symbols-outlined">distance</span>
+                  <span className="material-symbols-outlined">distance</span>
                   <input type="text" placeholder="City"
                     onChange={handleCityChange}
                     value={formData.city} />
@@ -229,7 +229,7 @@ const SignUpClient = ({ setTrigger, login }) => {
               <div className="labeled-input">
                 <label>Phone<span style={{ color: 'red' }}>{phoneNumberError}</span></label>
                 <div className="iconed-input">
-                  <span class="material-symbols-outlined">call</span>
+                  <span className="material-symbols-outlined">call</span>
                   <input type="number" placeholder="Phone"
                     onChange={handlePhoneNumberChange}
                     value={formData.phone_number} />
@@ -247,7 +247,7 @@ const SignUpClient = ({ setTrigger, login }) => {
                 />
               </div>
               <span
-                class="material-symbols-outlined"
+                className="material-symbols-outlined"
                 onClick={() => {
                   setvisibility(!visibility);
                 }}
