@@ -21,7 +21,7 @@ function EventPreview(props) {
   };
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setSelected(["foo", "bar", "baz"]); // update selected array every 3 seconds
+      // setSelected(["foo", "bar", "baz"]); // update selected array every 3 seconds
     }, 3000);
     return () => clearInterval(intervalId); // clear the interval when the component unmounts
   }, []);
