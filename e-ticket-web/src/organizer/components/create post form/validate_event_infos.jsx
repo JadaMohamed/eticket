@@ -52,8 +52,8 @@ const ValidateEventInfos = ({ previewSources, eventData }) => {
                 <th>Price</th>
                 <th>Quantity</th>
               </tr>
-              {eventData.categories.map((categ) => (
-                <tr>
+              {eventData.categories.map((key, categ) => (
+                <tr key={key}>
                   <td>{categ.name}</td>
                   <td>{categ.price} MAD</td>
                   <td>{categ.numSeats}</td>
@@ -69,7 +69,7 @@ const ValidateEventInfos = ({ previewSources, eventData }) => {
             <div className="row-title">Date & Address</div>
             <div className="date">
               <div className="countdown">
-                <span class="material-symbols-outlined">hourglass_top</span>
+                <span className="material-symbols-outlined">hourglass_top</span>
                 <CountdownDate date={eventData.date} />
               </div>
               <div className="static-date">
@@ -77,7 +77,7 @@ const ValidateEventInfos = ({ previewSources, eventData }) => {
               </div>
             </div>
             <div className="address">
-              <span class="material-symbols-outlined">pin_drop</span>
+              <span className="material-symbols-outlined">pin_drop</span>
               <div className="adr">
                 {eventData.address1}, {eventData.address2}
               </div>

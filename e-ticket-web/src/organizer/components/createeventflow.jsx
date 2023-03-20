@@ -13,7 +13,7 @@ function Createeventflow(props) {
           </div>
           <div className="named">Overview</div>
         </div>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div
           className={`step ${props.activestep === "2" ? "active-step" : ""}`}
         >
@@ -22,7 +22,7 @@ function Createeventflow(props) {
           </div>
           <div className="named">Pricing</div>
         </div>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div
           className={`step ${props.activestep === "3" ? "active-step" : ""}`}
         >
@@ -31,7 +31,7 @@ function Createeventflow(props) {
           </div>
           <div className="named">Description</div>
         </div>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div
           className={`step ${props.activestep === "4" ? "active-step" : ""}`}
         >
@@ -40,7 +40,7 @@ function Createeventflow(props) {
           </div>
           <div className="named">Tickets</div>
         </div>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div
           className={`step ${props.activestep === "5" ? "active-step" : ""}`}
         >
@@ -50,7 +50,7 @@ function Createeventflow(props) {
           <div className="named">Gallery</div>
         </div>
 
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
         <div
           className={`step ${props.activestep === "6" ? "active-step" : ""}`}
         >

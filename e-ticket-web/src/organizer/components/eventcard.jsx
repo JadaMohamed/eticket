@@ -67,17 +67,17 @@ const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }
           </div>
           <div className="actions">
             <div className="stats act">
-              <span class="material-symbols-outlined"
+              <span className="material-symbols-outlined"
                 onClick={() => Nav(`/events/${event.event_id}`, { replace: false })}
               >
                 equalizer
               </span>
             </div>
             <div className="edit act">
-              <span class="material-symbols-outlined">edit</span>
+              <span className="material-symbols-outlined">edit</span>
             </div>
             <div className="share act">
-              <span class="material-symbols-outlined">share</span>
+              <span className="material-symbols-outlined">share</span>
             </div>
           </div>
         </div>

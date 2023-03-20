@@ -116,7 +116,7 @@ function EventPreview(props) {
               <div className="add-tocart-btn btn"> Add to Cart</div>
               <div className="buy-now-btn btn"> Buy Now</div>
               <div className="instruction">
-                <span class="material-symbols-outlined">lock</span>
+                <span className="material-symbols-outlined">lock</span>
                 Secure transaction
               </div>
             </di>

@@ -32,7 +32,7 @@ const RecentOrders = () => {
       <div className="header">
         <div className="title">Recent orders</div>
         <div className="action">
-          <span class="material-symbols-outlined" title="More options">
+          <span className="material-symbols-outlined" title="More options">
             more_vert
           </span>
         </div>
@@ -59,8 +59,8 @@ const RecentOrders = () => {
             buyername={
               order.Client.Account
                 ? order.Client.Account.first_name +
-                  " " +
-                  order.Client.Account.last_name
+                " " +
+                order.Client.Account.last_name
                 : ""
             }
             ordernumber={order.order_id}

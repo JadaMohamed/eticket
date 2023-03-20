@@ -82,7 +82,7 @@ const BasicInfos = ({
         <div className="label">Email *</div>
         <div className="iconed-input">
           <div className="icon">
-            <span class="material-symbols-outlined">mail</span>
+            <span className="material-symbols-outlined">mail</span>
           </div>
           <input
             type="email"
@@ -96,7 +96,7 @@ const BasicInfos = ({
         <div className="label">City *</div>
         <div className="iconed-input">
           <div className="icon">
-            <span class="material-symbols-outlined">location_on</span>
+            <span className="material-symbols-outlined">location_on</span>
           </div>
           <input
             type="text"

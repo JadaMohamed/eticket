@@ -11,7 +11,7 @@ const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [filters, setFilters] = useState([]);
-   const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
 
 
   const getAllEventsCategories = async () => {
@@ -109,7 +109,7 @@ const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
         <div className="top-search-filter">
           <div className="search-keyword">Apply filter : </div>
           <div className="filter-input">
-            <span class="material-symbols-outlined">category</span>
+            <span className="material-symbols-outlined">category</span>
             <select value="" onChange={handleCategoryChange}>
               <option value="">Category</option>
               {categories.map((category) => (
@@ -120,7 +120,7 @@ const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
             </select>
           </div>
           <div className="filter-input">
-            <span class="material-symbols-outlined">pin_drop</span>
+            <span className="material-symbols-outlined">pin_drop</span>
             <select value="" onChange={handleCityChange}>
               <option value="">City</option>
               {cities.map((city) => (
@@ -143,7 +143,7 @@ const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
                   className="close"
                   title="Cancel Filter"
                 >
-                  <span class="material-symbols-outlined">cancel</span>
+                  <span className="material-symbols-outlined">cancel</span>
                 </div>
                 <span className="content">{filter}</span>
               </div>

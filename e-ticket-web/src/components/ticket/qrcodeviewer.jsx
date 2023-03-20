@@ -9,7 +9,7 @@ const QrCodeViewer = (props) => {
       <div className="poup-qrcode-container">
         <QRCode value={props.code} />
         <div className="close" onClick={handle}>
-          <span class="material-symbols-outlined">cancel</span>
+          <span className="material-symbols-outlined">cancel</span>
         </div>
       </div>
     </div>

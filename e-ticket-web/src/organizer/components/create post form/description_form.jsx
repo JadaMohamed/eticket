@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
 
-const Description_form = ({ eventData, setEventData }) => {
+const Description_form = ({ eventData, setEventData, setmsgeError }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [description, setDescription] = useState(eventData.description);
   const [eventCategory, setEventCategory] = useState(eventData.eventCategory);
+  const [otherCategory, setOtherCategory] = useState("");
 
   const handleDescriptionChange = (event) => {
     if (event.target.value.length > 300) {
@@ -16,12 +19,44 @@ const Description_form = ({ eventData, setEventData }) => {
   };
 
   const handleEventCategoryChange = (event) => {
+    setmsgeError("");
     setEventCategory(event.target.value);
     setEventData((prevData) => ({
       ...prevData,
-      eventCategory: event.target.value,
+      eventType: event.target.value,
     }));
   };
+  const handleOtherCategoryChange = (event) => {
+    setmsgeError("");
+    setOtherCategory(event.target.value);
+    setEventData((prevData) => ({
+      ...prevData,
+      eventType: event.target.value,
+    }));
+  };
+
+
+
+  const [categories, setCategories] = useState([]);
+
+  const getAllEventsCategories = async () => {
+    try {
+      const response = await Axios.get(
+        `${apiUrl}/api/events/allcategory`);
+      // console.log(response.data)
+      //fill categories with data
+      const categoryOptions = response.data.categories.map((category) => ({
+        value: category.event_type,
+        label: category.event_type,
+      }));
+      setCategories(categoryOptions);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getAllEventsCategories();
+  }, [])
 
   return (
     <>
@@ -55,20 +90,38 @@ const Description_form = ({ eventData, setEventData }) => {
         <div className="right-side-row-section">
           <div className="iconed-input">
             <div className="iconed-input-container">
-              <span class="material-symbols-outlined icon">category</span>
+              <span className="material-symbols-outlined icon">category</span>
               <select
                 name="event-category"
                 id=""
                 value={eventCategory}
                 onChange={handleEventCategoryChange}
               >
-                <option value="Festivale | Concert">Festivale | Concert</option>
+                <option value="">Select category</option>
+                {categories.map((category) => (
+                  <option key={category.value} value={category.value}>
+                    {category.label}
+                  </option>
+                ))}
+                {/* <option value="Festivale | Concert">Festivale | Concert</option>
                 <option value="Family">Family</option>
                 <option value="Theater | Cinema">Theater | Cinema</option>
                 <option value="Sport">Sport</option>
-                <option value="Course | Lecture">Course | Lecture</option>
+                <option value="Course | Lecture">Course | Lecture</option> */}
+                <option value="Other">Other</option>
               </select>
+              {eventCategory === "Other" && (
+                <input
+                  type="text"
+                  name="other-category"
+                  id=""
+                  value={otherCategory}
+                  onChange={handleOtherCategoryChange}
+                  placeholder="Enter category"
+                />
+              )}
             </div>
+
           </div>
         </div>
       </div>

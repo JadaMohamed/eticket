@@ -11,7 +11,7 @@ function SalesCard(props) {
             <div className="sales">{props.sales}</div>
             <div className="of">/{props.totalSeats}</div>
           </div>
-          <span class="material-symbols-outlined">sell</span>
+          <span className="material-symbols-outlined">sell</span>
         </div>
         <div className="label">
           <span>Total Sales</span>
