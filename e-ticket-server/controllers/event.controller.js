@@ -162,13 +162,11 @@ const eventController = {
         //**********data from requiste for event*************//
         const eventData = {
             org_id: parseInt(orgId),
-            duration: req.body.duration,
             trailer_video_url: req.body.trailer_video_url, //not
             description: req.body.description,
             brand_url: req.body.brand_url,
             location: req.body.address1 + "," + req.body.address2,
             start_time: req.body.startTime,
-            finish_time: req.body.finish_time,
             //calculate the totalSeats from the table categories
             max_number_attendants: req.body.categories.reduce(
                 (acc, category) => acc + parseInt(category.numSeats),
@@ -240,7 +238,6 @@ const eventController = {
                     type_description: "description seat category",
                     number_max: parseInt(category.numSeats),
                     number_avialable: parseInt(category.numSeats),
-                    max_uses: 1,
                 };
             });
             //create categorys

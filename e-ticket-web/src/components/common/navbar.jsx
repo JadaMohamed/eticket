@@ -203,7 +203,7 @@ function Navbar(props) {
                     }
                   >
                     <div>
-                      <span class="material-symbols-outlined">dashboard</span>
+                      <span className="material-symbols-outlined">dashboard</span>
                     </div>
                     Dashboard
                   </div>
@@ -244,7 +244,7 @@ function Navbar(props) {
                   // }}
                 >
                   <div>
-                    <span class="material-symbols-outlined">person_add</span>
+                    <span className="material-symbols-outlined">person_add</span>
                   </div>
                   Sign Up
                 </div>
