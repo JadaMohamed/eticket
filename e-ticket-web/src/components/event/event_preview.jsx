@@ -5,7 +5,10 @@ import CountdownDate from "../common/countdown";
 
 function EventPreview(props) {
   const [quantity, setQuantity] = useState(1);
-
+  const [hovred, setHovred] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(
+    props.event.Event_Images[0].img_url
+  );
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
   };
@@ -16,6 +19,12 @@ function EventPreview(props) {
       console.log(quantity);
     }
   };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSelected(["foo", "bar", "baz"]); // update selected array every 3 seconds
+    }, 3000);
+    return () => clearInterval(intervalId); // clear the interval when the component unmounts
+  }, []);
   const [images, setImages] = useState(props.event.Event_Images);
   useEffect(() => {
     console.log("imgs " + images);
@@ -24,16 +33,27 @@ function EventPreview(props) {
     <div className="event-preview">
       <div className="event-preview-container">
         <div className="leftside">
-          <div className="images">
+          <div
+            className="images"
+            style={{ backgroundColor: "red" }}
+            onMouseEnter={() => {
+              setHovred(true);
+            }}
+            onMouseLeave={() => {
+              setHovred(false);
+            }}
+          >
             <div className="selected-image">
-              <Image
-                cloudName="djjwswdo4"
-                publicId={props.event.Event_Images[0].img_url}
-              />
+              <Image cloudName="djjwswdo4" publicId={selectedImage} />
             </div>
             <div className="image-slider">
               {props.event.Event_Images.map((img) => (
-                <div className="image">
+                <div
+                  className="image"
+                  onClick={() => {
+                    setSelectedImage(img.img_url);
+                  }}
+                >
                   <Image cloudName="djjwswdo4" publicId={img.img_url} />
                 </div>
               ))}

@@ -71,6 +71,9 @@
     padding: 7px 10px;
     font-size: 17px;
 }
+.payment-container .side .payment-details .det-container .row input::placeholder {
+    color: var(--Grey2);
+}
 .payment-container .side .payment-details .det-container .row select {
     outline: none;
     border-radius: 4px;
@@ -108,6 +111,7 @@
 }
 .payment-container .right table td {
     padding: 0;
+    border: none;
 }
 .payment-container .right table .head {
     font-weight: 600;
