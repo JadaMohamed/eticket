@@ -34,9 +34,9 @@ function MyTickets() {
       console.error(error);
     }
   };
-  useEffect(() => {
-    console.log(view);
-  });
+  // useEffect(() => {
+  //   console.log(view);
+  // });
 
   useEffect(() => {
     //chearch mytickets implementation
@@ -55,7 +55,6 @@ function MyTickets() {
     getTicketsByClientId();
   }, [profile]);
 
-  console.log("tickets : ", tickets);
   if (!(profile?.account?.account_type === "client")) {
     return (
       <>
