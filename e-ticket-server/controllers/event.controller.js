@@ -302,6 +302,24 @@ const eventController = {
                 .json({ error: "Internal server error get events for slider" });
         }
     },
+    getEventSales: async (req, res) => {
+        try {
+            const { orgId } = req.params;
+            const { eventId, timeframe } = req.query;
+            let sales;
+            if(eventId) {
+                sales = await eventService.getEventSales(parseInt(orgId), timeframe, parseInt(eventId))
+            } else {
+                sales = await eventService.getEventSales(parseInt(orgId), timeframe)
+            }
+            res.status(200).json(sales);
+        } catch(err) {
+            console.error(err);
+            res
+            .status(500)
+            .json({ error: "Internal server error get events sales" });
+        }
+    }
 };
 
 export default eventController;

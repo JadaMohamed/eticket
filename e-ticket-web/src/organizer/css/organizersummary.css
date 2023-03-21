@@ -1,0 +1,76 @@
+.organizer-summary-container {
+    display: flex;
+    width: 727px;
+    height: 482px;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    padding: 30px 25px 10px 25px;
+}
+
+.organizer-summary-container .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.organizer-summary-container .header .text-container h4 {
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.organizer-summary-container .header .text-container span {
+    font-family: 'Segoe UI';
+    font-weight: 400;
+    font-size: 12px;
+    color: #ACACAC;
+}
+
+.dd-wrapper  .dd-header  {
+    border-radius: 8px !important;
+}
+
+.dd-wrapper  .dd-header  span  {
+    width: fit-content;
+}
+.dd-wrapper  .dd-header  span  svg{
+    transform: scale(0.5);
+}
+
+.summary-chart {
+    padding-top: 6px;
+}
+
+.summary-btns {
+    display: flex;
+    padding-top: 10px;
+}
+
+.summary-btn span {
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    font-size: 14px;
+    color: black;
+}
+
+.summary-btn {
+    padding: 10px;
+    background: white;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    user-select: none;
+    cursor: pointer;
+}
+
+.summary-btn:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.summary-btn:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.summary-btn-active {
+    background: #EEEEEE !important;
+}

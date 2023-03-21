@@ -52,6 +52,7 @@ router.get(
   eventController.getLastThreeEventsForOrganizer
 );
 
+router.get("/organizer/get-event-sales/:orgId", eventController.getEventSales)
 export default router;
 
 // import express from 'express';
