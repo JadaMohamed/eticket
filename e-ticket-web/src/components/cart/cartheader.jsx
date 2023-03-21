@@ -4,6 +4,8 @@ import PaymentForm from "../common/paymentform";
 import LoginPopup from "../common/loginpopup";
 
 function CartHeader({
+  keyword,
+  setKeyword,
   cartLength,
   selectedItemsLength,
   selectedItems,
@@ -27,7 +29,7 @@ function CartHeader({
       <div className="cartheader-container">
         <div className="cartheader-left">
           <div className="cart-search">
-            <input type="text" placeholder="Search in this cart" />
+            <input type="text" value={keyword} onChange={e=>setKeyword(e.target.value)} placeholder="Search in this cart" />
             <span className="material-symbols-outlined btn" title="Search">
               search
             </span>

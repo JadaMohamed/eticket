@@ -25,7 +25,7 @@ function EventCard_Cart(props) {
       setSelectedSeat(response.data[0]);
       setPrice(quantity * response?.data[0]?.type_price);
       props.totalPriceHandler(price, quantity * response?.data[0]?.type_price);
-      console.log("Seat Categories : ", response.data);
+      // console.log("Seat Categories : ", response.data);
     } catch (error) {
       console.error(error);
     }
