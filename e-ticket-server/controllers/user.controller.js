@@ -432,7 +432,7 @@ const verifyEmail = async (req, res) => {
 
     try {
         const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
-        //  console.log('verifyJwt: decoded', decoded);
+        console.log('\nverifyJwt: decoded', decoded);
         const { accountId } = decoded;
         const updatedAccount = await accountService.updateAccount(accountId, { isEmailVerified: true });
         if (updatedAccount) {
@@ -449,7 +449,7 @@ const verifyEmail = async (req, res) => {
         }
 
     } catch (error) {
-        // console.log(error) this is where I test to hack this api by generating token with infor at jwt.io site
+        console.log(error)
         return res.status(401).json({ error: 'Invalid authorization eticketjwt' });
     }
 };
