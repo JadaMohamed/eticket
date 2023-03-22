@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import '../css/organizersummary.css';
-import { DropdownMultiple, Dropdown } from 'reactjs-dropdown-component';
+import { Dropdown } from 'reactjs-dropdown-component';
 import {
     Chart as ChartJS,
     CategoryScale,

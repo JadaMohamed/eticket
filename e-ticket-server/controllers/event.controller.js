@@ -319,7 +319,19 @@ const eventController = {
             .status(500)
             .json({ error: "Internal server error get events sales" });
         }
-    }
+    },
+    getTicketsSales: async (req, res) => {
+        try {
+            const { eventId } = req.params;
+            const ticketsSales = await eventService.getTicketsSales(parseInt(eventId));
+            res.status(200).json(ticketsSales);
+        } catch(err) {
+            console.error(err);
+            res
+            .status(500)
+            .json({ error: "Internal server error get tickets sales" });
+        }
+    },
 };
 
 export default eventController;
