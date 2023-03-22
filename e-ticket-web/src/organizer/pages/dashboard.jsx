@@ -11,6 +11,7 @@ import "../css/index.css";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 import OrganizerSummary from "../components/organizer_summary";
+import SeatsSales from "../components/seats_sales";
 
 function Dashboard() {
   const { profile } = useContext(AuthContext);
@@ -78,7 +79,8 @@ function Dashboard() {
             <OrganizerSummary/>
           </div>
           <div className="right">
-            <img src={right} alt="" />
+            {/* <img src={right} alt="" /> */}
+            <SeatsSales/>
           </div>
         </div>
         <RecentOrders />

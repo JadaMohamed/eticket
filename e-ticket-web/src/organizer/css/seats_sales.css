@@ -1,0 +1,97 @@
+.seats-sales-container {
+    display: flex;
+    width: 350px;
+    height: 482px;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    padding: 30px 25px 10px 25px;
+}
+
+.seats-sales-container .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.seats-sales-container .header .text-container h4 {
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.seats-sales-container .header .text-container span {
+    font-family: 'Segoe UI';
+    font-weight: 400;
+    font-size: 12px;
+    color: #ACACAC;
+}
+
+.dd-wrapper  .dd-header  {
+    border-radius: 8px !important;
+}
+
+.dd-wrapper  .dd-header  span  {
+    width: fit-content;
+}
+.dd-wrapper  .dd-header  span  svg{
+    transform: scale(0.5);
+}
+
+.doughnut-chart {
+    padding-top: 10px;
+    position: relative;
+}
+
+.chart-completion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    background-color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 100px;
+}
+
+.chart-completion .chart-completion-percentage {
+    display: flex;
+}
+
+.chart-completion span {
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    font-size: 14px;
+    color: #808080;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 15px;
+}
+
+.legend .legend-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.legend .legend-item .legend-color {
+    width: 15px;
+    height: 15px;
+    /* background-color:#552E88; */
+    border-radius: 2px;
+}
+
+.legend .legend-item span { 
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    font-size: 14px;
+    color: #808080;
+}
