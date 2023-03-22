@@ -14,10 +14,14 @@ const EmailVerify = () => {
     const { eticketjwt } = useParams();
     useEffect(() => {
         const verifyEmailUrl = async () => {
+            if (eticketjwt ==="checkemail"){
+                return;
+            }
             try {
                 const url = `${apiUrl}/api/user/verify-email/${eticketjwt}`;
                 const { data } = await axios.get(url, { withCredentials: true });
-                console.log(data);
+                console.log('-----------------')
+                console.log('data',data);
                 if (data) {
                     setValidUrl(true);
                     setTypeuser(data.userType)

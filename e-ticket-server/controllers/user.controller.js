@@ -432,7 +432,7 @@ const verifyEmail = async (req, res) => {
 
     try {
         const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
-        // console.log('verifyJwt: decoded', decoded);
+        //  console.log('verifyJwt: decoded', decoded);
         const { accountId } = decoded;
         const updatedAccount = await accountService.updateAccount(accountId, { isEmailVerified: true });
         if (updatedAccount) {

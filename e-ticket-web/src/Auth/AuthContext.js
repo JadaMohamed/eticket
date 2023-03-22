@@ -76,9 +76,11 @@ export const AuthContextProvider = ({ children }) => {
     } catch (err) {
       if (err.response.data) {
         if (err.response.status === 422) {
-          navigate("/verify-email/checkemail")
-        } else {
+          navigate("/verify-email/checkemail");
+        } else if (err.response.data.errors) {
           setErrorLogin(err.response.data.errors);
+        } else if (err.response.data.error) {
+          setErrorLogin(err.response.data.error);
         }
       } else {
         console.log(err);
