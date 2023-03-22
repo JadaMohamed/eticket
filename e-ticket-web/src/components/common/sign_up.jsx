@@ -2,12 +2,16 @@ import React, { useContext, useState } from "react";
 import "../../css/sign_up_client.css";
 import Logo from "../../img/logo.svg";
 import axios from "axios";
-import AuthContext from "../../Auth/AuthContext";
+// import AuthContext from "../../Auth/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUpClient = ({ setTrigger, login }) => {
   const [visibility, setvisibility] = useState(false);
-  const { setProfile } = useContext(AuthContext);
+  // const { setProfile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
 
 
   const [firstNameError, setFirstNameError] = useState("");
@@ -105,15 +109,18 @@ const SignUpClient = ({ setTrigger, login }) => {
         formData,
         { withCredentials: true, }
       );
-      console.log(response)
-      localStorage.setItem(
-        "usertype",
-        response.data.profile.account.account_type
-      );
-      setProfile(response.data.profile);
-      setTrigger(false);
-      if (response.data.profile)
-        window.location.reload();
+      // console.log(response)
+      // localStorage.setItem(
+      //   "usertype",
+      //   response.data.profile.account.account_type
+      // );
+      // setProfile(response.data.profile);
+      if(response.data){
+        setTrigger(false);
+        navigate("/verify-email/checkemail")
+      }
+      // if (response.data.profile)
+      //   window.location.reload();
     } catch (error) {
       const errorData = error.response.data;
       if (errorData.errors) {
