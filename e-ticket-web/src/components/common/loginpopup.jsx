@@ -8,7 +8,7 @@ export default function LoginPopup(props) {
   const [isVisible, setVisible] = useState(false);
   const userName = useRef("");
   const password = useRef("");
-  const { login } = useContext(AuthContext);
+  const { login, errorLogin } = useContext(AuthContext);
   const Nav = useNavigate();
 
   const loginSubmit = async (event) => {
@@ -18,7 +18,9 @@ export default function LoginPopup(props) {
       password: password.current.value,
     };
     await login(payload);
-    props.setTrigger(false);
+    // if(!errorLogin){
+    //   props.setTrigger(false);
+    // }
   };
 
   const toggleVisibility = () => {
@@ -81,7 +83,7 @@ export default function LoginPopup(props) {
             {/* <div className="forgot-password">Forgot Password</div> */}
           </div>
           <div className="element-c submit">
-            {/* where is button */}
+            {errorLogin && <div><span style={{ color: 'red' }}>{errorLogin}</span></div>}
             <div className="submit-container" onClick={loginSubmit}>
               Sign In
             </div>

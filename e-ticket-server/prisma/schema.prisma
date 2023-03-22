@@ -9,20 +9,21 @@ datasource db {
 }
 
 model Account {
-  account_id    Int             @id @default(autoincrement())
-  first_name    String          @db.VarChar(50)
-  last_name     String          @db.VarChar(50)
-  email         String          @unique @db.VarChar(50)
-  password      String          @db.VarChar(50)
-  account_type  String          @db.VarChar(50)
-  created_at    DateTime        @default(now())
-  avatar        String          @default("https://res.cloudinary.com/djjwswdo4/image/upload/v1679165345/e_ticket/useravatar/jzg6gsepwvzpsb0rej7a.jpg") @db.VarChar(150)
-  phone_number  String          @unique @db.VarChar(50)
-  Admin         Admin[]
-  Notifications Notifications[]
-  Organizer     Organizer[]
-  Card          Card[]
-  Client        Client?
+  account_id      Int             @id @default(autoincrement())
+  first_name      String          @db.VarChar(50)
+  last_name       String          @db.VarChar(50)
+  email           String          @unique @db.VarChar(50)
+  password        String          @db.VarChar(50)
+  isEmailVerified Boolean         @default(false)
+  account_type    String          @db.VarChar(50)
+  created_at      DateTime        @default(now())
+  avatar          String          @default("https://res.cloudinary.com/djjwswdo4/image/upload/v1679165345/e_ticket/useravatar/jzg6gsepwvzpsb0rej7a.jpg") @db.VarChar(150)
+  phone_number    String          @unique @db.VarChar(50)
+  Admin           Admin[]
+  Notifications   Notifications[]
+  Organizer       Organizer[]
+  Card            Card[]
+  Client          Client?
 
   @@index([first_name, last_name])
 }

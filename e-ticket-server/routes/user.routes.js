@@ -10,5 +10,6 @@ router.post('/registerorganizer', userController.registerOrganizer);
 router.post('/registerclient', userController.registerClient);
 router.post('/login', userController.login);
 router.get('/logout', verifyJwt, userController.logout);
+router.get('/verify-email/:eticketjwt', userController.verifyEmail);
 
 export default router;
