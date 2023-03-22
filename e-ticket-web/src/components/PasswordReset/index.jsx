@@ -41,7 +41,7 @@ function PasswordResetForm() {
             }
             const url = `${apiUrl}/api/user/reset-password-mail`;
             const { data } = await axios.post(url, { email }, { withCredentials: true });
-            console.log(data);
+            // console.log(data);
             if (data.msg) {
                 setMessage(data.msg);
                 setemailSended(true);
@@ -74,7 +74,7 @@ function PasswordResetForm() {
         try {
             const url = `${apiUrl}/api/user/reset-password/${eticketjwt}`;
             const { data } = await axios.post(url, { password, confirmPassword }, { withCredentials: true });
-            console.log(data);
+            // console.log(data);
             if (data) {
                 setMessage(`Password reset successful`);
                 setTypeuser(data.userType)

@@ -11,6 +11,7 @@ const EmailVerify = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [validUrl, setValidUrl] = useState(false);
     const [typeuser, setTypeuser] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const { eticketjwt } = useParams();
     useEffect(() => {
         const verifyEmailUrl = async () => {
@@ -20,13 +21,13 @@ const EmailVerify = () => {
             try {
                 const url = `${apiUrl}/api/user/verify-email/${eticketjwt}`;
                 const { data } = await axios.get(url, { withCredentials: true });
-                console.log('-----------------')
-                console.log('data',data);
                 if (data) {
+                    setIsLoading(false)
                     setValidUrl(true);
                     setTypeuser(data.userType)
                 }
             } catch (error) {
+                setIsLoading(false)
                 console.log(error);
             }
         };
@@ -34,16 +35,18 @@ const EmailVerify = () => {
     }, [eticketjwt]);
 
 
-    useEffect(() => {
-        console.log('typeuser')
-        console.log(typeuser)
-    }, [typeuser])
-
-
-
     if (eticketjwt === "checkemail") {
         return (
             <div className={styles.parent}>
+                <nav className="nav">
+                    <div className="nav-container">
+                        <img
+                            src={logo}
+                            alt="e-tickets.logo"
+                            className="Logo_"
+                        />
+                    </div>
+                </nav>
                 <div className={styles.container}>
                     <h3> We just sent you an email with a verification link. Please check your inbox (and spam folder just in case)
                         and click on the link to verify your email address. Once you've done that, you'll be all set to explore everything
@@ -54,7 +57,25 @@ const EmailVerify = () => {
                 </div>
             </div>
         )
-    } else {
+    } else if(isLoading){
+        return (
+            <div className={styles.parent}>
+                <nav className="nav">
+                    <div className="nav-container">
+                        <img
+                            src={logo}
+                            alt="e-tickets.logo"
+                            className="Logo_"
+                        />
+                    </div>
+                </nav>
+                <div className={styles.container}>
+                    <h1>Loading ...!</h1>       
+                </div>
+            </div>
+        )
+
+    }else{
         return (
             <>
                 {validUrl ? (
