@@ -11,6 +11,8 @@ import "../css/index.css";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 import OrganizerSummary from "../components/organizer_summary";
+import Navbar from "../../components/common/navbar";
+import SubNavbar from "../../components/common/subnavbar";
 
 function Dashboard() {
   const { profile } = useContext(AuthContext);
@@ -18,7 +20,7 @@ function Dashboard() {
 
   const [lastThreeEvents, setLastThreeEvents] = useState([]);
   const [eventsStats, setEventsStats] = useState();
-  
+
   const getLastThreeEventsForOrganizer = async () => {
     try {
       const response = await Axios.get(
@@ -39,7 +41,7 @@ function Dashboard() {
 
   return (
     <div>
-      <OrNavigationBar />
+      <Navbar />
       <SideBar activeBtn="dashboard" />
       <div className="container">
         <div className="welcome">
@@ -75,7 +77,7 @@ function Dashboard() {
         <div className="images">
           <div className="left">
             {/* <img src={left} alt="" /> */}
-            <OrganizerSummary/>
+            <OrganizerSummary />
           </div>
           <div className="right">
             <img src={right} alt="" />

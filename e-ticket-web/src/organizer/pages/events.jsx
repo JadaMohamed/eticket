@@ -5,8 +5,10 @@ import OrNavigationBar from "../components/navigation_bar";
 import SearchOrganizer from "../components/searchorganizer";
 import SideBar from "../components/side_bar";
 import "../css/events.css";
-import Axios from 'axios'
+import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
+import Navbar from "../../components/common/navbar";
+import SubNavbar from "../../components/common/subnavbar";
 
 function OrEvents() {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -18,21 +20,22 @@ function OrEvents() {
   const [numSilling, setNumSilling] = useState();
   const [numPaused, setNumPaused] = useState();
 
-
   useEffect(() => {
     if (allEvents) {
-      setNumSilling(allEvents.filter(event => event.is_start_selling).length);
-      setNumPaused(allEvents.filter(event => !event.is_start_selling).length);
+      setNumSilling(allEvents.filter((event) => event.is_start_selling).length);
+      setNumPaused(allEvents.filter((event) => !event.is_start_selling).length);
     }
   }, [allEvents]);
 
   useEffect(() => {
     fetchAllOrganizerEvents();
-  }, [profile])
+  }, [profile]);
   async function fetchAllOrganizerEvents() {
     try {
-      const response = await Axios.get(`${apiUrl}/api/events/organizer/${profile.user.org_id}/all-events`);
-       console.log(response.data);
+      const response = await Axios.get(
+        `${apiUrl}/api/events/organizer/${profile.user.org_id}/all-events`
+      );
+      console.log(response.data);
       setAllEvents(response.data);
       setAllFechedEvents(response.data);
     } catch (error) {
@@ -41,10 +44,14 @@ function OrEvents() {
   }
   return (
     <div>
-      <OrNavigationBar activepage="Events" />
+      <Navbar />
       <SideBar activeBtn="events" />
       <div className="container">
-        <SearchOrganizer ph="events" setAllEvents={setAllEvents} allFechedEvents={allFechedEvents}/>
+        <SearchOrganizer
+          ph="events"
+          setAllEvents={setAllEvents}
+          allFechedEvents={allFechedEvents}
+        />
         <div className="orga-page-content">
           <div className="filter-svents">
             <div className="all-ev filter-ev active">
@@ -67,12 +74,14 @@ function OrEvents() {
           <div className="cards">
             {allEvents ? (
               allEvents.map((event) => (
-                <EventCard key={event.event_id}
+                <EventCard
+                  key={event.event_id}
                   event={event}
                   numSilling={numSilling}
                   setNumSilling={setNumSilling}
                   numPaused={numPaused}
-                  setNumPaused={setNumPaused} />
+                  setNumPaused={setNumPaused}
+                />
               ))
             ) : (
               <p>No events found.</p>

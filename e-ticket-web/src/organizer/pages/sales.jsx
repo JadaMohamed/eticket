@@ -8,11 +8,13 @@ import Graph2 from "../../img/smallgraph.svg";
 import Cercle from "../../img/cercle.svg";
 import Selected from "../../img/selectedevent.svg";
 import SalesTable from "../components/salestable";
+import Navbar from "../../components/common/navbar";
+import SubNavbar from "../../components/common/subnavbar";
 
 function Sales() {
   return (
     <div>
-      <OrNavigationBar />
+      <Navbar />
       <SideBar activeBtn="sales" />
       <div className="container">
         <SearchOrganizer ph="sales" />

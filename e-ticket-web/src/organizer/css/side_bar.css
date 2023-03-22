@@ -1,12 +1,14 @@
 .side-bar {
     position: fixed;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: #30194f;
     top: 0;
     left: 0;
     z-index: 999;
-    width: 153.51px;
+    width: 160px;
     transition: all 0.2s ease-in-out;
+    height: 100%;
+    margin-top: 68px;
 }
 .side-bar .sidebar-container {
     padding: 20px 10px;
@@ -56,7 +58,7 @@
 .pin-unpin {
     position: absolute;
     right: -10px;
-    bottom: 20px;
+    bottom: 80px;
     background-color: var(--DarkPurple);
     border: 2px solid var(--White);
     text-align: center;

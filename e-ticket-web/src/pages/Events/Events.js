@@ -8,6 +8,7 @@ import { Hypnosis } from "react-cssfx-loading";
 import loader from "../../img/loading.svg";
 import Axios from "axios";
 import "./Events.css";
+import Header from "../../components/common/Header";
 
 function Events() {
   let { value } = useParams();

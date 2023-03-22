@@ -4,18 +4,23 @@
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 99;
+    z-index: 999;
 }
 .ornavigation-bar .ornavigation-bar-container {
     margin: auto;
-    max-width: 1200px;
-    padding: 15px 50px;
+    /* max-width: 1200px; */
+    padding: 15px 30px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
     position: relative;
 }
+.ornavigation-bar .ornavigation-bar-container .logo {
+    display: flex;
+    align-items: center;
+}
+
 .ornavigation-bar .ornavigation-bar-container .dropdown-menu {
     top: 60px !important;
     right: 50px !important;

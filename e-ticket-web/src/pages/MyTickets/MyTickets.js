@@ -9,6 +9,7 @@ import AuthContext from "../../Auth/AuthContext";
 import Axios from "axios";
 import loader from "../../img/loading.svg";
 import QrCodeViewer from "../../components/ticket/qrcodeviewer";
+import Header from "../../components/common/Header";
 
 function MyTickets() {
   const handleTicketClick = (ticket) => {
@@ -40,13 +41,15 @@ function MyTickets() {
 
   useEffect(() => {
     //chearch mytickets implementation
-    setTickets(Alltickets.filter((ticket) =>
-      ticket.Event.title.toLowerCase().includes(keyword.toLowerCase()) ||
-      ticket.Event.location.toLowerCase().includes(keyword.toLowerCase())||
-      ticket.Event.event_type.toLowerCase().includes(keyword.toLowerCase())
-    ));
+    setTickets(
+      Alltickets.filter(
+        (ticket) =>
+          ticket.Event.title.toLowerCase().includes(keyword.toLowerCase()) ||
+          ticket.Event.location.toLowerCase().includes(keyword.toLowerCase()) ||
+          ticket.Event.event_type.toLowerCase().includes(keyword.toLowerCase())
+      )
+    );
   }, [keyword]);
-
 
   useEffect(() => {
     console.log(selectedTicket);
@@ -71,8 +74,8 @@ function MyTickets() {
   }
   return (
     <>
-      <Navbar />
-      <SubNavbar />
+      {/* <Navbar /> */}
+      {/* <SubNavbar /> */}
       <MyTicketsHeader keyword={keyword} setKeyword={setKeyword} />
       {view ? (
         <QrCodeViewer code={selectedTicket?.qrcode} view={setView} />

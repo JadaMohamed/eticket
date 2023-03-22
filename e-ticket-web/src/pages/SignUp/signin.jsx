@@ -11,6 +11,7 @@ import useMultiplePageForm from "../../organizer/components/useMultiplePageForm.
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Auth/AuthContext";
+import Header from "../../components/common/Header";
 
 const SignUp = () => {
   const { profile, setProfile } = useContext(AuthContext);
@@ -49,12 +50,14 @@ const SignUp = () => {
         .then((result) => {
           console.log(result);
           formData.avatar = result;
-          if (formData.avatar.length>0){
+          if (formData.avatar.length > 0) {
             createAccount(); // assign the result to a variable
           }
         })
         .catch((error) => {
-          setErrorField("Register *'canceled'* you can try again\n check also your net***");
+          setErrorField(
+            "Register *'canceled'* you can try again\n check also your net***"
+          );
           console.error(error); // handle any errors that occur while handling the Promise objects
         });
     }

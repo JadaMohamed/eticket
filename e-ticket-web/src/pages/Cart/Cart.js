@@ -7,12 +7,11 @@ import "./Cart.css";
 import AuthContext from "../../Auth/AuthContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import PaymentForm from "../../components/common/paymentform";
+import Header from "../../components/common/Header";
 
 function Cart() {
   const { profile, isLoggedIn } = useContext(AuthContext);
-  const [Allcart, ] = useState(
-    JSON.parse(localStorage.getItem("cart")) || []
-  );
+  const [Allcart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
@@ -52,18 +51,21 @@ function Cart() {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    //chearch card 
-    setCart(Allcart.filter((cart) =>
-      cart.address.toLowerCase().includes(keyword.toLowerCase()) ||
-      cart.eventCategory.toLowerCase().includes(keyword.toLowerCase()) ||
-      cart.title.toLowerCase().includes(keyword.toLowerCase())||
-      cart.seatCategory.toLowerCase().includes(keyword.toLowerCase())
-    ));
+    //chearch card
+    setCart(
+      Allcart.filter(
+        (cart) =>
+          cart.address.toLowerCase().includes(keyword.toLowerCase()) ||
+          cart.eventCategory.toLowerCase().includes(keyword.toLowerCase()) ||
+          cart.title.toLowerCase().includes(keyword.toLowerCase()) ||
+          cart.seatCategory.toLowerCase().includes(keyword.toLowerCase())
+      )
+    );
   }, [keyword]);
 
   return (
     <>
-      <Navbar active="cart" />
+      <Navbar />
       <SubNavbar />
       <CartHeader
         keyword={keyword}

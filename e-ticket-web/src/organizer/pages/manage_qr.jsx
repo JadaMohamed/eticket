@@ -6,11 +6,14 @@ import step1 from "../../img/step1.svg";
 import step2 from "../../img/step2.svg";
 import step3 from "../../img/step3.svg";
 import QRSwiper from "../components/manage_qr_swiper";
+import Navbar from "../../components/common/navbar";
+import SubNavbar from "../../components/common/subnavbar";
+
 function Manage_qr() {
   return (
     <div>
       <div>
-        <OrNavigationBar />
+        <Navbar />
         <SideBar activeBtn="qr" />
         <div className="manage-qr">
           <div className="manage-qr-container">

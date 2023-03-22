@@ -11,9 +11,9 @@ function SideBar(props) {
     <div className={`side-bar ${sidebar ? "active-side-bar" : ""}`}>
       <div className="sidebar-container">
         <div className="top-content">
-          <div className="logo">
+          {/* <div className="logo">
             <img src={sidebar ? logoShort : logo} alt="" />
-          </div>
+          </div> */}
           <div className="top routes-btns">
             <div
               className={`btn ${

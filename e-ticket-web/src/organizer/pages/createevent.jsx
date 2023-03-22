@@ -13,6 +13,8 @@ import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 import ValidateEventInfos from "../components/create post form/validate_event_infos";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/common/navbar";
+import SubNavbar from "../../components/common/subnavbar";
 
 export const Createevent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -42,8 +44,6 @@ export const Createevent = () => {
     Event_Images: [],
   });
 
-
-
   const [imageCollector, setImages] = useState({ images: ["", "", ""] });
   const [previewSources, setPreviewSources] = useState(imageCollector.images);
 
@@ -60,7 +60,7 @@ export const Createevent = () => {
     return new Promise((resolve, reject) => {
       //emptying the table of image befor useing it
       eventData.Event_Images.splice(0, eventData.Event_Images.length);
-      //after upload files puting result urls in the table 
+      //after upload files puting result urls in the table
       uploadfiles()
         .then((result) => {
           eventData.Event_Images.push({ img_url: result[0] });
@@ -121,15 +121,15 @@ export const Createevent = () => {
 
   const handlePublish = async (event) => {
     setmsgeError("");
-    console.log('previewSources')
-    console.log(previewSources)
+    console.log("previewSources");
+    console.log(previewSources);
     //if all element in the array are empty means user did not choise eny image
-    if (!previewSources.some(elem => elem !== '')) {
+    if (!previewSources.some((elem) => elem !== "")) {
       setmsgeError("you cannot publish event without images");
       return;
     }
     if (ispublished === true) {
-      setmsgeError("Already publishing your event ...")
+      setmsgeError("Already publishing your event ...");
       return;
     }
     event.preventDefault();
@@ -149,7 +149,7 @@ export const Createevent = () => {
       }
     } catch (error) {
       if (error.response.data.error) {
-        setIspublished(false)
+        setIspublished(false);
         setmsgeError(error.response.data.error);
       } else {
         console.error(error);
@@ -159,7 +159,7 @@ export const Createevent = () => {
 
   function handelGoBack() {
     setmsgeError("");
-    setCreateEventStep(createEventStep - 1)
+    setCreateEventStep(createEventStep - 1);
     back();
   }
 
@@ -191,8 +191,8 @@ export const Createevent = () => {
   };
 
   useEffect(() => {
-    console.log('createEventStep', createEventStep);
-  }, [createEventStep])
+    console.log("createEventStep", createEventStep);
+  }, [createEventStep]);
 
   ///////////////////////////////
   function validateCreateEventStep1() {
@@ -213,14 +213,14 @@ export const Createevent = () => {
     } else {
       const selectedDate = new Date(eventData.date);
       if (selectedDate < maxDate) {
-        setmsgeError("This date is not accepted. Please choose a date after 24 hours from now.");
+        setmsgeError(
+          "This date is not accepted. Please choose a date after 24 hours from now."
+        );
         return false;
       }
     }
 
-// Rest of the code when the date is valid
-
-
+    // Rest of the code when the date is valid
 
     if (!eventData.time) {
       setmsgeError("Please choose a time for the Event");
@@ -238,14 +238,18 @@ export const Createevent = () => {
   }
 
   function validateCreateEventStep2() {
-    if (eventData.categories.length<1) {
+    if (eventData.categories.length < 1) {
       setmsgeError("Please Add Ticket categorie for the Event");
       return false;
     } else {
       const isValid = eventData.categories.every((category) => {
-        return category.name.trim() !== "" &&
-          category.price !== "" && category.price > 0 &&
-          category.numSeats !== "" && category.numSeats;
+        return (
+          category.name.trim() !== "" &&
+          category.price !== "" &&
+          category.price > 0 &&
+          category.numSeats !== "" &&
+          category.numSeats
+        );
       });
       if (!isValid) {
         setmsgeError("Please complete your Ticket categorie info the Event");
@@ -253,14 +257,13 @@ export const Createevent = () => {
       }
     }
 
-
     return true;
   }
   function validateCreateEventStep3() {
     if (!eventData.description.trim()) {
       setmsgeError("Please enter a description for the Event");
       return false;
-    } else if (eventData.description.trim().length<10) {
+    } else if (eventData.description.trim().length < 10) {
       setmsgeError("Invalide Event description 10 characters at least.");
       return false;
     }
@@ -272,15 +275,13 @@ export const Createevent = () => {
     return true;
   }
 
-
   function validateCreateEventStep5() {
-    if (!previewSources.some(elem => elem !== '')) {
+    if (!previewSources.some((elem) => elem !== "")) {
       setmsgeError("Please choose images for the Event.");
       return false;
     }
     return true;
   }
-
 
   function handlenext() {
     setmsgeError("");
@@ -297,9 +298,6 @@ export const Createevent = () => {
       return;
     }
 
-
-
-
     setCreateEventStep(createEventStep + 1);
     setmsgeError("");
     next();
@@ -309,7 +307,11 @@ export const Createevent = () => {
     useMultiplePageForm([
       <Overview_form eventData={eventData} setEventData={setEventData} />,
       <Pricing_form eventData={eventData} setEventData={setEventData} />,
-      <Description_form eventData={eventData} setEventData={setEventData} setmsgeError={setmsgeError} />,
+      <Description_form
+        eventData={eventData}
+        setEventData={setEventData}
+        setmsgeError={setmsgeError}
+      />,
       <Tickets_form eventData={eventData} setEventData={setEventData} />,
       <Gallery_form
         imageCollector={imageCollector}
@@ -327,14 +329,18 @@ export const Createevent = () => {
 
   return (
     <div>
-      <OrNavigationBar />
+      <Navbar />
       <SideBar activeBtn="events" />
       <div className="create-event-container">
         <Createeventflow activestep={`${currentStepIndex + 1}`} />
         <form action="">
           <div className="form-container">
             <div className="top-form-container">{step}</div>
-            {msgeError && <div ><span style={{ color: 'red' }}>{msgeError}</span></div>}
+            {msgeError && (
+              <div>
+                <span style={{ color: "red" }}>{msgeError}</span>
+              </div>
+            )}
             <div className="bottom-form-container">
               {!isFirstStep && (
                 <button className="back" type="button" onClick={handelGoBack}>
