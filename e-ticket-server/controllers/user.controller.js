@@ -512,7 +512,7 @@ const verifytoken = async (req, res) => {
     }
     try {
         const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
-        console.log(decoded)
+        // console.log(decoded)
         res.status(200).send({ msg: "correct token" });
     } catch (error) {
         return res.status(401).json({ error: 'Invalid authorization eticketjwt' });
@@ -520,7 +520,6 @@ const verifytoken = async (req, res) => {
 };
 const sendEmailResetPassword = async (req, res) => {
     const email = req.body.email;
-    console.log(email)
     if (!email) {
         return res.status(400).json({ error: 'no email provided' });
     }
@@ -539,6 +538,8 @@ const sendEmailResetPassword = async (req, res) => {
         const url = `${process.env.CLIENT_URL}/reset-password/${eticketjwt}`;
         const text = `Hi ${account.first_name}, you can click the link below to reset your password:\n` + url;
         await sendVerificationEmail(email, "eticket reset password", text);
+        res.status(200).json({ msg: 'email send succussfully' });
+
     } catch (error) {
         console.log(error);
         return res.status(400).json({ error: 'an error shows during the process and cached.' });

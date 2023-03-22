@@ -10,6 +10,7 @@ function PasswordResetForm() {
     const apiUrl = process.env.REACT_APP_API_URL;
     const { eticketjwt } = useParams();
     const [validUrl, setValidUrl] = useState(true);
+    const [emailSended, setemailSended] = useState(false);
     const [typeuser, setTypeuser] = useState("");
 
 
@@ -40,13 +41,12 @@ function PasswordResetForm() {
             }
             const url = `${apiUrl}/api/user/reset-password-mail`;
             const { data } = await axios.post(url, { email }, { withCredentials: true });
-            // console.log(data);
-            if (data) {
-                // setValidUrl(true);
-                setMessage('email has sent');
+            console.log(data);
+            if (data.msg) {
+                setMessage(data.msg);
+                setemailSended(true);
             }
         } catch (error) {
-            // setValidUrl(false);
             console.log(error);
         }
     };
@@ -103,21 +103,21 @@ function PasswordResetForm() {
                 <div className="msg-email">
                     <h3> Enter your email to reset password if it is in our database you will recive a link</h3>
                     <div className='input-email'>
-                    <label>
-                        email:
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                    </label>
+                        <label>
+                            email:
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
+                        </label>
                     </div>
                     <div className='btns'>
-                    <div className="error-message">{message}</div>
-                    <button className="green_btn" onClick={sendEmailResetPassword}>send email</button>
-                    <a href="https://mail.google.com/mail/u/0/#spam">
-                        <button className="green_btn">check Email</button>
-                    </a>
+                        <div className="error-message">{message}</div>
+                        {!emailSended && <button className="green_btn" onClick={sendEmailResetPassword}>send email</button>}
+                        <a href="https://mail.google.com/mail/u/0/#inbox">
+                            <button className="green_btn">check Email</button>
+                        </a>
                     </div>
                 </div>
             </>

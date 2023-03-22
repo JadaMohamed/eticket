@@ -8,8 +8,15 @@ export default function LoginPopup(props) {
   const [isVisible, setVisible] = useState(false);
   const userName = useRef("");
   const password = useRef("");
-  const { login, errorLogin } = useContext(AuthContext);
+  const { login, errorLogin, setErrorLogin } = useContext(AuthContext);
   const Nav = useNavigate();
+
+  useEffect(() => {
+    if (errorLogin === "Login successfully") {
+      setErrorLogin("")
+      props.setTrigger(false);
+    }
+  }, [errorLogin])
 
   const loginSubmit = async (event) => {
     event.preventDefault();

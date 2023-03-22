@@ -44,7 +44,7 @@ const EmailVerify = () => {
                     <h3> We just sent you an email with a verification link. Please check your inbox (and spam folder just in case)
                         and click on the link to verify your email address. Once you've done that, you'll be all set to explore everything
                         our platform has to offer. We can't wait to have you onboard!</h3>
-                    <a href="https://mail.google.com/mail/u/0/#spam">
+                    <a href="https://mail.google.com/mail/u/0/#inbox">
                         <button className={styles.green_btn}>Email</button>
                     </a>
                 </div>

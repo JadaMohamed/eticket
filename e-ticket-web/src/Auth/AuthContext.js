@@ -71,6 +71,7 @@ export const AuthContextProvider = ({ children }) => {
             break;
           default:
         }
+        setErrorLogin("Login successfully");
       }
     } catch (err) {
       if (err.response.data) {
@@ -102,7 +103,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ profile, login, errorLogin, logout, isLoggedIn, setProfile }}
+      value={{ profile, login, errorLogin, setErrorLogin, logout, isLoggedIn, setProfile }}
     >
       {children}
     </AuthContext.Provider>
