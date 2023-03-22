@@ -20,6 +20,8 @@ import { AuthContextProvider } from "./Auth/AuthContext";
 import { ProtectClient } from "./Auth/ProtectClient";
 import { ProtectOrganizer } from "./Auth/ProtectOrganizer";
 import SignIn from "./pages/SignUp/signin";
+import EmailVerify from "./components/EmailVerify";
+import PasswordResetForm from "./components/PasswordReset";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
             {/* <Route path="/events" element={<Events />} /> */}
           </Route>
 
+          <Route path="/reset-password/:eticketjwt" element={<PasswordResetForm />} />
+          <Route path="/verify-email/:eticketjwt" element={<EmailVerify />} />
           <Route path="*" element={<Eror404 />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/search/:value" element={<Search />} />

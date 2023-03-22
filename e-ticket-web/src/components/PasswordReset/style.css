@@ -1,0 +1,90 @@
+body {
+    /* margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; */
+}
+
+.msg-email{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+label input{
+    width: 300px;
+    font-size: 20px;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.password-reset-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+input[type="password"] {
+    margin-top: 5px;
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+}
+
+button {
+    margin-top: 30px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0077ff;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #005ad4;
+}
+
+.error-message {
+    color: red;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.green_btn {
+    border: none;
+    outline: none;
+    padding: 12px 0;
+    background-color: #3bb19b;
+    border-radius: 20px;
+    width: 180px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}

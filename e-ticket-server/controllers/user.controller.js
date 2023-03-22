@@ -1,6 +1,7 @@
 import userService from '../services/user.service.js';
 import accountService from '../services/account.service.js';
 import validator from 'validator';
+import nodemailer from 'nodemailer'
 
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -101,7 +102,7 @@ const login = async (req, res, next) => {
         // Find user by email and password
         const profile = await userService.findAccountByEmailAndPassword(email, password);
         if (!profile) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ errors: 'Invalid email or password' });
         }
 
         // generate JWT
@@ -109,6 +110,13 @@ const login = async (req, res, next) => {
             accountId: profile.account.account_id,
             userType: profile.account.account_type
         }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
+
+        if (!profile.account.isEmailVerified) {
+            const url = `${process.env.CLIENT_URL}/verify-email/${eticketjwt}`;
+            const text = `Hi ${profile.account.first_name}, you can click the link below to verify your email:\n` + url;
+            await sendVerificationEmail(email, "eticket verify Email", text);
+            return res.status(422).json({ error: "Please check your email inbox (and spam folder) to verify your account." });
+        }
 
         // Set JWT as a cookie in the response
         res.cookie('eticketjwt', eticketjwt, {
@@ -248,10 +256,10 @@ const registerOrganizer = async (req, res, next) => {
         }
 
         // create profile object
-        const profile = {
-            account: { ...account },
-            organizer: { ...organizer }
-        };
+        // const profile = {
+        //     account: { ...account },
+        //     organizer: { ...organizer }
+        // };
 
         // generate JWT
         const eticketjwt = jwt.sign({
@@ -259,14 +267,20 @@ const registerOrganizer = async (req, res, next) => {
             userType: account.account_type
         }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
 
+        //send email to resgester organizer
+        const url = `${process.env.CLIENT_URL}/verify-email/${eticketjwt}`;
+        const text = `Hi ${account.first_name}, you can click the link below to verify your email:\n` + url;
+        await sendVerificationEmail(email, "eticket verify Email", text);
+        return res.status(201).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
+
         // Set JWT as a cookie in the response
-        res.cookie('eticketjwt', eticketjwt, {
-            httpOnly: true,
-            secure: true,
-            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
-            sameSite: 'None',
-            path: '/',
-        }).status(201).json({ profile });
+        // res.cookie('eticketjwt', eticketjwt, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+        //     sameSite: 'None',
+        //     path: '/',
+        // }).status(201).json({ profile });
     } catch (error) {
         if (error.code === '23505') {
             // Unique constraint violation
@@ -331,19 +345,19 @@ const registerClient = async (req, res, next) => {
         if (!account) {
             return res.status(400).json({ msg: "account not created correctly" })
         }
-        console.log(account)
+        // console.log(account)
         // create organizer
         const account_id = account.account_id;
         const client = await clientService.createClient({ account_id, city });
         if (!client) {
             return res.status(400).json({ msg: "client not created correctly" })
         }
-        console.log(client)
+        // console.log(client)
         // create profile object
-        const profile = {
-            account: { ...account },
-            client: { ...client }
-        };
+        // const profile = {
+        //     account: { ...account },
+        //     client: { ...client }
+        // };
 
         // generate JWT
         const eticketjwt = jwt.sign({
@@ -351,14 +365,21 @@ const registerClient = async (req, res, next) => {
             userType: account.account_type
         }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
 
+        //send email to resgester client
+        const url = `${process.env.CLIENT_URL}/verify-email/${eticketjwt}`;
+        const text = `Hi ${account.first_name}, you can click the link below to verify your email:\n` + url;
+        await sendVerificationEmail(email, "eticket verify Email", text);
+        return res.status(201).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
+
+
         // Set JWT as a cookie in the response
-        res.cookie('eticketjwt', eticketjwt, {
-            httpOnly: true,
-            secure: true,
-            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
-            sameSite: 'None',
-            path: '/',
-        }).status(201).json({ profile });
+        // res.cookie('eticketjwt', eticketjwt, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+        //     sameSite: 'None',
+        //     path: '/',
+        // }).status(201).json({ profile });
     } catch (error) {
         if (error.code === '23505') {
             // Unique constraint violation
@@ -369,6 +390,163 @@ const registerClient = async (req, res, next) => {
 };
 
 
+const sendVerificationEmail = async (email, subject, text) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: process.env.HOST,
+            service: process.env.SERVICE,
+            port: Number(process.env.EMAIL_PORT),
+            // secure: Boolean(process.env.SECURE),
+            secureConnection: false, // TLS requires secureConnection to be false
+
+            auth: {
+                user: process.env.USER,
+                pass: process.env.PASS,
+            },
+            tls: {
+                ciphers: 'SSLv3'
+            }
+        });
+
+        await transporter.sendMail({
+            from: process.env.USER,
+            to: email,
+            subject: subject,
+            text: text,
+        });
+        console.log("email sent successfully");
+    } catch (error) {
+        console.log("email not sent!");
+        console.log(error);
+        return error;
+    }
+};
 
 
-export default { register, login, profile, logout, registerOrganizer, registerClient };
+const verifyEmail = async (req, res) => {
+    const eticketjwt = req.params.eticketjwt;
+
+    if (!eticketjwt) {
+        return res.status(401).json({ error: 'Authorization eticket (jwt) not found' });
+    }
+
+    try {
+        const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
+        console.log('\nverifyJwt: decoded', decoded);
+        const { accountId } = decoded;
+        const updatedAccount = await accountService.updateAccount(accountId, { isEmailVerified: true });
+        if (updatedAccount) {
+            // Set JWT as a cookie in the response
+            res.cookie('eticketjwt', eticketjwt, {
+                httpOnly: true,
+                secure: true,
+                maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+                sameSite: 'None',
+                path: '/',
+            }).status(201).json(decoded);
+        } else {
+            res.status(404).json({ error: `Account with id ${accountId} not found` });
+        }
+
+    } catch (error) {
+        console.log(error)
+        return res.status(401).json({ error: 'Invalid authorization eticketjwt' });
+    }
+};
+
+const resetPassWord = async (req, res) => {
+    const eticketjwt = req.params.eticketjwt;
+    const { password, confirmPassword } = req.body;
+
+    if (!eticketjwt) {
+        return res.status(401).json({ error: 'Authorization eticket (jwt) not found' });
+    }
+
+    const errors = [];
+    if (!password || !confirmPassword) {
+        errors.push('both password and confirmPassword are required');
+    }
+
+    if (password.length < 8) {
+        errors.push('Password must be at least 6 characters long');
+    }
+    if (password !== confirmPassword) {
+        errors.push('Password and confirmPassword are not mach');
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    }
+
+    try {
+        const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
+        // console.log(decoded)
+        // console.log('verifyJwt: decoded', decoded);
+        const { accountId } = decoded;
+
+        const updatedAccount = await accountService.updateAccount(accountId, { password: password });
+        if (updatedAccount) {
+            // console.log(updatedAccount)
+            // Set JWT as a cookie in the response
+            res.cookie('eticketjwt', eticketjwt, {
+                httpOnly: true,
+                secure: true,
+                maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+                sameSite: 'None',
+                path: '/',
+            }).status(201).json(decoded);
+        } else {
+            res.status(404).json({ error: `Account with id ${accountId} not found` });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({ error: 'Invalid authorization eticketjwt' });
+    }
+};
+
+const verifytoken = async (req, res) => {
+    const eticketjwt = req.params.eticketjwt;
+
+    if (!eticketjwt) {
+        return res.status(401).json({ error: 'Authorization eticket (jwt) not found' });
+    }
+    try {
+        const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
+        // console.log(decoded)
+        res.status(200).send({ msg: "correct token" });
+    } catch (error) {
+        return res.status(401).json({ error: 'Invalid authorization eticketjwt' });
+    }
+};
+const sendEmailResetPassword = async (req, res) => {
+    const email = req.body.email;
+    if (!email) {
+        return res.status(400).json({ error: 'no email provided' });
+    }
+
+    try {
+        const account = await accountService.getAccountByEmail(email);
+        if (!account) {
+            return res.status(400).json({ error: 'email not found' });
+        }
+        // generate JWT
+        const eticketjwt = jwt.sign({
+            accountId: account.account_id,
+            userType: account.account_type
+        }, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
+
+        const url = `${process.env.CLIENT_URL}/reset-password/${eticketjwt}`;
+        const text = `Hi ${account.first_name}, you can click the link below to reset your password:\n` + url;
+        await sendVerificationEmail(email, "eticket reset password", text);
+        res.status(200).json({ msg: 'email send succussfully' });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ error: 'an error shows during the process and cached.' });
+    }
+};
+
+
+
+
+export default { register, login, profile, logout, registerOrganizer, registerClient, verifyEmail, resetPassWord, verifytoken, sendEmailResetPassword };

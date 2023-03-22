@@ -12,9 +12,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Auth/AuthContext";
 import Header from "../../components/common/Header";
+// import AuthContext from "../../Auth/AuthContext";
 
 const SignUp = () => {
-  const { profile, setProfile } = useContext(AuthContext);
+  // const { profile, setProfile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [previewSource, setPreviewSource] = useState("");
@@ -78,11 +79,11 @@ const SignUp = () => {
     }
   };
 
-  useEffect(() => {
-    if (profile?.account?.account_type === "organizer") {
-      navigate("/organizer/dashboard");
-    }
-  }, [profile, navigate]);
+  // useEffect(() => {
+  //   if (profile?.account?.account_type === "organizer") {
+  //     navigate("/organizer/dashboard");
+  //   }
+  // }, [profile, navigate]);
 
   const handleBackClick = () => {
     back();
@@ -172,7 +173,10 @@ const SignUp = () => {
         formData,
         { withCredentials: true }
       );
-      setProfile(response.data.profile);
+      //   setProfile(response.data.profile);
+      if (response.data) {
+        navigate("/verify-email/checkemail");
+      }
     } catch (error) {
       console.error(error);
     }

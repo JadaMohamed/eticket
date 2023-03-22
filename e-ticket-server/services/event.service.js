@@ -207,19 +207,36 @@ const eventService = {
     console.log(events);
     const ticketsByDay = {};
 
-      events.forEach((event) => {
-        event.Ticket.forEach((ticket) => {
-          const ticketDate = ticket.created_at.toDateString();
-          if (!ticketsByDay[ticketDate]) {
-            ticketsByDay[ticketDate] = 0;
-          }
-          ticketsByDay[ticketDate] += 1;
-        });
+    events.forEach((event) => {
+      event.Ticket.forEach((ticket) => {
+        const ticketDate = ticket.created_at.toDateString();
+        if (!ticketsByDay[ticketDate]) {
+          ticketsByDay[ticketDate] = 0;
+        }
+        ticketsByDay[ticketDate] += 1;
       });
-    
-  
+    });
+
+
     return ticketsByDay;
+  },
+  getTicketsSales: async function (eventId) {
+    const event = await prisma.event.findUnique({
+      where: { event_id: eventId },
+      select: { SeatCategory: true },
+    });
+    const ticketsBySeatCategory = {};
+  
+    for (const seat of event.SeatCategory) {
+      const ticketCount = await prisma.ticket.count({
+        where: { AND: [{ event_id: eventId }, { seat_categ_id: seat.seat_categ_id }] },
+      });
+      ticketsBySeatCategory[seat.type_name] = [ticketCount, seat.number_max];
+    }
+    return ticketsBySeatCategory;
   }
+  
+
 
 };
 

@@ -7,6 +7,7 @@ export const AuthContextProvider = ({ children }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [profile, setProfile] = useState(null);
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export const AuthContextProvider = ({ children }) => {
   // Client:     Email: client@gmail.com  , Pass: password
 
   const login = async (payload) => {
+    setErrorLogin("");
     try {
       const apiResponse = await axios.post(
         `${apiUrl}/api/user/login`,
@@ -69,9 +71,20 @@ export const AuthContextProvider = ({ children }) => {
             break;
           default:
         }
+        setErrorLogin("Login successfully");
       }
     } catch (err) {
-      console.log(err);
+      if (err.response.data) {
+        if (err.response.status === 422) {
+          navigate("/verify-email/checkemail");
+        } else if (err.response.data.errors) {
+          setErrorLogin(err.response.data.errors);
+        } else if (err.response.data.error) {
+          setErrorLogin(err.response.data.error);
+        }
+      } else {
+        console.log(err);
+      }
     }
   };
 
@@ -92,7 +105,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ profile, login, logout, isLoggedIn, setProfile }}
+      value={{ profile, login, errorLogin, setErrorLogin, logout, isLoggedIn, setProfile }}
     >
       {children}
     </AuthContext.Provider>
