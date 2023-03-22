@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "../../img/logo.svg";
 import "../../css/loginpopup.css";
 import AuthContext from "../../Auth/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPopup(props) {
   const [isVisible, setVisible] = useState(false);
@@ -83,7 +83,7 @@ export default function LoginPopup(props) {
             {/* <div className="forgot-password">Forgot Password</div> */}
           </div>
           <div className="element-c submit">
-            {errorLogin && <div><span style={{ color: 'red' }}>{errorLogin}</span></div>}
+            {errorLogin && <div><span style={{ color: 'red' }}> {errorLogin} </span><Link to="/reset-password/msg">forget password?</Link></div>}
             <div className="submit-container" onClick={loginSubmit}>
               Sign In
             </div>
