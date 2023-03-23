@@ -29,13 +29,15 @@ function EventPreview(props) {
   useEffect(() => {
     console.log("imgs " + images);
   }, [images]);
+  useEffect(() => {
+    setSelectedImage(props.event.Event_Images[0].img_url);
+  }, [images]);
   return (
     <div className="event-preview">
       <div className="event-preview-container">
         <div className="leftside">
           <div
             className="images"
-            style={{ backgroundColor: "red" }}
             onMouseEnter={() => {
               setHovred(true);
             }}
@@ -121,7 +123,11 @@ function EventPreview(props) {
               </div>
             </di>
             <div className="organizer">
-              Organized by <span>{props.event.org_id}</span>
+              Organized by{" "}
+              <span>
+                {props.event.Organizer.Account.first_name}{" "}
+                {props.event.Organizer.Account.last_name}
+              </span>
             </div>
           </div>
         </div>

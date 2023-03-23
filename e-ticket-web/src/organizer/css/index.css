@@ -17,3 +17,6 @@
     display: flex;
     gap: 20px;
 }
+.organizer-page-content {
+    display: flex;
+}

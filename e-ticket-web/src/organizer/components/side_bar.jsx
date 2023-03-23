@@ -76,7 +76,7 @@ function SideBar(props) {
                   qr_code_scanner
                 </span>{" "}
                 <div className={`name ${sidebar ? "active-name" : ""}`}>
-                  Manage QR
+                  QRs
                 </div>
               </div>
             </div>

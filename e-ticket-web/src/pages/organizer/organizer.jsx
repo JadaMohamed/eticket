@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Organizer = () => {
   let { orgID } = useParams();
-  const [activeTab, setActiveTab] = useState("events");
+  const [activeTab, setActiveTab] = useState("now");
   const [organizer, setOrganizer] = useState();
   const [events, setEvents] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -39,11 +39,13 @@ const Organizer = () => {
   };
   const now = new Date();
   const A = events.filter((event) => new Date(event.start_time) > now);
-  const B = events.filter((event) => new Date(event.start_time) <= now);
+  const B = events.filter((event) => new Date(event.start_time) < now);
   useEffect(() => {
     getEvents();
     getOrganizer();
-  }, []);
+    console.log(events);
+    console.log(orgID);
+  }, [orgID]);
   return (
     <>
       <Navbar />
@@ -59,24 +61,61 @@ const Organizer = () => {
                 <div className="infos">
                   <div className="top-infos">
                     <div className="avatar">
-                      <img src="" alt="" />
+                      <img src={organizer?.Account?.avatar} alt="" />
                     </div>
                     <div className="name-discreption">
-                      <div className="name">E-Ticket Production</div>
-                      <div className="discreption">{organizer.Description}</div>
+                      <div className="name">
+                        {organizer?.Account?.first_name}{" "}
+                        {organizer?.Account?.last_name}
+                      </div>
+                      <div className="discreption">
+                        {organizer?.Description}
+                      </div>
                       <div className="social-media">
-                        <span className="material-symbols-outlined">
-                          disabled_by_default
-                        </span>
-                        <span className="material-symbols-outlined">
-                          disabled_by_default
-                        </span>
-                        <span className="material-symbols-outlined">
-                          disabled_by_default
-                        </span>
-                        <span className="material-symbols-outlined">
-                          disabled_by_default
-                        </span>
+                        {!organizer?.Facebook ? (
+                          <div
+                            className="social-link"
+                            title={`${organizer?.Account?.first_name} ${organizer?.Account?.last_name} has no Facebook link`}
+                          >
+                            <i class="fa-brands fa-facebook-f"></i>
+                          </div>
+                        ) : (
+                          <div className="social-link">
+                            <a href={organizer?.Facebook}>
+                              <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                          </div>
+                        )}
+
+                        {!organizer?.Twitter ? (
+                          <div
+                            className="social-link"
+                            title={`${organizer?.Account?.first_name} ${organizer?.Account?.last_name} has no Twitter link`}
+                          >
+                            <i class="fa-brands fa-twitter"></i>
+                          </div>
+                        ) : (
+                          <div className="social-link">
+                            <a href={organizer?.Twitter}>
+                              <i class="fa-brands fa-twitter"></i>
+                            </a>
+                          </div>
+                        )}
+
+                        {!organizer?.Instagram ? (
+                          <div
+                            className="social-link"
+                            title={`${organizer?.Account?.first_name} ${organizer?.Account?.last_name} has no Instagram link`}
+                          >
+                            <i class="fa-brands fa-instagram"></i>
+                          </div>
+                        ) : (
+                          <div className="social-link">
+                            <a href={organizer?.Instagram}>
+                              <i class="fa-brands fa-instagram"></i>
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -85,20 +124,20 @@ const Organizer = () => {
                 <div className="navigation">
                   <div
                     className={`events btn ${
-                      activeTab === "events" ? "active" : ""
+                      activeTab === "now" ? "active" : ""
                     }`}
                     onClick={() => {
-                      setActiveTab("events");
+                      setActiveTab("now");
                     }}
                   >
                     Events
                   </div>
                   <div
                     className={`past-events btn ${
-                      activeTab === "pevents" ? "active" : ""
+                      activeTab === "past" ? "active" : ""
                     }`}
                     onClick={() => {
-                      setActiveTab("pevents");
+                      setActiveTab("past");
                     }}
                   >
                     Past events
@@ -110,40 +149,47 @@ const Organizer = () => {
               <div className="localevents XXXX">
                 <div className="localevent-container">
                   <div className="cards">
-                    {activeTab === "event"
-                      ? A.map((event) => (
-                          <Card
-                            key={event.event_id}
-                            eventid={event.event_id}
-                            image={
-                              event.Event_Images?.length > 0
-                                ? event.Event_Images[0].img_url
-                                : null
-                            }
-                            title={event.title}
-                            price={event.price}
-                            location={event.location}
-                            category={event.event_type}
-                            date={event.start_time}
-                          />
-                        ))
-                      : activeTab === "pevents" &&
-                        B.map((event) => (
-                          <Card
-                            key={event.event_id}
-                            eventid={event.event_id}
-                            image={
-                              event.Event_Images?.length > 0
-                                ? event.Event_Images[0].img_url
-                                : null
-                            }
-                            title={event.title}
-                            price={event.price}
-                            location={event.location}
-                            category={event.event_type}
-                            date={event.start_time}
-                          />
-                        ))}
+                    {activeTab === "now"
+                      ? events
+                          .filter(
+                            (event) => new Date(event.start_time) > new Date()
+                          )
+                          .map((event) => (
+                            <Card
+                              key={event.event_id}
+                              eventid={event.event_id}
+                              image={
+                                event.Event_Images?.length > 0
+                                  ? event.Event_Images[0].img_url
+                                  : null
+                              }
+                              title={event.title}
+                              price={event.price}
+                              location={event.location}
+                              category={event.event_type}
+                              date={event.start_time}
+                            />
+                          ))
+                      : events
+                          .filter(
+                            (event) => new Date(event.start_time) < new Date()
+                          )
+                          .map((event) => (
+                            <Card
+                              key={event.event_id}
+                              eventid={event.event_id}
+                              image={
+                                event.Event_Images?.length > 0
+                                  ? event.Event_Images[0].img_url
+                                  : null
+                              }
+                              title={event.title}
+                              price={event.price}
+                              location={event.location}
+                              category={event.event_type}
+                              date={event.start_time}
+                            />
+                          ))}
                   </div>
                 </div>
               </div>

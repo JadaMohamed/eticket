@@ -35,6 +35,16 @@ const eventService = {
         Paid_Tickets_Orders: true,
         SeatCategory: true,
         Ticket: true,
+        Organizer: {
+          select: {
+            Account: {
+              select: {
+                first_name: true,
+                last_name: true,
+              },
+            },
+          },
+        },
       },
     });
     return event;
@@ -121,6 +131,16 @@ const eventService = {
       },
       include: {
         Event_Images: true,
+        Organizer: {
+          select: {
+            Account: {
+              select: {
+                first_name: true,
+                last_name: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         created_at: "desc",
@@ -135,6 +155,13 @@ const eventService = {
       },
       include: {
         Events: true,
+        Account: {
+          select: {
+            first_name: true,
+            last_name: true,
+            avatar: true,
+          },
+        },
       },
     });
   },
@@ -164,22 +191,27 @@ const eventService = {
   getEventSales: async (organizerId, timeframe, eventId = null) => {
     let startDate;
     switch (timeframe) {
-      case 'last7days':
+      case "last7days":
         startDate = new Date();
         startDate.setDate(startDate.getDate() - 7);
         break;
-      case 'last30days':
+      case "last30days":
         startDate = new Date();
         startDate.setDate(startDate.getDate() - 30);
         break;
-      case 'last24hours':
+      case "last24hours":
         startDate = new Date();
         startDate.setHours(startDate.getHours() - 24);
         break;
       default:
-        throw new Error('Invalid timeframe : ', timeframe, "with typeof : ", typeof timeframe);
+        throw new Error(
+          "Invalid timeframe : ",
+          timeframe,
+          "with typeof : ",
+          typeof timeframe
+        );
     }
-    console.log("orgid", organizerId, "start date :", startDate)
+    console.log("orgid", organizerId, "start date :", startDate);
     let events;
     if (eventId) {
       events = await prisma.event.findMany({
@@ -196,10 +228,7 @@ const eventService = {
     } else {
       events = await prisma.event.findMany({
         where: {
-          AND: [
-            { org_id: organizerId },
-            { created_at: { gte: startDate } },
-          ],
+          AND: [{ org_id: organizerId }, { created_at: { gte: startDate } }],
         },
         include: { Ticket: true },
       });
@@ -217,7 +246,6 @@ const eventService = {
       });
     });
 
-
     return ticketsByDay;
   },
   getTicketsSales: async function (eventId) {
@@ -226,18 +254,17 @@ const eventService = {
       select: { SeatCategory: true },
     });
     const ticketsBySeatCategory = {};
-  
+
     for (const seat of event.SeatCategory) {
       const ticketCount = await prisma.ticket.count({
-        where: { AND: [{ event_id: eventId }, { seat_categ_id: seat.seat_categ_id }] },
+        where: {
+          AND: [{ event_id: eventId }, { seat_categ_id: seat.seat_categ_id }],
+        },
       });
       ticketsBySeatCategory[seat.type_name] = [ticketCount, seat.number_max];
     }
     return ticketsBySeatCategory;
-  }
-  
-
-
+  },
 };
 
 export default eventService;

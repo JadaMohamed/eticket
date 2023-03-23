@@ -12,15 +12,16 @@ router.post(
   verifyJwt,
   verifyOrganizerOrAdmin,
   eventController.createOrganizerEvent
-  );
-  router.get(
-    "/organizer-profile/:orgId",
-    eventController.getOrganizerProfileById
-    );
-    router.get(
-      "/organizer/:orgId/all-events",
-      eventController.getAllOrganizerEvents
-    );
+);
+router.get(
+  "/organizer/:orgId/all-events",
+  eventController.getAllOrganizerEvents
+);
+router.get(
+  "/organizer-profile/:orgId",
+  eventController.getOrganizerProfileById
+);
+
 router.post(
   "/",
   verifyJwt,
@@ -52,8 +53,11 @@ router.get(
   eventController.getLastThreeEventsForOrganizer
 );
 
-router.get("/organizer/get-event-sales/:orgId", eventController.getEventSales)
-router.get("/organizer/get-ticket-sales/:eventId", eventController.getTicketsSales)
+router.get("/organizer/get-event-sales/:orgId", eventController.getEventSales);
+router.get(
+  "/organizer/get-ticket-sales/:eventId",
+  eventController.getTicketsSales
+);
 export default router;
 
 // import express from 'express';

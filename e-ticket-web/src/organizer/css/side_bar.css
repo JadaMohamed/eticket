@@ -1,14 +1,17 @@
 .side-bar {
-    position: fixed;
+    position: sticky;
     /* height: 100vh; */
+    /* position: relative; */
     background-color: #30194f;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 99;
     width: 160px;
     transition: all 0.2s ease-in-out;
-    height: 100%;
-    margin-top: 68px;
+    height: 100vh;
+    position: fixed;
+    padding-top: 78px;
+    /* margin-top: 68px; */
 }
 .side-bar .sidebar-container {
     padding: 20px 10px;
@@ -47,7 +50,7 @@
     font-size: 16px;
 }
 .side-bar .sidebar-container .routes-btns .btn-container span {
-    font-size: 21.2px;
+    font-size: 20px;
 }
 .side-bar .sidebar-container .routes-btns .btn-container:hover {
     background-color: #9a82b884;

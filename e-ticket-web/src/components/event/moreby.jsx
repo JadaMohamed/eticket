@@ -22,14 +22,17 @@ function MoreBy(props) {
     }
   };
   useEffect(() => {
-    console.log("searcing for events");
     getEvents();
-  }, []);
+  }, [props.id]);
   return (
     <div className="localevents more-by">
       <div className="localevent-container">
         <div className="section-title">
-          More by <span onClick={() => Nav(`/organizer/${props.id}`)}>{props.id}</span>
+          More by{" "}
+          <span onClick={() => Nav(`/organizer/${props.id}`)}>
+            {events[0]?.Organizer?.Account?.first_name}{" "}
+            {events[0]?.Organizer?.Account?.last_name}
+          </span>
         </div>
         <div className="cards">
           {events.map((event) => (
