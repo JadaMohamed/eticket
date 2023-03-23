@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
   // Client:     Email: client@gmail.com  , Pass: password
 
   const login = async (payload) => {
-    setErrorLogin("");
+    setErrorLogin("Please wait for Loading response ...");
     try {
       const apiResponse = await axios.post(
         `${apiUrl}/api/user/login`,
@@ -77,6 +77,7 @@ export const AuthContextProvider = ({ children }) => {
       if (err.response.data) {
         if (err.response.status === 422) {
           navigate("/verify-email/checkemail");
+          console.log('kkkkkkkkkkkkkkkkkkkk')
         } else if (err.response.data.errors) {
           setErrorLogin(err.response.data.errors);
         } else if (err.response.data.error) {
