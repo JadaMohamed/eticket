@@ -114,8 +114,10 @@ const login = async (req, res, next) => {
         if (!profile.account.isEmailVerified) {
             const url = `${process.env.CLIENT_URL}/verify-email/${eticketjwt}`;
             const text = `Hi ${profile.account.first_name}, you can click the link below to verify your email:\n` + url;
-            await sendVerificationEmail(email, "eticket verify Email", text);
-            return res.status(422).json({ error: "Please check your email inbox (and spam folder) to verify your account." });
+            const isEmailsendSuccussfully = await sendVerificationEmail(email, "eticket verify Email", text);
+            if (isEmailsendSuccussfully === true) {
+                return res.status(422).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
+            }
         }
 
         // Set JWT as a cookie in the response
@@ -252,14 +254,14 @@ const registerOrganizer = async (req, res, next) => {
         const account_id = account.account_id;
         const organizer = await organizersService.createOrganizer({ account_id, Instagram, Facebook, Twitter, Description, city });
         if (!organizer) {
-            return res.status(400).json({ msg: "Organizer not created correctly" })
+            return res.status(400).json({ msg: "Organizer not created correctly" });
         }
 
         // create profile object
-        // const profile = {
-        //     account: { ...account },
-        //     organizer: { ...organizer }
-        // };
+        const profile = {
+            account: { ...account },
+            organizer: { ...organizer }
+        };
 
         // generate JWT
         const eticketjwt = jwt.sign({
@@ -270,17 +272,18 @@ const registerOrganizer = async (req, res, next) => {
         //send email to resgester organizer
         const url = `${process.env.CLIENT_URL}/verify-email/${eticketjwt}`;
         const text = `Hi ${account.first_name}, you can click the link below to verify your email:\n` + url;
-        await sendVerificationEmail(email, "eticket verify Email", text);
-        return res.status(201).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
-
+        const isEmailsendSuccussfully = await sendVerificationEmail(email, "eticket verify Email", text);
+        if (isEmailsendSuccussfully === true) {
+            return res.status(201).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
+        }
         // Set JWT as a cookie in the response
-        // res.cookie('eticketjwt', eticketjwt, {
-        //     httpOnly: true,
-        //     secure: true,
-        //     maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
-        //     sameSite: 'None',
-        //     path: '/',
-        // }).status(201).json({ profile });
+        res.cookie('eticketjwt', eticketjwt, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+            sameSite: 'None',
+            path: '/',
+        }).status(201).json({ profile });
     } catch (error) {
         if (error.code === '23505') {
             // Unique constraint violation
@@ -354,10 +357,10 @@ const registerClient = async (req, res, next) => {
         }
         // console.log(client)
         // create profile object
-        // const profile = {
-        //     account: { ...account },
-        //     client: { ...client }
-        // };
+        const profile = {
+            account: { ...account },
+            client: { ...client }
+        };
 
         // generate JWT
         const eticketjwt = jwt.sign({
@@ -368,18 +371,20 @@ const registerClient = async (req, res, next) => {
         //send email to resgester client
         const url = `${process.env.CLIENT_URL}/verify-email/${eticketjwt}`;
         const text = `Hi ${account.first_name}, you can click the link below to verify your email:\n` + url;
-        await sendVerificationEmail(email, "eticket verify Email", text);
-        return res.status(201).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
+        const isEmailsendSuccussfully = await sendVerificationEmail(email, "eticket verify Email", text);
+        if (isEmailsendSuccussfully === true) {
+            return res.status(201).json({ msg: "Please check your email inbox (and spam folder) to verify your account." });
+        }
 
 
         // Set JWT as a cookie in the response
-        // res.cookie('eticketjwt', eticketjwt, {
-        //     httpOnly: true,
-        //     secure: true,
-        //     maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
-        //     sameSite: 'None',
-        //     path: '/',
-        // }).status(201).json({ profile });
+        res.cookie('eticketjwt', eticketjwt, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 60 * 60 * 24 * 2 * 1000, // 2 days
+            sameSite: 'None',
+            path: '/',
+        }).status(201).json({ profile });
     } catch (error) {
         if (error.code === '23505') {
             // Unique constraint violation
@@ -414,10 +419,12 @@ const sendVerificationEmail = async (email, subject, text) => {
             subject: subject,
             text: text,
         });
-        console.log("email sent successfully");
+        console.log("*************** email sent successfully ******************");
+        return true;
     } catch (error) {
         console.log("email not sent!");
         console.log(error);
+        console.log('*-----------------------------This error hapen when email failed to send-----------------------------*');
         return error;
     }
 };
@@ -432,7 +439,7 @@ const verifyEmail = async (req, res) => {
 
     try {
         const decoded = jwt.verify(eticketjwt, process.env.JWT_SECRET_KEY);
-        console.log('\nverifyJwt: decoded', decoded);
+        // console.log('\nverifyJwt: decoded', decoded);
         const { accountId } = decoded;
         const updatedAccount = await accountService.updateAccount(accountId, { isEmailVerified: true });
         if (updatedAccount) {
@@ -527,7 +534,7 @@ const sendEmailResetPassword = async (req, res) => {
     try {
         const account = await accountService.getAccountByEmail(email);
         if (!account) {
-            return res.status(400).json({ error: 'email not found' });
+            return res.status(200).json({ msg: 'If your email exists in our database, you will receive a reset password link shortly. Please check your email.' });
         }
         // generate JWT
         const eticketjwt = jwt.sign({
@@ -537,9 +544,12 @@ const sendEmailResetPassword = async (req, res) => {
 
         const url = `${process.env.CLIENT_URL}/reset-password/${eticketjwt}`;
         const text = `Hi ${account.first_name}, you can click the link below to reset your password:\n` + url;
-        await sendVerificationEmail(email, "eticket reset password", text);
-        res.status(200).json({ msg: 'email send succussfully' });
-
+        const isEmailsendSuccussfully = await sendVerificationEmail(email, "eticket reset password", text);
+        if (isEmailsendSuccussfully === true) {
+            return res.status(200).json({ msg: "If your email exists in our database, you will receive a reset password link shortly. Please check your email." });
+        } else {
+            return res.status(200).json({ msg: "We have a problem to send you the email try again later" });
+        }
     } catch (error) {
         console.log(error);
         return res.status(400).json({ error: 'an error shows during the process and cached.' });
