@@ -22,11 +22,9 @@
     gap: 20px;
     justify-content: space-between;
 }
-.container .images {
+.container .graphs {
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-.container .images img {
-    width: 100%;
+    gap: 20px;
 }

@@ -5,6 +5,7 @@ function SalesCard(props) {
   const reached = ((props.sales * 100) / props.totalSeats).toFixed(1);
   return (
     <div className="SalesCard">
+      <img src={props.image} alt="" />
       <div className="SalesCard-container">
         <div className="counted-sales">
           <div className="total">

@@ -6,6 +6,7 @@
     background-color: var(--White);
     border-radius: 8px;
     align-items: center;
+    margin-top: 30px;
 }
 .container .search-create-nav .searchbar-organizer {
     display: flex;

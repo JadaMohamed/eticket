@@ -2,16 +2,31 @@ import React from "react";
 import "../css/order.css";
 
 const Order = (props) => {
+  const date = new Date(props.date);
+
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+    timeZone: "UTC",
+  };
+  const formatter = new Intl.DateTimeFormat("en-US", options);
+  const formattedDate = formatter.format(date);
   return (
-    <div className="order">
-      <div className="avatar"> <img src={props.avatar} alt="avatar" style={{width:'100%'}}/></div>
-      <div className="eventid">{props.eventid}</div>
-      <div className="date">{props.date}</div>
-      <div className="buyername">{props.buyername}</div>
-      <div className="email">{props.email}</div>
-      <div className="amount">{props.amount}$</div>
-      <div className="ordernumber">{props.ordernumber}</div>
-    </div>
+    <tr className="order">
+      <td className="avatar">
+        <img src={props.avatar} alt="avatar" style={{ width: "100%" }} />
+      </td>
+      <td className="eventid">{props.eventid}</td>
+      <td className="date">{formattedDate}</td>
+      <td className="buyername">{props.buyername}</td>
+      <td className="email">{props.email}</td>
+      <td className="amount">{props.amount}$</td>
+      <td className="ordernumber">{props.ordernumber}</td>
+    </tr>
   );
 };
 

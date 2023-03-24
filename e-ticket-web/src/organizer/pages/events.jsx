@@ -13,17 +13,27 @@ import SubNavbar from "../../components/common/subnavbar";
 function OrEvents() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const { profile } = useContext(AuthContext);
-
+  const [activetab, setActivetab] = useState("all");
   const Nav = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [allFechedEvents, setAllFechedEvents] = useState([]);
   const [numSilling, setNumSilling] = useState();
   const [numPaused, setNumPaused] = useState();
+  const [numEned, setNumEnded] = useState();
 
   useEffect(() => {
     if (allEvents) {
-      setNumSilling(allEvents.filter((event) => event.is_start_selling).length);
+      setNumSilling(
+        allEvents.filter(
+          (event) =>
+            event.is_start_selling && new Date(event.start_time) > new Date()
+        ).length
+      );
       setNumPaused(allEvents.filter((event) => !event.is_start_selling).length);
+      setNumEnded(
+        allEvents.filter((event) => new Date(event.start_time) < new Date())
+          .length
+      );
     }
   }, [allEvents]);
 
@@ -42,6 +52,38 @@ function OrEvents() {
       console.error(error);
     }
   }
+
+  const [showAllEvents, setShowAllEvents] = useState(true);
+  const [showPausedEvents, setShowPausedEvents] = useState(false);
+  const [showSellingEvents, setShowSellingEvents] = useState(false);
+  const [showEndedEvents, setShowEndedEvents] = useState(false);
+  const handleShowAllEvents = () => {
+    setShowAllEvents(true);
+    setShowPausedEvents(false);
+    setShowSellingEvents(false);
+    setShowEndedEvents(false);
+  };
+
+  const handleShowPausedEvents = () => {
+    setShowAllEvents(false);
+    setShowPausedEvents(true);
+    setShowSellingEvents(false);
+    setShowEndedEvents(false);
+  };
+
+  const handleShowSellingEvents = () => {
+    setShowAllEvents(false);
+    setShowPausedEvents(false);
+    setShowSellingEvents(true);
+    setShowEndedEvents(false);
+  };
+
+  const handleShowEndedEvents = () => {
+    setShowAllEvents(false);
+    setShowPausedEvents(false);
+    setShowSellingEvents(false);
+    setShowEndedEvents(true);
+  };
   return (
     <div>
       <Navbar />
@@ -54,38 +96,87 @@ function OrEvents() {
         />
         <div className="orga-page-content">
           <div className="filter-svents">
-            <div className="all-ev filter-ev active">
-              <label>All events</label>
+            <div
+              className={`all-ev filter-ev ${
+                activetab === "all" ? "active" : ""
+              }`}
+              onClick={() => {
+                handleShowAllEvents();
+                setActivetab("all");
+              }}
+            >
+              <div className="label">All events</div>
               <span>{allEvents.length}</span>
             </div>
-            <div className="selling-ev filter-ev">
-              <label>Selling</label>
+            <div
+              className={`all-ev filter-ev ${
+                activetab === "selling" ? "active" : ""
+              }`}
+              onClick={() => {
+                handleShowSellingEvents();
+                setActivetab("selling");
+              }}
+            >
+              <div className="label">Selling</div>
               <span>{numSilling}</span>
             </div>
-            <div className="paused-ev filter-ev">
-              <label>Paused</label>
+            <div
+              className={`all-ev filter-ev ${
+                activetab === "not-selling" ? "active" : ""
+              }`}
+              onClick={() => {
+                handleShowPausedEvents();
+                setActivetab("not-selling");
+              }}
+            >
+              <div className="label">Paused</div>
               <span>{numPaused}</span>
             </div>
-            <div className="ended-ev filter-ev">
-              <label>Ended</label>
-              <span>1</span>
+            <div
+              className={`all-ev filter-ev ${
+                activetab === "ended" ? "active" : ""
+              }`}
+              onClick={() => {
+                handleShowEndedEvents();
+                setActivetab("ended");
+              }}
+            >
+              <div className="label">Ended</div>
+              <span>{numEned}</span>
             </div>
           </div>
           <div className="cards">
-            {allEvents ? (
-              allEvents.map((event) => (
-                <EventCard
-                  key={event.event_id}
-                  event={event}
-                  numSilling={numSilling}
-                  setNumSilling={setNumSilling}
-                  numPaused={numPaused}
-                  setNumPaused={setNumPaused}
-                />
-              ))
-            ) : (
+            {/* {allEvents ? ()
+             
+             : (
               <p>No events found.</p>
-            )}
+            )} */}{" "}
+            {showAllEvents &&
+              allEvents.map((event) => (
+                <EventCard key={event.event_id} event={event} />
+              ))}
+            {showPausedEvents &&
+              allEvents
+                .filter((event) => event.is_start_selling === false)
+                .map((event) => (
+                  <EventCard key={event.event_id} event={event} />
+                ))}
+            {showSellingEvents &&
+              allEvents
+                .filter(
+                  (event) =>
+                    event.is_start_selling === true &&
+                    new Date(event.start_time) > new Date()
+                )
+                .map((event) => (
+                  <EventCard key={event.event_id} event={event} />
+                ))}
+            {showEndedEvents &&
+              allEvents
+                .filter((event) => new Date(event.start_time) < new Date())
+                .map((event) => (
+                  <EventCard key={event.event_id} event={event} />
+                ))}
           </div>
         </div>
       </div>

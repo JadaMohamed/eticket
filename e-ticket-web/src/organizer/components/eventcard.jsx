@@ -1,26 +1,33 @@
 import React, { useState } from "react";
 import "../css/eventcard.css";
-import Axios from 'axios'
+import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }) => {
+const EventCard = ({
+  event,
+  numSilling,
+  setNumSilling,
+  numPaused,
+  setNumPaused,
+}) => {
   const Nav = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
   const [isSlling, setisSlling] = useState(event.is_start_selling);
 
-
   function ConvertDate(isodate) {
     const date = new Date(isodate);
-    const options = { day: 'numeric', month: 'short' };
-    const formattedDate = date.toLocaleDateString('en-US', options);
+    const options = { day: "numeric", month: "short" };
+    const formattedDate = date.toLocaleDateString("en-US", options);
     return formattedDate;
   }
 
   async function switchIsSilling() {
     try {
-      const response = await Axios.put(`${apiUrl}/api/events/${event.event_id}`,
+      const response = await Axios.put(
+        `${apiUrl}/api/events/${event.event_id}`,
         { is_start_selling: !isSlling },
-        { withCredentials: true, });
+        { withCredentials: true }
+      );
       if (response) {
         // console.log(response.data)
         if (isSlling) {
@@ -36,7 +43,6 @@ const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }
       console.error(error);
     }
   }
-
 
   return (
     <div className="cardevent organizer-cardevent">
@@ -58,17 +64,22 @@ const EventCard = ({ event, numSilling, setNumSilling, numPaused, setNumPaused }
             <div className="percent"></div>
           </div>
           <div className="svent-statu">
-            Statu: <span>{isSlling ? "Selling" : "Non-selling"}</span>
+            Statu: <span>{isSlling ? "Selling" : "Paused"}</span>
           </div>
         </div>
         <div className="oevent-actions">
           <div className="change-statu">
-            <div className="label" onClick={switchIsSilling}>{isSlling ? "Stop selling" : "Start selling"}</div>
+            <div className="label" onClick={switchIsSilling}>
+              {isSlling ? "Stop selling" : "Start selling"}
+            </div>
           </div>
           <div className="actions">
             <div className="stats act">
-              <span className="material-symbols-outlined"
-                onClick={() => Nav(`/events/${event.event_id}`, { replace: false })}
+              <span
+                className="material-symbols-outlined"
+                onClick={() =>
+                  Nav(`/events/${event.event_id}`, { replace: false })
+                }
               >
                 equalizer
               </span>

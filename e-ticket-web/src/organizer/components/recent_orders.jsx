@@ -27,6 +27,20 @@ const RecentOrders = () => {
     getRecentOrdersByOrganizer();
   }, [profile]);
 
+  const formatDate = (dt) => {
+    const date = new Date(dt);
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: "UTC",
+    };
+    const formatter = new Intl.DateTimeFormat("en-US", options);
+    return formatter.format(date);
+  };
   return (
     <div className="recentorders">
       <div className="header">
@@ -37,65 +51,62 @@ const RecentOrders = () => {
           </span>
         </div>
       </div>
-      <div className="head">
-        <div className="avatar">A</div>
-        <div className="eventid">Event ID </div>
-        <div className="date">Date</div>
-        <div className="buyername">Buyer name</div>
-        <div className="email">Email</div>
-        <div className="amount">Amount</div>
-        <div className="ordernumber">Order number</div>
-      </div>
-      {recentOrders.length === 0 ? (
-        <div className="no-orders">No recent orders available</div>
-      ) : (
-        recentOrders.map((order, index) => (
-          <Order
-            key={index}
-            avatar={order.Client.Account ? order.Client.Account.avatar : ""}
-            email={order.Client.Account ? order.Client.Account.email : ""}
-            eventid={order.event_id}
-            amount={order.total_price}
-            buyername={
-              order.Client.Account
-                ? order.Client.Account.first_name +
-                " " +
-                order.Client.Account.last_name
-                : ""
-            }
-            ordernumber={order.order_id}
-            date={order.Ordered_at}
-          />
-        ))
-      )}
+      <table>
+        <tr>
+          <th>A</th>
+          <th>Event ID</th>
+          <th>Date</th>
+          <th>Buyer name</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Order Number</th>
+        </tr>
+        {recentOrders.length === 0 ? (
+          <tr className="no-orders">
+            <td>No recent orders available</td>
+          </tr>
+        ) : (
+          recentOrders.map((order, index) => (
+            // <Order
+            //   key={index}
+            //   avatar={order.Client.Account ? order.Client.Account.avatar : ""}
+            //   email={order.Client.Account ? order.Client.Account.email : ""}
+            //   eventid={order.event_id}
+            //   amount={order.total_price}
+            //   buyername={
+            //     order.Client.Account
+            //       ? order.Client.Account.first_name +
+            //         " " +
+            //         order.Client.Account.last_name
+            //       : ""
+            //   }
+            //   ordernumber={order.order_id}
+            //   date={order.Ordered_at}
+            // />
+            <tr>
+              <td className="avatar">
+                <img
+                  src={order.Client.Account.avatar}
+                  style={{ width: "100%" }}
+                />
+              </td>
 
-      {/* <Order
-        avatar=""
-        email="example@email.com"
-        eventid="JUD638"
-        amount="329"
-        buyername="Jhon Noah"
-        ordernumber="7KEM689"
-        date="Jan 31st, 2032"
-      />
-      <Order
-        avatar=""
-        email="example@email.com"
-        eventid="JUD638"
-        amount="329"
-        buyername="Jhon Noah"
-        ordernumber="7KEM689"
-        date="Jan 31st, 2032"
-      />
-      <Order
-        avatar=""
-        email="example@email.com"
-        eventid="JUD638"
-        amount="329"
-        buyername="Jhon Noah"
-        ordernumber="7KEM689"
-        date="Jan 31st, 2032"
-      /> */}
+              <td>{order.event_id}</td>
+              <td>{formatDate(order.Ordered_at)}</td>
+              <td>
+                {order.Client.Account
+                  ? order.Client.Account.first_name +
+                    " " +
+                    order.Client.Account.last_name
+                  : ""}
+              </td>
+              <td>{order.Client.Account ? order.Client.Account.email : ""}</td>
+              <td>{order.total_price}</td>
+              <td>{order.order_id}</td>
+            </tr>
+          ))
+        )}
+      </table>
     </div>
   );
 };

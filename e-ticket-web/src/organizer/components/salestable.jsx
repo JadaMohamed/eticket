@@ -15,12 +15,25 @@ const SalesTable = () => {
         `${apiUrl}/api/orders-cart/organizer/${profile.user.org_id}/all`,
         { withCredentials: true }
       );
-      setAllOrders(response.data)
+      setAllOrders(response.data);
     } catch (error) {
       console.error(error);
     }
   };
-
+  const formatDate = (dt) => {
+    const date = new Date(dt);
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: "UTC",
+    };
+    const formatter = new Intl.DateTimeFormat("en-US", options);
+    return formatter.format(date);
+  };
   useEffect(() => {
     getAllOrdersByOrganizer();
   }, [profile]);
@@ -37,38 +50,49 @@ const SalesTable = () => {
           <th>Amount</th>
           <th>Order number</th>
         </tr>
-        {/* <tr>
-          <td>
-            <span></span>
-          </td>
-          <td>N46MK</td>
-          <td>Jan,31st,2023</td>
-          <td>Jane Olas</td>
-          <td>janeolas@email.com</td>
-          <td>299</td>
-          <td>NUK-9373-3LKD-J2</td>
-        </tr> */}
-
         {allOrders.length === 0 ? (
           <div className="no-orders">No orders available</div>
         ) : (
           allOrders.map((order, index) => (
-            <tr key={index}>
-              <td>
-                <span>
-                  <img src={order.Client.Account ? order.Client.Account.avatar : ""} alt="avatar" style={{ width: '30px' }} />
-                </span>
+            // <Order
+            //   key={index}
+            //   avatar={order.Client.Account ? order.Client.Account.avatar : ""}
+            //   email={order.Client.Account ? order.Client.Account.email : ""}
+            //   eventid={order.event_id}
+            //   amount={order.total_price}
+            //   buyername={
+            //     order.Client.Account
+            //       ? order.Client.Account.first_name +
+            //         " " +
+            //         order.Client.Account.last_name
+            //       : ""
+            //   }
+            //   ordernumber={order.order_id}
+            //   date={order.Ordered_at}
+            // />
+            <tr>
+              <td className="avatar">
+                <img
+                  src={order.Client.Account.avatar}
+                  style={{ width: "100%" }}
+                />
               </td>
+
               <td>{order.event_id}</td>
-              <td>{order.Ordered_at}</td>
-              <td>{order.Client.Account ? order.Client.Account.first_name + " " + order.Client.Account.last_name : ""}</td>
+              <td>{formatDate(order.Ordered_at)}</td>
+              <td>
+                {order.Client.Account
+                  ? order.Client.Account.first_name +
+                    " " +
+                    order.Client.Account.last_name
+                  : ""}
+              </td>
               <td>{order.Client.Account ? order.Client.Account.email : ""}</td>
               <td>{order.total_price}</td>
               <td>{order.order_id}</td>
             </tr>
           ))
         )}
-
       </table>
     </div>
   );
