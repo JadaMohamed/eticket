@@ -79,7 +79,7 @@ function Dashboard() {
           <div className="images">
             <div className="left">
               {/* <img src={left} alt="" /> */}
-              <OrganizerSummary />
+              <OrganizerSummary title={"Summary"}/>
             </div>
             <div className="right">
               {/* <img src={right} alt="" /> */}

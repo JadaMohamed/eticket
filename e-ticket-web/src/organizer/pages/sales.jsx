@@ -10,6 +10,7 @@ import Selected from "../../img/selectedevent.svg";
 import SalesTable from "../components/salestable";
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
+import OrganizerSummary from "../components/organizer_summary";
 
 function Sales() {
   return (
@@ -21,7 +22,13 @@ function Sales() {
         <div className="orga-page-content">
           <div className="content-section-title">Sales statistics</div>
           <div className="graph">
-            <img src={Graph1} alt="" />
+            <OrganizerSummary title={"Overview"} width={"100%"} height={"30%"} summaryChartStyle={{
+              width: "100%",
+              display: "flex",
+              height: 478,
+              alignItems: "center",
+              justifyContent: "center"
+            }} />
           </div>
           <div className="content-section-title">
             Select event to view statistics

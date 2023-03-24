@@ -110,7 +110,7 @@ const locations = [
 const lastMonth = "last30days";
 const lastWeek = "last7days";
 const lastTwentyFourHours = "last24hours";
-function OrganizerSummary() {
+function OrganizerSummary({title, width, height, summaryChartStyle}) {
     const [activeBtn, setActiveBtn] = useState(0);
     const [orgEvents, setOrgEvents] = useState(null);
     const [data, setData] = useState(chartFakeData);
@@ -119,7 +119,7 @@ function OrganizerSummary() {
     const { profile } = useContext(AuthContext);
 
     const apiUrl = process.env.REACT_APP_API_URL;
-    
+
     const getOrganizerEvents = async () => {
         try {
             const response = await Axios.get(
@@ -203,10 +203,10 @@ function OrganizerSummary() {
         setEventId(val.value);
     }
     return (
-        <div className='organizer-summary-container'>
+        <div className='organizer-summary-container' style={{width: width ?? 723, height: height ?? 482}}>
             <div className='header'>
                 <div className='text-container'>
-                    <h4>Summary</h4>
+                    <h4>{title}</h4>
                     <span>More details</span>
                 </div>
                 <Dropdown
@@ -231,7 +231,7 @@ function OrganizerSummary() {
                     }}
                 />
             </div>
-            <div className='summary-chart'>
+            <div className='summary-chart' style={summaryChartStyle ?? {}}>
                 <Line options={chartOptions} data={data} />
             </div>
             <div className='summary-btns'>
