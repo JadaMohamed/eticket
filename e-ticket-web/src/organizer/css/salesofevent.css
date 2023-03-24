@@ -1,16 +1,26 @@
 .SalesCard {
     width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    border-radius: 8px;
 }
 
 .SalesCard .SalesCard-container {
     width: 100%;
-    background-color: var(--Green50);
+    background-color: #552e88a3;
     padding: 20px;
     border-radius: 8px;
     color: var(--White);
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+.SalesCard img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 .SalesCard .SalesCard-container .counted-sales {
     display: flex;
@@ -43,7 +53,7 @@
 }
 .SalesCard .SalesCard-container .label .more-details {
     font-size: 14px;
-    color: var(--Green30);
+    color: var(--Purple60);
 }
 .SalesCard .SalesCard-container .SalesCard .SalesCard-container .progress-bar {
     margin-top: 11.6px;
@@ -57,11 +67,11 @@
     width: 100%;
     height: 10px;
     border-radius: 2px;
-    background-color: var(--Green30);
+    background-color: var(--Purple10);
 }
 .SalesCard .SalesCard-container .progress-bar .progress {
     height: 100%;
     width: 75%;
-    background-color: var(--Green);
+    background-color: var(--Purple60);
     border-radius: 2px;
 }

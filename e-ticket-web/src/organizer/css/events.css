@@ -6,13 +6,16 @@
     gap: 15px;
     user-select: none;
     cursor: pointer;
+    padding: 0 !important;
 }
 .container .orga-page-content .filter-svents .filter-ev {
-    position: relative;
     display: flex;
     gap: 10px;
-    padding-bottom: 3px;
     align-items: center;
+    padding: 0 !important;
+}
+.container .orga-page-content .filter-svents .filter-ev .label {
+    padding-bottom: 5px !important;
 }
 .container .orga-page-content .filter-svents .active {
     font-weight: 600;
@@ -21,6 +24,8 @@
 }
 .container .orga-page-content .filter-svents .active span {
     border-color: var(--Purple) !important;
+    background-color: var(--Purple10);
+    padding: 0 !important;
 }
 .container .orga-page-content .filter-svents .filter-ev span {
     font-size: 12px;

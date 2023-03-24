@@ -1,0 +1,46 @@
+.container {
+    position: relative;
+}
+.container .orga-page-content .select-event {
+    display: flex;
+    gap: 20px;
+}
+.container .orga-page-content .select-event .preview-selected {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.container .orga-page-content .select-event .preview-selected img {
+    max-width: 100px;
+    aspect-ratio: 16/9;
+    display: flex;
+    border-radius: 4px;
+}
+.container .orga-page-content .select-event .preview-selected .infos {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.container .orga-page-content .select-event .preview-selected .infos .title {
+    font-weight: 600;
+}
+.container .orga-page-content .select-event .preview-selected .infos .title span {
+    color: var(--Purple60);
+}
+.container .orga-page-content .select-event .preview-selected .infos .line.two {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--Grey3);
+    align-items: center;
+}
+.container .orga-page-content .select-event .preview-selected .infos .line.two .category {
+    color: var(--Purple60);
+    text-transform: capitalize;
+    padding: 1px 8px;
+    border: 1px solid var(--Purple60);
+    border-radius: 8px;
+}
+.container .orga-page-content .select-event .preview-selected .infos .line.two span {
+    color: #000;
+}

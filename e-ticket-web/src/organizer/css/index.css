@@ -6,6 +6,9 @@
     background-color: var(--White);
     border-radius: 8px;
 }
+.container {
+    width: 100%;
+}
 .container .orga-page-content .content-section-title {
     font-weight: 600;
     font-size: 1.2rem;

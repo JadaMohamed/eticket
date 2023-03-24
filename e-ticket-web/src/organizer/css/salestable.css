@@ -8,10 +8,16 @@ td {
     width: 100%;
 }
 .sales-table table td {
-    border-bottom: 1px solid var(--LightPurple);
-    padding: 10px 0 10px 10px;
-    font-size: 0.9rem;
-    color: var(--Grey1);
+    /* border-bottom: 1px solid var(--LightPurple); */
+    /* padding: 10px 0 10px 10px; */
+    /* font-size: 0.9rem; */
+    /* color: var(--Grey1); */
+    text-align: start;
+    border: none !important;
+    /* background-color: red; */
+    margin: 7px 5px !important;
+    padding: 0 !important;
+    font-size: 15px;
 }
 td span {
     width: 30px;

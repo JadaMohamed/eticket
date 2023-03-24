@@ -29,3 +29,26 @@
     padding-bottom: 10px;
     border-bottom: 1px solid var(--Purple10);
 }
+.container table {
+    width: 100%;
+}
+.container table th,
+td {
+    text-align: start;
+    border: none !important;
+    /* background-color: red; */
+    margin: 5px !important;
+    padding: 0 !important;
+    font-size: 15px;
+}
+.container table tr {
+    border-bottom: 1px solid black !important;
+}
+.container table .avatar {
+    background-color: var(--Purple30);
+    width: 30px;
+    height: 30px !important;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+}

@@ -38,6 +38,7 @@ function Dashboard() {
 
   useEffect(() => {
     getLastThreeEventsForOrganizer();
+    console.log(lastThreeEvents);
   }, [profile]);
 
   return (
@@ -61,22 +62,25 @@ function Dashboard() {
               <SalesCard
                 sales={lastThreeEvents[2].number_sold_tickets}
                 totalSeats={lastThreeEvents[2].max_number_attendants}
+                image={lastThreeEvents[2].brand_url}
               />
             )}
             {lastThreeEvents[1] && (
               <SalesCard
                 sales={lastThreeEvents[1].number_sold_tickets}
                 totalSeats={lastThreeEvents[1].max_number_attendants}
+                image={lastThreeEvents[1].brand_url}
               />
             )}
             {lastThreeEvents[0] && (
               <SalesCard
                 sales={lastThreeEvents[0].number_sold_tickets}
                 totalSeats={lastThreeEvents[0].max_number_attendants}
+                image={lastThreeEvents[0].brand_url}
               />
             )}
           </div>
-          <div className="images">
+          <div className="graphs">
             <div className="left">
               {/* <img src={left} alt="" /> */}
               <OrganizerSummary title={"Summary"}/>
