@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import '../css/seats_sales.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
@@ -49,14 +49,13 @@ function SeatsSales() {
     const [ticketsSales, setTicketsSales] = useState(null);
     const [salesData, setSalesData] = useState(null);
     const { profile } = useContext(AuthContext);
-    const [completionPercentage, setCompletionPercentage] = useState(0); 
+    const [completionPercentage, setCompletionPercentage] = useState(0);
     const dropdownRef = useRef(null);
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const handleDropDownChange = (val) => {
         setEventId(val.value);
-
     }
 
     const getOrganizerEvents = async () => {
@@ -67,22 +66,30 @@ function SeatsSales() {
             setOrgEvents(response.data);
             setEventId(response.data[0].event_id);
             dropdownRef.current.selectSingleItem({ value: `${response.data[0].event_id}` });
+            return response.data;
         } catch (error) {
             console.error("OrganizerSummary: Organizer don't have any events yet");
         }
     };
 
+    let oldColors = useRef([]);
     const getTicketsSales = async () => {
+        if(!eventId) 
+            return;
+
         try {
             const response = await Axios.get(
                 `${apiUrl}/api/events/organizer/get-ticket-sales/${eventId}`,
             );
 
-            var randomColor = Math.floor(Math.random() * 16777215).toString(16);
             let labels = Object.keys(response.data)
             const data = Object.values(response.data).map((item) => item[0]);
-            let colors = Array.from({ length: data.length }, () => '#' + Math.floor(Math.random() * 16777215).toString(16));
-            setSalesData({labels, colors, data: Object.values(response.data)});
+            let colors
+            if(oldColors.current.length != data.length ) {
+                colors = Array.from({ length: data.length }, () => '#' + Math.floor(Math.random() * 16777215).toString(16));
+            }
+            oldColors.current = [...colors];
+            setSalesData({ labels, colors, data: Object.values(response.data) });
 
             setTicketsSales({
                 labels,
@@ -96,23 +103,22 @@ function SeatsSales() {
             });
             let sumPercentage = 0;
             Object.values(response.data).forEach(element => {
-                console.log("items:" , element[0], element[1]);
-                sumPercentage += (parseInt(element[0])/parseInt(element[1]))*100 
+                sumPercentage += (parseInt(element[0]) / parseInt(element[1])) * 100
             });
-            console.log("sum : ? ",sumPercentage, " next value : ",sumPercentage/(Object.values(response.data).length));
-            setCompletionPercentage(parseFloat(sumPercentage/(Object.values(response.data).length)).toPrecision(2));
+            setCompletionPercentage(parseFloat(sumPercentage / (Object.values(response.data).length)).toPrecision(2));
         } catch (error) {
             console.error("OrganizerSummary: Organizer don't have any events yet");
         }
     };
 
-    useEffect(() => {
-        getOrganizerEvents();
-    }, []);
+
 
     useEffect(() => {
+        getOrganizerEvents();
+    }, [profile])
+    useEffect(() => {
         getTicketsSales();
-    }, [eventId])
+    }, [eventId, profile])
     useEffect(() => {
         if (orgEvents) {
             const _options = orgEvents.map(item => ({
@@ -161,25 +167,25 @@ function SeatsSales() {
                         <h2>{completionPercentage}</h2>
                         %
                     </div>
-                    <span>Completion</span>
+                    <span style={{fontSize: 12}}>Completion</span>
                 </div>
                 <Doughnut data={ticketsSales ? ticketsSales : data} options={chartOptions} />
             </div>
             <div className='legend'>
-            {salesData && salesData.data.map((item, index) => {
-                if(item[0] == 0) {
-                    return;
-                }
-                return(
-                    <div className='legend-item'>
-                        <div className="legend-color" style={{backgroundColor:salesData.colors[index]}}></div>
-                        <span>{salesData.labels[index]}</span>
-                        <span>{item[0]}/{item[1]}</span>
-                        <span>{(item[0]/item[1])*100}%</span>
-                    </div>
-                )
-            })}
-                    
+                {salesData && salesData.data.map((item, index) => {
+                    if (item[0] == 0) {
+                        return;
+                    }
+                    return (
+                        <div className='legend-item'>
+                            <div className="legend-color" style={{ backgroundColor: salesData.colors[index] }}></div>
+                            <span>{salesData.labels[index]}</span>
+                            <span>{item[0]}/{item[1]}</span>
+                            <span>{(item[0] / item[1]) * 100}%</span>
+                        </div>
+                    )
+                })}
+
             </div>
         </div>
     )
