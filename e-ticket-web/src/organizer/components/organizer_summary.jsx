@@ -119,7 +119,7 @@ function OrganizerSummary() {
     const { profile } = useContext(AuthContext);
 
     const apiUrl = process.env.REACT_APP_API_URL;
-
+    
     const getOrganizerEvents = async () => {
         try {
             const response = await Axios.get(
@@ -127,10 +127,13 @@ function OrganizerSummary() {
             );
             setOrgEvents(response.data);
         } catch (error) {
-            console.error("OrganizerSummary: Organizer don't have any events yet");
+            console.error("OrganizerSummary: Organizer don't have any events yet", error);
         }
     };
-
+    useEffect(() => {
+        getOrganizerEvents();
+        getSalesData();
+    }, [profile])
     const getTimeFrameFromActiveBtn = () => {
         if (activeBtn === 0) {
             return lastMonth;
@@ -177,8 +180,8 @@ function OrganizerSummary() {
     }
 
     useEffect(() => {
-        getOrganizerEvents();
-        getSalesData();
+        // getOrganizerEvents();
+        
     }, []);
 
     useEffect(() => {
