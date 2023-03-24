@@ -265,7 +265,77 @@ const eventService = {
     }
     return ticketsBySeatCategory;
   },
+  getEventSalesPerSeatCategory: async (organizerId, timeframe, eventId = null) => {
+    let startDate;
+    switch (timeframe) {
+      case "last7days":
+        startDate = new Date();
+        startDate.setDate(startDate.getDate() - 7);
+        break;
+      case "last30days":
+        startDate = new Date();
+        startDate.setDate(startDate.getDate() - 30);
+        break;
+      case "last24hours":
+        startDate = new Date();
+        startDate.setHours(startDate.getHours() - 24);
+        break;
+      default:
+        throw new Error(
+          `Invalid timeframe: ${timeframe}, with typeof: ${typeof timeframe}`
+        );
+    }
+    console.log("orgid", organizerId, "start date :", startDate);
+    let events;
+    if (eventId) {
+      events = await prisma.event.findMany({
+        where: {
+          AND: [
+            { org_id: organizerId },
+            { event_id: eventId },
+            { created_at: { gte: startDate } },
+          ],
+        },
+        include: {
+          Ticket: {
+            include: { SeatCategory: { select: { seat_categ_id: true, type_name: true } } },
+          },
+        },
+      });
+    } else {
+      events = await prisma.event.findMany({
+        where: {
+          AND: [{ org_id: organizerId }, { created_at: { gte: startDate } }],
+        },
+        include: {
+          Ticket: {
+            include: { SeatCategory: { select: { seat_categ_id: true, type_name: true } } },
+          },
+        },
+      });
+    }
+  
+    const ticketsBySeatCategory = {};
+    events.forEach((event) => {
+      event.Ticket.forEach((ticket) => {
+        console.log("ticket ? : " , ticket);
+        const ticketDate = ticket.created_at.toDateString();
+        const category = ticket.SeatCategory.type_name;
+        if (!ticketsBySeatCategory[category]) {
+          ticketsBySeatCategory[category] = {};
+        }
+        if (!ticketsBySeatCategory[category][ticketDate]) {
+          ticketsBySeatCategory[category][ticketDate] = 0;
+        }
+        ticketsBySeatCategory[category][ticketDate] += 1;
+      });
+    });
+  
+    return ticketsBySeatCategory;
+  }
+  
 };
+
 
 export default eventService;
 
