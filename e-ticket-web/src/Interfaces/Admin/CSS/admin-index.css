@@ -1,0 +1,8 @@
+.admin-page {
+    display: flex;
+    max-width: 1440px;
+    margin: auto;
+}
+.admin-page-content {
+    padding: 20px 30px;
+}

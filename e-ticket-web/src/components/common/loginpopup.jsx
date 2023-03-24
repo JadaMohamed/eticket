@@ -13,10 +13,10 @@ export default function LoginPopup(props) {
 
   useEffect(() => {
     if (errorLogin === "Login successfully") {
-      setErrorLogin("")
+      setErrorLogin("");
       props.setTrigger(false);
     }
-  }, [errorLogin])
+  }, [errorLogin]);
 
   const loginSubmit = async (event) => {
     event.preventDefault();
@@ -90,7 +90,13 @@ export default function LoginPopup(props) {
             {/* <div className="forgot-password">Forgot Password</div> */}
           </div>
           <div className="element-c submit">
-            {errorLogin && <div><span style={{ color: 'red' }}> {errorLogin} </span><p>&nbsp;</p><Link to="/reset-password/msg">forget password?</Link></div>}
+            {errorLogin && (
+              <div>
+                <span style={{ color: "red" }}> {errorLogin} </span>
+                <p>&nbsp;</p>
+                <Link to="/reset-password/msg">forget password?</Link>
+              </div>
+            )}
             <div className="submit-container" onClick={loginSubmit}>
               Sign In
             </div>

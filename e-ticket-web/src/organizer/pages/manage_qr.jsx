@@ -68,7 +68,7 @@ function Manage_qr() {
                 </div>
               </div>
             </div>
-            <QRSwiper />
+            {/* <QRSwiper /> */}
           </div>
         </div>
       </div>

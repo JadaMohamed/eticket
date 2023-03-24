@@ -1,0 +1,95 @@
+.side-bar {
+    position: sticky;
+    /* height: 100vh; */
+    /* position: relative; */
+    background-color: #30194f;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 160px;
+    transition: all 0.2s ease-in-out;
+    height: 100vh;
+    position: fixed;
+    padding-top: 78px;
+    /* margin-top: 68px; */
+}
+.side-bar .sidebar-container {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    justify-content: space-between;
+    gap: 30px;
+}
+.side-bar .sidebar-container .top-content {
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.side-bar .sidebar-container .routes-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: 0.5s ease-in-out;
+}
+.side-bar .sidebar-container .routes-btns .name {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    white-space: nowrap;
+}
+.side-bar .sidebar-container .routes-btns .btn-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--Purple40);
+    transition: 0.3s ease;
+    align-items: center;
+    font-size: 16px;
+}
+.side-bar .sidebar-container .routes-btns .btn-container span {
+    font-size: 20px;
+}
+.side-bar .sidebar-container .routes-btns .btn-container:hover {
+    background-color: #9a82b884;
+}
+.side-bar .sidebar-container .routes-btns .active .btn-container {
+    background-color: var(--Purple60);
+}
+.pin-unpin {
+    position: absolute;
+    right: -10px;
+    bottom: 80px;
+    background-color: var(--DarkPurple);
+    border: 2px solid var(--White);
+    text-align: center;
+    color: var(--Purple40);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.pin-unpin .pin-unpin-container {
+    padding: 4px 3px;
+    display: flex;
+}
+.pin-unpin span {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-left: 2px;
+}
+.side-bar .active span {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+.active-side-bar .name {
+    display: none;
+    opacity: 0;
+}
+.active-side-bar {
+    width: 60px;
+}
+.side-bar .logo {
+    display: flex;
+    justify-content: center;
+    transition: 0.5s ease-in-out;
+}

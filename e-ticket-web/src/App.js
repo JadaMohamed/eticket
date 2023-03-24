@@ -19,9 +19,13 @@ import Organizer from "./pages/organizer/organizer";
 import { AuthContextProvider } from "./Auth/AuthContext";
 import { ProtectClient } from "./Auth/ProtectClient";
 import { ProtectOrganizer } from "./Auth/ProtectOrganizer";
+import { ProtectAdmin } from "./Auth/ProtectAdmin";
 import SignIn from "./pages/SignUp/signin";
 import EmailVerify from "./components/EmailVerify";
 import PasswordResetForm from "./components/PasswordReset";
+import AdminDashboard from "./Interfaces/Admin/Pages/dashboard";
+import AdminUserManager from "./Interfaces/Admin/Pages/manageusers";
+import AdminSales from "./Interfaces/Admin/Pages/sales";
 
 function App() {
   return (
@@ -44,7 +48,10 @@ function App() {
             {/* <Route path="/events" element={<Events />} /> */}
           </Route>
 
-          <Route path="/reset-password/:eticketjwt" element={<PasswordResetForm />} />
+          <Route
+            path="/reset-password/:eticketjwt"
+            element={<PasswordResetForm />}
+          />
           <Route path="/verify-email/:eticketjwt" element={<EmailVerify />} />
           <Route path="*" element={<Eror404 />} />
           <Route path="/settings" element={<Settings />} />
@@ -63,6 +70,12 @@ function App() {
               element={<Createevent />}
             />
           </Route>
+          {/* <Route element={<ProtectAdmin />}>      */}
+          {/* I disactivated it to work on interfaces cuz no admin account was verified yet */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/manageuser" element={<AdminUserManager />} />
+          <Route path="/admin/sales" element={<AdminSales />} />
+          {/* </Route> */}
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

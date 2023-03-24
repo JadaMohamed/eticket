@@ -24,13 +24,9 @@ export const AuthContextProvider = ({ children }) => {
 
         setLoggedIn(true);
         setProfile(data.profile);
-        //if the user edit the local storage variable 
+        //if the user edit the local storage variable
         //when reload this will update the localStorage
-        localStorage.setItem(
-          "usertype",
-          data.profile.account.account_type
-        );
-
+        localStorage.setItem("usertype", data.profile.account.account_type);
       } catch (err) {
         localStorage.removeItem("usertype");
         console.log(err);
@@ -67,7 +63,7 @@ export const AuthContextProvider = ({ children }) => {
             navigate("/organizer/dashboard");
             break;
           case "admin":
-            navigate("/admin");
+            navigate("/admin/dashboard");
             break;
           default:
         }
@@ -77,7 +73,7 @@ export const AuthContextProvider = ({ children }) => {
       if (err.response.data) {
         if (err.response.status === 422) {
           navigate("/verify-email/checkemail");
-          console.log('kkkkkkkkkkkkkkkkkkkk')
+          console.log("kkkkkkkkkkkkkkkkkkkk");
         } else if (err.response.data.errors) {
           setErrorLogin(err.response.data.errors);
         } else if (err.response.data.error) {
@@ -106,7 +102,15 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ profile, login, errorLogin, setErrorLogin, logout, isLoggedIn, setProfile }}
+      value={{
+        profile,
+        login,
+        errorLogin,
+        setErrorLogin,
+        logout,
+        isLoggedIn,
+        setProfile,
+      }}
     >
       {children}
     </AuthContext.Provider>
