@@ -168,10 +168,9 @@ model Orders_Cart {
   unitPrice           Float                 @db.Float
   Ordered_at          DateTime              @default(now())
   event_id            Int
-  ticket_type_id      Int
   client_id           Int
   org_id              Int
-  is_paid             Boolean
+  is_paid             Boolean               @default(false)
   Organizer           Organizer             @relation(fields: [org_id], references: [org_id], onDelete: Cascade, map: "FK_Orders_Cart_Organizer")
   Client              Client                @relation(fields: [client_id], references: [client_id], onDelete: Cascade, map: "FK_Orders_Cart_Client")
   Event               Event                 @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Orders_Cart_Event")
