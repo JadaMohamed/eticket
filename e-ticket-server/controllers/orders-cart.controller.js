@@ -1,10 +1,9 @@
 import ordersCartService from '../services/orders-cart.service.js';
+import seatCategoryService from '../services/seat-category.service.js';
 
 const createOrder = async (req, res) => {
-    const { quantity, total_price, event_id, ticket_type_id, client_id, is_paid } = req.body;
-
     try {
-        const newOrder = await ordersCartService.createOrder({ quantity, total_price, event_id, ticket_type_id, client_id, is_paid });
+        const newOrder = await ordersCartService.createOrder(req.body);
         res.json(newOrder);
     } catch (err) {
         console.error(err);
@@ -12,6 +11,44 @@ const createOrder = async (req, res) => {
     }
 };
 
+
+
+const addToCart = async (req, res) => {
+    try {
+
+        //we do not want to add existing order cart if not paid but increment quantity
+        const { client_id, event_id } = req.body;
+        const nonPaidOrderByEvent = await ordersCartService.getClientNonPaidOrdersByEevnt(client_id, event_id);
+        if (nonPaidOrderByEvent) {
+            // console.log(nonPaidOrderByEvent)
+            const { order_id, quantity, unitPrice } = nonPaidOrderByEvent;
+            //UPDATE nonPaidOrderByEvent BY INCREMENT QUANTITY and update total price only
+            const updatedOrdersCart = await ordersCartService.updateOrdersCart(order_id, { quantity: quantity + 1, total_price: quantity + 1 * unitPrice });
+            return res.status(200).json(updatedOrdersCart);
+        }
+
+        //the initial info of the seat categorie when add cart by defaul will be the sheapest one info
+        const cheapestSeatCategory = await seatCategoryService.getSheapestSeatCategorieByEevntId(parseInt(req.body.event_id));
+        if (!cheapestSeatCategory) {
+            return res.status(500).json({ error: 'Failed to find seat categorie and add event to cart' });
+        }
+        // console.log(cheapestSeatCategory);
+        const orderData = req.body;
+        const { seat_categ_id, type_price } = cheapestSeatCategory;
+        orderData.seat_categ_id = seat_categ_id;
+        orderData.total_price = type_price;
+        orderData.unitPrice = type_price;
+        const newOrder = await ordersCartService.createOrder(orderData);
+        if (newOrder) {
+            return res.json(newOrder);
+        } else {
+            return res.json({ error: 'Failed to create order' })
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create order internal server error' });
+    }
+};
 
 const createManyOrder = async (req, res) => {
     const { OrdersData } = req.body;
@@ -57,7 +94,6 @@ const getOrderById = async (req, res) => {
 
 const getClientNonPaidOrders = async (req, res) => {
     const clientId = req.params.clientId;
-    console.log(clientId)
     try {
         const NonPaidOrders = await ordersCartService.getClientNonPaidOrders(clientId);
         if (NonPaidOrders) {
@@ -84,6 +120,25 @@ const deleteOrdersCarttById = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+const deleteManyOrdersCarttById = async (req, res) => {
+    const ordersIdsData = req.body.selectedCards;
+    console.log(ordersIdsData)
+    try {
+        const deletedOrdersCart = await Promise.all(
+            ordersIdsData.map(orderId =>
+                ordersCartService.deleteOrdersCarttById(orderId)
+            ));
+        if (!deletedOrdersCart) {
+            return res.status(404).json({ error: `OrdersCarts not found may be not deleted` });
+        } else {
+            return res.status(200).json(deletedOrdersCart);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error to delete many orders' });
     }
 };
 
@@ -142,9 +197,11 @@ export default {
     createManyOrder,
     getAllOrders,
     getOrderById,
+    deleteManyOrdersCarttById,
     getClientNonPaidOrders,
     deleteOrdersCarttById,
     updateOrdersCart,
     getRecentOrdersByOrganizer,
     getAllOrdersByOrganizer,
+    addToCart,
 };

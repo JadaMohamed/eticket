@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const createOrder = async (data) => {
+    console.log(data);
     return prisma.orders_Cart.create({ data, });
 };
 
@@ -42,7 +43,20 @@ const getClientNonPaidOrders = async (id) => {
                 }
             },
             Paid_Tickets_Orders: true,
+        },
+        orderBy: {
+            updated_at: 'desc',
         }
+    });
+};
+
+const getClientNonPaidOrdersByEevnt = async (id, event_id) => {
+    return prisma.orders_Cart.findFirst({
+        where: {
+            client_id: parseInt(id),
+            is_paid: false,
+            event_id: event_id
+        },
     });
 };
 
@@ -50,9 +64,14 @@ const getClientNonPaidOrders = async (id) => {
 
 
 const deleteOrdersCarttById = async (id) => {
-    return await prisma.orders_Cart.delete({
-        where: { order_id: id },
-    });
+    console.log(id)
+    const ordersCart = await prisma.orders_Cart.findUnique({ where: { order_id: parseInt(id) } });
+    if (!ordersCart) {
+        // handle error or return early
+        return null;
+    }
+    return await prisma.orders_Cart.delete({ where: { order_id: parseInt(id) } });
+
 };
 
 
@@ -125,6 +144,7 @@ export default {
     getAllOrders,
     getOrderById,
     getClientNonPaidOrders,
+    getClientNonPaidOrdersByEevnt,
     deleteOrdersCarttById,
     updateOrdersCart,
     getRecentOrdersByOrganizer,

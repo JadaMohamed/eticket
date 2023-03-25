@@ -1,49 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../css/card.css";
 import { useNavigate } from "react-router-dom";
 import CountdownDate from "../common/countdown";
 // import Image from "../../img/event-image.jpg";
 import Expired from "../../img/end.svg";
 import { Image } from "cloudinary-react";
+import axios from "axios";
+import AuthContext from "../../Auth/AuthContext";
 
 function Card(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const { profile } = useContext(AuthContext);
   const Nav = useNavigate();
-  const handleAdd = () => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart or create an empty array
-    const productId = props.eventid;
-    let productExists = false;
-    // Check if product is already in the cart
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].eventId === productId) {
-        cart[i].quantity++;
-        cart[i].totalPrice += 99;
-        productExists = true;
-        break;
-      }
-    }
-    // Add product to cart if it doesn't exist
-    if (!productExists) {
-      const cartObj = {
-        imagePublicId: props.image,
-        date: props.date,
-        address: props.location,
-        title: props.title,
-        eventId: productId,
-        quantity: 1,
-        eventCategory: props.category,
-        seatCategory: "Basic",
-        totalPrice: 99,
-      };
-      if (!Array.isArray(cart)) {
-        cart = [cartObj];
-      } else {
-        cart.push(cartObj);
-      }
-    }
-    // Update cart in local storage
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
+
   const isExpired = new Date(props.date) < new Date();
+  const handleAddToCart = async () => {
+    console.log('start add to cart');
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/orders-cart/add-to-cart`,
+        {
+          quantity: 1,
+          event_id: props.eventid,
+          org_id: props.org_id,
+          client_id: profile.user.client_id,
+        },
+        { withCredentials: true, }
+      );
+      if (response) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="cardevent" key={props.id}>
       <div
@@ -88,7 +79,7 @@ function Card(props) {
               </div>
             </div>
             <div className="action">
-              <div className="add-to-cart-btn" onClick={handleAdd}>
+              <div className="add-to-cart-btn" onClick={handleAddToCart}>
                 <span className="material-symbols-outlined">
                   add_shopping_cart
                 </span>

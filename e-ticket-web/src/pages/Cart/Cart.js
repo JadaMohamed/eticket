@@ -26,7 +26,7 @@ function Cart() {
   const getClientNonPaidOrders = async () => {
     try {
       const response = await axios.get(
-        `${apiUrl}/api/orders-cart/not-paid/client/${profile.user.account_id}`,
+        `${apiUrl}/api/orders-cart/not-paid/client/${profile.user.client_id}`,
         { withCredentials: true, }
       );
       if (response) {
@@ -34,24 +34,16 @@ function Cart() {
         setAllCart(response.data);
       }
     } catch (error) {
-      const errorData = error.response.data;
-      if (errorData.errors) {
-        // setErrors(errorData.errors);
-      } else {
-        console.error(error);
-      }
+      console.error(error);
     }
   };
 
   useEffect(() => {
     getClientNonPaidOrders();
+    console.log('cart', cart)
   }, [profile])
 
 
-  useEffect(() => {
-    console.log('cart', cart);
-    console.log('all', Allcart);
-  }, [cart])
 
 
 
@@ -59,26 +51,38 @@ function Cart() {
     if (isNaN(newP) || isNaN(old)) return;
     setTotalPrice((prev) => prev - old + newP);
   };
+
   const selectCard = (eventId) => {
     if (selectedCards.includes(eventId)) return;
     setSelectedCards((e) => [...e, eventId]);
   };
 
   const unSelectCard = (eventId) => {
-    setSelectedCards((e) => selectedCards.filter((val) => val != eventId));
+    setSelectedCards((e) => selectedCards.filter((val) => val !== eventId));
   };
 
-  const deleteFromCart = () => {
+  const deleteFromCart = async () => {
+    console.log('trying to delete ..')
     const newCart = cart.filter(
-      (item) => !selectedCards.includes(item.eventId)
+      (item) => !selectedCards.includes(item.event_id)
     );
     setCart(newCart);
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setSelectedCards((prevSelectedCards) =>
-      prevSelectedCards.filter(
-        (eventId) => !newCart.find((item) => item.eventId === eventId)
-      )
-    );
+    setAllCart(newCart);
+    console.log('selectedCards', selectedCards)
+
+    //delete it in data base also
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/orders-cart/delete-many`,
+        { selectedCards },
+        { withCredentials: true, },
+      );
+      if (response) {
+        console.log(response.data)
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const selectAll = () => {
