@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useContext, useEffect, useState } from "react";
 import OrNavigationBar from "../components/navigation_bar";
 import SearchOrganizer from "../components/searchorganizer";
 import SideBar from "../components/side_bar";
@@ -11,8 +11,37 @@ import SalesTable from "../components/salestable";
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
 import OrganizerSummary from "../components/organizer_summary";
+import EventsDropDown from "../components/eventsdropdown";
+import AuthContext from "../../Auth/AuthContext";
+import Axios from 'axios';
+import EventSummaryGraph from "../components/eventsummarygraph";
+import SpecifiedEventSeatSales from "../components/specified_event_seats_sales";
 
 function Sales() {
+  const { profile } = useContext(AuthContext);
+  const [orgEvents, setOrgEvents] = useState(null);
+  const [eventId, setEventId] = useState(null);
+  
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const getOrganizerEvents = async () => {
+    try {
+      const response = await Axios.get(
+        `${apiUrl}/api/events/organizer/${profile.user.org_id}/all-events`,
+      );
+      console.warn("events : ", response.data)
+      setOrgEvents(response.data);
+      setEventId(response.data[0].event_id);
+    } catch (error) {
+      console.error("OrganizerSummary: Organizer don't have any events yet");
+    }
+  };
+
+  useEffect(() => {
+    getOrganizerEvents();
+  }, [profile])
+
+  
   return (
     <div>
       <Navbar />
@@ -34,14 +63,16 @@ function Sales() {
             Select event to view statistics
           </div>
           <div className="events-drop-down">
-            <img src={Selected} alt="" />
+            <EventsDropDown orgEvents={orgEvents?.[0]} eventId={eventId}/>
           </div>
           <div className="selected-event-stats">
             <div className="graph">
-              <img src={Graph2} alt="" />
+              {/* <img src={Graph2} alt="" /> */}
+              <EventSummaryGraph eventId={eventId}/>
             </div>
             <div className="cercle">
-              <img src={Cercle} alt="" />
+              {/* <img src={Cercle} alt="" /> */}
+              <SpecifiedEventSeatSales eventId={eventId}/>
             </div>
           </div>
           <div className="title-actions">

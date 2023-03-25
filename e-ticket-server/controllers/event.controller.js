@@ -346,6 +346,23 @@ const eventController = {
         .json({ error: "Internal server error get tickets sales" });
     }
   },
+  getEventSalesPerSeatCategory: async (req, res) => {
+    try {
+      const { orgId } = req.params;
+      const { eventId, timeframe } = req.query;
+      if(!eventId || eventId == null || isNaN(eventId)) {
+        throw new Error("getEventSalesPerSeatCategory: Internal server error eventId cannot be null or undefined!");
+      }
+      
+      const ticketsSales = await eventService.getEventSalesPerSeatCategory(parseInt(orgId), timeframe, parseInt(eventId));
+      res.status(200).json(ticketsSales);
+    } catch (err) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ error: "Internal server error get tickets sales" });
+    }
+  },
 };
 
 export default eventController;

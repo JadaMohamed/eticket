@@ -58,6 +58,10 @@ router.get(
   "/organizer/get-ticket-sales/:eventId",
   eventController.getTicketsSales
 );
+router.get(
+  "/organizer/get-event-sales-seats/:orgId",
+  eventController.getEventSalesPerSeatCategory
+);
 export default router;
 
 // import express from 'express';
