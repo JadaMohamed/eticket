@@ -75,3 +75,89 @@
     color: var(--Puple);
     font-weight: 600;
 }
+
+/*****************************Users Grid*******************************/
+.users-grid{
+background-color: var(--White);
+border-radius: 8px;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+.users-grid-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+
+}
+.users-grid-container table th{
+    font-weight: 500;
+    border-bottom: 1px solid var(--Grey2);
+    text-align: left;
+    padding-bottom: 10px;
+}
+.users-grid-container table td{
+    padding: 10px 0 !important;
+    color: var(--Grey1);
+
+}
+.users-grid-container table .avatar{
+    width: 30px;
+    height: 30px ;
+    border-radius: 50%;
+    margin: 10px 0px !important;
+    background-color: var(--Purple10);
+    padding: 0px !important;
+    margin-right: 10px !important;
+}.users-grid-container table .avatar span{
+    width: 30px;
+    height: 30px;
+    background-color: red;
+}
+.users-grid-container table{
+    border-bottom: 1px solid var(--Grey2);
+    padding-bottom: 10px;
+}
+.pagination{
+    margin-top: 20px;
+display: flex;
+justify-content: space-between;
+}
+.pagination .pagination-right{
+gap: 10px;
+align-items: center;
+    display: flex;
+}.pagination .pagination-right input{
+width: 30px;
+padding: 7px;
+outline: none;
+border-radius: 8px;
+border: 1px solid var(--Grey2);
+}
+.pagination .pagination-right .set-user-perpage{
+display: flex;
+gap: 10px;
+font-size: 14px;
+align-items: center;
+
+}
+.pagination .pagination-left{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.pagination .pagination-left .page-item{
+    /* background-color: red; */
+    width: 24px;
+    color: var(--Grey1);
+    border: 1px solid var(--Grey2);
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    cursor: pointer;
+}.pagination .pagination-left .page-item.active{
+
+    background-color: var(--Purple60);
+    color: var(--White);
+}
