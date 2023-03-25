@@ -15,6 +15,18 @@ const createOrder = async (req, res) => {
 
 const addToCart = async (req, res) => {
     try {
+
+        //we do not want to add existing order cart if not paid but increment quantity
+        const { client_id, event_id } = req.body;
+        const nonPaidOrderByEvent = await ordersCartService.getClientNonPaidOrdersByEevnt(client_id, event_id);
+        if (nonPaidOrderByEvent) {
+            // console.log(nonPaidOrderByEvent)
+            const { order_id, quantity, unitPrice } = nonPaidOrderByEvent;
+            //UPDATE nonPaidOrderByEvent BY INCREMENT QUANTITY and update total price only
+            const updatedOrdersCart = await ordersCartService.updateOrdersCart(order_id, { quantity: quantity + 1, total_price: quantity + 1 * unitPrice });
+            return res.status(200).json(updatedOrdersCart);
+        }
+
         //the initial info of the seat categorie when add cart by defaul will be the sheapest one info
         const cheapestSeatCategory = await seatCategoryService.getSheapestSeatCategorieByEevntId(parseInt(req.body.event_id));
         if (!cheapestSeatCategory) {
