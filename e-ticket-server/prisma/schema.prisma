@@ -165,6 +165,7 @@ model Orders_Cart {
   order_id            Int                   @id @default(autoincrement())
   quantity            Int
   total_price         Float                 @db.Float
+  unitPrice           Float                 @db.Float
   Ordered_at          DateTime              @default(now())
   event_id            Int
   ticket_type_id      Int
