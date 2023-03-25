@@ -57,6 +57,7 @@ function Search() {
                 location={eventData.location}
                 category={eventData.event_type}
                 date={eventData.start_time}
+                org_id={eventData.org_id}
               />
             ))
           ) : (

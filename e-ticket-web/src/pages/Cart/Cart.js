@@ -40,6 +40,7 @@ function Cart() {
 
   useEffect(() => {
     getClientNonPaidOrders();
+    console.log('cart',cart)
   }, [profile])
 
 

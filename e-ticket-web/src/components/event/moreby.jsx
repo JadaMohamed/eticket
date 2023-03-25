@@ -49,6 +49,7 @@ function MoreBy(props) {
               location={event.location}
               category={event.event_type}
               date={event.start_time}
+              org_id={event.org_id}
             />
           ))}
         </div>

@@ -49,12 +49,18 @@ function Card(props) {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
   const isExpired = new Date(props.date) < new Date();
-
   const handleAddToCart = async() => {
     console.log('add to cart')
+    console.log(props)
     try {
-      const response = await axios.get(
-        `${apiUrl}/api/orders-cart/add-to-cart/${profile.user.account_id}`,
+      const response = await axios.post(
+        `${apiUrl}/api/orders-cart/`,
+        {
+          quantity:1,
+          event_id: props.eventid,
+          client_id: profile.user.account_id,
+          org_id:props.org_id,
+        },
         { withCredentials: true, }
       );
       if (response) {

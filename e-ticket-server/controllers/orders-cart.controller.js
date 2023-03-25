@@ -1,10 +1,8 @@
 import ordersCartService from '../services/orders-cart.service.js';
 
 const createOrder = async (req, res) => {
-    const { quantity, total_price, event_id, ticket_type_id, client_id, is_paid } = req.body;
-
     try {
-        const newOrder = await ordersCartService.createOrder({ quantity, total_price, event_id, ticket_type_id, client_id, is_paid });
+        const newOrder = await ordersCartService.createOrder(req.body);
         res.json(newOrder);
     } catch (err) {
         console.error(err);
