@@ -16,7 +16,6 @@ function Card(props) {
   const isExpired = new Date(props.date) < new Date();
   const handleAddToCart = async () => {
     console.log('start add to cart');
-    console.log(props)
     try {
       const response = await axios.post(
         `${apiUrl}/api/orders-cart/add-to-cart`,
