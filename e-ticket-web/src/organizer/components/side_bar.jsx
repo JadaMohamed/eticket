@@ -82,14 +82,20 @@ function SideBar(props) {
             </div>
           </div>
         </div>
-        {/* <div className="bottom routes-btns">
+        <div className="bottom routes-btns">
+          <div className="btn">
+            <div className="btn-container">
+              <span className="material-symbols-outlined">settings</span>
+              <div className="name">Settings</div>
+            </div>
+          </div>
           <div className="btn">
             <div className="btn-container">
               <span className="material-symbols-outlined">logout</span>
               <div className="name">Log out</div>
             </div>
           </div>
-        </div> */}
+        </div>
         <div
           className="pin-unpin"
           onClick={() => {

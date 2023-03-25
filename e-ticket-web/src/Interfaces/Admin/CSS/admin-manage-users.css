@@ -1,0 +1,77 @@
+.search-user {
+    background-color: var(--White);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    width: 100%;
+}
+.search-user .search-user-container {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+.search-user .search-user-container .search-left-side {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.search-user .search-user-container .search-left-side .iconed-input {
+    display: flex;
+    align-items: center;
+    max-height: 36px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--Purple10);
+}
+.search-user .search-user-container .search-left-side .iconed-input span {
+    padding: 0 7px;
+    color: var(--Purple60);
+    display: flex;
+    transition: 0.3s ease;
+    height: 100%;
+    border-left: 1px solid var(--Purple10);
+    align-items: center;
+}
+.search-user .search-user-container .search-left-side .iconed-input span:hover {
+    background-color: var(--LighterPurple);
+}
+.search-user .search-user-container .search-left-side .iconed-input input {
+    outline: none;
+    border: none;
+    padding: 7px 10px;
+    height: 100%;
+}
+.search-user .search-user-container .search-left-side .iconed-input input::placeholder {
+    color: var(--Grey2);
+}
+.search-user .search-user-container .search-left-side .filter .filter-container {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    color: var(--Grey1) !important;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+.search-user .search-user-container .search-left-side .filter .filter-container .user {
+    padding: 3px 10px;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+}
+.search-user .search-user-container .search-left-side .filter .filter-container .user.active {
+    background-color: var(--White);
+    color: #000;
+    font-weight: 500;
+}
+.search-user .search-user-container .search-left-side .filter .filter-container .organizer {
+    padding-left: 15px;
+    color: var(--Grey1);
+}
+.search-user .search-user-container .search-left-side .filter .filter-container .client {
+    padding-right: 15px;
+}
+.search-user .search-user-container .stats span {
+    color: var(--Puple);
+    font-weight: 600;
+}
