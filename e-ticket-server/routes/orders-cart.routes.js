@@ -9,6 +9,7 @@ router.get('/', ordersCartController.getAllOrders);
 router.get('/:orders_Cart_id', ordersCartController.getOrderById);
 router.get('/organizer/:orgId/recent', ordersCartController.getRecentOrdersByOrganizer);
 router.get('/organizer/:orgId/all', ordersCartController.getAllOrdersByOrganizer);
+router.get('/not-paid/client/:clientId', ordersCartController.getClientNonPaidOrders);
 router.delete('/:id', ordersCartController.deleteOrdersCarttById);
 router.put('/:order_id', ordersCartController.updateOrdersCart);
 

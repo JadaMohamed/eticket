@@ -26,6 +26,23 @@ const getOrderById = async (id) => {
     });
 };
 
+
+
+
+const getClientNonPaidOrders = async (id) => {
+    return prisma.orders_Cart.findMany({
+        where: {
+            client_id: parseInt(id),
+            is_paid: false,
+        },
+        include: {
+            Event: true,
+            Paid_Tickets_Orders: true,
+        }
+    });
+};
+
+
 const deleteOrdersCarttById = async (id) => {
     return await prisma.orders_Cart.delete({
         where: { order_id: id },
@@ -101,6 +118,7 @@ export default {
     createOrder,
     getAllOrders,
     getOrderById,
+    getClientNonPaidOrders,
     deleteOrdersCarttById,
     updateOrdersCart,
     getRecentOrdersByOrganizer,

@@ -55,6 +55,23 @@ const getOrderById = async (req, res) => {
 }
 
 
+const getClientNonPaidOrders = async (req, res) => {
+    const clientId = req.params.clientId;
+    console.log(clientId)
+    try {
+        const NonPaidOrders = await ordersCartService.getClientNonPaidOrders(clientId);
+        if (NonPaidOrders) {
+            res.status(200).json(NonPaidOrders);
+        } else {
+            res.status(404).json({ error: `there is no Non paid orders for the client with id ${clientId}` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: `Internal server error to get not paid orders of client with id ${clientId} ` });
+    }
+}
+
+
 const deleteOrdersCarttById = async (req, res) => {
     const id = req.params.id;
     try {
@@ -125,6 +142,7 @@ export default {
     createManyOrder,
     getAllOrders,
     getOrderById,
+    getClientNonPaidOrders,
     deleteOrdersCarttById,
     updateOrdersCart,
     getRecentOrdersByOrganizer,
