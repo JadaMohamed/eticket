@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../css/card.css";
 import { useNavigate } from "react-router-dom";
 import CountdownDate from "../common/countdown";
 // import Image from "../../img/event-image.jpg";
 import Expired from "../../img/end.svg";
 import { Image } from "cloudinary-react";
+import axios from "axios";
+import AuthContext from "../../Auth/AuthContext";
 
 function Card(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const { profile } = useContext(AuthContext);
+
   const Nav = useNavigate();
   const handleAdd = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart or create an empty array
@@ -45,8 +50,21 @@ function Card(props) {
   };
   const isExpired = new Date(props.date) < new Date();
 
+  const handleAddToCart = async() => {
+    console.log('add to cart')
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/orders-cart/add-to-cart/${profile.user.account_id}`,
+        { withCredentials: true, }
+      );
+      if (response) {
+      
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  
   return (
     <div className="cardevent" key={props.id}>
       <div
@@ -91,7 +109,7 @@ function Card(props) {
               </div>
             </div>
             <div className="action">
-              <div className="add-to-cart-btn" onClick={handleAdd}>
+              <div className="add-to-cart-btn" onClick={handleAddToCart}>
                 <span className="material-symbols-outlined">
                   add_shopping_cart
                 </span>
