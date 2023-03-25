@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import "../../css/payment_form.css";
+import axios from "axios";
+
 const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const currentYear = new Date().getFullYear();
   const years = [];
   const days = [];
@@ -17,12 +20,32 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
   const expirationYear = useRef(null);
   const expirationDay = useRef(null);
 
-  const handelValidatePayment=()=>{
+  const handelValidatePayment= async()=>{
     console.log(cardNumber.current.value);
     console.log(cardOwner.current.value);
     console.log(cvc.current.value);
     console.log(expirationYear.current.value);
     console.log(expirationDay.current.value);
+
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/user/registerclient`,
+        {
+
+        },
+        { withCredentials: true, }
+      );
+    
+    } catch (error) {
+      const errorData = error.response.data;
+      if (errorData.errors) {
+        // setErrors(errorData.errors);
+      } else {
+        console.error(error);
+      }
+
+    }
   }
 
   useEffect(() => {
