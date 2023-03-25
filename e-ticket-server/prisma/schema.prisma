@@ -168,6 +168,7 @@ model Orders_Cart {
   unitPrice           Float                 @db.Float
   Ordered_at          DateTime              @default(now())
   event_id            Int
+  seat_categ_id       Int
   client_id           Int
   org_id              Int
   is_paid             Boolean               @default(false)

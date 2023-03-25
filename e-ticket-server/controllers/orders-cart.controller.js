@@ -1,4 +1,5 @@
 import ordersCartService from '../services/orders-cart.service.js';
+import seatCategoryService from '../services/seat-category.service.js';
 
 const createOrder = async (req, res) => {
     try {
@@ -10,6 +11,32 @@ const createOrder = async (req, res) => {
     }
 };
 
+
+
+const addToCart = async (req, res) => {
+    try {
+        //the initial info of the seat categorie when add cart by defaul will be the sheapest one info
+        const cheapestSeatCategory = await seatCategoryService.getSheapestSeatCategorieByEevntId(parseInt(req.body.event_id));
+        if (!cheapestSeatCategory) {
+            return res.status(500).json({ error: 'Failed to find seat categorie and add event to cart' });
+        }
+        // console.log(cheapestSeatCategory);
+        const orderData = req.body;
+        const { seat_categ_id, type_price } = cheapestSeatCategory;
+        orderData.seat_categ_id = seat_categ_id;
+        orderData.total_price = type_price;
+        orderData.unitPrice = type_price;
+        const newOrder = await ordersCartService.createOrder(orderData);
+        if (newOrder) {
+            return res.json(newOrder);
+        } else {
+            return res.json({ error: 'Failed to create order' })
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create order internal server error' });
+    }
+};
 
 const createManyOrder = async (req, res) => {
     const { OrdersData } = req.body;
@@ -144,4 +171,5 @@ export default {
     updateOrdersCart,
     getRecentOrdersByOrganizer,
     getAllOrdersByOrganizer,
+    addToCart,
 };

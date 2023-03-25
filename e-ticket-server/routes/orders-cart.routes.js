@@ -2,7 +2,7 @@ import express from 'express';
 import ordersCartController from '../controllers/orders-cart.controller.js';
 
 const router = express.Router();
-
+router.post('/add-to-cart', ordersCartController.addToCart);
 router.post('/', ordersCartController.createOrder);
 router.post('/many', ordersCartController.createManyOrder);
 router.get('/', ordersCartController.getAllOrders);

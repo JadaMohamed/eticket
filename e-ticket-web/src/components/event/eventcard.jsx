@@ -11,60 +11,24 @@ import AuthContext from "../../Auth/AuthContext";
 function Card(props) {
   const apiUrl = process.env.REACT_APP_API_URL;
   const { profile } = useContext(AuthContext);
-
   const Nav = useNavigate();
-  const handleAdd = () => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart or create an empty array
-    const productId = props.eventid;
-    let productExists = false;
-    // Check if product is already in the cart
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].eventId === productId) {
-        cart[i].quantity++;
-        cart[i].totalPrice += 99;
-        productExists = true;
-        break;
-      }
-    }
-    // Add product to cart if it doesn't exist
-    if (!productExists) {
-      const cartObj = {
-        imagePublicId: props.image,
-        date: props.date,
-        address: props.location,
-        title: props.title,
-        eventId: productId,
-        quantity: 1,
-        eventCategory: props.category,
-        seatCategory: "Basic",
-        totalPrice: 99,
-      };
-      if (!Array.isArray(cart)) {
-        cart = [cartObj];
-      } else {
-        cart.push(cartObj);
-      }
-    }
-    // Update cart in local storage
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
+
   const isExpired = new Date(props.date) < new Date();
-  const handleAddToCart = async() => {
-    console.log('add to cart')
-    console.log(props)
+  const handleAddToCart = async () => {
+    console.log('start add to cart')
     try {
       const response = await axios.post(
-        `${apiUrl}/api/orders-cart/`,
+        `${apiUrl}/api/orders-cart/add-to-cart`,
         {
-          quantity:1,
+          quantity: 1,
           event_id: props.eventid,
           client_id: profile.user.account_id,
-          org_id:props.org_id,
+          org_id: props.org_id,
         },
         { withCredentials: true, }
       );
       if (response) {
-      
+        console.log(response.data);
       }
     } catch (error) {
       console.error(error);
