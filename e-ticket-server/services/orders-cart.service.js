@@ -36,11 +36,17 @@ const getClientNonPaidOrders = async (id) => {
             is_paid: false,
         },
         include: {
-            Event: true,
+            Event: {
+                include: {
+                    Event_Images: true,
+                }
+            },
             Paid_Tickets_Orders: true,
         }
     });
 };
+
+
 
 
 const deleteOrdersCarttById = async (id) => {
