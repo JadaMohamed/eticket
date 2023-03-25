@@ -26,7 +26,7 @@ function Cart() {
   const getClientNonPaidOrders = async () => {
     try {
       const response = await axios.get(
-        `${apiUrl}/api/orders-cart/not-paid/client/${profile.user.account_id}`,
+        `${apiUrl}/api/orders-cart/not-paid/client/${profile.user.client_id}`,
         { withCredentials: true, }
       );
       if (response) {
