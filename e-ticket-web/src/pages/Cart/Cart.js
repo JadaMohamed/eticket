@@ -52,19 +52,25 @@ function Cart() {
     setTotalPrice((prev) => prev - old + newP);
   };
 
-  const selectCard = (eventId) => {
-    if (selectedCards.includes(eventId)) return;
-    setSelectedCards((e) => [...e, eventId]);
+  const selectCard = (order_id) => {
+    if (selectedCards.includes(order_id)) return;
+    setSelectedCards((e) => [...e, order_id]);
   };
 
-  const unSelectCard = (eventId) => {
-    setSelectedCards((e) => selectedCards.filter((val) => val !== eventId));
+  const unSelectCard = (order_id) => {
+    setSelectedCards((e) => selectedCards.filter((val) => val !== order_id));
   };
+
+  useEffect(() => {
+    console.log(selectedCards)
+  }, [selectedCards])
+  
 
   const deleteFromCart = async () => {
     console.log('trying to delete ..')
+    console.log('cart',cart)
     const newCart = cart.filter(
-      (item) => !selectedCards.includes(item.event_id)
+      (item) => !selectedCards.includes(item.order_id)
     );
     setCart(newCart);
     setAllCart(newCart);
@@ -106,6 +112,7 @@ function Cart() {
     );
   }, [keyword]);
 
+
   return (
     <>
       <Navbar />
@@ -133,13 +140,14 @@ function Cart() {
                   <EventCard_Cart
                     key={item.order_id}
                     eventId={item.Event.event_id}
+                    order_id={item.order_id}
                     date={item.Event.start_time}
                     title={item.Event.title}
                     eventCategory={item.Event.event_type}
                     location={item.Event.location}
                     image={item.Event.Event_Images[0].img_url}
                     quantity={item.quantity}
-                    // seatCategory={seatCategory}
+                    seatCategories={item.Event.SeatCategory}
                     totalPrice={item.total_price}
                     selectedCards={selectedCards}
                     setCardSelected={selectCard}

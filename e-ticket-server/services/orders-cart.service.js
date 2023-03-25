@@ -40,6 +40,7 @@ const getClientNonPaidOrders = async (id) => {
             Event: {
                 include: {
                     Event_Images: true,
+                    SeatCategory:true,
                 }
             },
             Paid_Tickets_Orders: true,
@@ -64,7 +65,7 @@ const getClientNonPaidOrdersByEevnt = async (id, event_id) => {
 
 
 const deleteOrdersCarttById = async (id) => {
-    console.log(id)
+    // console.log(id)
     const ordersCart = await prisma.orders_Cart.findUnique({ where: { order_id: parseInt(id) } });
     if (!ordersCart) {
         // handle error or return early

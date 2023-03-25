@@ -131,11 +131,8 @@ const deleteManyOrdersCarttById = async (req, res) => {
             ordersIdsData.map(orderId =>
                 ordersCartService.deleteOrdersCarttById(orderId)
             ));
-        if (!deletedOrdersCart) {
-            return res.status(404).json({ error: `OrdersCarts not found may be not deleted` });
-        } else {
-            return res.status(200).json(deletedOrdersCart);
-        }
+        // console.log(deletedOrdersCart)
+        res.status(200).json(deletedOrdersCart);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error to delete many orders' });
