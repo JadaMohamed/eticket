@@ -57,7 +57,6 @@ const getOrderById = async (req, res) => {
 
 const getClientNonPaidOrders = async (req, res) => {
     const clientId = req.params.clientId;
-    console.log(clientId)
     try {
         const NonPaidOrders = await ordersCartService.getClientNonPaidOrders(clientId);
         if (NonPaidOrders) {

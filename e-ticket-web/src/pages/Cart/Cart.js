@@ -33,13 +33,8 @@ function Cart() {
         setCart(response.data);
         setAllCart(response.data);
       }
-    } catch (error) {
-      const errorData = error.response.data;
-      if (errorData.errors) {
-        // setErrors(errorData.errors);
-      } else {
-        console.error(error);
-      }
+    } catch (error) {  
+        console.error(error); 
     }
   };
 
@@ -48,11 +43,7 @@ function Cart() {
   }, [profile])
 
 
-  useEffect(() => {
-    console.log('cart', cart);
-    console.log('all', Allcart);
-  }, [cart])
-
+ 
 
 
   const totalPriceHandler = (old, newP) => {

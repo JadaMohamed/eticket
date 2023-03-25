@@ -44,6 +44,9 @@ function Card(props) {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
   const isExpired = new Date(props.date) < new Date();
+
+
+  
   return (
     <div className="cardevent" key={props.id}>
       <div
