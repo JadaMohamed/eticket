@@ -18,7 +18,8 @@
     display: flex;
     flex-direction: column;
     user-select: none;
-    justify-content: space-between;
+    justify-content: space-between !important;
+    height: 100%;
     gap: 30px;
 }
 .side-bar .sidebar-container .top-content {
@@ -61,7 +62,7 @@
 .pin-unpin {
     position: absolute;
     right: -10px;
-    bottom: 80px;
+    bottom: 100px;
     background-color: var(--DarkPurple);
     border: 2px solid var(--White);
     text-align: center;
