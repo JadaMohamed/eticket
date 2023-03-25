@@ -163,7 +163,7 @@ function EventCard_Cart(props) {
                 {seatCategories &&
                   seatCategories.map((val) => {
                     return (
-                      <option value={val.seat_categ_id}>
+                      <option key={val.seat_categ_id} value={val.seat_categ_id}>
                         {val.type_name} {val.type_price}MAD
                       </option>
                     );

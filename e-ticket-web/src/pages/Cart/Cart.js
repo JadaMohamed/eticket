@@ -86,6 +86,7 @@ function Cart() {
             {cart.length > 0 ? (
               cart.map((item) => (
                 <EventCard_Cart
+                  key={item.eventId}
                   eventId={item.eventId}
                   date={item.date}
                   title={item.title}

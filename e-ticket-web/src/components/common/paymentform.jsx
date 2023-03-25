@@ -1,10 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../css/payment_form.css";
 const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) => {
   const currentYear = new Date().getFullYear();
   const years = [];
+  const days = [];
   for (let i = 0; i < 20; i++) {
     years.push(currentYear + i);
+  }
+  for (let i = 1; i <= 31; i++) {
+    days.push(i);
+  }
+
+  const cardNumber = useRef(null);
+  const cardOwner = useRef(null);
+  const cvc = useRef(null);
+  const expirationYear = useRef(null);
+  const expirationDay = useRef(null);
+
+  const handelValidatePayment=()=>{
+    console.log(cardNumber.current.value);
+    console.log(cardOwner.current.value);
+    console.log(cvc.current.value);
+    console.log(expirationYear.current.value);
+    console.log(expirationDay.current.value);
   }
 
   useEffect(() => {
@@ -24,34 +42,27 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
               <div className="card-number row">
                 <div className="labled-input">
                   <label>Card Number</label>
-                  <input type="text" placeholder="Card Number" />
+                  <input type="text" placeholder="Card Number" ref={cardNumber} />
                 </div>
               </div>
               <div className="row first-last">
                 <div className="labled-input">
                   <label>Card Owner</label>
-                  <input type="text" placeholder="Card Owner" />
+                  <input type="text" placeholder="Card Owner" ref={cardOwner} />
                 </div>
               </div>
               <div className="row date">
                 <div className="labled-input">
                   <label>Expire date</label>
-                  <select className="small">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
+                  <select className="small" ref={expirationDay}>
+                    {days.map((day) => (
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    ))}
                   </select>
                 </div>
-                <select className="small">
+                <select className="small" ref={expirationYear}>
                   {years.map((year) => (
                     <option key={year} value={year}>
                       {year}
@@ -62,7 +73,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
               <div className="row cvc">
                 <div className="labled-input">
                   <label>CVC</label>
-                  <input type="text" className="small" />
+                  <input type="text" className="small" ref={cvc} />
                 </div>
               </div>
             </div>
@@ -108,7 +119,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
               </table>
             </div>
           </div>
-          <div className="btns">
+          <div onClick={handelValidatePayment} className="btns">
             <div className="chekout btn">
               <span>Validate payment</span>
             </div>
