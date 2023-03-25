@@ -87,6 +87,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
             <div className="title">Order details</div>
             <div className="rows">
               <table>
+                <tbody>
                 <tr>
                   <td className="head">Order ID :</td>
                   <td>HEF7NEF6E</td>
@@ -95,6 +96,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
                   <td className="head">Amount :</td>
                   <td>{totalPrice} MAD</td>
                 </tr>
+                </tbody>
               </table>
             </div>
           </div>
@@ -102,6 +104,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
             <div className="title">Order details</div>
             <div className="rows">
               <table>
+                <tbody>
                 <tr>
                   <td className="head">Name :</td>
                   <td>
@@ -116,6 +119,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
                   <td className="head">Phone :</td>
                   <td>{client.account.phone_number}</td>
                 </tr>
+                </tbody>
               </table>
             </div>
           </div>
