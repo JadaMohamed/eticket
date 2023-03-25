@@ -29,25 +29,29 @@ model Account {
 }
 
 model Card {
-  id           Int           @id @default(autoincrement())
-  cardNumber   String        @unique
-  cvc          String
-  sold         Float
-  expiresAt    DateTime
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  account      Account       @relation(fields: [accountId], references: [account_id])
-  accountId    Int
-  transactions Transaction[]
+  cardNumber     String        @id @unique
+  cvc            String
+  sold           Float
+  cardOwner      String
+  expirationYear Int
+  expirationDay  Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  account        Account       @relation(fields: [accountId], references: [account_id])
+  accountId      Int
+  transactions   Transaction[]
+
+  @@index([accountId])
 }
 
 model Transaction {
-  id          Int      @id @default(autoincrement())
-  amount      Float
-  createdAt   DateTime @default(now())
-  card        Card     @relation(fields: [cardId], references: [id])
-  cardId      Int
-  description String
+  id         Int      @id @default(autoincrement())
+  amount     Float
+  createdAt  DateTime @default(now())
+  cardNumber String
+  card       Card     @relation(fields: [cardNumber], references: [cardNumber])
+
+  @@index([cardNumber])
 }
 
 model Admin {
