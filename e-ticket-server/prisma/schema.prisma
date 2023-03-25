@@ -190,7 +190,7 @@ model Paid_Tickets_Orders {
   ticket_id      Int
   event_id       Int
   Event          Event       @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Paid_Tickets_Orders_Event")
-  Orders_Cart    Orders_Cart @relation(fields: [order_id], references: [order_id], onUpdate: NoAction, map: "FK_Paid_Tickets_Orders_Orders_Cart")
+  Orders_Cart    Orders_Cart @relation(fields: [order_id], references: [order_id], onDelete: Cascade,  onUpdate: NoAction, map: "FK_Paid_Tickets_Orders_Orders_Cart")
   Ticket         Ticket      @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Paid_Tickets_Orders_Ticket")
 
   @@index([event_id])

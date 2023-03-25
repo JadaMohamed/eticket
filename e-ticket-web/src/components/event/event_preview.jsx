@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../css/event_preview.css";
 import { Image } from "cloudinary-react";
 import CountdownDate from "../common/countdown";
+import axios from "axios";
+import AuthContext from "../../Auth/AuthContext";
+
 
 function EventPreview(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const { profile } = useContext(AuthContext);
   const [quantity, setQuantity] = useState(1);
   const [hovred, setHovred] = useState(false);
   const [selectedImage, setSelectedImage] = useState(
@@ -25,6 +30,7 @@ function EventPreview(props) {
     }, 3000);
     return () => clearInterval(intervalId); // clear the interval when the component unmounts
   }, []);
+
   const [images, setImages] = useState(props.event.Event_Images);
   useEffect(() => {
     console.log("imgs " + images);
@@ -32,6 +38,33 @@ function EventPreview(props) {
   useEffect(() => {
     setSelectedImage(props.event.Event_Images[0].img_url);
   }, [images]);
+
+
+  const handleAddToCart = async () => {
+    console.log('start add to cart in or by');
+    console.log(props)
+    console.log(props.event.event_id)
+    console.log(profile.user.client_id)
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/orders-cart/add-to-cart`,
+        {
+          quantity: 1,
+          event_id: props.event.event_id,
+          org_id: props.event.org_id,
+          client_id: profile.user.client_id,
+        },
+        { withCredentials: true, }
+      );
+      if (response) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <div className="event-preview">
       <div className="event-preview-container">
@@ -115,7 +148,7 @@ function EventPreview(props) {
               </div>
             </div>
             <di className="btns">
-              <div className="add-tocart-btn btn"> Add to Cart</div>
+              <div className="add-tocart-btn btn" onClick={handleAddToCart}> Add to Cart</div>
               <div className="buy-now-btn btn"> Buy Now</div>
               <div className="instruction">
                 <span className="material-symbols-outlined">lock</span>

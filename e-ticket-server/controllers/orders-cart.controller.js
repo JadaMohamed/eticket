@@ -123,6 +123,25 @@ const deleteOrdersCarttById = async (req, res) => {
     }
 };
 
+const deleteManyOrdersCarttById = async (req, res) => {
+    const ordersIdsData = req.body.selectedCards;
+    console.log(ordersIdsData)
+    try {
+        const deletedOrdersCart = await Promise.all(
+            ordersIdsData.map(orderId =>
+                ordersCartService.deleteOrdersCarttById(orderId)
+            ));
+        if (!deletedOrdersCart) {
+            return res.status(404).json({ error: `OrdersCarts not found may be not deleted` });
+        } else {
+            return res.status(200).json(deletedOrdersCart);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error to delete many orders' });
+    }
+};
+
 
 // Update orders cart
 const updateOrdersCart = async (req, res) => {
@@ -178,6 +197,7 @@ export default {
     createManyOrder,
     getAllOrders,
     getOrderById,
+    deleteManyOrdersCarttById,
     getClientNonPaidOrders,
     deleteOrdersCarttById,
     updateOrdersCart,

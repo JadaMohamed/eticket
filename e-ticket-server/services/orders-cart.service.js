@@ -44,7 +44,7 @@ const getClientNonPaidOrders = async (id) => {
             },
             Paid_Tickets_Orders: true,
         },
-        orderBy:{
+        orderBy: {
             updated_at: 'desc',
         }
     });
@@ -64,9 +64,14 @@ const getClientNonPaidOrdersByEevnt = async (id, event_id) => {
 
 
 const deleteOrdersCarttById = async (id) => {
-    return await prisma.orders_Cart.delete({
-        where: { order_id: id },
-    });
+    console.log(id)
+    const ordersCart = await prisma.orders_Cart.findUnique({ where: { order_id: parseInt(id) } });
+    if (!ordersCart) {
+        // handle error or return early
+        return null;
+    }
+    return await prisma.orders_Cart.delete({ where: { order_id: parseInt(id) } });
+
 };
 
 

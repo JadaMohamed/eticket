@@ -33,44 +33,56 @@ function Cart() {
         setCart(response.data);
         setAllCart(response.data);
       }
-    } catch (error) {  
-        console.error(error); 
+    } catch (error) {
+      console.error(error);
     }
   };
 
   useEffect(() => {
     getClientNonPaidOrders();
-    console.log('cart',cart)
+    console.log('cart', cart)
   }, [profile])
 
 
- 
+
 
 
   const totalPriceHandler = (old, newP) => {
     if (isNaN(newP) || isNaN(old)) return;
     setTotalPrice((prev) => prev - old + newP);
   };
+
   const selectCard = (eventId) => {
     if (selectedCards.includes(eventId)) return;
     setSelectedCards((e) => [...e, eventId]);
   };
 
   const unSelectCard = (eventId) => {
-    setSelectedCards((e) => selectedCards.filter((val) => val != eventId));
+    setSelectedCards((e) => selectedCards.filter((val) => val !== eventId));
   };
 
-  const deleteFromCart = () => {
+  const deleteFromCart = async () => {
+    console.log('trying to delete ..')
     const newCart = cart.filter(
-      (item) => !selectedCards.includes(item.eventId)
+      (item) => !selectedCards.includes(item.event_id)
     );
     setCart(newCart);
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setSelectedCards((prevSelectedCards) =>
-      prevSelectedCards.filter(
-        (eventId) => !newCart.find((item) => item.eventId === eventId)
-      )
-    );
+    setAllCart(newCart);
+    console.log('selectedCards', selectedCards)
+
+    //delete it in data base also
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/orders-cart/delete-many`,
+        { selectedCards },
+        { withCredentials: true, },
+      );
+      if (response) {
+        console.log(response.data)
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const selectAll = () => {
