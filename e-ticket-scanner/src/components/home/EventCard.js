@@ -2,6 +2,12 @@ import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import React, { memo } from 'react';
 import ArrowDown from "./ArrowDown";
 const EventCard = ({ isSelected, isList, title, date, location, brandUrl }) => {
+  function ConvertDate(isodate) {
+    const date = new Date(isodate);
+    const options = { weekday: "long",year: "numeric", day: "numeric", month: "long"};
+    const formattedDate = date.toLocaleDateString("en-US", options);
+    return formattedDate;
+  }
   return (
     <View
       style={[
@@ -22,7 +28,7 @@ const EventCard = ({ isSelected, isList, title, date, location, brandUrl }) => {
           numberOfLines={1}
           ellipsizeMode="tail"
           style={styles.additionalInfos}>
-          {date}
+          {ConvertDate(date)}
         </Text>
         <Text
           numberOfLines={1}
