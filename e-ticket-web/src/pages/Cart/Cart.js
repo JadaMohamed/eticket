@@ -33,6 +33,8 @@ function Cart() {
       if (response) {
         setCart(response.data);
         setAllCart(response.data);
+        const totalPrice = response.data.reduce((acc, curr) => acc + curr.total_price, 0);
+        setTotalPriceCheckOut(totalPrice);
       }
     } catch (error) {
       console.error(error);
@@ -44,15 +46,6 @@ function Cart() {
   }, [profile])
 
 
-
-
-
-  useEffect(() => {
-    const totalPriceCheckOut = cart.reduce((acc, curr) => acc + curr.total_price, 0);
-    setTotalPriceCheckOut(totalPriceCheckOut);
-  }, [cart]);
-
-
   const selectCard = (order_id) => {
     if (selectedCards.includes(order_id)) return;
     setSelectedCards((e) => [...e, order_id]);
@@ -61,11 +54,6 @@ function Cart() {
   const unSelectCard = (order_id) => {
     setSelectedCards((e) => selectedCards.filter((val) => val !== order_id));
   };
-
-  useEffect(() => {
-    console.log(selectedCards)
-  }, [selectedCards])
-
 
   const deleteFromCart = async () => {
     console.log('trying to delete ..')
