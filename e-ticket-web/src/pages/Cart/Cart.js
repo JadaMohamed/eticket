@@ -33,8 +33,6 @@ function Cart() {
       if (response) {
         setCart(response.data);
         setAllCart(response.data);
-        // const totalPrice = response.data.reduce((acc, curr) => acc + curr.total_price, 0);
-        // setTotalPriceCheckOut(totalPrice);
       }
     } catch (error) {
       console.error(error);
@@ -47,15 +45,33 @@ function Cart() {
     }
   }, [profile])
 
-  // useEffect(() => {
-  //   console.log('selectedCards', selectedCards); // contains the IDs of cards that are selected
-  //   const totalPrice = cart
-  //     .filter((item) => selectedCards.includes(item.order_id)) // filter cart items based on selected cards' IDs
-  //     .reduce((acc, curr) => acc + curr.total_price, 0); // compute total price of filtered items
-  //   setTotalPriceCheckOut(totalPrice);
-  //   console.log(totalPriceCheckOut)
-  // }, [selectedCards, setSelectedCards, cart]);
+  useEffect(() => {
+    console.log('cart', cart)
+    // console.log('selectedCards', selectedCards);
+    const newCheckout = cart
+      .filter((item) => selectedCards.includes(item.order_id)) // filter cart items based on selected cards' IDs
+      .reduce((acc, curr) => acc + curr.total_price, 0); // compute total price of filtered items
+    setTotalPriceCheckOut(newCheckout);
+    console.log(newCheckout)
+    console.log(totalPriceCheckOut)
+  }, [selectedCards, cart]);
 
+  
+  //update the changed cart in the state (quantity and total price)
+  const updateCartQuantity = (order_id, newQuantity,newTotalPrice) => {
+    const updatedCart = cart.map(item => {
+      if (item.order_id === order_id) {
+        return {
+          ...item,
+          quantity: newQuantity,
+          total_price: newTotalPrice,
+        }
+      } else {
+        return item
+      }
+    })
+    setCart(updatedCart)
+  }
 
 
 
@@ -70,7 +86,7 @@ function Cart() {
   };
 
   const deleteFromCart = async () => {
-    if (selectedCards.length<1){
+    if (selectedCards.length < 1) {
       return;
     }
     console.log('trying to delete ..')
@@ -164,6 +180,8 @@ function Cart() {
                     seat_categ_id={item.seat_categ_id}
                     totalPriceCheckOut={totalPriceCheckOut}
                     setTotalPriceCheckOut={setTotalPriceCheckOut}
+                    updateCartQuantity={(newQuantity, newTotalPrice) => updateCartQuantity(item.order_id, newQuantity,newTotalPrice)}
+
                   />
                 );
               })

@@ -36,25 +36,12 @@ function EventCard_Cart(props) {
 
 
   const updateOrdersCart = async () => {
-    // console.log('isSelected', isSelected)
-    if (isSelected) {
-      if (isSelectedPrev) {
-        // console.log('it is selected prev')
-        props.setTotalPriceCheckOut(props.totalPriceCheckOut - totalPrice + parseInt(quantity) * parseFloat(seatCategory.type_price))
-      } else {
-        // console.log('quantity',quantity)
-        // console.log('seatCategory.type_price',seatCategory.type_price)
-        // console.log('props.totalPriceCheckOut', props.totalPriceCheckOut)
-        props.setTotalPriceCheckOut(props.totalPriceCheckOut + parseInt(quantity) * parseFloat(seatCategory.type_price))
-        setSelectedPrev(true)
-      }
-    } else {
-      if (isSelectedPrev) {
-        props.setTotalPriceCheckOut(props.totalPriceCheckOut - parseInt(quantity) * parseFloat(seatCategory.type_price))
-        setSelectedPrev(false)
-      }
-    }
-    setTotalPrice(parseInt(quantity) * parseFloat(seatCategory.type_price));
+    //update the cart here //I donot need to update the seat info in the steat because we donot need it
+    //in this cas like seat_categ_id and unite price 
+    //this second arg is the new total price in this cart 
+    props.updateCartQuantity(quantity, parseInt(quantity) * parseFloat(seatCategory.type_price));
+
+    //update in data base here
     try {
       const response = await axios.put(
         `${apiUrl}/api/orders-cart/${props.order_id}`,
@@ -65,7 +52,6 @@ function EventCard_Cart(props) {
         },
         { withCredentials: true, }
       );
-
       if (response) {
         // console.log(response.data);
       }
@@ -77,8 +63,13 @@ function EventCard_Cart(props) {
 
 
   useEffect(() => {
+    ///when the quantity or the seatCategory changed by the user
+    //seatCategory will be update when update the id of seat when use make new change
+    //update the totale price first
+    setTotalPrice(parseInt(quantity) * parseFloat(seatCategory.type_price));
+    //update the cart in state and database also
     updateOrdersCart();
-  }, [seatCategory, quantity, isSelected]);
+  }, [seatCategory, quantity]);
 
 
 
