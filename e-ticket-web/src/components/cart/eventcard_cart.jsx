@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import "../../css/eventcard_cart.css";
 import CountdownDate from "../common/countdown";
 import { Image } from "cloudinary-react";
-import Axios from "axios";
+import axios from "axios";
 
 function EventCard_Cart(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [quantity, setQuantity] = useState(props.quantity);
+  const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const [isSelected, setSelected] = useState(
     props.selectedCards.find((value) => value === props.order_id) ? true : false
   );
   const [seatCategories,] = useState(props.seatCategories);
-  const [selectedSeat, setSelectedSeat] = useState();
-  const apiUrl = process.env.REACT_APP_API_URL;
-
-
-  //  console.log(props)
+  const [seatCategory, setseatCategory] = useState(seatCategories.find(val => val.seat_categ_id === parseInt(props.seat_categ_id)));
 
   const triggerSelect = () => {
     if (!isSelected) {
@@ -37,20 +35,36 @@ function EventCard_Cart(props) {
 
 
 
-  const handleSeatChange = () => {
+  const updateOrdersCart = async () => {
+    console.log(quantity);
+    console.log(seatCategory);
+    // props.setTotalPrice()
+    setTotalPrice(parseInt(quantity) * parseInt(seatCategory.type_price));
 
+    try {
+      const response = await axios.put(
+        `${apiUrl}/api/orders-cart/${props.order_id}`,
+        {
+          quantity: parseInt(quantity),
+          total_price: parseInt(quantity) * parseInt(seatCategory.type_price),
+          seat_categ_id: parseInt(seatCategory.seat_categ_id),
+        },
+        { withCredentials: true, }
+      );
+
+      if (response) {
+        console.log(response.data);
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  const incrementQuantity = () => {
 
-  }
-
-  const decrementQuantity = () => {
-
-  }
-
-
-
+  useEffect(() => {
+    updateOrdersCart();
+  }, [seatCategory, quantity]);
 
 
 
@@ -91,24 +105,21 @@ function EventCard_Cart(props) {
               <select
                 name="seat-category"
                 id="seat-categories"
-                onChange={handleSeatChange}
-                value={selectedSeat?.seat_categ_id}
+                onChange={(e) => setseatCategory(seatCategories.find(val => val.seat_categ_id === parseInt(e.target.value)))}
               >
-                {seatCategories &&
-                  seatCategories.map((val) => {
-                    return (
-                      <option key={val.seat_categ_id} value={val.seat_categ_id}>
-                        {val.type_name} {val.type_price}MAD
-                      </option>
-                    );
-                  })}
+                {seatCategories.map((val) => (
+                  <option key={val.seat_categ_id} value={val.seat_categ_id}>
+                    {val.type_name} {val.type_price}MAD
+                  </option>
+                ))}
               </select>
+
             </div>
             <div className="quantity">
               <span
                 className="decrement btn"
                 title="Decrement"
-                onClick={decrementQuantity}
+                onClick={() => { quantity === 1 ? setQuantity(1) : setQuantity(quantity - 1) }}
               >
                 -
               </span>
@@ -116,7 +127,7 @@ function EventCard_Cart(props) {
               <span
                 className="increment btn"
                 title="Increment"
-                onClick={incrementQuantity}
+                onClick={() => { setQuantity(quantity + 1) }}
               >
                 +
               </span>
@@ -125,7 +136,7 @@ function EventCard_Cart(props) {
           <div className="pricing">
             <div className="title-pricing">Total price</div>
             <div className="total-price">
-              {props.totalPrice}
+              {totalPrice}
               <span>MAD</span>
             </div>
           </div>

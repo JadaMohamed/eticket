@@ -47,10 +47,10 @@ function Cart() {
 
 
 
-  const totalPriceHandler = (old, newP) => {
-    if (isNaN(newP) || isNaN(old)) return;
-    setTotalPrice((prev) => prev - old + newP);
-  };
+  // const totalPriceHandler = (old, newP) => {
+  //   if (isNaN(newP) || isNaN(old)) return;
+  //   setTotalPrice((prev) => prev - old + newP);
+  // };
 
   const selectCard = (order_id) => {
     if (selectedCards.includes(order_id)) return;
@@ -125,7 +125,7 @@ function Cart() {
         selectedItems={selectedCards}
         deleteFromCart={deleteFromCart}
         selectAll={selectAll}
-        totalPrice={totalPrice}
+        // totalPrice={totalPrice}
         setCheckOut={setCheckOut}
         isLoggedIn={isLoggedIn}
       />}
@@ -136,6 +136,7 @@ function Cart() {
 
             {cart ? (
               cart.map((item) => {
+                console.log('item',item)
                 return (
                   <EventCard_Cart
                     key={item.order_id}
@@ -152,7 +153,8 @@ function Cart() {
                     selectedCards={selectedCards}
                     setCardSelected={selectCard}
                     setCardUnSelected={unSelectCard}
-                    totalPriceHandler={totalPriceHandler}
+                    // totalPriceHandler={totalPriceHandler}
+                    seat_categ_id={item.seat_categ_id}
                   />
                 );
               })
