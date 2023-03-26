@@ -125,7 +125,7 @@ const deleteOrdersCarttById = async (req, res) => {
 
 const deleteManyOrdersCarttById = async (req, res) => {
     const ordersIdsData = req.body.selectedCards;
-    console.log(ordersIdsData)
+    // console.log(ordersIdsData)
     try {
         const deletedOrdersCart = await Promise.all(
             ordersIdsData.map(orderId =>
