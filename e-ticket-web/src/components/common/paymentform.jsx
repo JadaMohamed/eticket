@@ -27,7 +27,6 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut 
     console.log(expirationYear.current.value);
     console.log(expirationDay.current.value);
 
-
     try {
       const response = await axios.post(
         `${apiUrl}/api/user/registerclient`,

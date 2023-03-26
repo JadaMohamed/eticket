@@ -33,8 +33,8 @@ function Cart() {
       if (response) {
         setCart(response.data);
         setAllCart(response.data);
-        const totalPrice = response.data.reduce((acc, curr) => acc + curr.total_price, 0);
-        setTotalPriceCheckOut(totalPrice);
+        // const totalPrice = response.data.reduce((acc, curr) => acc + curr.total_price, 0);
+        // setTotalPriceCheckOut(totalPrice);
       }
     } catch (error) {
       console.error(error);
@@ -47,10 +47,15 @@ function Cart() {
     }
   }, [profile])
 
-  useEffect(() => {
-    const totalPrice = cart.reduce((acc, curr) => acc + curr.total_price, 0);
-    setTotalPriceCheckOut(totalPrice);
-  }, [cart])
+  // useEffect(() => {
+  //   console.log('selectedCards', selectedCards); // contains the IDs of cards that are selected
+  //   const totalPrice = cart
+  //     .filter((item) => selectedCards.includes(item.order_id)) // filter cart items based on selected cards' IDs
+  //     .reduce((acc, curr) => acc + curr.total_price, 0); // compute total price of filtered items
+  //   setTotalPriceCheckOut(totalPrice);
+  //   console.log(totalPriceCheckOut)
+  // }, [selectedCards, setSelectedCards, cart]);
+
 
 
 

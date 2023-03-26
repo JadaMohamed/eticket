@@ -9,8 +9,8 @@ function EventCard_Cart(props) {
   const [quantity, setQuantity] = useState(props.quantity);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const [isSelected, setSelected] = useState(
-    props.selectedCards.find((value) => value === props.order_id) ? true : false
-  );
+    props.selectedCards.find((value) => value === props.order_id) ? true : false);
+  const [isSelectedPrev, setSelectedPrev] = useState(false);
   const [seatCategories,] = useState(props.seatCategories);
   const [seatCategory, setseatCategory] = useState(seatCategories.find(val => val.seat_categ_id === parseInt(props.seat_categ_id)));
 
@@ -36,14 +36,31 @@ function EventCard_Cart(props) {
 
 
   const updateOrdersCart = async () => {
-    props.setTotalPriceCheckOut(props.totalPriceCheckOut - totalPrice + parseInt(quantity) * parseInt(seatCategory.type_price))
-    setTotalPrice(parseInt(quantity) * parseInt(seatCategory.type_price));
+    // console.log('isSelected', isSelected)
+    if (isSelected) {
+      if (isSelectedPrev) {
+        // console.log('it is selected prev')
+        props.setTotalPriceCheckOut(props.totalPriceCheckOut - totalPrice + parseInt(quantity) * parseFloat(seatCategory.type_price))
+      } else {
+        // console.log('quantity',quantity)
+        // console.log('seatCategory.type_price',seatCategory.type_price)
+        // console.log('props.totalPriceCheckOut', props.totalPriceCheckOut)
+        props.setTotalPriceCheckOut(props.totalPriceCheckOut + parseInt(quantity) * parseFloat(seatCategory.type_price))
+        setSelectedPrev(true)
+      }
+    } else {
+      if (isSelectedPrev) {
+        props.setTotalPriceCheckOut(props.totalPriceCheckOut - parseInt(quantity) * parseFloat(seatCategory.type_price))
+        setSelectedPrev(false)
+      }
+    }
+    setTotalPrice(parseInt(quantity) * parseFloat(seatCategory.type_price));
     try {
       const response = await axios.put(
         `${apiUrl}/api/orders-cart/${props.order_id}`,
         {
           quantity: parseInt(quantity),
-          total_price: parseInt(quantity) * parseInt(seatCategory.type_price),
+          total_price: parseInt(quantity) * parseFloat(seatCategory.type_price),
           seat_categ_id: parseInt(seatCategory.seat_categ_id),
         },
         { withCredentials: true, }
@@ -61,7 +78,7 @@ function EventCard_Cart(props) {
 
   useEffect(() => {
     updateOrdersCart();
-  }, [seatCategory, quantity]);
+  }, [seatCategory, quantity, isSelected]);
 
 
 
