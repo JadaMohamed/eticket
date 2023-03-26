@@ -65,6 +65,9 @@ function Cart() {
   };
 
   const deleteFromCart = async () => {
+    if (selectedCards.length<1){
+      return;
+    }
     console.log('trying to delete ..')
     const newCart = cart.filter(
       (item) => !selectedCards.includes(item.order_id)
@@ -82,6 +85,7 @@ function Cart() {
       if (response) {
         // console.log(response.data)
       }
+      setSelectedCards([]);
     } catch (error) {
       console.error(error);
     }
