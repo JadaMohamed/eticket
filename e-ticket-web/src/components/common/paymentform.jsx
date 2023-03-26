@@ -19,8 +19,10 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
   //data will be send to the backend for the payment 
   const checkoutData = {
     client_id: profile.user.client_id,
+    Event_Ids: [],
 
-  }
+
+  };
 
   useEffect(() => {
     //checkedCarts contain all info of the carts that user selected
