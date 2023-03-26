@@ -102,6 +102,7 @@ function EventCard_Cart(props) {
               <select
                 name="seat-category"
                 id="seat-categories"
+                value={seatCategory.seat_categ_id}
                 onChange={(e) => setseatCategory(seatCategories.find(val => val.seat_categ_id === parseInt(e.target.value)))}
               >
                 {seatCategories.map((val) => (
