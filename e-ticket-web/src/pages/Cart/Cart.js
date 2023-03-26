@@ -46,14 +46,14 @@ function Cart() {
   }, [profile])
 
   useEffect(() => {
-    console.log('cart', cart)
+    // console.log('cart', cart)
     // console.log('selectedCards', selectedCards);
     const newCheckout = cart
       .filter((item) => selectedCards.includes(item.order_id)) // filter cart items based on selected cards' IDs
       .reduce((acc, curr) => acc + curr.total_price, 0); // compute total price of filtered items
     setTotalPriceCheckOut(newCheckout);
-    console.log(newCheckout)
-    console.log(totalPriceCheckOut)
+    // console.log(newCheckout)
+    // console.log(totalPriceCheckOut)
   }, [selectedCards, cart]);
 
 

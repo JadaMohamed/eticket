@@ -219,7 +219,6 @@ model Ticket {
   client_id           Int
   event_id            Int
   qrcode              String                @unique @db.VarChar(100)
-  ticket__type_id     Int
   created_at          DateTime              @default(now())
   Paid_Tickets_Orders Paid_Tickets_Orders[]
   Event               Event                 @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "FK_Ticket_Event")
