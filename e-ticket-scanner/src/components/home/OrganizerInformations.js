@@ -1,15 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { memo } from 'react';
 import Person from '../../assets/Home/Person';
 import Spacer from '../Spacer';
-const OrganizerInformations = ({ numberEvents }) => {
+const OrganizerInformations = ({ numberEvents, name }) => {
+  console.log("org infos : ", name)
   return (
     <View style={styles.container}>
-      <Person />
+      {/* <Person /> */}
+      {name?.avatar && <Image source={{uri: name?.avatar}} style={styles.orgAvatar}/>}
       <Spacer size={10} />
-      <Text style={styles.organizerName}>Organizer Name</Text>
+      <Text style={styles.organizerName}>{name?.firstName} {name?.lastName}</Text>
       <Spacer size={10} />
-      <Text style={styles.numberEvents}>{numberEvents ? numberEvents : 10} Events</Text>
+      <Text style={styles.numberEvents}>{numberEvents ? numberEvents : 0} Events</Text>
     </View>
   );
 };
@@ -28,6 +30,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     color: "#EFE4FC"
+  },
+  orgAvatar: {
+    width: 80,
+    height: 80
   }
 });
 

@@ -11,6 +11,7 @@ import React, {memo, Suspense, useCallback, useState} from 'react';
 import {MotiView} from 'moti';
 import VSpacer from '../VSpacer';
 import {FlashList} from '@shopify/flash-list';
+import {widthPercentageToDP} from '../../constants/Layout';
 
 const EventCard = React.lazy(() => import('./EventCard.js'));
 
@@ -52,7 +53,7 @@ const EventsList = ({selectedEvent, selectedEventHandler, data}) => {
           ItemSeparatorComponent={() => <VSpacer size={15} />}
           showsVerticalScrollIndicator={false}
           estimatedItemSize={200}
-          ListFooterComponent={() => <VSpacer size={50} />}
+          ListFooterComponent={() => <VSpacer size={widthPercentageToDP(60)} />}
           keyExtractor={(item, index) => `${index}`}
           renderItem={({item, index}) => (
             <MotiView
@@ -79,6 +80,7 @@ const EventsList = ({selectedEvent, selectedEventHandler, data}) => {
                   title={item?.title}
                   location={item?.location}
                   date={item?.start_time}
+                  brandUrl={item?.brand_url}
                 />
               </TouchableOpacity>
             </MotiView>
