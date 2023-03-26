@@ -63,7 +63,6 @@ function Cart() {
     setCart(newCart);
     setAllCart(newCart);
     console.log('selectedCards', selectedCards)
-
     //delete it in data base also
     try {
       const response = await axios.post(
@@ -80,7 +79,12 @@ function Cart() {
   };
 
   const selectAll = () => {
-    setSelectedCards(cart.map((val) => val.order_id));
+    if (selectedCards.length !== cart.length) {
+      setSelectedCards(cart.map((val) => val.order_id));
+    } else {
+      setSelectedCards([]);
+    }
+
   };
   const [keyword, setKeyword] = useState("");
 
