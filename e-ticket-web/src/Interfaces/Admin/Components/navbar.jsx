@@ -5,7 +5,7 @@ import "../CSS/admin-navbar.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../img/logo.svg";
 
-function AdminNavigationBar() {
+function AdminNavigationBar({setAccount}) {
   const [open, setOpen] = useState(false);
   const { logout } = useContext(AuthContext);
   const { profile, isLoggedIn } = useContext(AuthContext);

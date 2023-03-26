@@ -2,6 +2,7 @@
     background-color: var(--White);
     height: fit-content;
     border-radius: 8px;
+    width: 100%;
     height: fit-content;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
@@ -21,7 +22,7 @@
 }
 .admin-page .admin-page-content img {
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
 }
 .admin-page .admin-page-content .admin-dashboard-card .admin-dashboard-card-container .number {
     font-size: 20px;
@@ -91,11 +92,32 @@
 }
 .admin-page .admin-page-content .new-users .new-users-container .new-user-card .name {
     font-weight: 600;
+    text-transform: capitalize;
     color: #000;
+}
+.admin-page .admin-page-content .new-users .new-users-container .new-user-card .infos{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.admin-page .admin-page-content .new-users .new-users-container .new-user-card .name span{
+    text-transform: capitalize;
+    font-size: 12px !important;
+    color: var(--Grey1);
+    font-weight: 400;
 }
 .admin-page .admin-page-content .new-users .new-users-container .new-user-card .avatar {
     width: 36px;
     height: 36px;
+    max-height: 36px;
     border-radius: 50%;
     background-color: var(--Purple10);
+    display: flex;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+.admin-page .admin-page-content .new-users .new-users-container .new-user-card .avatar img{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width: 100%;
 }

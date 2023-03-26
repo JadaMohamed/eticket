@@ -1,16 +1,16 @@
 import React from "react";
 
-const NewUserCard = () => {
+const NewUserCard = ({avatar, name, date, type}) => {
   return (
     <div className=" new-user-card">
       <div className="avatar">
-        <img src="" alt="" />
+        <img src={avatar} alt="" />
       </div>
       <div className="infos">
         <div className="name">
-          Exa Example <span>(Organizer)</span>
+          {name} <span>({type})</span>
         </div>
-        <div className="date">Today 18:37 AM</div>
+        <div className="date">{date}</div>
       </div>
     </div>
   );

@@ -41,10 +41,10 @@ td {
     padding: 0 !important;
     font-size: 15px;
 }
-.container table tr {
-    border-bottom: 1px solid black !important;
+table td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.051) !important;
 }
-.container table .avatar {
+ table .avatar {
     background-color: var(--Purple30);
     width: 30px;
     height: 30px !important;

@@ -96,7 +96,61 @@ const updateAdmin = async (req, res) => {
 };
 
 
+const getTotalUsers= async(req,res)=>{
+    try{
+        const Users=await adminService.getTotalUsers();
+        res.status(200).json(Users);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error Canot get users' });
+    }
 
+}
+
+const getJoinedLastWeek= async(req,res)=>{
+    try{
+        const joined=await adminService.getJoinedLastWeek();
+        res.status(200).json(joined);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error Canot get users' });
+    }
+
+}
+const getEventsStats=async(req, res)=>{
+    try{
+        const eventsStats=await adminService.getEventsStats();
+        res.status(200).json(eventsStats);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error Canot get Events Stats' });
+    }
+}
+
+const getLastJoinedUsers=async(req,res)=>{
+    try{
+        const users=await adminService.getLastJoinedUsers();
+        res.status(200).json(users);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error Canot get last 10 joined' });
+    }
+}
+
+const getAllUsers=async(req, res)=>{
+    try{
+        const users=await adminService.getAllUsers();
+        res.status(200).json(users);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error Canot get users list' });
+    }
+}
 
 export default {
     createAdmin,
@@ -104,5 +158,10 @@ export default {
     getAllAdmins,
     deleteAdmin,
     createManyAdmins,
-    updateAdmin
+    updateAdmin,
+    getTotalUsers,
+    getJoinedLastWeek,
+    getEventsStats,
+    getLastJoinedUsers,
+    getAllUsers
 };
