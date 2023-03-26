@@ -56,7 +56,7 @@ function Cart() {
     console.log(totalPriceCheckOut)
   }, [selectedCards, cart]);
 
-  
+
   //update the changed cart in the state (quantity and total price)
   const updateCartQuantity = (order_id, newQuantity,newTotalPrice) => {
     const updatedCart = cart.map(item => {
@@ -126,6 +126,7 @@ function Cart() {
     if (!cart) {
       return;
     }
+    setSelectedCards([])
     //chearch card
     setCart(
       Allcart.filter(
