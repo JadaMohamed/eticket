@@ -41,10 +41,23 @@ const deleteCard = async (id) => {
     });
 };
 
+
+const validateCard = async (cardInfo) => {
+    const card= await prisma.card.findUnique({
+        where: { cardNumber: cardInfo.cardNumber },
+    });
+    if(!card){
+        return false;
+    }
+    // if(card)
+};
+
+
 export default {
     createCard,
     getAllCards,
     getCardById,
     updateCard,
     deleteCard,
+    validateCard,
 };

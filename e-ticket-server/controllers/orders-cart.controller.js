@@ -1,3 +1,4 @@
+import cardService from '../services/card.service.js';
 import ordersCartService from '../services/orders-cart.service.js';
 import seatCategoryService from '../services/seat-category.service.js';
 
@@ -191,12 +192,18 @@ const getAllOrdersByOrganizer = async (req, res) => {
 
 
 const createOrdersPayment = async (req, res) => {
-    const {clientId}=req.params;
-    console.log(req.body)
-    return;
+    const { clientId } = req.params;
+    const { cardInfo, eventAndSeat_Ids } = req.body;
+    console.log(cardInfo)
+    console.log(eventAndSeat_Ids)
     try {
-        const newOrder = await ordersCartService.createOrder(req.body);
-        res.json(newOrder);
+        const isValideCard = await cardService.validateCard(cardInfo);
+        if (!isValideCard) {
+            return res.status(400).json({ error: "card not valide can not make transtaction" });
+        }
+
+        //create tickets for the client
+        console.log('info are correct')
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to create order' });

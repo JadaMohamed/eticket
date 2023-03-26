@@ -22,7 +22,6 @@ model Account {
   Admin           Admin[]
   Notifications   Notifications[]
   Organizer       Organizer[]
-  Card            Card[]
   Client          Client?
 
   @@index([first_name, last_name])
@@ -37,11 +36,7 @@ model Card {
   expirationDay  Int
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  account        Account       @relation(fields: [accountId], references: [account_id])
-  accountId      Int
   transactions   Transaction[]
-
-  @@index([accountId])
 }
 
 model Transaction {
