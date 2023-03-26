@@ -42,7 +42,9 @@ function Cart() {
   };
 
   useEffect(() => {
-    getClientNonPaidOrders();
+    if (profile && profile.user) {
+      getClientNonPaidOrders();
+    }
   }, [profile])
 
   useEffect(() => {
