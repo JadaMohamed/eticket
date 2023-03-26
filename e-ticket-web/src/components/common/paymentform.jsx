@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../../css/payment_form.css";
 import axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
@@ -16,18 +16,14 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
     days.push(i);
   }
 
-  //data will be send to the backend for the payment 
-  const checkoutData = {
-    client_id: profile.user.client_id,
-    Event_Ids: [],
-
-
-  };
+  //this table will containe eventid and seat categorieid from each checkedCarts
+  const [eventAndSeat_Ids, setEventAndSeat_Ids] = useState([])
 
   useEffect(() => {
     //checkedCarts contain all info of the carts that user selected
     console.log('checkedCarts', checkedCarts);
 
+    //fill the eventAndSeat_Ids table when checkedCarts change
 
   }, [checkedCarts])
 
