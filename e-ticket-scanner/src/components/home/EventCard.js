@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import React, { memo } from 'react';
 import ArrowDown from "./ArrowDown";
-const EventCard = ({ isSelected, isList, title, date, location }) => {
+const EventCard = ({ isSelected, isList, title, date, location, brandUrl }) => {
   return (
     <View
       style={[
@@ -11,7 +11,9 @@ const EventCard = ({ isSelected, isList, title, date, location }) => {
           borderColor: isSelected ? '#552E88' : "transparent"
         },
       ]}>
-      <View style={styles.imageContainer}></View>
+      <View style={styles.imageContainer}>
+        {brandUrl && <Image source={{uri: brandUrl}} style={styles.eventImage}/>}
+      </View>
       <View style={styles.infoContainer}>
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.eventTitle}>
           {title}
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
   },
   eventTitle: { fontSize: 14, color: '#000000', fontWeight: '600' },
   additionalInfos: { fontSize: 12, color: '#808080', fontWeight: '400' },
+  eventImage: {width: "100%", height: "100%", borderRadius: 5},
 });
 
 export default memo(EventCard);
