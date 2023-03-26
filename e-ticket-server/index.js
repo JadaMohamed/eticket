@@ -67,6 +67,7 @@ app.use("/api/tickets", verifyJwt, ticketRoutes);
 app.use("/api/client-wait-lists", verifyJwt, clientWaitListRoutes);
 app.use("/api/clients", verifyJwt, verifyClientOrAdmin, clientRoutes);
 app.use("/api/admins", verifyJwt, verifyAdmin, adminRoutes);
+app.use("/api/admins", adminRoutes);
 app.use("/api/accounts", accountRoutes);
 app.use("/api/card", cardRoutes);
 app.use("/api/transaction", transactionRoutes);
