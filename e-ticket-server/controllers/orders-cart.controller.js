@@ -1,6 +1,7 @@
 import cardService from '../services/card.service.js';
 import ordersCartService from '../services/orders-cart.service.js';
 import seatCategoryService from '../services/seat-category.service.js';
+import ticketService from '../services/ticket.service.js';
 
 const createOrder = async (req, res) => {
     try {
@@ -193,21 +194,45 @@ const getAllOrdersByOrganizer = async (req, res) => {
 
 const createOrdersPayment = async (req, res) => {
     const { clientId } = req.params;
-    const { totalPriceCheckOut,cardInfo, eventAndSeat_Ids } = req.body;
-    console.log(totalPriceCheckOut)
-    console.log(cardInfo)
-    console.log(eventAndSeat_Ids)
+    const { totalPriceCheckOut, cardInfo, eventAndSeat_Ids } = req.body;
     try {
-        const cardStatus = await cardService.validateCard(totalPriceCheckOut,cardInfo);
+        const cardStatus = await cardService.validateCard(totalPriceCheckOut, cardInfo);
         if (!cardStatus) {
             return res.status(400).json({ error: "card not valide can not make transaction" });
         }
-        if (cardStatus==='sold error'){
+        if (cardStatus === 'sold error') {
             return res.status(400).json({ error: "card sold not valid can not make transaction" });
         }
+        //add qr codes to the table eventAndSeat_Ids
+        const randomString = Math.random().toString(36).substring(7); // generate a random string
+        const uniqueId = Date.now(); // generate a unique identifier
+        const qrCodeText = `${randomString}-${uniqueId}`; // concatenate the random string and unique identifier
 
-        //create tickets for the client
-        console.log('info are correct')
+        //create tickets for the client eventAndSeat_Ids
+        const newTickets = await Promise.all(
+            eventAndSeat_Ids.map(item => {
+                //
+                const randomString = Math.random().toString(36).substring(7); // generate a random string
+                const uniqueId = Date.now(); // generate a unique identifier
+                const qrCodeText = `${randomString}-${uniqueId}`; // concatenate the random string and unique identifier
+                //create ticket
+                return ticketService.createTicket({ event_id: item.event_id, seat_categ_id: item.seat_categ_id, client_id: parseInt(clientId), qrcode: qrCodeText });
+            }));
+
+        if (!newTickets || newTickets.some(ticket => !ticket)) {
+            //some times if there are many some will be created and some not
+            //delete the ones which was create
+            await Promise.all(newTickets.map(ticket => {
+                if (ticket) {
+                    ticketService.deleteticketById(parseInt(ticket.ticket_id))
+                }
+            }));
+            return res.status(400).json({ error: "An error shows when creating the tickets so it is canced" });
+        }
+
+        //after that we create ticket will make payment transforming
+     
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to create order' });
