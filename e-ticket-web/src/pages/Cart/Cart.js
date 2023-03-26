@@ -45,6 +45,13 @@ function Cart() {
     getClientNonPaidOrders();
   }, [profile])
 
+  useEffect(() => {
+    const totalPrice = cart.reduce((acc, curr) => acc + curr.total_price, 0);
+    setTotalPriceCheckOut(totalPrice);
+  }, [cart])
+
+
+
 
   const selectCard = (order_id) => {
     if (selectedCards.includes(order_id)) return;
@@ -71,7 +78,7 @@ function Cart() {
         { withCredentials: true, },
       );
       if (response) {
-        console.log(response.data)
+        // console.log(response.data)
       }
     } catch (error) {
       console.error(error);
