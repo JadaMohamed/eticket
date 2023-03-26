@@ -60,7 +60,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
     try {
       const response = await axios.post(
         `${apiUrl}/api/orders-cart/pay-orders/${profile.user.client_id}`,
-        { cardInfo, eventAndSeat_Ids },
+        { totalPriceCheckOut, cardInfo, eventAndSeat_Ids },
         { withCredentials: true, });
 
       if (response) {

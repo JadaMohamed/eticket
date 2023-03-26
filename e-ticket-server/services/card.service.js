@@ -42,14 +42,22 @@ const deleteCard = async (id) => {
 };
 
 
-const validateCard = async (cardInfo) => {
-    const card= await prisma.card.findUnique({
+const validateCard = async (totalPriceCheckOut,cardInfo) => {
+    const card = await prisma.card.findUnique({
         where: { cardNumber: cardInfo.cardNumber },
     });
-    if(!card){
+    if (!card) { return false; }
+    // console.log(card);
+    if (card.cardOwner != cardInfo.cardOwner ||
+        card.cvc != cardInfo.cvc ||
+        card.expirationYear != cardInfo.expirationYear ||
+        card.expirationDay != cardInfo.expirationDay) {
         return false;
     }
-    // if(card)
+    if (card.sold < totalPriceCheckOut){
+        return 'sold error';
+    }
+    return true;
 };
 
 

@@ -193,13 +193,17 @@ const getAllOrdersByOrganizer = async (req, res) => {
 
 const createOrdersPayment = async (req, res) => {
     const { clientId } = req.params;
-    const { cardInfo, eventAndSeat_Ids } = req.body;
+    const { totalPriceCheckOut,cardInfo, eventAndSeat_Ids } = req.body;
+    console.log(totalPriceCheckOut)
     console.log(cardInfo)
     console.log(eventAndSeat_Ids)
     try {
-        const isValideCard = await cardService.validateCard(cardInfo);
-        if (!isValideCard) {
-            return res.status(400).json({ error: "card not valide can not make transtaction" });
+        const cardStatus = await cardService.validateCard(totalPriceCheckOut,cardInfo);
+        if (!cardStatus) {
+            return res.status(400).json({ error: "card not valide can not make transaction" });
+        }
+        if (cardStatus==='sold error'){
+            return res.status(400).json({ error: "card sold not valid can not make transaction" });
         }
 
         //create tickets for the client
