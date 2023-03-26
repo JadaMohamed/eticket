@@ -21,12 +21,12 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
 
   useEffect(() => {
     //checkedCarts contain all info of the carts that user selected
-    console.log('checkedCarts', checkedCarts);
+    // console.log('checkedCarts', checkedCarts);
 
     //fill the eventAndSeat_Ids table when checkedCarts change
     // Create a new array with the event_id and seat_categ_id of each item in checkedCarts
     const eventAndSeatIds = checkedCarts.map(item => {
-      console.log(item)
+      // console.log(item)
       return {
         event_id: item.Event.event_id,
         seat_categ_id: item.seat_categ_id
@@ -36,7 +36,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
     setEventAndSeat_Ids(eventAndSeatIds)
   }, [checkedCarts])
 
-
+  //card information
   const cardNumber = useRef(null);
   const cardOwner = useRef(null);
   const cvc = useRef(null);
@@ -44,25 +44,28 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
   const expirationDay = useRef(null);
 
   const handelValidatePayment = async () => {
-  
+
+    //creating object to hold card info
     const cardInfo = {
       cardNumber: cardNumber.current.value,
-      cardOwner: cardOwner.current.value ,
+      cardOwner: cardOwner.current.value,
       cvc: cvc.current.value,
-      expirationYear: expirationYear.current.value ,
-      expirationDay: expirationDay.current.value ,
+      expirationYear: expirationYear.current.value,
+      expirationDay: expirationDay.current.value,
     }
     //
     console.log(cardInfo)
+    console.log(eventAndSeat_Ids)
 
     try {
       const response = await axios.post(
-        `${apiUrl}/api/user/registerclient`,
-        {
+        `${apiUrl}/api/orders-cart/pay-orders/${profile.user.client_id}`,
+        { cardInfo, eventAndSeat_Ids },
+        { withCredentials: true, });
 
-        },
-        { withCredentials: true, }
-      );
+      if (response) {
+        console.log(response.data);
+      }
 
     } catch (error) {
       const errorData = error.response.data;
@@ -73,7 +76,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
       }
 
     }
-  }
+  };
 
   useEffect(() => {
     ref.current.scrollIntoView({ behavior: "smooth" });

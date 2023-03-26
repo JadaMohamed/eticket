@@ -5,6 +5,7 @@ const router = express.Router();
 router.post('/add-to-cart', ordersCartController.addToCart);
 router.post('/', ordersCartController.createOrder);
 router.post('/many', ordersCartController.createManyOrder);
+router.post('/pay-orders/:clientId', ordersCartController.createOrdersPayment);
 router.get('/', ordersCartController.getAllOrders);
 router.get('/:orders_Cart_id', ordersCartController.getOrderById);
 router.get('/organizer/:orgId/recent', ordersCartController.getRecentOrdersByOrganizer);

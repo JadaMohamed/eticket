@@ -189,6 +189,24 @@ const getAllOrdersByOrganizer = async (req, res) => {
 
 
 
+
+const createOrdersPayment = async (req, res) => {
+    const {clientId}=req.params;
+    console.log(req.body)
+    return;
+    try {
+        const newOrder = await ordersCartService.createOrder(req.body);
+        res.json(newOrder);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create order' });
+    }
+};
+
+
+
+
+
 export default {
     createOrder,
     createManyOrder,
@@ -201,4 +219,5 @@ export default {
     getRecentOrdersByOrganizer,
     getAllOrdersByOrganizer,
     addToCart,
+    createOrdersPayment,
 };
