@@ -15,7 +15,7 @@ const createOrder = async (req, res) => {
 
 const addToCart = async (req, res) => {
     try {
-
+        // console.log(req.body)
         //we do not want to add existing order cart if not paid but increment quantity
         const { client_id, event_id } = req.body;
         const nonPaidOrderByEvent = await ordersCartService.getClientNonPaidOrdersByEevnt(client_id, event_id);

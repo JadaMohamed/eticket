@@ -48,6 +48,7 @@ function LocalEvents(props) {
                   location={levent.location}
                   category={levent.event_type}
                   date={levent.start_time}
+                  orgid={levent.org_id}
                 />
               ))}
           </div>
