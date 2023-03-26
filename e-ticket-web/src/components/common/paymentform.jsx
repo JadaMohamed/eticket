@@ -24,7 +24,16 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
     console.log('checkedCarts', checkedCarts);
 
     //fill the eventAndSeat_Ids table when checkedCarts change
-
+    // Create a new array with the event_id and seat_categ_id of each item in checkedCarts
+    const eventAndSeatIds = checkedCarts.map(item => {
+      console.log(item)
+      return {
+        event_id: item.Event.event_id,
+        seat_categ_id: item.seat_categ_id
+      }
+    })
+    // Set the state of the eventAndSeat_Ids variable
+    setEventAndSeat_Ids(eventAndSeatIds)
   }, [checkedCarts])
 
 
@@ -35,11 +44,16 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
   const expirationDay = useRef(null);
 
   const handelValidatePayment = async () => {
-    console.log(cardNumber.current.value);
-    console.log(cardOwner.current.value);
-    console.log(cvc.current.value);
-    console.log(expirationYear.current.value);
-    console.log(expirationDay.current.value);
+  
+    const cardInfo = {
+      cardNumber: cardNumber.current.value,
+      cardOwner: cardOwner.current.value ,
+      cvc: cvc.current.value,
+      expirationYear: expirationYear.current.value ,
+      expirationDay: expirationDay.current.value ,
+    }
+    //
+    console.log(cardInfo)
 
     try {
       const response = await axios.post(

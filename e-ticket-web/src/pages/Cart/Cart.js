@@ -58,13 +58,14 @@ function Cart() {
 
 
   //update the changed cart in the state (quantity and total price)
-  const updateCartQuantity = (order_id, newQuantity,newTotalPrice) => {
+  const updateCartQuantity = (order_id, newQuantity, newTotalPrice, newSeatId) => {
     const updatedCart = cart.map(item => {
       if (item.order_id === order_id) {
         return {
           ...item,
           quantity: newQuantity,
           total_price: newTotalPrice,
+          seat_categ_id:newSeatId
         }
       } else {
         return item
@@ -181,7 +182,7 @@ function Cart() {
                     seat_categ_id={item.seat_categ_id}
                     totalPriceCheckOut={totalPriceCheckOut}
                     setTotalPriceCheckOut={setTotalPriceCheckOut}
-                    updateCartQuantity={(newQuantity, newTotalPrice) => updateCartQuantity(item.order_id, newQuantity,newTotalPrice)}
+                    updateCartQuantity={(newQuantity, newTotalPrice, newSeatId) => updateCartQuantity(item.order_id, newQuantity, newTotalPrice, newSeatId)}
 
                   />
                 );
