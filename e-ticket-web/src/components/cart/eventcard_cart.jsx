@@ -36,11 +36,8 @@ function EventCard_Cart(props) {
 
 
   const updateOrdersCart = async () => {
-    console.log(quantity);
-    console.log(seatCategory);
-    // props.setTotalPrice()
+    props.setTotalPriceCheckOut(props.totalPriceCheckOut - totalPrice + parseInt(quantity) * parseInt(seatCategory.type_price))
     setTotalPrice(parseInt(quantity) * parseInt(seatCategory.type_price));
-
     try {
       const response = await axios.put(
         `${apiUrl}/api/orders-cart/${props.order_id}`,
@@ -53,7 +50,7 @@ function EventCard_Cart(props) {
       );
 
       if (response) {
-        console.log(response.data);
+        // console.log(response.data);
       }
 
     } catch (error) {

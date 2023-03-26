@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "../../css/payment_form.css";
 import axios from "axios";
 
-const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) => {
+const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut }, ref) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const currentYear = new Date().getFullYear();
   const years = [];
@@ -117,7 +117,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPrice }, ref) 
                 </tr>
                 <tr>
                   <td className="head">Amount :</td>
-                  <td>{totalPrice} MAD</td>
+                  <td>{totalPriceCheckOut} MAD</td>
                 </tr>
                 </tbody>
               </table>

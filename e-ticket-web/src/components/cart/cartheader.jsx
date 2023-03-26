@@ -11,7 +11,7 @@ function CartHeader({
   selectedItems,
   deleteFromCart,
   selectAll,
-  totalPrice,
+  totalPriceCheckOut,
   setCheckOut,
   isLoggedIn,
 }) {
@@ -59,7 +59,7 @@ function CartHeader({
             <div>
               Check out{" "}
               <span className="price-section">
-                ( <span className="total-price">{totalPrice}</span>
+                ( <span className="total-price">{totalPriceCheckOut}</span>
                 <span className="curr"> MAD</span> )
               </span>
             </div>
