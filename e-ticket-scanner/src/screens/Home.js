@@ -18,6 +18,9 @@ const Home = ({route, navigation}) => {
   const [isFullyExpanded, setFullyExpanded] = useState(false);
   const [selectedEventCard, setSelectedEventCard] = useState(0);
   const [events, setEvents] = useState([]);
+  const [nbrSeatCategories, setNbrSeatCategories] = useState(0);
+  const [orgName, setOrgName] = useState({firstName: "", lastName: "", avatar: ""});
+  
   useEffect(() => {
     const fetchEvents = async () => {
       const response = await fetch(
@@ -25,12 +28,41 @@ const Home = ({route, navigation}) => {
       );
       const data = await response.json();
       setEvents(data.Events);
+      console.log(data.Events);
     };
+
+    const fetchOrganizerName = async () => {
+      const response = await fetch(
+        `${API_URL}/api/accounts/${route.params?.account_id}`,
+      );
+      const data = await response.json();
+      setOrgName({firstName: data.first_name, lastName: data.last_name, avatar: data.avatar});
+      console.log(data.Events);
+    };
+
     if (route.params?.org_id) {
       fetchEvents();
     }
+
+    if(route.params?.account_id) {
+      fetchOrganizerName();
+    }
   }, []);
 
+  //http://localhost:8000/api/seat-categories/event/2
+  useEffect(() => {
+    if(events.length != 0) {
+      const fetchEventCategories = async () => {
+        const response = await fetch(
+          `${API_URL}/api/seat-categories/event/${events[selectedEventCard].event_id}`,
+        );
+        const data = await response.json();
+        console.log("seat categories : " , data);
+        setNbrSeatCategories(data.length);
+      };
+      fetchEventCategories();
+    }
+  }, [events, selectedEventCard])
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['40%', '100%'], []);
 
@@ -60,7 +92,7 @@ const Home = ({route, navigation}) => {
     <LinearGradient colors={['#30194F', '#552E88']} style={styles.container}>
       <Logo style={styles.logo} />
       <Spacer size={100} />
-      <OrganizerInformations numberEvents={events.length} />
+      <OrganizerInformations numberEvents={events.length} name={orgName}/>
       <BottomSheet
         ref={bottomSheetRef}
         index={0}
@@ -98,6 +130,7 @@ const Home = ({route, navigation}) => {
                     title={events[selectedEventCard]?.title}
                     location={events[selectedEventCard]?.location}
                     date={events[selectedEventCard]?.start_time}
+                    brandUrl={events[selectedEventCard]?.brand_url}
                   />
                 </TouchableOpacity>
               )}
@@ -110,7 +143,7 @@ const Home = ({route, navigation}) => {
                       {events[selectedEventCard]?.number_sold_tickets}/
                       {events[selectedEventCard]?.max_number_attendants} Seats
                     </Text>
-                    <Text>3 Categories</Text>
+                    <Text>{nbrSeatCategories} Categories</Text>
                   </>
                 )}
               </View>

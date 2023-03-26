@@ -17,7 +17,7 @@ const Authentification = ({navigation}) => {
   const emailChangeHandler = value => setEmail(value);
   const passwordChangeHandler = value => setPassword(value);
   const navigateToEvents = useCallback(
-    orgId => navigation.replace('Home', {org_id: orgId}),
+    (orgId, accountId) => navigation.replace('Home', {org_id: orgId, account_id: accountId}),
     [],
   );
 
@@ -52,7 +52,7 @@ const Authentification = ({navigation}) => {
       const accountId = await response.json();
       const organizer = await fetchOrganizer(accountId);
       console.log(organizer);
-      navigateToEvents(organizer.org_id);
+      navigateToEvents(organizer.org_id, organizer.account_id);
     } catch (error) {
       console.error('Failed to login :', error);
       setsigninin(false);

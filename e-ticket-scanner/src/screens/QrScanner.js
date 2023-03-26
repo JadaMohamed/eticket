@@ -40,12 +40,14 @@ const QrScanner = ({ route, navigation }) => {
     const handleBarCodeScanned = ({ type, data }) => {
         const ticket = tickets.find((ticketObj) => ticketObj.qrcode === data);
         console.log(ticket);
+        const params = { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id, num_uses: ticket?.num_uses, client_id: ticket?.client_id, seat_categ_id: ticket?.seat_categ_id, created_at: ticket?.created_at };
+
         if (!ticket) {
-            navigation.replace("InvalidTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id, num_uses: ticket?.num_uses })
+            navigation.replace("InvalidTicket", params)
         } else if (Number(ticket?.num_uses) > 0) {
-            navigation.replace("RecordedTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id, num_uses: ticket?.num_uses })
+            navigation.replace("RecordedTicket", params)
         } else {
-            navigation.replace("ValidTicket", { ticket: ticket, ticket_id: ticket?.ticket_id, event_id: route.params.event_id,  num_uses: ticket?.num_uses })
+            navigation.replace("ValidTicket", params)
         }
     };
     return (

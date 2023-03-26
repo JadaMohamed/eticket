@@ -21,8 +21,8 @@ function Card(props) {
         `${apiUrl}/api/orders-cart/add-to-cart`,
         {
           quantity: 1,
+          org_id: parseInt(props.orgid),
           event_id: props.eventid,
-          org_id: props.org_id,
           client_id: profile.user.client_id,
         },
         { withCredentials: true, }

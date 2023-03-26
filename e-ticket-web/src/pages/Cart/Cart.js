@@ -20,7 +20,8 @@ function Cart() {
   const [checkOut, setCheckOut] = useState(false);
   const [checkOutData, setCheckOutData] = useState();
   const [selectedCards, setSelectedCards] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  //this is for the checkout
+  const [totalPriceCheckOut, setTotalPriceCheckOut] = useState(0);
 
 
   const getClientNonPaidOrders = async () => {
@@ -39,18 +40,41 @@ function Cart() {
   };
 
   useEffect(() => {
-    getClientNonPaidOrders();
-    console.log('cart', cart)
+    if (profile && profile.user) {
+      getClientNonPaidOrders();
+    }
   }, [profile])
 
+  useEffect(() => {
+    console.log('cart', cart)
+    // console.log('selectedCards', selectedCards);
+    const newCheckout = cart
+      .filter((item) => selectedCards.includes(item.order_id)) // filter cart items based on selected cards' IDs
+      .reduce((acc, curr) => acc + curr.total_price, 0); // compute total price of filtered items
+    setTotalPriceCheckOut(newCheckout);
+    console.log(newCheckout)
+    console.log(totalPriceCheckOut)
+  }, [selectedCards, cart]);
+
+
+  //update the changed cart in the state (quantity and total price)
+  const updateCartQuantity = (order_id, newQuantity,newTotalPrice) => {
+    const updatedCart = cart.map(item => {
+      if (item.order_id === order_id) {
+        return {
+          ...item,
+          quantity: newQuantity,
+          total_price: newTotalPrice,
+        }
+      } else {
+        return item
+      }
+    })
+    setCart(updatedCart)
+  }
 
 
 
-
-  const totalPriceHandler = (old, newP) => {
-    if (isNaN(newP) || isNaN(old)) return;
-    setTotalPrice((prev) => prev - old + newP);
-  };
 
   const selectCard = (order_id) => {
     if (selectedCards.includes(order_id)) return;
@@ -61,21 +85,17 @@ function Cart() {
     setSelectedCards((e) => selectedCards.filter((val) => val !== order_id));
   };
 
-  useEffect(() => {
-    console.log(selectedCards)
-  }, [selectedCards])
-  
-
   const deleteFromCart = async () => {
+    if (selectedCards.length < 1) {
+      return;
+    }
     console.log('trying to delete ..')
-    console.log('cart',cart)
     const newCart = cart.filter(
       (item) => !selectedCards.includes(item.order_id)
     );
     setCart(newCart);
     setAllCart(newCart);
     console.log('selectedCards', selectedCards)
-
     //delete it in data base also
     try {
       const response = await axios.post(
@@ -84,15 +104,21 @@ function Cart() {
         { withCredentials: true, },
       );
       if (response) {
-        console.log(response.data)
+        // console.log(response.data)
       }
+      setSelectedCards([]);
     } catch (error) {
       console.error(error);
     }
   };
 
   const selectAll = () => {
-    setSelectedCards(cart.map((val) => val.eventId));
+    if (selectedCards.length !== cart.length) {
+      setSelectedCards(cart.map((val) => val.order_id));
+    } else {
+      setSelectedCards([]);
+    }
+
   };
   const [keyword, setKeyword] = useState("");
 
@@ -100,6 +126,7 @@ function Cart() {
     if (!cart) {
       return;
     }
+    setSelectedCards([])
     //chearch card
     setCart(
       Allcart.filter(
@@ -107,7 +134,6 @@ function Cart() {
           cart.Event.location.toLowerCase().includes(keyword.toLowerCase()) ||
           cart.Event.event_type.toLowerCase().includes(keyword.toLowerCase()) ||
           cart.Event.title.toLowerCase().includes(keyword.toLowerCase())
-        // cart.seatCategory.toLowerCase().includes(keyword.toLowerCase())
       )
     );
   }, [keyword]);
@@ -125,7 +151,7 @@ function Cart() {
         selectedItems={selectedCards}
         deleteFromCart={deleteFromCart}
         selectAll={selectAll}
-        totalPrice={totalPrice}
+        totalPriceCheckOut={totalPriceCheckOut}
         setCheckOut={setCheckOut}
         isLoggedIn={isLoggedIn}
       />}
@@ -152,7 +178,11 @@ function Cart() {
                     selectedCards={selectedCards}
                     setCardSelected={selectCard}
                     setCardUnSelected={unSelectCard}
-                    totalPriceHandler={totalPriceHandler}
+                    seat_categ_id={item.seat_categ_id}
+                    totalPriceCheckOut={totalPriceCheckOut}
+                    setTotalPriceCheckOut={setTotalPriceCheckOut}
+                    updateCartQuantity={(newQuantity, newTotalPrice) => updateCartQuantity(item.order_id, newQuantity,newTotalPrice)}
+
                   />
                 );
               })
@@ -168,7 +198,7 @@ function Cart() {
         <PaymentForm
           setCheckOut={setCheckOut}
           client={profile}
-          totalPrice={totalPrice}
+          totalPriceCheckOut={totalPriceCheckOut}
           ref={myRef}
         />
       ) : (

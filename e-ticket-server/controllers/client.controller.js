@@ -96,6 +96,21 @@ const updateClient = async (req, res) => {
     }
 };
 
+const getClientAccountInformations = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const accountInformations = await clientService.getClientAccountInformations(parseInt(id));
+
+        if (accountInformations) {
+            res.json(accountInformations);
+        } else {
+            res.status(404).json({ error: `Client with id ${id} not found` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 
 
 export default {
@@ -105,5 +120,5 @@ export default {
     getClientById,
     deleteClienById,
     updateClient,
-
+    getClientAccountInformations
 };
