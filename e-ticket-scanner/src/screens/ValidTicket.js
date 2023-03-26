@@ -1,5 +1,5 @@
 import { Dimensions, PixelRatio, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import Valid from "../assets/Validation/Valid.svg"
 import ValidMark from "../assets/Validation/ValidMark.svg"
@@ -9,6 +9,50 @@ import { widthPercentageToDP } from '../constants/Layout'
 import { API_URL } from '../constants/Api'
 
 const ValidTicket = ({ route, navigation }) => {
+  const [clientName, setClientName] = useState({firstName: "", lastName: ""});
+  const [seatCategoryName, setSeatCategoryName] = useState("");
+  useEffect(() => {
+    //http://localhost:8000/api/clients/account/3
+    const fetchClientName = async () => {
+      const response = await fetch(
+        `${API_URL}/api/clients/account/${route.params?.client_id}`,
+      );
+      const data = await response.json();
+      setClientName({firstName: data.Account.first_name, lastName: data.Account.last_name});
+      console.log("client account meow de meow : ",data.Account);
+    };
+    const getSeatCategoryName = async () => {
+      const response = await fetch(
+        //http://localhost:8000/api/seat-categories/3
+        `${API_URL}/api/seat-categories/${route.params?.seat_categ_id}`,
+      );
+      const data = await response.json();
+      setSeatCategoryName(data.type_name);
+      console.log("client account meow de meow : ",data.Account);
+    };
+
+    fetchClientName();
+    getSeatCategoryName();
+  }, [])
+
+  function formatDateString(dateString) {
+    console.log("got the string ", dateString);
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
+    const date = new Date(dateString);
+  
+    const dayOfWeek = daysOfWeek[date.getUTCDay()];
+    const month = monthsOfYear[date.getUTCMonth()];
+    const dayOfMonth = date.getUTCDate();
+    const year = date.getUTCFullYear();
+    const hours = date.getUTCHours().toString().padStart(2, '0');
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+  
+    return `${dayOfWeek}, ${month} ${dayOfMonth} ${year}, ${hours}:${minutes}:${seconds}`;
+  }
+
   const doneHandler = () => navigation.pop();
   console.log("ticket num uses : ", route.params.num_uses);
   function updateTicket(ticketId) {
@@ -45,12 +89,12 @@ const ValidTicket = ({ route, navigation }) => {
             <Spacer />
             <Text style={{ fontSize: 18, fontWeight: "900", color: "#000000" }}>Ticket Valide</Text>
             <Spacer />
-            <Text style={{ color: "#808080", fontSize: 12 }}>Event ID: KBHD6G</Text>
-            <Text style={{ color: "#808080", fontSize: 12 }}>Ticket ID: K8HD6-6BJG-GTU8</Text>
+            <Text style={{ color: "#808080", fontSize: 12 }}>Event ID: {route.params.event_id}</Text>
+            <Text style={{ color: "#808080", fontSize: 12 }}>Ticket ID: {route.params.ticket_id}</Text>
             <Spacer />
             <Text style={{ color: "#808080", fontSize: 12 }}>Seat Category</Text>
             <Spacer />
-            <Text style={{ fontSize: 18, fontWeight: "900", color: "#000000" }}>Back Stage</Text>
+            <Text style={{ fontSize: 18, fontWeight: "900", color: "#000000" }}>{seatCategoryName}</Text>
           </View>
 
           <View style={{ position: "absolute", bottom: widthPercentageToDP("7%"), width: "75%" }}>
@@ -60,8 +104,9 @@ const ValidTicket = ({ route, navigation }) => {
               <View style={{ backgroundColor: "#97C396", borderRadius: 40, height: 40, width: 40 }}>
               </View>
               <View style={{ flexDirection: "column", width: "100%" }}>
-                <Text style={{ color: "#000000", fontSize: 16, fontWeight: "600" }}>Olay Bemiline</Text>
-                <Text style={{ fontSize: 14, width: widthPercentageToDP("55%") }} numberOfLines={1} ellipsizeMode={"tail"}>Friday, February 18 2023, 12:47:39</Text>
+                <Text style={{ color: "#000000", fontSize: 16, fontWeight: "600" }}>{clientName?.firstName} {clientName?.lastName}</Text>
+                {/* Friday, February 18 2023, 12:47:39 */}
+                <Text style={{ fontSize: 14, width: widthPercentageToDP("55%") }} numberOfLines={1} ellipsizeMode={"tail"}>{formatDateString(route.params.created_at)}</Text>
               </View>
             </View>
           </View>

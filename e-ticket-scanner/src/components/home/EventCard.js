@@ -1,4 +1,4 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { memo } from 'react';
 import ArrowDown from "./ArrowDown";
 const EventCard = ({ isSelected, isList, title, date, location, brandUrl }) => {

@@ -10,7 +10,7 @@ const getAllClients = async () => {
     return prisma.client.findMany({
         include:{
             ClientWaitList:true,
-            Orders_Cart:true,
+            // Orders_Cart:true,
         }
     });
 };
@@ -41,7 +41,15 @@ const updateClient = async (id, updates) => {
     });
 };
 
-
+const getClientAccountInformations = async (clientId) => {
+    const clientInfo = await prisma.client.findUnique({
+      where: { client_id: clientId },
+      include: {
+        Account: true,
+      }
+    });
+    return clientInfo;
+  }
 
 export default {
     createClient,
@@ -49,5 +57,5 @@ export default {
     getClientById,
     deleteClienById,
     updateClient,
-
+    getClientAccountInformations
 };
