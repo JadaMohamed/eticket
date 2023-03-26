@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "../../css/payment_form.css";
 import axios from "axios";
+import AuthContext from "../../Auth/AuthContext";
 
-const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut }, ref) => {
+const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut, checkedCarts }, ref) => {
+  const { profile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
   const currentYear = new Date().getFullYear();
   const years = [];
@@ -14,13 +16,27 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut 
     days.push(i);
   }
 
+  //data will be send to the backend for the payment 
+  const checkoutData = {
+    client_id: profile.user.client_id,
+
+  }
+
+  useEffect(() => {
+    //checkedCarts contain all info of the carts that user selected
+    console.log('checkedCarts', checkedCarts);
+
+
+  }, [checkedCarts])
+
+
   const cardNumber = useRef(null);
   const cardOwner = useRef(null);
   const cvc = useRef(null);
   const expirationYear = useRef(null);
   const expirationDay = useRef(null);
 
-  const handelValidatePayment= async()=>{
+  const handelValidatePayment = async () => {
     console.log(cardNumber.current.value);
     console.log(cardOwner.current.value);
     console.log(cvc.current.value);
@@ -35,7 +51,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut 
         },
         { withCredentials: true, }
       );
-    
+
     } catch (error) {
       const errorData = error.response.data;
       if (errorData.errors) {
@@ -50,7 +66,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut 
   useEffect(() => {
     ref.current.scrollIntoView({ behavior: "smooth" });
   }, [])
-  
+
   return (
     <div className="payment" ref={ref}>
       <div className="payment-container">
@@ -110,14 +126,14 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut 
             <div className="rows">
               <table>
                 <tbody>
-                <tr>
-                  <td className="head">Order ID :</td>
-                  <td>HEF7NEF6E</td>
-                </tr>
-                <tr>
-                  <td className="head">Amount :</td>
-                  <td>{totalPriceCheckOut} MAD</td>
-                </tr>
+                  <tr>
+                    <td className="head">Order ID :</td>
+                    <td>HEF7NEF6E</td>
+                  </tr>
+                  <tr>
+                    <td className="head">Amount :</td>
+                    <td>{totalPriceCheckOut} MAD</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -127,20 +143,20 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut 
             <div className="rows">
               <table>
                 <tbody>
-                <tr>
-                  <td className="head">Name :</td>
-                  <td>
-                    {client.account.first_name} {client.account.last_name}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="head">Email :</td>
-                  <td>{client.account.email}</td>
-                </tr>
-                <tr>
-                  <td className="head">Phone :</td>
-                  <td>{client.account.phone_number}</td>
-                </tr>
+                  <tr>
+                    <td className="head">Name :</td>
+                    <td>
+                      {client.account.first_name} {client.account.last_name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="head">Email :</td>
+                    <td>{client.account.email}</td>
+                  </tr>
+                  <tr>
+                    <td className="head">Phone :</td>
+                    <td>{client.account.phone_number}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

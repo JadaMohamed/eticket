@@ -200,6 +200,7 @@ function Cart() {
           client={profile}
           totalPriceCheckOut={totalPriceCheckOut}
           ref={myRef}
+          checkedCarts={cart.filter((item) => selectedCards.includes(item.order_id))}
         />
       ) : (
         ""
