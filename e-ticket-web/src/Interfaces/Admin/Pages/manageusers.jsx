@@ -11,7 +11,7 @@ const AdminUserManager = () => {
   const [users, setUsers]=useState();
   useEffect(()=>{
     const fetchUsers= async()=>{
-      const res=await axios.get(`${apiUrl}/api/admins/users/all`);
+      const res = await axios.get(`${apiUrl}/api/admins/users/all`, { withCredentials: true });
       setUsers(res.data);
     }
     fetchUsers();

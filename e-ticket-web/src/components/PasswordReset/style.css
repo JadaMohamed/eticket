@@ -14,7 +14,7 @@ body {
     align-items: center;
     flex-direction: column;
 }
-label input{
+.msg-email label  input{
     width: 300px;
     font-size: 20px;
     border-radius: 12px;
