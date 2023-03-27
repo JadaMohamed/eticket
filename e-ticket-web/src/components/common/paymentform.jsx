@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "../../css/payment_form.css";
 import axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut, checkedCarts }, ref) => {
+  const navigate = useNavigate();
   const { profile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
   const currentYear = new Date().getFullYear();
@@ -136,6 +138,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
 
       if (response) {
         console.log(response.data);
+        navigate("/mytickets");
       }
 
     } catch (error) {
