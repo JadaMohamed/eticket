@@ -1,5 +1,6 @@
 import cardService from '../services/card.service.js';
 import ordersCartService from '../services/orders-cart.service.js';
+import organizerService from '../services/organizers.service.js';
 import seatCategoryService from '../services/seat-category.service.js';
 import ticketService from '../services/ticket.service.js';
 
@@ -194,7 +195,7 @@ const getAllOrdersByOrganizer = async (req, res) => {
 
 const createOrdersPayment = async (req, res) => {
     const { clientId } = req.params;
-    //the table eventAndSeat_Ids contains eventid and seatid and also organizerid
+    //the table eventAndSeat_Ids contains eventid and seatid and also organizerid and unitprice
     const { totalPriceCheckOut, cardInfo, eventAndSeat_Ids } = req.body;
     try {
         const card = await cardService.validateCard(totalPriceCheckOut, cardInfo);
@@ -226,7 +227,7 @@ const createOrdersPayment = async (req, res) => {
         // console.log(newTickets)
         //this will change from tow dimantion array to one dimantion array
         const allCreatedTickets = newTickets.flat();
-        console.log(allCreatedTickets)
+        // console.log(allCreatedTickets)
         if (!allCreatedTickets || allCreatedTickets.some(ticket => !ticket)) {
             //some times if there are many some will be created and some not
             //delete the ones which was create
@@ -252,8 +253,34 @@ const createOrdersPayment = async (req, res) => {
             }));
             res.status(400).json({ error: "error shows when updating the sold of client card" });
         }
-
+        // console.log('updatedClientCard')
+        // console.log(updatedClientCard)
         //update the organizers profit
+        // const updatedOrganizers = await Promise.all(
+        //     eventAndSeat_Ids.map(item => {
+        //         const currentProfit = organizerService.getProfitOrganizerById(parseInt(item.orgId));
+        //         return organizerService.updateOrganizer(parseInt(item.orgId), { profit: currentProfit + parseInt(item.quantity) * parseFloat(item.unitPrice) });
+        //     }))
+        const updatedOrganizers = [];
+        for (const item of eventAndSeat_Ids) {
+            // console.log(item)
+            const currentProfitObj = await organizerService.getProfitOrganizerById(parseInt(item.orgId));
+            const currentProfit = currentProfitObj.profit;
+            // console.log('currentProfit')
+            // console.log(currentProfit)
+            const updatedProfit = parseFloat(currentProfit) + parseFloat(item.quantity) * parseFloat(item.unitPrice);
+            const updatedOrganizer = await organizerService.updateOrganizer(parseInt(item.orgId), { profit: updatedProfit });
+            updatedOrganizers.push(updatedOrganizer);
+        }
+
+        if (!updatedOrganizers || updatedOrganizers.some(organizer => !organizer)) {
+            return res.status(400).json({ error: "An error shows when updating orgnizers profits" });
+        }
+        ///////////////
+        // console.log('updatedOrganizers')
+        // console.log(updatedOrganizers)
+        console.log('payment pass successfully')
+        return res.status(201).json({ msg: "payment pass successfully" });
 
 
 

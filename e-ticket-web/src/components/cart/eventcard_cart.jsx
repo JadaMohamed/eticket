@@ -39,7 +39,7 @@ function EventCard_Cart(props) {
     //update the cart here //I donot need to update the seat info in the steat because we donot need it
     //in this cas like seat_categ_id and unite price 
     //this second arg is the new total price in this cart 
-    props.updateCartQuantity(quantity, parseInt(quantity) * parseFloat(seatCategory.type_price), parseInt(seatCategory.seat_categ_id));
+    props.updateCartQuantity(quantity, parseInt(quantity) * parseFloat(seatCategory.type_price), parseInt(seatCategory.seat_categ_id), seatCategory.type_price);
 
     //update in data base here
     try {

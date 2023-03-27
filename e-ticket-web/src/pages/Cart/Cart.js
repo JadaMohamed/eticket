@@ -58,20 +58,23 @@ function Cart() {
 
 
   //update the changed cart in the state (quantity and total price)
-  const updateCartQuantity = (order_id, newQuantity, newTotalPrice, newSeatId) => {
+  const updateCartQuantity = (order_id, newQuantity, newTotalPrice, newSeatId, newUnitPrice) => {
     const updatedCart = cart.map(item => {
       if (item.order_id === order_id) {
         return {
           ...item,
           quantity: newQuantity,
           total_price: newTotalPrice,
-          seat_categ_id:newSeatId
+          seat_categ_id:newSeatId,
+          unitPrice: newUnitPrice,
+
         }
       } else {
         return item
       }
     })
     setCart(updatedCart)
+    console.log(cart)
   }
 
 
@@ -182,7 +185,7 @@ function Cart() {
                     seat_categ_id={item.seat_categ_id}
                     totalPriceCheckOut={totalPriceCheckOut}
                     setTotalPriceCheckOut={setTotalPriceCheckOut}
-                    updateCartQuantity={(newQuantity, newTotalPrice, newSeatId) => updateCartQuantity(item.order_id, newQuantity, newTotalPrice, newSeatId)}
+                    updateCartQuantity={(newQuantity, newTotalPrice, newSeatId, newUnitPrice) => updateCartQuantity(item.order_id, newQuantity, newTotalPrice, newSeatId, newUnitPrice)}
 
                   />
                 );

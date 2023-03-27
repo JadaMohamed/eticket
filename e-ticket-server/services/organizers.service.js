@@ -24,6 +24,15 @@ const getOrganizerById = async (org_id) => {
     });
 };
 
+const getProfitOrganizerById = async (org_id) => {
+    return prisma.organizer.findUnique({
+        where: { org_id },
+       select:{
+        profit:true,
+       }
+    });
+};
+
 const getOrganizerByAccountId = async (account_id) => {
     return prisma.organizer.findUnique({
         where: { account_id },
@@ -59,4 +68,5 @@ export default {
     deleteOrganizerById,
     updateOrganizer,
     getOrganizerByAccountId,
+    getProfitOrganizerById,
 };
