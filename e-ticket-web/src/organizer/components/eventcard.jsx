@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../css/eventcard.css";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Image } from "cloudinary-react";
 
 const EventCard = ({
   event,
@@ -47,7 +48,7 @@ const EventCard = ({
   return (
     <div className="cardevent organizer-cardevent">
       <div className="previewimage with-title">
-        <img src={event.brand_url} alt="" />
+        <Image cloudName="djjwswdo4" publicId={event.brand_url} alt="" />
         <div className="event-title">{event.title}</div>
       </div>
       <div className="oevent-infos-actions">

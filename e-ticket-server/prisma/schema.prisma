@@ -68,6 +68,7 @@ model Organizer {
   account_id    Int           @unique
   city          String        @default("My City") @db.VarChar(50)
   Description   String        @default("Organizer description for account") @db.VarChar(500)
+  isVerified    Boolean       @default(false)
   Events        Event[]
   Account       Account       @relation(fields: [account_id], references: [account_id], onDelete: Cascade, map: "FK_Organizer_Account")
   Orders_Cart   Orders_Cart[]
@@ -102,7 +103,7 @@ model Event {
   org_id                Int
   trailer_video_url     String                @default("https://www.youtube.com/watch?v=6v18uaoyeHw") @db.VarChar(200)
   description           String                @db.VarChar(500)
-  brand_url             String                @default("https://www.guardiandisplay.co.uk/file_upload/images/galleries/event-branding/EB2.jpg") @db.VarChar(160)
+  brand_url             String                @db.VarChar(160)
   location              String                @default("Location") @db.VarChar(50)
   start_time            DateTime              @db.DateTime(0)
   number_sold_tickets   Int                   @default(0)

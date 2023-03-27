@@ -70,12 +70,12 @@ function App() {
               element={<Createevent />}
             />
           </Route>
-          {/* <Route element={<ProtectAdmin />}>      */}
+          <Route element={<ProtectAdmin />}>     
           {/* I disactivated it to work on interfaces cuz no admin account was verified yet */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/manageuser" element={<AdminUserManager />} />
           <Route path="/admin/sales" element={<AdminSales />} />
-          {/* </Route> */}
+          </Route>
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

@@ -21,7 +21,7 @@ const AdminDashboard = () => {
   const { profile, isLoggedIn } = useContext(AuthContext);
   useEffect(()=>{
     const fetchUserCount= async()=>{
-      const res= await axios.get(`${apiUrl}/api/admins/users/count/total`);
+      const res = await axios.get(`${apiUrl}/api/admins/users/count/total`, { withCredentials: true });
       console.log(res.data);
       setUserCount(res.data.organizersCount+res.data.clientsCount);
       console.log(userCount);
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
   const [lastWeekCount, setLastWeekCount]=useState();
   useEffect(()=>{
     const fetchLastWeekCount= async()=>{
-      const res=await axios.get(`${apiUrl}/api/admins//users/count/joined-last-week`);
+      const res = await axios.get(`${apiUrl}/api/admins//users/count/joined-last-week`, { withCredentials: true });
       setLastWeekCount(res.data);
       console.log(lastWeekCount);
     }
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
   const [totalEvents, setTotalEvents]=useState();
   useEffect(()=>{
     const fetchEventsStats= async()=>{
-      const res =await axios.get(`${apiUrl}/api/admins/events/count/total&weekcount`);
+      const res = await axios.get(`${apiUrl}/api/admins/events/count/total&weekcount`, { withCredentials: true });
       setLastWeekEvents(res.data.newCount);
       setTotalEvents(res.data.totalCount);
     }
@@ -60,7 +60,7 @@ const AdminDashboard = () => {
   useEffect(()=>{
     const fetchLast10Users=async()=>{
       setLast10Loader(true)
-      const res=await axios.get(`${apiUrl}/api/admins/users/last-10-joined`);
+      const res = await axios.get(`${apiUrl}/api/admins/users/last-10-joined`, { withCredentials: true });
       setLast10Users(res.data);
       setLast10Loader(false);
       console.log(last10Users);
