@@ -1,90 +1,118 @@
-body {
-    /* margin: 0;
-    padding: 0;
-    height: 100vh;
+.rest-massword{
+    width: 100%;
+    height: 80vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; */
+    position: fixed;
 }
-
-.msg-email{
+.rest-massword .rest-password-container{
+    margin: auto;
+    background-color: var(--White);
+    padding: 30px 50px;
+    border-radius: 8px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.msg-email label  input{
-    width: 300px;
+.rest-massword .rest-password-container .header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.rest-massword .rest-password-container .header .title{
     font-size: 20px;
-    border-radius: 12px;
-    padding: 5px;
+    color: var(--Purple);
+    font-weight: 600;
 }
-
-.password-reset-form {
+.rest-massword .rest-password-container .header .sub-title{
+font-size: 14px;
+color: var(--Grey1);
+margin-top: 10px;
+}
+.rest-massword .rest-password-container .form{
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+.rest-massword .rest-password-container .form .input{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    max-width: 400px;
+    margin: auto;
+    width: 100%;
 }
-
-.msg-email h1 {
-    margin-bottom: 20px;
+.rest-massword .rest-password-container .form .input label{
+    font-size: 14px;
+    color: var(--Grey1);
+    margin-bottom: 5px;
+    font-weight: 500;
 }
-
-.msg-email form {
+.rest-massword .rest-password-container .form .input input{
+    padding: 8px 15px;
+    border: 1px solid var(--Grey2);
+    border-radius: 8px;
+    font-size: 15px;
+    width: 100%;
+    max-width: 400px;
+    font-weight: 500;
+    outline: none;
+}
+.rest-massword .rest-password-container .form .warning{
+    max-width: 400px;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.msg-email label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 16px;
-}
-
-.msg-email input[type="password"] {
-    margin-top: 5px;
+    gap: 20px;
+    font-size: 13px;
+    background-color: rgba(255, 176, 147, 0.112);
     padding: 10px;
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-    font-size: 18px;
+    border-radius: 8px;
+    align-items: center;
+    color: var(--Grey1);
 }
-
-.msg-email button {
-    margin-top: 30px;
-    padding: 10px 20px;
+.rest-massword .rest-password-container .form .warning .icon{
+    display: flex;
+    padding: 10px;
+    border-right: 1px solid rgba(255, 176, 147, 0.2);
+    padding-right: 20px;
+}
+.rest-massword .rest-password-container .btn{
+    width: 100%;
+    display: flex;
+}
+.rest-massword .rest-password-container .btn-container{
+    padding: 7px 20px;
+    margin: auto;
+    text-align: center;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
-    background-color: #0077ff;
-    color: #fff;
-    font-size: 18px;
+    color: var(--White);
+    background-color: var(--Purple60);
+    font-weight: 400;
+    font-family: 'Segoe UI';
+    font-size: 14px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    width: 100%;
+    transition: .3s;
 }
-
-button:hover {
-    background-color: #005ad4;
+.rest-massword .rest-password-container .back .btn-container{
+    background-color: var(--White);
+    color: var(--Purple60);
+    border: 1px solid var(--Purple60);
 }
-
+.rest-massword .rest-password-container .btn:hover{
+    opacity: .9;
+}
+.rest-massword .rest-password-container .btns{
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
 .error-message {
     color: red;
     margin-top: 20px;
     font-size: 16px;
-}
-
-.green_btn {
-    border: none;
-    outline: none;
-    padding: 12px 0;
-    background-color: #3bb19b;
-    border-radius: 20px;
-    width: 180px;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
 }

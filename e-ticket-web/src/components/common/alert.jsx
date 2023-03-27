@@ -9,10 +9,10 @@ const Alert = ({color, msg, icon, setAlert, alert}) => {
         {icon==="clock" && <i class="fa-regular fa-clock"></i>}
         {icon==="error" && <i class="fa-regular fa-circle-xmark"></i>}
         </div>
-        <div className="message">{msg} !</div>
-        <div className="close" onClick={() => setAlert(false)}>
+        <div className="message">{msg}</div>
+        {msg && <div className="close" onClick={() => setAlert(false)}>
           <i class="fa-solid fa-xmark"></i>
-        </div>
+        </div>}
       </div>
   )
 }

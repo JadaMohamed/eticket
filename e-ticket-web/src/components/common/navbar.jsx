@@ -119,7 +119,9 @@ function Navbar(props) {
                 ) : (
                   ""
                 )}
-                <span className="material-symbols-outlined">shopping_cart</span>
+                <span class="material-symbols-outlined">
+shopping_basket
+</span>
               </div>
               <div
                 onClick={() => Nav("/mytickets", { replace: true })}
@@ -129,9 +131,9 @@ function Navbar(props) {
                 id="mytickets"
                 title="My Tickets"
               >
-                <span className="material-symbols-outlined">
-                  local_activity
-                </span>
+                <span class="material-symbols-outlined" style={{transform: 'rotate(90deg)'}}>
+confirmation_number
+</span>
               </div>
               {isLoggedIn ? (
                 <div
@@ -167,7 +169,7 @@ function Navbar(props) {
                     ref={menuRef}
                   >
                     <span className="material-symbols-outlined">
-                      person_pin
+                      login
                     </span>
                   </div>
                 </>

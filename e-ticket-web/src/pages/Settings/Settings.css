@@ -52,7 +52,8 @@
     border: 1px solid var(--Grey3);
     padding: 8px 15px;
     outline: none;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
 }
 .settings-page .settings-page-container .section-settings-top .collector-100 {
     width: 100%;
@@ -62,14 +63,16 @@
     border: 0px solid;
     background-color: transparent;
     border-radius: 8px;
+    font-size: 15px;
     outline: none;
-    font-weight: 600;
+    font-weight: 500;
 }
 .email-input {
     border-radius: 8px;
     border: 1px solid var(--Grey3);
     display: flex;
     align-items: center;
+    font-size: 15px !important;
 }
 .email-input .material-symbols-outlined {
     color: var(--Grey1);
@@ -85,9 +88,9 @@
     color: var(--Grey1);
     padding: 0 6px;
 }
-select::-ms-expand {
+/* select::-ms-expand {
     display: none;
-}
+} */
 .city-drop select {
     width: 100%;
     /*box-sizing: border-box;*/
@@ -98,9 +101,10 @@ select::-ms-expand {
     border-radius: 8px;
     outline: none;
     padding-right: 20px;
-    font-weight: 600;
+    font-weight: 500;
     appearance: none;
     cursor: pointer;
+    font-size: 15px ;
 }
 .avatar-collector .display {
     display: flex;
@@ -146,6 +150,8 @@ select::-ms-expand {
     color: transparent;
     outline: none;
     border: none;
+    font-weight: 500 !important;
+    font-size: 15px;
 }
 .avatar-collector .display .drag-drop-space input::file-selector-button {
     display: none;
@@ -198,7 +204,9 @@ select::-ms-expand {
     background-color: transparent;
     border-radius: 8px;
     outline: none;
-    font-weight: 600;
+    font-size: 15px !important;
+    /* font-weight: 600; */
+    font-weight: 500;
 }
 .settings-page .settings-page-container .section-settings-top .phone-collector .phone-input {
     border-radius: 8px;

@@ -534,7 +534,7 @@ const sendEmailResetPassword = async (req, res) => {
     try {
         const account = await accountService.getAccountByEmail(email);
         if (!account) {
-            return res.status(200).json({ msg: 'If your email exists in our database, you will receive a reset password link shortly. Please check your email.' });
+            return res.status(200).json({ msg: `Email has been sent to ${email} !` });
         }
         // generate JWT
         const eticketjwt = jwt.sign({
@@ -546,7 +546,7 @@ const sendEmailResetPassword = async (req, res) => {
         const text = `Hi ${account.first_name}, you can click the link below to reset your password:\n` + url;
         const isEmailsendSuccussfully = await sendVerificationEmail(email, "eticket reset password", text);
         if (isEmailsendSuccussfully === true) {
-            return res.status(200).json({ msg: "If your email exists in our database, you will receive a reset password link shortly. Please check your email." });
+            return res.status(200).json({ msg:`Email has been sent to ${email} !` });
         } else {
             return res.status(200).json({ msg: "We have a problem to send you the email try again later" });
         }
