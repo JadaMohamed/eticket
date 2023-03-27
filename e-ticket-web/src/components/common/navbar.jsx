@@ -10,6 +10,7 @@ import AuthContext from "../../Auth/AuthContext";
 import { Image } from "cloudinary-react";
 import SignUpNav from "./SignUpNav";
 import SignUpClient from "./sign_up";
+import Alert from "./alert";
 
 function Navbar(props) {
   const { profile, isLoggedIn } = useContext(AuthContext);
@@ -58,9 +59,20 @@ function Navbar(props) {
   useEffect(() => {
     console.log(profile);
   }, [profile]);
+  const [alert, setAlert]=useState(false);
+  const [alertParams, setAlertParams]=useState({color: '', msg: '', icon: ''});
+  useEffect(() => {
+      if (alert) {
+        const timer = setTimeout(() => {
+          setAlert(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+      }
+    }, [alert]);
   return (
     <nav className="nav">
       <div className="nav-container">
+        <Alert color={alertParams.color} msg={alertParams.msg} icon={alertParams.icon} setAlert={setAlert} alert={alert} />
         <a
           className="logoImage"
           onClick={() => Nav("/home", { replace: true })}
@@ -282,7 +294,10 @@ function Navbar(props) {
         />
       )}
       {popupSignUpClient && (
-        <SignUpClient setTrigger={setpopupSignUpClient} login={setpoupLogin} />
+        <SignUpClient setTrigger={setpopupSignUpClient} login={setpoupLogin}           
+        alert={alert}
+        setAlert={setAlert}
+        setAlertParams={setAlertParams}/>
       )}
     </nav>
   );

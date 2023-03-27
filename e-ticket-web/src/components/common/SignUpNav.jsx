@@ -8,7 +8,6 @@ import organizer from "../../img/organizer.svg";
 export default function SignUpNav(props) {
   const [isVisible, setVisible] = useState(false);
   const Nav = useNavigate();
-
   const toggleVisibility = () => {
     if (isVisible) setVisible(false);
     else setVisible(true);
