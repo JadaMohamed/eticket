@@ -35,7 +35,8 @@ const RecordedTicket = ({ route, navigation }) => {
     getSeatCategoryName();
   }, [])
 
-  function formatDateString(isoDateString) {
+  function formatDateString(dateString) {
+    console.log("got the string ", dateString);
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
@@ -51,6 +52,7 @@ const RecordedTicket = ({ route, navigation }) => {
   
     return `${dayOfWeek}, ${month} ${dayOfMonth} ${year}, ${hours}:${minutes}:${seconds}`;
   }
+  
   const doneHandler = () => navigation.pop();
   function updateTicket(ticketId) {
     fetch(`${API_URL}/api/scanner/tickets/${ticketId}`, {
@@ -103,7 +105,7 @@ const RecordedTicket = ({ route, navigation }) => {
               </View>
               <View style={{ flexDirection: "column", width: "100%" }}>
                 <Text style={{ color: "#000000", fontSize: 16, fontWeight: "600" }}>{clientName?.firstName} {clientName?.lastName}</Text>
-                <Text style={{ fontSize: 14, width: widthPercentageToDP("55%") }} numberOfLines={1} ellipsizeMode={"tail"}>{formatDateString(route.params.ticket_id)}</Text>
+                <Text style={{ fontSize: 14, width: widthPercentageToDP("55%") }} numberOfLines={1} ellipsizeMode={"tail"}>{formatDateString(route.params.created_at)}</Text>
               </View>
             </View>
           </View>
