@@ -246,7 +246,7 @@ const createOrdersPayment = async (req, res) => {
             res.status(400).json({ error: "error shows when updating the sold of client card" });
         }
 
-        //update the organizer profit
+        //update the organizers profit
 
 
 

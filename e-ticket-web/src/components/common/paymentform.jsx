@@ -30,7 +30,8 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
       return {
         event_id: item.Event.event_id,
         seat_categ_id: item.seat_categ_id,
-        orgId: item.org_id
+        orgId: item.org_id,
+        quantity: item.quantity,
       }
     })
     // Set the state of the eventAndSeat_Ids variable
