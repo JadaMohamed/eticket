@@ -167,7 +167,7 @@ const eventController = {
       org_id: parseInt(orgId),
       trailer_video_url: req.body.trailer_video_url, //not
       description: req.body.description,
-      brand_url: req.body.brand_url,
+      brand_url: req.body.Event_Images[0].img_url,
       location: req.body.address1 + "," + req.body.address2,
       start_time: req.body.startTime,
       //calculate the totalSeats from the table categories
