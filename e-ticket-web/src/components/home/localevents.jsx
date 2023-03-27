@@ -32,7 +32,7 @@ function LocalEvents(props) {
         {levents.length > 0 ? (
           <div className="cards">
             {levents
-              .filter((levent) => levent.location.toLowerCase().includes(props.city.toLowerCase()))
+              .filter((levent) => levent.location.includes(props.city))
               .slice(0, 4)
               .map((levent) => (
                 <Card
