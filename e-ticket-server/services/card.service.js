@@ -6,9 +6,9 @@ const createCard = async (data) => {
     return await prisma.card.create({ data });
 };
 
-const getCardById = async (id) => {
+const getCardBycardNumber = async (cardNumber) => {
     return await prisma.card.findUnique({
-        where: { id: parseInt(id) },
+        where: { cardNumber: cardNumber },
         include: {
             transactions: true,
             account: true,
@@ -24,20 +24,16 @@ const getAllCards = async () => {
     });
 };
 
-const updateCard = async (id, updates) => {
+const updateCard = async (cardNumber, updates) => {
     return await prisma.card.update({
-        where: { id: parseInt(id) },
+        where: { cardNumber: cardNumber },
         data: updates,
-        include: {
-            transactions: true,
-            account: true,
-        },
     });
 };
 
-const deleteCard = async (id) => {
+const deleteCard = async (cardNumber) => {
     return await prisma.card.delete({
-        where: { id: parseInt(id) },
+        where: { cardNumber: cardNumber },
     });
 };
 
@@ -57,14 +53,14 @@ const validateCard = async (totalPriceCheckOut,cardInfo) => {
     if (card.sold < totalPriceCheckOut){
         return 'sold error';
     }
-    return true;
+    return card;
 };
 
 
 export default {
     createCard,
     getAllCards,
-    getCardById,
+    getCardBycardNumber,
     updateCard,
     deleteCard,
     validateCard,

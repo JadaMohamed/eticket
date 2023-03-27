@@ -194,13 +194,14 @@ const getAllOrdersByOrganizer = async (req, res) => {
 
 const createOrdersPayment = async (req, res) => {
     const { clientId } = req.params;
+    //the table eventAndSeat_Ids contains eventid and seatid and also organizerid
     const { totalPriceCheckOut, cardInfo, eventAndSeat_Ids } = req.body;
     try {
-        const cardStatus = await cardService.validateCard(totalPriceCheckOut, cardInfo);
-        if (!cardStatus) {
+        const card = await cardService.validateCard(totalPriceCheckOut, cardInfo);
+        if (!card) {
             return res.status(400).json({ error: "card not valide can not make transaction" });
         }
-        if (cardStatus === 'sold error') {
+        if (card === 'sold error') {
             return res.status(400).json({ error: "card sold not valid can not make transaction" });
         }
         //add qr codes to the table eventAndSeat_Ids
@@ -230,8 +231,24 @@ const createOrdersPayment = async (req, res) => {
             return res.status(400).json({ error: "An error shows when creating the tickets so it is canced" });
         }
 
-        //after that we create ticket will make payment transforming
-     
+        //after that we create ticket will make payment transforming by update sold in card of client
+        //and update the profit of organizers
+
+        //update the client card
+        const updatedClientCard = await cardService.updateCard(cardInfo.cardNumber, { sold: card.sold - totalPriceCheckOut });
+        if (!updatedClientCard) {
+            //because of this problem will delete created ticket
+            await Promise.all(newTickets.map(ticket => {
+                if (ticket) {
+                    ticketService.deleteticketById(parseInt(ticket.ticket_id))
+                }
+            }));
+            res.status(400).json({ error: "error shows when updating the sold of client card" });
+        }
+
+        //update the organizer profit
+
+
 
     } catch (err) {
         console.error(err);
