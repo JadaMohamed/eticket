@@ -212,18 +212,25 @@ const createOrdersPayment = async (req, res) => {
         //create tickets for the client eventAndSeat_Ids
         const newTickets = await Promise.all(
             eventAndSeat_Ids.map(item => {
-                //
-                const randomString = Math.random().toString(36).substring(7); // generate a random string
-                const uniqueId = Date.now(); // generate a unique identifier
-                const qrCodeText = `${randomString}-${uniqueId}`; // concatenate the random string and unique identifier
-                //create ticket
-                return ticketService.createTicket({ event_id: item.event_id, seat_categ_id: item.seat_categ_id, client_id: parseInt(clientId), qrcode: qrCodeText });
-            }));
-
-        if (!newTickets || newTickets.some(ticket => !ticket)) {
+                const tickets = [];
+                for (let i = 0; i < item.quantity; i++) {
+                    const randomString = Math.random().toString(36).substring(7); // generate a random string
+                    const uniqueId = Date.now(); // generate a unique identifier
+                    const qrCodeText = `${randomString}-${uniqueId}-${i}`; // concatenate the random string, unique identifier, and iteration index
+                    tickets.push(ticketService.createTicket({ event_id: item.event_id, seat_categ_id: item.seat_categ_id, client_id: parseInt(clientId), qrcode: qrCodeText }));
+                }
+                return Promise.all(tickets);
+            })
+        );
+        //this is a tow dimantion array
+        // console.log(newTickets)
+        //this will change from tow dimantion array to one dimantion array
+        const allCreatedTickets = newTickets.flat();
+        console.log(allCreatedTickets)
+        if (!allCreatedTickets || allCreatedTickets.some(ticket => !ticket)) {
             //some times if there are many some will be created and some not
             //delete the ones which was create
-            await Promise.all(newTickets.map(ticket => {
+            await Promise.all(allCreatedTickets.map(ticket => {
                 if (ticket) {
                     ticketService.deleteticketById(parseInt(ticket.ticket_id))
                 }
@@ -238,7 +245,7 @@ const createOrdersPayment = async (req, res) => {
         const updatedClientCard = await cardService.updateCard(cardInfo.cardNumber, { sold: card.sold - totalPriceCheckOut });
         if (!updatedClientCard) {
             //because of this problem will delete created ticket
-            await Promise.all(newTickets.map(ticket => {
+            await Promise.all(allCreatedTickets.map(ticket => {
                 if (ticket) {
                     ticketService.deleteticketById(parseInt(ticket.ticket_id))
                 }
