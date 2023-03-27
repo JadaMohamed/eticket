@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    align-items: center;
+    height: fit-content;
 }
 .row-section .right-side-row-section .collector-row :first-child {
     width: 100%;
@@ -13,9 +15,9 @@
     color: var(--Purple);
     cursor: pointer;
     transition: var(--Trans03);
-}
-.row-section .right-side-row-section .collector-row button:hover {
-    background-color: var(--Purple10);
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
 }
 .row-section .right-side-row-section .collector-row button span {
     display: flex;
@@ -40,6 +42,10 @@
     border-radius: 8px;
     font-family: var(--Font);
 }
+.row-section .right-side-row-section .collector-row .input{
+    height: fit-content !important;
+
+}
 .row-section .right-side-row-section .collector-row input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -57,9 +63,16 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: center;
     border-radius: 8px;
     border: 1px solid var(--Grey3);
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    height: fit-content;
+    overflow: hidden;
+
 }
 .pricing-input input {
     border: none !important;
+    border-radius: 0 !important;
 }
 .pricing-input span {
     font-size: 14px;
@@ -76,6 +89,8 @@ input[type="number"]::-webkit-outer-spin-button {
     border: none;
     cursor: pointer;
     transition: var(--Trans03);
+    margin: 0 !important;
+    padding: 0 !important;
 }
 .add-btn button :hover {
     opacity: 0.9;
@@ -85,3 +100,4 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 18px;
     display: flex;
 }
+

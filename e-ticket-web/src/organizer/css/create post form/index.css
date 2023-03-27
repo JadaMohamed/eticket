@@ -81,9 +81,10 @@
     font-size: 18px;
     font-weight: 600;
 }
-.create-event-container form .form-container .top-form-container .row-section .instructions {
+.create-event-container form .form-container .top-form-container .instructions {
     font-size: 14px;
-    color: var(--Grey1);
+    margin-top: 5px;
+    color: var(--Grey1) !important;
     width: 100%;
 }
 .create-event-container form .form-container .top-form-container .row-section .right-side-row-section textarea {

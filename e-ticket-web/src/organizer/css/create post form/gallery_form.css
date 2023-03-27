@@ -38,6 +38,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    aspect-ratio: 16/9;
 }
 .create-event-container
     form
@@ -128,4 +129,15 @@
     border: 1px dashed var(--Grey3);
     border-radius: 8px;
     height: 290px;
+}
+.import-card .content img{
+    max-width: 80px;
+    width: 100%;
+    opacity: .5;
+}
+.import-card .primary{
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: var(--Purple);
 }

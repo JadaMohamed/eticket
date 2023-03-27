@@ -27,20 +27,15 @@ export const Createevent = () => {
   const [createEventStep, setCreateEventStep] = useState(1);
 
   const [eventData, setEventData] = useState({
-    // Overview_form coming data
-    eventTitle: "",
-    date: "",
-    time: "",
-    address1: "",
-    address2: "",
+    eventTitle: "1111111111111111",
+    date: "2023-04-08",
+    time: "12:00",
+    address1: "GGGGGGGG",
+    address2: "teeeeeeeest",
     trailer_video_url: "",
-    // Pricing_form coming data
-    //categoies of tickets in this event
-    categories: [],
-    // Description_form coming data
-    description: "",
-    eventType: "",
-    //Gallery_form
+    categories: [{name:'', price:'', numSeats:''}],
+    description:"fffffffffffffffffffffffffff",
+    eventType: "Sport",
     Event_Images: [],
   });
 
