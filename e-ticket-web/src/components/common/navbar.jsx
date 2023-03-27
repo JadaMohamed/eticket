@@ -183,6 +183,27 @@ function Navbar(props) {
                     </div>
                   </div>
                 </div>
+                {profile.account.account_type ==="organizer"? (
+                  <><div
+                  className="dropdown-item"
+                  onClick={() => Nav("/home", { replace: true })}
+                >
+                    <div>
+                      <span className="material-symbols-outlined">home</span>
+                    </div>
+                    Home
+                  </div><div
+                    className="dropdown-item"
+                    onClick={() => Nav("/organizer/dashboard", { replace: true })}
+                  >
+                    <div>
+                      <span className="material-symbols-outlined">dashboard</span>
+                    </div>
+                    Dashboard
+                  </div></>
+                ) : (
+                  ""
+                )}
                 <div
                   className="dropdown-item"
                   onClick={() => Nav("/settings", { replace: true })}
@@ -195,21 +216,7 @@ function Navbar(props) {
                   Settings
                 </div>
 
-                {profile.account.account_type ? (
-                  <div
-                    className="dropdown-item"
-                    onClick={() =>
-                      Nav("/organizer/dashboard", { replace: true })
-                    }
-                  >
-                    <div>
-                      <span className="material-symbols-outlined">dashboard</span>
-                    </div>
-                    Dashboard
-                  </div>
-                ) : (
-                  ""
-                )}
+                
                 <div
                   className="dropdown-item"
                   onClick={() => {

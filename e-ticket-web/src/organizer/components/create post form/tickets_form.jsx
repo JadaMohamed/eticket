@@ -11,8 +11,7 @@ const Tickets_form = ({ eventData }) => {
         <div className="labels">
           <div className="title">Preview ticket</div>
           <div className="instructions">
-            Sit amet consectetur. Suspendisse tincidunt viverra olor sit amet
-            consectetur.
+            Your Event tickets will look like.
           </div>
         </div>
         <TicketComponent ref={ticketRef} eventData={eventData}/>

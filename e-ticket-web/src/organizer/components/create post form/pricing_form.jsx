@@ -65,14 +65,14 @@ const Pricing_form = ({ eventData, setEventData }) => {
         <div className="left-side-row-section">
           <div className="title">Seat Categories</div>
           <div className="instructions">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi,
-            quidem aspernatur.
+          Please make names short and meaningful !
           </div>
         </div>
         <div className="right-side-row-section collectors">
           {categories.map((category, index) => (
             <div key={index} className="collector-row">
               <input
+              className="input"
                 type="text"
                 placeholder="Category name"
                 value={category.name}

@@ -23,3 +23,7 @@
 .organizer-page-content {
     display: flex;
 }
+.organizer-page-content input::placeholder{
+    color: var(--Grey2) !important;
+    font-weight: 400 !important;
+}

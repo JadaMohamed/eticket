@@ -64,8 +64,7 @@ const Overview_form = ({ eventData, setEventData }) => {
         <div className="left-side-row-section">
           <div className="title">Event Title</div>
           <div className="instructions">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi,
-            quidem aspernatur.
+            Try to choose your event's title carefully !
           </div>
         </div>
         <div className="right-side-row-section splited">
@@ -86,8 +85,7 @@ const Overview_form = ({ eventData, setEventData }) => {
             Date <span>&</span> Time
           </div>
           <div className="instructions">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi,
-            quidem aspernatur.
+            What date/time your event will start ?
           </div>
         </div>
         <div className="right-side-row-section splited">
@@ -119,8 +117,7 @@ const Overview_form = ({ eventData, setEventData }) => {
         <div className="left-side-row-section">
           <div className="title">Address</div>
           <div className="instructions">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi,
-            quidem aspernatur.
+          Be careful spelling your address !
           </div>
         </div>
         <div className="right-side-row-section splited">
@@ -131,6 +128,7 @@ const Overview_form = ({ eventData, setEventData }) => {
                 type="text"
                 value={address1}
                 onChange={handleAddress1Change}
+                placeholder='City'
               />
             </div>
           </div>
@@ -141,6 +139,7 @@ const Overview_form = ({ eventData, setEventData }) => {
                 type="text"
                 value={address2}
                 onChange={handleAddress2Change}
+                placeholder='Building'
               />
             </div>
           </div>

@@ -64,8 +64,7 @@ const Description_form = ({ eventData, setEventData, setmsgeError }) => {
         <div className="left-side-row-section">
           <div className="title">Description</div>
           <div className="instructions">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi,
-            quidem aspernatur.
+            Try to describe your evet using minimum letters (max 300).
           </div>
         </div>
         <div className="right-side-row-section splited">
@@ -83,8 +82,7 @@ const Description_form = ({ eventData, setEventData, setmsgeError }) => {
         <div className="left-side-row-section">
           <div className="title">Event Category</div>
           <div className="instructions">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi,
-            quidem aspernatur.
+            A exact event category will help fast reach to your costumers.
           </div>
         </div>
         <div className="right-side-row-section">

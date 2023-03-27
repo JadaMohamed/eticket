@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../css/create post form/gallery_form.css";
+import imp from "../../../img/import.jpeg"
+
 
 const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -81,8 +83,7 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
             Event Gallery
           </div>
           <div className="instructions">
-            Up to 3 images sit amet consectetur. Suspendisse tincidunt viverra
-            olor sit amet consectetur.
+           The primary image : The one will shown in home.
           </div>
         </div>
         <div className="import-images">
@@ -101,16 +102,16 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
                     padding: previewSources[index] !== null ? "0" : "20px",
                   }}
                 >
+                  {index==0? <span  className="material-symbols-outlined primary" title="Primary">star</span> : ""}
                   {previewSources[index] ? (
                     <img src={previewSources[index]} alt={`Preview ${index}`} />
                   ) : (
                     <>
-                      <span className="material-symbols-outlined icon">
+                      {/* <span className="material-symbols-outlined icon">
                         cloud_upload
-                      </span>
+                      </span> */}
                       <span className="content">
-                        <span>Click to upload</span> or drag and drop PNG or
-                        JPG(max,720x360px)
+                        <img src={imp} alt="" />
                       </span>
                     </>
                   )}
@@ -120,7 +121,7 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
           </div>
         </div>
       </div>
-      <div className="tandance-gallery">
+      {/* <div className="tandance-gallery">
         <div className="labels">
           <div className="title">Hot Events Gallery</div>
           <div className="instructions">
@@ -139,7 +140,7 @@ const Gallery_form = ({ setImages, previewSources, setPreviewSources }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

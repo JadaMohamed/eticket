@@ -5,11 +5,14 @@
     padding: 20px;
     border: 1px dashed var(--Purple30);
     user-select: none;
-    border-radius: 8px;
+    border-radius: 0px;
+    min-width: 100%;
 }
 .preview-ticket {
     margin-top: 20px;
     color: var(--Blak);
+    width: 100%;
+    min-width: 100%
     /* margin: 20px; */
 }
 .preview-ticket-container .left-side {

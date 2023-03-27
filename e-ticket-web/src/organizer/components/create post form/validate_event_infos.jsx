@@ -52,8 +52,8 @@ const ValidateEventInfos = ({ previewSources, eventData }) => {
                 <th>Price</th>
                 <th>Quantity</th>
               </tr>
-              {eventData.categories.map((key, categ) => (
-                <tr key={key}>
+              {eventData.categories.map((categ) => (
+                <tr key={categ.name}>
                   <td>{categ.name}</td>
                   <td>{categ.price} MAD</td>
                   <td>{categ.numSeats}</td>
@@ -63,7 +63,7 @@ const ValidateEventInfos = ({ previewSources, eventData }) => {
           </div>
           <div className="row">
             <div className="row-title">Event category</div>
-            <div className="categ">{eventData.eventCategory}</div>
+            <div className="categ">{eventData.eventType}</div>
           </div>
           <div className="row">
             <div className="row-title">Date & Address</div>
