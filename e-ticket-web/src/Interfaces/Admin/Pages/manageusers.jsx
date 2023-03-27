@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import AdminNavigationBar from "../Components/navbar";
 import SearchUser from "../Components/search-users";
 import SideBar from "../Components/side_bar";
@@ -6,6 +7,15 @@ import UsersGrid from "../Components/users-grid";
 import "../CSS/admin-manage-users.css";
 
 const AdminUserManager = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const [users, setUsers]=useState();
+  useEffect(()=>{
+    const fetchUsers= async()=>{
+      const res=await axios.get(`${apiUrl}/api/admins/users/all`);
+      setUsers(res.data);
+    }
+    fetchUsers();
+  },[])
   const [userTypeToSearchIn, setUserTypeToSearchIn] = useState("all");
   return (
     <div>
@@ -18,7 +28,7 @@ const AdminUserManager = () => {
             userTypeFilter={userTypeToSearchIn}
             setUserTypeFilter={setUserTypeToSearchIn}
             />
-            <UsersGrid/>
+            <UsersGrid users={users}/>
           </div>
         </div>
       </div>
