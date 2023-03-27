@@ -74,8 +74,8 @@ function MyTickets() {
   }
   return (
     <>
-      {/* <Navbar /> */}
-      {/* <SubNavbar /> */}
+      <Navbar />
+      <SubNavbar />
       <MyTicketsHeader keyword={keyword} setKeyword={setKeyword} />
       {view ? (
         <QrCodeViewer code={selectedTicket?.qrcode} view={setView} />
