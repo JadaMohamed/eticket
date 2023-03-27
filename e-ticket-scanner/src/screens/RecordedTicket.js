@@ -103,7 +103,7 @@ const RecordedTicket = ({ route, navigation }) => {
               </View>
               <View style={{ flexDirection: "column", width: "100%" }}>
                 <Text style={{ color: "#000000", fontSize: 16, fontWeight: "600" }}>{clientName?.firstName} {clientName?.lastName}</Text>
-                <Text style={{ fontSize: 14, width: widthPercentageToDP("55%") }} numberOfLines={1} ellipsizeMode={"tail"}>{formatDateString(route.params.ticket_id)}</Text>
+                <Text style={{ fontSize: 14, width: widthPercentageToDP("55%") }} numberOfLines={1} ellipsizeMode={"tail"}>{formatDateString(route.params.created_at)}</Text>
               </View>
             </View>
           </View>
