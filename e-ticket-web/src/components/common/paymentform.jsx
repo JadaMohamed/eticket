@@ -19,6 +19,10 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
   //this table will containe eventid and seat categorieid from each checkedCarts
   const [eventAndSeat_Ids, setEventAndSeat_Ids] = useState([])
 
+  //to check if the client already send data for payment
+  const [isSendPayment, setIsSendPayment] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   useEffect(() => {
     //checkedCarts contain all info of the carts that user selected
     // console.log('checkedCarts', checkedCarts);
@@ -30,7 +34,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
       return {
         event_id: item.Event.event_id,
         seat_categ_id: item.seat_categ_id,
-        orgId: item.org_id,   
+        orgId: item.org_id,
         quantity: item.quantity,
         unitPrice: item.unitPrice,
       }
@@ -47,7 +51,68 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
   const expirationYear = useRef(null);
   const expirationDay = useRef(null);
 
+  //this function will check if a string contanis only digits
+  function isStringOfDigits(str) {
+    const regex = /^\d+$/;
+    return regex.test(str);
+  }
+
+  const validaPaymentData = () => {
+
+    //validate card number
+    if (eventAndSeat_Ids.length === 0) {
+      setErrorMsg("Please select an item from your card");
+      return false;
+    }
+    if (!cardNumber.current.value) {
+      setErrorMsg("Please enter a card number");
+      return false;
+    }
+    if (!isStringOfDigits(cardNumber.current.value)) {
+      setErrorMsg("card number should containe only digits");
+      return false;
+    }
+    if (cardNumber.current.value.trim().length !== 16) {
+      setErrorMsg("card number should containe 16 digit");
+      return false;
+    }
+
+    //validate card owner
+    if (cardOwner.current.value.trim().length < 2) {
+      setErrorMsg("Please enter Owner Name");
+      return false;
+    }
+
+
+
+
+    //validate cvc
+    if (!cvc.current.value) {
+      setErrorMsg("Please enter the CVC");
+      return false;
+    }
+    if (!isStringOfDigits(cvc.current.value)) {
+      setErrorMsg("CVC should containe only digits");
+      return false;
+    }
+    if (cvc.current.value.length !== 3) {
+      setErrorMsg(" CVC should containe 3 digit");
+      return false;
+    }
+
+    return true;
+  }
+
+
   const handelValidatePayment = async () => {
+    if (isSendPayment) {
+      setErrorMsg("Please wait your payment is in progress");
+      return;
+    }
+    const isValid = validaPaymentData();
+    if (!isValid) {
+      return;
+    }
 
     //creating object to hold card info
     const cardInfo = {
@@ -59,9 +124,11 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
     }
     //
     // console.log(cardInfo)
-    console.log(eventAndSeat_Ids)
+    // console.log(eventAndSeat_Ids)
 
     try {
+      setIsSendPayment(true);
+      setErrorMsg("")
       const response = await axios.post(
         `${apiUrl}/api/orders-cart/pay-orders/${profile.user.client_id}`,
         { totalPriceCheckOut, cardInfo, eventAndSeat_Ids },
@@ -73,13 +140,15 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
 
     } catch (error) {
       const errorData = error.response.data;
-      if (errorData.errors) {
-        // setErrors(errorData.errors);
+      if (errorData.error) {
+        setErrorMsg(errorData.error);
+        // console.log(errorData.error);
       } else {
         console.error(error);
       }
-
+      setIsSendPayment(false);
     }
+
   };
 
   useEffect(() => {
@@ -133,6 +202,7 @@ const PaymentForm = React.forwardRef(({ setCheckOut, client, totalPriceCheckOut,
                   <input type="text" className="small" ref={cvc} />
                 </div>
               </div>
+              <div><span style={{ color: 'red' }}>{errorMsg}</span></div>
             </div>
             <div className="sub-title">
               Payment information about you will be kept confidential.
