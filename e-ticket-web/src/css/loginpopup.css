@@ -23,6 +23,11 @@
     flex-direction: column;
     box-shadow: var(--CardShadow);
 }
+.login-popup .login-popup-container .form{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
 .login-popup .login-popup-container .close {
     position: absolute;
     top: 10px;
@@ -55,7 +60,9 @@
     margin-top: 20px;
 }
 .login-popup .login-popup-container .element .element-c label {
-    font-weight: 600;
+    /* font-weight: 500; */
+    font-size: 14px;
+    color: var(--Grey1);
     margin-bottom: 3px;
 }
 .login-popup .login-popup-container .element .element-c .login-input {

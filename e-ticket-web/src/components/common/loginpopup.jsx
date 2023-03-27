@@ -3,9 +3,11 @@ import logo from "../../img/logo.svg";
 import "../../css/loginpopup.css";
 import AuthContext from "../../Auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import rolling from '../../img/rolling.svg'
 
 export default function LoginPopup(props) {
   const [isVisible, setVisible] = useState(false);
+  const [loading, setLoading]=useState(false)
   const userName = useRef("");
   const password = useRef("");
   const { login, errorLogin, setErrorLogin } = useContext(AuthContext);
@@ -19,6 +21,7 @@ export default function LoginPopup(props) {
   }, [errorLogin]);
 
   const loginSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     let payload = {
       email: userName.current.value,
@@ -28,6 +31,7 @@ export default function LoginPopup(props) {
     // if(!errorLogin){
     //   props.setTrigger(false);
     // }
+    setLoading(false);
   };
 
   const toggleVisibility = () => {
@@ -91,14 +95,14 @@ export default function LoginPopup(props) {
           </div>
           <div className="element-c submit">
             {errorLogin && (
-              <div>
-                <span style={{ color: "red" }}> {errorLogin} </span>
-                <p>&nbsp;</p>
-                <Link to="/reset-password/msg">forget password?</Link>
+              <div style={{marginBottom: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', fontSize: '14px'}}>
+                <span style={{ color: "red"}}> {errorLogin} </span>
+                {/* <p>&nbsp;</p> */}
+                <Link to="/reset-password/msg" style={{color: 'var(--Purple60)'}}>forget password?</Link>
               </div>
             )}
             <div className="submit-container" onClick={loginSubmit}>
-              Sign In
+            {loading? <img src={rolling} style={{width: "20px"}}/> : 'Sign Up'}
             </div>
           </div>
           <div className="element-c sign-up">

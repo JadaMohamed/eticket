@@ -14,7 +14,7 @@ body {
     align-items: center;
     flex-direction: column;
 }
-label input{
+.msg-email label input{
     width: 300px;
     font-size: 20px;
     border-radius: 12px;
@@ -27,17 +27,17 @@ label input{
     align-items: center;
 }
 
-h1 {
+.msg-email h1 {
     margin-bottom: 20px;
 }
 
-form {
+.msg-email form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-label {
+.msg-email label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +45,7 @@ label {
     font-size: 16px;
 }
 
-input[type="password"] {
+.msg-email input[type="password"] {
     margin-top: 5px;
     padding: 10px;
     width: 300px;
@@ -55,7 +55,7 @@ input[type="password"] {
     font-size: 18px;
 }
 
-button {
+.msg-email button {
     margin-top: 30px;
     padding: 10px 20px;
     border: none;

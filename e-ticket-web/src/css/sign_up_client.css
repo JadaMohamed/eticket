@@ -101,6 +101,7 @@ input::-webkit-inner-spin-button {
 .sign-up-client .sign-up-client-container .sign-up-content .row .labeled-input {
     display: flex;
     flex-direction: column;
+    gap: 0;
     width: 100%;
 }
 .sign-up-client .sign-up-client-container .sign-up-content .pass {

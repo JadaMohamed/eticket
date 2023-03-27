@@ -45,7 +45,7 @@ const register = async (req, res, next) => {
     // Check if user with same email and password exists
     const existingAccount = await accountService.findAccountByEmailAndPassword(email, password);
     if (existingAccount) {
-        return res.status(400).json({ errors: ['User with this email and password already exists'] });
+        return res.status(400).json({ errors: ['User with this email already exists'] });
     }
 
     try {
@@ -236,7 +236,7 @@ const registerOrganizer = async (req, res, next) => {
     // Check if user with same email and password exists
     const existingAccount = await accountService.findAccountByEmailAndPassword(email, password);
     if (existingAccount) {
-        return res.status(400).json({ errors: ['User with this email and password already exists'] });
+        return res.status(400).json({ errors: ['User with this email already exists'] });
     }
 
     const existingAccountByPhone = await accountService.findAccountByPhone(phone_number);
@@ -248,7 +248,7 @@ const registerOrganizer = async (req, res, next) => {
         // create account
         const account = await accountService.createAccount({ first_name, last_name, email, password, account_type: 'organizer', avatar, phone_number });
         if (!account) {
-            return res.status(400).json({ msg: "account not created correctly" })
+            return res.status(400).json({ msg: "Account not created correctly" })
         }
         // create organizer
         const account_id = account.account_id;
@@ -328,7 +328,7 @@ const registerClient = async (req, res, next) => {
     // Check if user with same email and password exists
     const existingAccount = await accountService.findAccountByEmailAndPassword(email, password);
     if (existingAccount) {
-        return res.status(400).json({ errors: ['User with this email and password already exists'] });
+        return res.status(400).json({ errors: ['User with this email already exists'] });
     }
 
     // Check email already in use
@@ -346,14 +346,14 @@ const registerClient = async (req, res, next) => {
         // create account
         const account = await accountService.createAccount({ first_name, last_name, email, password, account_type: 'client', phone_number });
         if (!account) {
-            return res.status(400).json({ msg: "account not created correctly" })
+            return res.status(400).json({ msg: "Account not created correctly" })
         }
         // console.log(account)
         // create organizer
         const account_id = account.account_id;
         const client = await clientService.createClient({ account_id, city });
         if (!client) {
-            return res.status(400).json({ msg: "client not created correctly" })
+            return res.status(400).json({ msg: "Client not created correctly" })
         }
         // console.log(client)
         // create profile object
