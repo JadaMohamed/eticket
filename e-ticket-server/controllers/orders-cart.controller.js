@@ -3,6 +3,7 @@ import ordersCartService from '../services/orders-cart.service.js';
 import organizerService from '../services/organizers.service.js';
 import seatCategoryService from '../services/seat-category.service.js';
 import ticketService from '../services/ticket.service.js';
+import transactionService from '../services/transaction.service.js';
 
 const createOrder = async (req, res) => {
     try {
@@ -279,8 +280,11 @@ const createOrdersPayment = async (req, res) => {
         ///////////////
         // console.log('updatedOrganizers')
         // console.log(updatedOrganizers)
+
+        //create a transaction 
+        const newTransaction = await transactionService.createTransaction({ cardNumber: cardInfo.cardNumber, amount: totalPriceCheckOut });
         console.log('payment pass successfully')
-        return res.status(201).json({ msg: "payment pass successfully" });
+        return res.status(201).json({ msg: "payment pass successfully", transaction: newTransaction });
 
 
 
