@@ -8,8 +8,7 @@ import "../../organizer/css/create post form/ticket_form.css";
 import Axios from "axios";
 import { Image } from "cloudinary-react";
 
-function Ticket({ ticket, onClick, selectedTicket }) {
-  const isSelected = ticket.ticket_id === selectedTicket?.ticket_id;
+function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
   const apiUrl = process.env.REACT_APP_API_URL;
   const ticketRef = useRef(null);
   const [seatCategory, setSeatCategory] = useState();
@@ -31,10 +30,24 @@ function Ticket({ ticket, onClick, selectedTicket }) {
 
     getTicketSeatCategory();
   }, [])
+
+
+  //when the ticket is checked it will be added to checkedTickets 
+  //if clicked for unchecked it will be removed from ckeckedTickets
+  function handleCheckboxChange(event) {
+    const ticketId = ticket.ticket_id;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setCheckedTickets([...checkedTickets, ticketId]);
+    } else {
+      setCheckedTickets(checkedTickets.filter(id => id !== ticketId));
+    }
+  }
   return (
     <>
 
-      <div className={`ticket-card-table ${isSelected ? "selected" : ""}`}>
+      <div className={`ticket-card-table selected`}>
         <div className="ticket-card">
           <div className="ticket-card-container">
             <div className="ticket-infos">
@@ -43,6 +56,8 @@ function Ticket({ ticket, onClick, selectedTicket }) {
                 name="selected-product"
                 className="disable-on-mobile"
                 title="Select"
+                checked={checkedTickets.includes(ticket.ticket_id)}
+                onChange={handleCheckboxChange}
               />
               <div className="preview-image">
                 <Image cloudName="djjwswdo4" publicId={ticket.Event.brand_url} alt="" />

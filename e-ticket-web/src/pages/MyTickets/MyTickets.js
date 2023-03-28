@@ -12,6 +12,7 @@ import QrCodeViewer from "../../components/ticket/qrcodeviewer";
 import Header from "../../components/common/Header";
 
 function MyTickets() {
+
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
     setView(true);
@@ -23,6 +24,19 @@ function MyTickets() {
   const [tickets, setTickets] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const [checkedTickets, setCheckedTickets] = useState([]);
+
+
+
+  const handelSelectUnSelectAll = () => {
+    if (checkedTickets.length !== tickets.length) {
+      setCheckedTickets(tickets.map((ticket) => ticket.ticket_id));
+    } else {
+      setCheckedTickets([]);
+    }
+
+  }
+
   const getTicketsByClientId = async () => {
     try {
       const response = await Axios.get(
@@ -31,6 +45,7 @@ function MyTickets() {
       );
       setAllTickets(response.data);
       setTickets(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error(error);
     }
@@ -54,6 +69,7 @@ function MyTickets() {
   useEffect(() => {
     console.log(selectedTicket);
   }, [selectedTicket]);
+
   useEffect(() => {
     getTicketsByClientId();
   }, [profile]);
@@ -76,7 +92,13 @@ function MyTickets() {
     <>
       <Navbar />
       <SubNavbar />
-      <MyTicketsHeader keyword={keyword} setKeyword={setKeyword} />
+      <MyTicketsHeader
+        keyword={keyword}
+        setKeyword={setKeyword}
+        numTickets={tickets.length}
+        numCheckedTickets={checkedTickets.length}
+        handelSelectUnSelectAll={handelSelectUnSelectAll}
+      />
       {view ? (
         <QrCodeViewer code={selectedTicket?.qrcode} view={setView} />
       ) : (
@@ -91,6 +113,9 @@ function MyTickets() {
                   ticket={ticket}
                   onClick={handleTicketClick}
                   selectedTicket={selectedTicket}
+                  checkedTickets={checkedTickets}
+                  setCheckedTickets={setCheckedTickets}
+
                 />
               </div>
             ))
