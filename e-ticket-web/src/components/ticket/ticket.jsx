@@ -6,6 +6,7 @@ import CountdownDate from "../common/countdown";
 
 import "../../organizer/css/create post form/ticket_form.css";
 import Axios from "axios";
+import { Image } from "cloudinary-react";
 
 function Ticket({ ticket, onClick, selectedTicket }) {
   const isSelected = ticket.ticket_id === selectedTicket?.ticket_id;
@@ -32,7 +33,7 @@ function Ticket({ ticket, onClick, selectedTicket }) {
   }, [])
   return (
     <>
-    
+
       <div className={`ticket-card-table ${isSelected ? "selected" : ""}`}>
         <div className="ticket-card">
           <div className="ticket-card-container">
@@ -44,7 +45,7 @@ function Ticket({ ticket, onClick, selectedTicket }) {
                 title="Select"
               />
               <div className="preview-image">
-                <img src={ticket.Event.brand_url} alt="" />
+                <Image cloudName="djjwswdo4" publicId={ticket.Event.brand_url} alt="" />
               </div>
               <div className="event-inf">
                 <div className="event-title">{ticket.Event.title}</div>
@@ -69,7 +70,7 @@ function Ticket({ ticket, onClick, selectedTicket }) {
                 <div
                   className="preview-ticket btn"
                   onClick={() => onClick(ticket)}
-                  style={{marginTop: 0}}
+                  style={{ marginTop: 0 }}
                 >
                   <span className="material-symbols-outlined">
                     qr_code_scanner
@@ -85,7 +86,7 @@ function Ticket({ ticket, onClick, selectedTicket }) {
             </div>
           </div>
         </div>
-      <TicketComponent eventData={ticket.Event} ref={ticketRef} ticketCategory={seatCategory} qrCode={ticket.qrcode} width={"800px"} visible={false} />
+        <TicketComponent eventData={ticket.Event} ref={ticketRef} ticketCategory={seatCategory} qrCode={ticket.qrcode} width={"800px"} visible={false} />
       </div>
     </>
   );

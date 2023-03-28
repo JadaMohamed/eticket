@@ -206,10 +206,39 @@ const createOrdersPayment = async (req, res) => {
         if (card === 'sold error') {
             return res.status(400).json({ error: "card sold not valid can not make transaction" });
         }
-        //add qr codes to the table eventAndSeat_Ids
-        const randomString = Math.random().toString(36).substring(7); // generate a random string
-        const uniqueId = Date.now(); // generate a unique identifier
-        const qrCodeText = `${randomString}-${uniqueId}`; // concatenate the random string and unique identifier
+
+        //after that the card is valide now we continue
+        //UPDATE the profit of the organizers increase it
+        const updatedOrganizers = [];
+        for (const item of eventAndSeat_Ids) {
+            // console.log(item)
+            const currentProfitObj = await organizerService.getProfitOrganizerById(parseInt(item.orgId));
+            const currentProfit = currentProfitObj.profit;
+            // console.log('currentProfit')
+            // console.log(currentProfit)
+            const updatedProfit = parseFloat(currentProfit) + parseFloat(item.quantity) * parseFloat(item.unitPrice);
+            const updatedOrganizer = await organizerService.updateOrganizer(parseInt(item.orgId), { profit: updatedProfit });
+            updatedOrganizers.push(updatedOrganizer);
+        }
+        console.log("--------------updatedOrganizers")
+        console.log(updatedOrganizers)
+
+        if (!updatedOrganizers || updatedOrganizers.some(organizer => !organizer)) {
+            return res.status(400).json({ error: "An error shows when updating orgnizers profits" });
+        }
+
+        ///////////////
+
+        //update the client card
+        const updatedClientCard = await cardService.updateCard(cardInfo.cardNumber, { sold: card.sold - totalPriceCheckOut });
+        if (!updatedClientCard) {
+            res.status(400).json({ error: "error shows when updating the sold of client card" });
+        }
+        console.log("updatedClientCard")
+        console.log(updatedClientCard)
+
+        //create a transaction 
+        const newTransaction = await transactionService.createTransaction({ cardNumber: cardInfo.cardNumber, amount: totalPriceCheckOut });
 
         //create tickets for the client eventAndSeat_Ids
         const newTickets = await Promise.all(
@@ -229,6 +258,7 @@ const createOrdersPayment = async (req, res) => {
         //this will change from tow dimantion array to one dimantion array
         const allCreatedTickets = newTickets.flat();
         // console.log(allCreatedTickets)
+        console.log(allCreatedTickets)
         if (!allCreatedTickets || allCreatedTickets.some(ticket => !ticket)) {
             //some times if there are many some will be created and some not
             //delete the ones which was create
@@ -237,57 +267,27 @@ const createOrdersPayment = async (req, res) => {
                     ticketService.deleteticketById(parseInt(ticket.ticket_id))
                 }
             }));
+
+            //******Now when tickets Not created we should git many back from organizers to client*****//
+            //update the client sold back because he did not by ticket for any issue
+            await cardService.updateCard(cardInfo.cardNumber, { sold: card.sold + totalPriceCheckOut });
+
+
+            //take the profite frome the organizers back be bcause we did not create tickets
+            for (const item of eventAndSeat_Ids) {
+                // console.log(item)
+                const currentProfitObj = await organizerService.getProfitOrganizerById(parseInt(item.orgId));
+                const currentProfit = currentProfitObj.profit;
+                // console.log('currentProfit')
+                // console.log(currentProfit)
+                const updatedProfit = parseFloat(currentProfit) - parseFloat(item.quantity) * parseFloat(item.unitPrice);
+                await organizerService.updateOrganizer(parseInt(item.orgId), { profit: updatedProfit });
+            }
             return res.status(400).json({ error: "An error shows when creating the tickets so it is canced" });
         }
 
-        //after that we create ticket will make payment transforming by update sold in card of client
-        //and update the profit of organizers
-
-        //update the client card
-        const updatedClientCard = await cardService.updateCard(cardInfo.cardNumber, { sold: card.sold - totalPriceCheckOut });
-        if (!updatedClientCard) {
-            //because of this problem will delete created ticket
-            await Promise.all(allCreatedTickets.map(ticket => {
-                if (ticket) {
-                    ticketService.deleteticketById(parseInt(ticket.ticket_id))
-                }
-            }));
-            res.status(400).json({ error: "error shows when updating the sold of client card" });
-        }
-        // console.log('updatedClientCard')
-        // console.log(updatedClientCard)
-        //update the organizers profit
-        // const updatedOrganizers = await Promise.all(
-        //     eventAndSeat_Ids.map(item => {
-        //         const currentProfit = organizerService.getProfitOrganizerById(parseInt(item.orgId));
-        //         return organizerService.updateOrganizer(parseInt(item.orgId), { profit: currentProfit + parseInt(item.quantity) * parseFloat(item.unitPrice) });
-        //     }))
-        const updatedOrganizers = [];
-        for (const item of eventAndSeat_Ids) {
-            // console.log(item)
-            const currentProfitObj = await organizerService.getProfitOrganizerById(parseInt(item.orgId));
-            const currentProfit = currentProfitObj.profit;
-            // console.log('currentProfit')
-            // console.log(currentProfit)
-            const updatedProfit = parseFloat(currentProfit) + parseFloat(item.quantity) * parseFloat(item.unitPrice);
-            const updatedOrganizer = await organizerService.updateOrganizer(parseInt(item.orgId), { profit: updatedProfit });
-            updatedOrganizers.push(updatedOrganizer);
-        }
-
-        if (!updatedOrganizers || updatedOrganizers.some(organizer => !organizer)) {
-            return res.status(400).json({ error: "An error shows when updating orgnizers profits" });
-        }
-        ///////////////
-        // console.log('updatedOrganizers')
-        // console.log(updatedOrganizers)
-
-        //create a transaction 
-        const newTransaction = await transactionService.createTransaction({ cardNumber: cardInfo.cardNumber, amount: totalPriceCheckOut });
         console.log('payment pass successfully')
         return res.status(201).json({ msg: "payment pass successfully", transaction: newTransaction });
-
-
-
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to create order' });

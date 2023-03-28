@@ -17,6 +17,9 @@ const getTicketsByClientId = async (clientId) => {
                 },
             },
         },
+        orderBy:{
+            created_at: 'desc',
+        }
     });
 
     return tickets;

@@ -53,6 +53,17 @@ function PasswordResetForm() {
         setLoading(false);
         return;
       }
+      //check if a valid email
+      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        setAlert(true);
+        setAlertParams({
+          color: "red",
+          msg: "Please enter a valid email address",
+          icon: "error",
+        });
+        setLoading(false);
+        return;
+      }
       const url = `${apiUrl}/api/user/reset-password-mail`;
       const { data } = await axios.post(
         url,
