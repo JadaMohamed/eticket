@@ -57,11 +57,15 @@ function MyTickets() {
       return {
         ticket_id: item.ticket_id,
         start_time: item.Event.start_time,
-      }});
+      }
+    });
 
     //take the checked tickets only from the tickets And Start time table
     const checkedTicketsWithStartTime = ticketsAndStart.filter(
       (item) => checkedTickets.includes(item.ticket_id));
+
+    //emptying the checked tickets table to stop making requist again
+    setCheckedTickets([]);
 
     //delete tickets in data base also
     try {
@@ -71,11 +75,9 @@ function MyTickets() {
         { withCredentials: true, },
       );
       if (response) {
-         console.log(response.data)
+        console.log(response.data)
       }
-      //emptying the checked tickets table to stop making requist again
-      setCheckedTickets([]);
-      console.log('the end but .....')
+      alert("only the passed ticket events will be deleted permanently\n others will still")
     } catch (error) {
       console.error(error);
     }

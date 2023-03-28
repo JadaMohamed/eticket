@@ -58,9 +58,9 @@ const getTicketsByEventId = async (req, res) => {
 
     try {
         const tickets = await ticketService.getTicketsByEventId(eventId);
-        if(tickets){
+        if (tickets) {
             res.json(tickets);
-        }else{
+        } else {
             res.status(404).json({ error: `No tickets found for this eventid:${eventId}` });
         }
     } catch (err) {
@@ -93,6 +93,31 @@ const deleteticketById = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+const deleteManyTicketsById = async (req, res) => {
+    const ticketsData = req.body.checkedTicketsWithStartTime;
+    try {
+        const deletedTickets = await Promise.all(
+            ticketsData.map(ticket => {
+                //delete only ticket that has already started
+                if (ticket.start_time < new Date()) {
+                    return ticketService.deleteticketById(ticket.ticket_id);
+                } else {
+                    return Promise.resolve(null);
+                }
+            })
+        );
+
+        if (deletedTickets) {
+            res.json(deletedTickets);
+        } else {
+            res.status(404).json({ error: `error shows when trying to delete many tickets` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error ' });
+    }
+};
+
 
 const updateTicket = async (req, res) => {
     const id = req.params.id;
@@ -108,7 +133,7 @@ const updateTicket = async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error to delete many tickets' });
     }
 };
 
@@ -119,7 +144,8 @@ export default {
     createManyTicket,
     getAllTickets,
     deleteticketById,
+    deleteManyTicketsById,
     updateTicket,
     getTicketsByEventId,
-    
+
 };
