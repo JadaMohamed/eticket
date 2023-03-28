@@ -10,6 +10,8 @@ import Axios from "axios";
 import loader from "../../img/loading.svg";
 import QrCodeViewer from "../../components/ticket/qrcodeviewer";
 import Header from "../../components/common/Header";
+import axios from "axios";
+
 
 function MyTickets() {
 
@@ -37,6 +39,48 @@ function MyTickets() {
 
   }
 
+
+
+  const deleteFromTickets = async () => {
+    if (checkedTickets.length < 1) {
+      return;
+    }
+    console.log('trying to delete from ticketes ..')
+    const newTickets = tickets.filter(
+      (item) => !checkedTickets.includes(item.ticket_id)
+    );
+    setTickets(newTickets);
+    setAllTickets(newTickets);
+    console.log('checkedTickets', checkedTickets)
+    //all the tickets id and start time
+    const ticketsAndStart = tickets.map((item) => {
+      return {
+        ticket_id: item.ticket_id,
+        start_time: item.Event.start_time,
+      }});
+
+    //take the checked tickets only from the tickets And Start time table
+    const checkedTicketsWithStartTime = ticketsAndStart.filter(
+      (item) => checkedTickets.includes(item.ticket_id));
+
+    //delete tickets in data base also
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/tickets/delete-many`,
+        { checkedTicketsWithStartTime },
+        { withCredentials: true, },
+      );
+      if (response) {
+         console.log(response.data)
+      }
+      //emptying the checked tickets table to stop making requist again
+      setCheckedTickets([]);
+      console.log('the end but .....')
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getTicketsByClientId = async () => {
     try {
       const response = await Axios.get(
@@ -55,6 +99,8 @@ function MyTickets() {
   // });
 
   useEffect(() => {
+    //on search incheck all tickets
+    setCheckedTickets([]);
     //chearch mytickets implementation
     setTickets(
       Alltickets.filter(
@@ -98,6 +144,7 @@ function MyTickets() {
         numTickets={tickets.length}
         numCheckedTickets={checkedTickets.length}
         handelSelectUnSelectAll={handelSelectUnSelectAll}
+        deleteFromTickets={deleteFromTickets}
       />
       {view ? (
         <QrCodeViewer code={selectedTicket?.qrcode} view={setView} />
