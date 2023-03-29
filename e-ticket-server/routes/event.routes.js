@@ -13,6 +13,7 @@ router.post(
   verifyOrganizerOrAdmin,
   eventController.createOrganizerEvent
 );
+router.get("/:id", eventController.getEventById);
 router.get(
   "/organizer/:orgId/all-events",
   eventController.getAllOrganizerEvents
@@ -21,7 +22,6 @@ router.get(
   "/organizer-profile/:orgId",
   eventController.getOrganizerProfileById
 );
-
 router.post(
   "/",
   verifyJwt,
@@ -33,7 +33,6 @@ router.post("/search", eventController.searchEvents);
 router.get("/", eventController.getAllEvents);
 router.get("/allcategory", eventController.getAllEventsCategories);
 router.get("/topsalesevents", eventController.getTopSalesEvents); //I did not find the controller
-router.get("/:id", eventController.getEventById);
 router.delete(
   "/:id",
   verifyJwt,

@@ -14,7 +14,9 @@ import axios from "axios";
 
 
 function MyTickets() {
-
+  useEffect(() => {
+    document.title = 'MyTickets - E-Ticket';
+  }, []);
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
     setView(true);

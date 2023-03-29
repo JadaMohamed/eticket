@@ -10,6 +10,9 @@ import "./Search.css";
 import loader from "../../img/loading.svg";
 
 function Search() {
+  useEffect(() => {
+    document.title = "Search - E-Ticket";
+  }, []);
   let { value } = useParams("a");
   const [events, setEvents] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -26,10 +29,10 @@ function Search() {
     try {
       const response = await Axios.post(
         `${apiUrl}/api/events/search?keyword=${keyword}`,
-       { allfilters: allfilters}
+        { allfilters: allfilters }
       );
       setEvents(response.data);
-      console.log(response.data)
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -43,7 +46,11 @@ function Search() {
     <>
       <Navbar />
       <SubNavbar />
-      <SearchFilter searchKeyword={value} allfilters={allfilters} setAllfilters={setAllfilters} />
+      <SearchFilter
+        searchKeyword={value}
+        allfilters={allfilters}
+        setAllfilters={setAllfilters}
+      />
       <div className="margin-top"></div>
       <div className="search-container">
         <div className="cards">

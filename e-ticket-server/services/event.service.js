@@ -28,13 +28,13 @@ const eventService = {
     const event = await prisma.event.findUnique({
       where: { event_id: eventId },
       include: {
-        ClientWaitList: true,
+        // ClientWaitList: true,
         Event_Images: true,
-        Event_Review: true,
-        Orders_Cart: true,
-        Paid_Tickets_Orders: true,
+        // Event_Review: true,
+        // Orders_Cart: true,
+        // Paid_Tickets_Orders: true,
         SeatCategory: true,
-        Ticket: true,
+        // Ticket: true,
         Organizer: {
           select: {
             Account: {

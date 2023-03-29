@@ -1,0 +1,59 @@
+.check-email{
+    height: 90vh;
+    position: fixed;
+    display: flex;
+    width: 100%;
+}
+.check-email .check-email-container{
+    margin: auto;
+    max-width: 600px;
+    background-color: var(--White);
+    border-radius: 8px ;
+    padding: 30px 50px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.check-email .check-email-container .header{
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--Purple);
+    text-transform:uppercase;
+}
+.check-email .check-email-container .info{
+    background-color: rgba(0, 255, 0, 0.1);
+    color: var(--Grey1);
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    align-items: center;
+}
+.check-email .check-email-container .info .info-icon{
+    font-size: 16px;
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 255, 0, 0.5);
+}
+.check-email .check-email-container .btn{
+    display: flex;
+    width: 100%;
+}
+.check-email .check-email-container .btn .btn-container{
+    border: 1px solid var(--Purple60);
+    padding: 7px 20px;
+    cursor: pointer;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    color: var(--Purple60);
+    border-radius: 8px;
+    transition: .3s ease-in-out;
+}
+.check-email .check-email-container .btn .btn-container:hover{
+    opacity: .9;
+}

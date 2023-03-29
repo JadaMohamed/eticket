@@ -6,6 +6,9 @@ import AuthContext from "../../Auth/AuthContext";
 import axios, { Axios } from "axios";
 
 function Settings() {
+  useEffect(() => {
+    document.title = 'Settings - E-Ticket';
+  }, []);
   const apiUrl = process.env.REACT_APP_API_URL;
   const { profile, setProfile } = useContext(AuthContext);
   const [first_name, setFirstName] = useState(profile?.account?.first_name);

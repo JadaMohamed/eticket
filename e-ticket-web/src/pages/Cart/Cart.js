@@ -23,6 +23,9 @@ function Cart() {
   //this is for the checkout
   const [totalPriceCheckOut, setTotalPriceCheckOut] = useState(0);
 
+  useEffect(() => {
+    document.title = 'Cart - E-Ticket';
+  }, []);
 
   const getClientNonPaidOrders = async () => {
     try {

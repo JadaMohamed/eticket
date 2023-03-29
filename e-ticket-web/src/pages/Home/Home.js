@@ -10,6 +10,9 @@ import Header from "../../components/common/Header";
 
 function Home() {
   const { profile, isLoggedIn } = useContext(AuthContext);
+  useEffect(() => {
+    document.title = 'E-Ticket';
+  }, []);
   return (
     <div>
       <Navbar />
