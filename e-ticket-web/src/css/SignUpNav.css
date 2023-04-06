@@ -12,7 +12,6 @@
     transition: 5s ease-in-out;
 }
 .signin-popup .signin-popup-container {
-    background-color: aquamarine;
     position: relative;
     margin: 20px;
     padding: 30px;
@@ -153,7 +152,7 @@
     background-color: var(--Purple);
 }
 .signin-popup .signin-popup-container .select-user-type .user-buyer {
-    background-color: var(--Purple30);
+    background-color: var(--Purple);
 }
 .signin-popup .signin-popup-container .select-user-type .user-type .user-type-title {
     font-size: 1.4rem;

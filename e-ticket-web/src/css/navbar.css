@@ -226,6 +226,7 @@ nav .nav-container .navmenu .home-mobile {
     z-index: 999;
     width: 100vw;
     left: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 5px 1px 2px 0px;
   }
   /* nav .nav-container .navmenu .active .material-symbols-outlined {
     font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48 !important;
@@ -233,10 +234,9 @@ nav .nav-container .navmenu .home-mobile {
   } */
   nav .nav-container .navmenu .float-btns-container {
     backdrop-filter: blur(2px);
-    margin: 0 20px 10px 20px;
+    /* margin: 0 20px 10px 20px; */
     justify-content: space-between;
-    background-color: var(--Purple10);
-    border-radius: 10px;
+    background-color: var(--White);
     padding: 5px 10px;
   }
 }

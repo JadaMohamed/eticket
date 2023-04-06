@@ -6,17 +6,27 @@
 }
 .event-card-cart .event-card-cart-container {
     display: grid;
-    grid-template-columns: 1.8fr 2fr;
+    grid-template-columns: 1.5fr 2fr;
     justify-content: space-between;
     align-items: center;
     /* border-bottom: 1px solid var(--Purple10); */
     padding-bottom: 20px;
     padding-top: 20px;
+    width: 100%;
 }
 .event-card-cart .event-card-cart-container .event-infos {
     display: flex;
     gap: 10px;
     align-items: center;
+    width: 100%;
+    width: 100% !important;
+}
+.event-card-cart .event-card-cart-container .shopping-infos {
+    width: 100% !important;
+}
+.event-card-cart-table{
+
+    width: 100%;
 }
 .event-card-cart .event-card-cart-container .preview-image {
     max-height: 100px;
@@ -151,18 +161,22 @@
 .active-on-mobile {
     display: none;
 }
+.event-card-cart-container .seat-category{
+    width: 50%;
+}
 
 #seat-categories {
-    width: 60%;
-    padding: 10px;
+    display: flex;
+    width: 100%;
+    padding: 10px 15px;
     outline: none;
-    border: 1px solid var(--Grey3);
+    border: 1px solid var(--Grey2);
     border-radius: 8px;
     font-weight: 600;
     margin-top: 8px;
     appearance: none;
     cursor: pointer;
-    color: var(--Green);
+    color: var(--Purple);
 }
 /*************** ***************************/
 @media only screen and (max-width: 906px) {
@@ -185,6 +199,7 @@
         grid-template-columns: 1fr 1fr;
         padding: 0 20px;
         gap: 10px;
+        width: 100%;
     }
     .event-card-cart .event-card-cart-container .active-on-mobile {
         display: block;
@@ -196,6 +211,8 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+        justify-content: left;
+        width: 100% !important;
     }
     .products-header .mobile-disable {
         display: none;
@@ -210,6 +227,13 @@
     .shopping-infos {
         justify-content: space-between;
         width: 100%;
+        text-align: left;
+    }
+    .slecting-cat-quan {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        align-items: start;
     }
 }
 @media only screen and (max-width: 780px) {

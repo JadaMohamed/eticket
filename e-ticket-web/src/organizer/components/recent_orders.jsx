@@ -63,7 +63,27 @@ const RecentOrders = () => {
         </tr>
         {recentOrders.length === 0 ? (
           <tr className="no-orders">
-            <td>No recent orders available</td>
+            <td
+              style={{
+                color: "var(--Grey1)",
+                textAlign: "center",
+                padding: "20px 0 20px 0",
+                border: "0px solid red !important",
+              }}
+              colSpan={7}
+            >
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              No recent orders available
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </td>
           </tr>
         ) : (
           recentOrders.map((order, index) => (

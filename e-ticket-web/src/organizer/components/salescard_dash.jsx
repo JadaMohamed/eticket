@@ -17,10 +17,13 @@ function SalesCardDash(props) {
         <div className="progress-bar">
           <div className="counting">
             <div>0%</div>
-            <div className="reached">{reached}%</div>
+            <div className="reached">{isNaN(reached) ? 0 : reached}%</div>
           </div>
           <div className="bar">
-            <div className="progress" style={{ width: ` ${reached}% ` }}></div>
+            <div
+              className="progress"
+              style={{ width: ` ${isNaN(reached) ? 0 : reached}% ` }}
+            ></div>
           </div>
         </div>
       </div>

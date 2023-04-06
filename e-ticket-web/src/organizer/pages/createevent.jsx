@@ -33,8 +33,8 @@ export const Createevent = () => {
     address1: "GGGGGGGG",
     address2: "teeeeeeeest",
     trailer_video_url: "",
-    categories: [{name:'', price:'', numSeats:''}],
-    description:"fffffffffffffffffffffffffff",
+    categories: [{ name: "", price: "", numSeats: "" }],
+    description: "fffffffffffffffffffffffffff",
     eventType: "Sport",
     Event_Images: [],
   });
@@ -150,6 +150,7 @@ export const Createevent = () => {
         console.error(error);
       }
     }
+    navigate("/organizer/dashboard");
   };
 
   function handelGoBack() {

@@ -21,6 +21,7 @@
     align-items: center;
     max-height: 36px;
     border-radius: 8px;
+    padding: 7px 0px 7px 7px;
     overflow: hidden;
     border: 1px solid var(--Purple10);
 }
@@ -32,9 +33,7 @@
     height: 100%;
     border-left: 1px solid var(--Purple10);
     align-items: center;
-}
-.search-user .search-user-container .search-left-side .iconed-input span:hover {
-    background-color: var(--LighterPurple);
+    user-select: none;
 }
 .search-user .search-user-container .search-left-side .iconed-input input {
     outline: none;
@@ -51,10 +50,11 @@
     border-radius: 8px;
     color: var(--Grey1) !important;
     overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    border: 1px solid var(--Purple10);
+
 }
 .search-user .search-user-container .search-left-side .filter .filter-container .user {
-    padding: 3px 10px;
+    padding: 7px 10px;
     font-size: 14px;
     background-color: rgba(0, 0, 0, 0.02);
     cursor: pointer;
@@ -181,3 +181,23 @@ align-items: center;
     background-color: var(--Purple60);
     color: var(--White);
 }
+.better-experience{
+    display: none;
+}
+
+@media only screen and (max-width: 800px) {
+    .manage-users-page{
+        display: none;
+    }
+    .better-experience{
+        height: 100vh;
+        display: block;
+        width: 100vw;
+        display: flex;
+    }
+    .better-experience span{
+        margin: auto;
+        padding: 20px;
+        text-align: center;
+    }
+  }

@@ -17,8 +17,9 @@
 }
 .container .cards-container {
     /* margin-top: 30px; */
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
     gap: 20px;
     justify-content: space-between;
 }
@@ -27,4 +28,13 @@
     justify-content: space-between;
     width: 100%;
     gap: 20px;
+}
+.add-event{
+    border: 1px solid var(--Purple60);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+}.add-event span{
+    margin: auto;
+    color: var(--Purple60);
 }

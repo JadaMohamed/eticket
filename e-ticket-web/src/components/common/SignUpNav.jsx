@@ -43,8 +43,7 @@ export default function SignUpNav(props) {
             {/* <img src={organizer} alt="" className="bg" /> */}
             <div className="user-type-title">Organizer</div>
             <div className="description">
-              Lorem ipsum dolor rerum consequatur expedita corporis commodi
-              explicabo repudiandae itaque.
+              Organize your events and sale your events's tickets.
             </div>
             <div className="arrow-icon">
               <span className="material-symbols-outlined">arrow_forward</span>
@@ -59,8 +58,7 @@ export default function SignUpNav(props) {
           >
             <div className="user-type-title">Buyer</div>
             <div className="description">
-              Lorem ipsum dolor rerum consequatur expedita corporis commodi
-              explicabo repudiandae itaque.
+              Explore and reserve your seat to organized events.
             </div>
             <div className="arrow-icon">
               <span className="material-symbols-outlined">arrow_forward</span>

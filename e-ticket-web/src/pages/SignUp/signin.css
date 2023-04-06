@@ -1,6 +1,6 @@
 .signup-container {
-    max-width: 1100px;
     margin: auto;
+    max-width: 700px;
 }
 .signup-content {
     margin: 20px;
@@ -298,4 +298,9 @@
     width: 100px;
     height: 100px;
     aspect-ratio: 1/1;
+}
+.errrror{
+    margin-bottom: 5px;
+    color: red;
+    font-size: 14px;
 }

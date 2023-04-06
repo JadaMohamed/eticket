@@ -199,21 +199,14 @@ const SignUp = () => {
       <SubNavbar />
       <div className="signup-container">
         <div className="signup-content">
-          <div className="left-side">
-            <div className="logo">
-              <img src={logo} alt="" />
-            </div>
-          </div>
           <div className="right-side">
             <div className="header-title">Create organizer account</div>
-            <div className="instructions-signup">
-              Already a member? <span>Login</span>
-            </div>
+            <div className="instructions-signup"></div>
             <SignUpFlow activestep={`${currentStepIndex + 1}`} />
             <form onSubmit={handleSubmit}>
               <div className="form-container">
                 <div className="top-form-container">{step}</div>
-                <div style={{ color: "red" }}>{errorField}</div>
+                <div className="errrror">{errorField}</div>
                 <div className="bottom-form-container">
                   {!isFirstStep && (
                     <button

@@ -8,6 +8,7 @@ import AuthContext from "../../Auth/AuthContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import PaymentForm from "../../components/common/paymentform";
 import Header from "../../components/common/Header";
+import loader from "../../img/loading.svg";
 import axios from "axios";
 
 
@@ -20,6 +21,7 @@ function Cart() {
   const [checkOut, setCheckOut] = useState(false);
   const [checkOutData, setCheckOutData] = useState();
   const [selectedCards, setSelectedCards] = useState([]);
+  const [loading, setLoading]=useState(false);
   //this is for the checkout
   const [totalPriceCheckOut, setTotalPriceCheckOut] = useState(0);
 
@@ -28,6 +30,7 @@ function Cart() {
   }, []);
 
   const getClientNonPaidOrders = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `${apiUrl}/api/orders-cart/not-paid/client/${profile.user.client_id}`,
@@ -36,10 +39,12 @@ function Cart() {
       if (response) {
         setCart(response.data);
         setAllCart(response.data);
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -166,38 +171,42 @@ function Cart() {
         <div className="content-cart-page-container">
           <div className="event-card-cart-table">
             {/* {cart.length > 0 ? <ProductsHeader /> : ""} */}
+            {loading ? (
+  <div className="loading">
+    <img src={loader} />
+  </div>
+) : (
+  cart.length ? (
+    cart.map((item) => (
+      <EventCard_Cart
+        key={item.order_id}
+        eventId={item.Event.event_id}
+        order_id={item.order_id}
+        date={item.Event.start_time}
+        title={item.Event.title}
+        eventCategory={item.Event.event_type}
+        location={item.Event.location}
+        image={item.Event.Event_Images[0].img_url}
+        quantity={item.quantity}
+        seatCategories={item.Event.SeatCategory}
+        totalPrice={item.total_price}
+        selectedCards={selectedCards}
+        setCardSelected={selectCard}
+        setCardUnSelected={unSelectCard}
+        seat_categ_id={item.seat_categ_id}
+        totalPriceCheckOut={totalPriceCheckOut}
+        setTotalPriceCheckOut={setTotalPriceCheckOut}
+        updateCartQuantity={(newQuantity, newTotalPrice, newSeatId, newUnitPrice) =>
+          updateCartQuantity(item.order_id, newQuantity, newTotalPrice, newSeatId, newUnitPrice)
+        }
+      />
+    ))
+  ) : (
+    <div className="empty-cart">Nothing to show</div>
+  )
+)}
 
-            {cart ? (
-              cart.map((item) => {
-                return (
-                  <EventCard_Cart
-                    key={item.order_id}
-                    eventId={item.Event.event_id}
-                    order_id={item.order_id}
-                    date={item.Event.start_time}
-                    title={item.Event.title}
-                    eventCategory={item.Event.event_type}
-                    location={item.Event.location}
-                    image={item.Event.Event_Images[0].img_url}
-                    quantity={item.quantity}
-                    seatCategories={item.Event.SeatCategory}
-                    totalPrice={item.total_price}
-                    selectedCards={selectedCards}
-                    setCardSelected={selectCard}
-                    setCardUnSelected={unSelectCard}
-                    seat_categ_id={item.seat_categ_id}
-                    totalPriceCheckOut={totalPriceCheckOut}
-                    setTotalPriceCheckOut={setTotalPriceCheckOut}
-                    updateCartQuantity={(newQuantity, newTotalPrice, newSeatId, newUnitPrice) => updateCartQuantity(item.order_id, newQuantity, newTotalPrice, newSeatId, newUnitPrice)}
-
-                  />
-                );
-              })
-            ) : (
-              <div className="empty-cart">Nothing to show</div>
-            )}
-
-
+            
           </div>
         </div>
       </div>

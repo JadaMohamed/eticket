@@ -52,17 +52,19 @@ function Dashboard() {
             <div className="inst">Welcome back to your dashboard !</div>
           </div>
           <div className="cards-container">
-            {eventsStats && (
+            {eventsStats ? (
               <SalesCardDash
                 sales={eventsStats.totalSoldTickets}
                 totalSeats={eventsStats.totalMaxAttendees}
               />
+            ) : (
+              <SalesCardDash sales={0} totalSeats={0} />
             )}
-            {lastThreeEvents[2] && (
+            {lastThreeEvents[0] && (
               <SalesCard
-                sales={lastThreeEvents[2].number_sold_tickets}
-                totalSeats={lastThreeEvents[2].max_number_attendants}
-                image={lastThreeEvents[2].brand_url}
+                sales={lastThreeEvents[0].number_sold_tickets}
+                totalSeats={lastThreeEvents[0].max_number_attendants}
+                image={lastThreeEvents[0].brand_url}
               />
             )}
             {lastThreeEvents[1] && (
@@ -72,18 +74,22 @@ function Dashboard() {
                 image={lastThreeEvents[1].brand_url}
               />
             )}
-            {lastThreeEvents[0] && (
+            {lastThreeEvents[2] ? (
               <SalesCard
-                sales={lastThreeEvents[0].number_sold_tickets}
-                totalSeats={lastThreeEvents[0].max_number_attendants}
-                image={lastThreeEvents[0].brand_url}
+                sales={lastThreeEvents[2].number_sold_tickets}
+                totalSeats={lastThreeEvents[2].max_number_attendants}
+                image={lastThreeEvents[2].brand_url}
               />
+            ) : (
+              <div className="add-event" title="Add event">
+                <span class="material-symbols-outlined">add</span>
+              </div>
             )}
           </div>
           <div className="graphs">
             <div className="left">
               {/* <img src={left} alt="" /> */}
-              <OrganizerSummary title={"Summary"}/>
+              <OrganizerSummary title={"Summary"} />
             </div>
             <div className="right">
               {/* <img src={right} alt="" /> */}
