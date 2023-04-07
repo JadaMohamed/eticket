@@ -25,7 +25,7 @@ export default function SignUpNav(props) {
           />
         </div>
         <div className="close" onClick={() => props.setTrigger(false)}>
-          <span className="material-symbols-outlined">cancel</span>
+          <span className="material-symbols-outlined">close</span>
         </div>
         <div className="title-instructions element">
           <div className="title">Sign Up</div>

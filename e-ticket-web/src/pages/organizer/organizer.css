@@ -8,7 +8,7 @@
 }
 .organizer-container .top-content .banner {
     background-color: var(--Purple10);
-    min-height: 220px;
+    min-height: 180px;
 }
 .organizer-container .top-content .infos-nav {
     display: flex;

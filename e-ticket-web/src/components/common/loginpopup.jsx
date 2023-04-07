@@ -3,11 +3,11 @@ import logo from "../../img/logo.svg";
 import "../../css/loginpopup.css";
 import AuthContext from "../../Auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import rolling from '../../img/rolling.svg'
+import rolling from "../../img/rolling.svg";
 
 export default function LoginPopup(props) {
   const [isVisible, setVisible] = useState(false);
-  const [loading, setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const userName = useRef("");
   const password = useRef("");
   const { login, errorLogin, setErrorLogin } = useContext(AuthContext);
@@ -95,14 +95,31 @@ export default function LoginPopup(props) {
           </div>
           <div className="element-c submit">
             {errorLogin && (
-              <div style={{marginBottom: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', fontSize: '14px'}}>
-                <span style={{ color: "red"}}> {errorLogin} </span>
+              <div
+                style={{
+                  marginBottom: "10px",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  fontSize: "14px",
+                }}
+              >
+                <span style={{ color: "red" }}> {errorLogin} </span>
                 {/* <p>&nbsp;</p> */}
-                <Link to="/reset-password/msg" style={{color: 'var(--Purple60)'}}>forget password?</Link>
+                <Link
+                  to="/reset-password/msg"
+                  style={{ color: "var(--Purple60)" }}
+                >
+                  forget password?
+                </Link>
               </div>
             )}
             <div className="submit-container" onClick={loginSubmit}>
-            {loading? <img src={rolling} style={{width: "20px"}}/> : 'Sign Up'}
+              {loading ? (
+                <img src={rolling} style={{ width: "20px" }} />
+              ) : (
+                "Sign In"
+              )}
             </div>
           </div>
           <div className="element-c sign-up">
