@@ -57,3 +57,11 @@
 .check-email .check-email-container .btn .btn-container:hover{
     opacity: .9;
 }
+
+
+
+.check-email .check-email-container img{
+    width: 100%;
+    max-height: 150px;
+    max-width: 150px;
+}
