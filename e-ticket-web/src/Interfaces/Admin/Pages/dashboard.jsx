@@ -11,10 +11,12 @@ import TotalActivity from "../Components/total-activity";
 import NewUsers from "../Components/new-users";
 import axios from "axios";
 import AuthContext from "../../../Auth/AuthContext";
+import UsersChart from "../Components/users-chart";
 
 const AdminDashboard = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [userCount, setUserCount]=useState();
+  const [typeUserCount, setTypeUserCount]=useState();
   const [organizerCount, setOrganizerCount]=useState();
   const [clientCount, setClientCount]=useState();
   const [account, setAccount]=useState();
@@ -23,6 +25,7 @@ const AdminDashboard = () => {
     const fetchUserCount= async()=>{
       const res = await axios.get(`${apiUrl}/api/admins/users/count/total`, { withCredentials: true });
       console.log(res.data);
+      setTypeUserCount(res.data);
       setUserCount(res.data.organizersCount+res.data.clientsCount);
       console.log(userCount);
     }
@@ -83,7 +86,8 @@ const AdminDashboard = () => {
             <TotalActivity />
           </div>
           <div className="right-side">
-            <img src={UserStats} alt="" />
+            {/* <img src={UserStats} alt="" /> */}
+            <UsersChart usersCount={typeUserCount}/>
             <NewUsers users={last10Users} loader={last10Loader} thisWeek={lastWeekCount}/>
           </div>
         </div>
