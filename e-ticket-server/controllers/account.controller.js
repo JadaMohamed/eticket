@@ -113,6 +113,23 @@ const loginToAccount = async (req, res) => {
     }
 };
 
+const getAccountsStats = async (req, res) => {
+    const { timeframe } = req.query;
+
+    try {
+        const stats = await accountService.getAccountsStats(timeframe);
+
+        if (stats) {
+            res.json(stats);
+        } else {
+            res.status(404).json({ error: `Error while getting accounts stats` });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 
 
 
@@ -124,5 +141,6 @@ export default {
     updateAccount,
     deleteAccount,
     getAllAccounts,
-    loginToAccount
+    loginToAccount,
+    getAccountsStats
 };
