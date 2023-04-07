@@ -14,11 +14,12 @@ import OrganizerSummary from "../components/organizer_summary";
 import Navbar from "../../components/common/navbar";
 import SubNavbar from "../../components/common/subnavbar";
 import SeatsSales from "../components/seats_sales";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const { profile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const Nav = useNavigate();
   const [lastThreeEvents, setLastThreeEvents] = useState([]);
   const [eventsStats, setEventsStats] = useState();
 
@@ -81,7 +82,13 @@ function Dashboard() {
                 image={lastThreeEvents[2].brand_url}
               />
             ) : (
-              <div className="add-event" title="Add event">
+              <div
+                className="add-event"
+                title="Add event"
+                onClick={() => {
+                  Nav("/organizer/events/createevent");
+                }}
+              >
                 <span class="material-symbols-outlined">add</span>
               </div>
             )}

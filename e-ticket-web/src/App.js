@@ -55,6 +55,7 @@ function App() {
           <Route path="/verify-email/:eticketjwt" element={<EmailVerify />} />
           <Route path="*" element={<Eror404 />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/search/:value/:category" component={Search} />
           <Route path="/search/:value" element={<Search />} />
           <Route path="/search" element={<Search />} />
 

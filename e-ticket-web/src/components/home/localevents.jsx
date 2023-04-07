@@ -38,11 +38,7 @@ function LocalEvents(props) {
                 <Card
                   key={levent.event_id}
                   eventid={levent.event_id}
-                  image={
-                    levent.Event_Images.length > 0
-                      ? levent.Event_Images[0].img_url
-                      : null
-                  } // select the first image
+                  image={levent.brand_url} // select the first image
                   title={levent.title}
                   price={levent.price}
                   location={levent.location}

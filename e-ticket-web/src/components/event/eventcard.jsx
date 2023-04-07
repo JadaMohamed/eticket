@@ -15,7 +15,9 @@ function Card(props) {
 
   const isExpired = new Date(props.date) < new Date();
   const handleAddToCart = async () => {
-    console.log('start add to cart');
+    if (isExpired) {
+      return;
+    }
     try {
       const response = await axios.post(
         `${apiUrl}/api/orders-cart/add-to-cart`,
@@ -25,7 +27,7 @@ function Card(props) {
           event_id: props.eventid,
           client_id: profile.user.client_id,
         },
-        { withCredentials: true, }
+        { withCredentials: true }
       );
       if (response) {
         console.log(response.data);
@@ -33,7 +35,7 @@ function Card(props) {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div className="cardevent" key={props.id}>
@@ -43,7 +45,7 @@ function Card(props) {
       >
         {isExpired ? <img src={Expired} className="expiredimage" /> : ""}
         <Image cloudName="djjwswdo4" publicId={props.image} />
-        {/* <img src={Image} alt="" /> */}
+        {/* <img src={props.image} alt="" /> */}
       </div>
       <div className="event-infos">
         <div className="infos-container">
