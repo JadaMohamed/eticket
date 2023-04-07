@@ -5,13 +5,18 @@ const eventService = {
   getAllEvents: async () => {
     const events = await prisma.event.findMany({
       include: {
-        //ClientWaitList: true,
-        Event_Images: true,
-        //Event_Review: true,
-        //Orders_Cart: true,
-        //Paid_Tickets_Orders: true,
-        SeatCategory: true,
-        //Ticket: true,
+        SeatCategory: {
+          select: {
+            type_price: true,
+          },
+          orderBy: {
+            type_price: 'asc'
+          },
+          take: 1,
+        },
+      },
+      orderBy: {
+        event_id: 'desc',
       },
     });
     return events;
@@ -165,11 +170,15 @@ const eventService = {
       },
     });
   },
+
   getTopSalesEvents: async () => {
     const events = await prisma.event.findMany({
-      include: {
-        Event_Images: true,
-        // number_sold_tickets: true,
+      where: {
+        start_time: {
+          gte: new Date() || new Date(new Date().getTime() + 48 * 60 * 60 * 1000),          // events that haven't started yet
+          // lte: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),  // events that started maximum 48 hours ago
+          
+        },
       },
       orderBy: {
         number_sold_tickets: "desc",
@@ -178,6 +187,8 @@ const eventService = {
     });
     return events;
   },
+
+  
 
   getAllEventsCategories: async () => {
     const categories = await prisma.event.findMany({

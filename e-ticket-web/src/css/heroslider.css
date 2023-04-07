@@ -9,8 +9,12 @@
   text-align: center;
   font-size: 18px;
   background: var(--Purple30);
-  max-width: 280px;
-  min-height: 280px;
+  /* max-width: 500px; */
+  aspect-ratio: 16/9;
+  /* min-height: 280px; */
+  max-width: 400px;
+  width: 100%;
+  height: 100%;
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -27,8 +31,10 @@
 }
 .swiper-slide img {
   display: block;
-  width: 280px;
-  height: 280px;
+  height: 100%;
+  aspect-ratio: 16/9;
+  /* width: 280px;
+  height: 280px; */
   object-fit: cover;
 }
 .heroslider-container {

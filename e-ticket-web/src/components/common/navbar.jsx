@@ -35,7 +35,8 @@ function Navbar(props) {
     }
   }, [localStorage.getItem("cart")]);
   const handleSearch = () => {
-    if (keyword?.length) Nav(`/search/${keyword}`, { replace: true });
+    // if (keyword?.length) Nav(`/search/${keyword}`, { replace: true });
+    Nav(`/search/${keyword}`, { replace: true });
   };
   const logoutSubmit = async (event) => {
     logout();
@@ -59,20 +60,30 @@ function Navbar(props) {
   useEffect(() => {
     console.log(profile);
   }, [profile]);
-  const [alert, setAlert]=useState(false);
-  const [alertParams, setAlertParams]=useState({color: '', msg: '', icon: ''});
+  const [alert, setAlert] = useState(false);
+  const [alertParams, setAlertParams] = useState({
+    color: "",
+    msg: "",
+    icon: "",
+  });
   useEffect(() => {
-      if (alert) {
-        const timer = setTimeout(() => {
-          setAlert(false);
-        }, 5000);
-        return () => clearTimeout(timer);
-      }
-    }, [alert]);
+    if (alert) {
+      const timer = setTimeout(() => {
+        setAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
   return (
     <nav className="nav">
       <div className="nav-container">
-        <Alert color={alertParams.color} msg={alertParams.msg} icon={alertParams.icon} setAlert={setAlert} alert={alert} />
+        <Alert
+          color={alertParams.color}
+          msg={alertParams.msg}
+          icon={alertParams.icon}
+          setAlert={setAlert}
+          alert={alert}
+        />
         <a
           className="logoImage"
           onClick={() => Nav("/home", { replace: true })}
@@ -119,9 +130,7 @@ function Navbar(props) {
                 ) : (
                   ""
                 )}
-                <span class="material-symbols-outlined">
-shopping_basket
-</span>
+                <span class="material-symbols-outlined">shopping_basket</span>
               </div>
               <div
                 onClick={() => Nav("/mytickets", { replace: true })}
@@ -131,9 +140,12 @@ shopping_basket
                 id="mytickets"
                 title="My Tickets"
               >
-                <span class="material-symbols-outlined" style={{transform: 'rotate(90deg)'}}>
-confirmation_number
-</span>
+                <span
+                  class="material-symbols-outlined"
+                  style={{ transform: "rotate(90deg)" }}
+                >
+                  confirmation_number
+                </span>
               </div>
               {isLoggedIn ? (
                 <div
@@ -168,9 +180,7 @@ confirmation_number
                     title="Me"
                     ref={menuRef}
                   >
-                    <span className="material-symbols-outlined">
-                      login
-                    </span>
+                    <span className="material-symbols-outlined">login</span>
                   </div>
                 </>
               )}
@@ -197,24 +207,31 @@ confirmation_number
                     </div>
                   </div>
                 </div>
-                {profile.account.account_type ==="organizer"? (
-                  <><div
-                  className="dropdown-item"
-                  onClick={() => Nav("/home", { replace: true })}
-                >
-                    <div>
-                      <span className="material-symbols-outlined">home</span>
+                {profile.account.account_type === "organizer" ? (
+                  <>
+                    <div
+                      className="dropdown-item"
+                      onClick={() => Nav("/home", { replace: true })}
+                    >
+                      <div>
+                        <span className="material-symbols-outlined">home</span>
+                      </div>
+                      Home
                     </div>
-                    Home
-                  </div><div
-                    className="dropdown-item"
-                    onClick={() => Nav("/organizer/dashboard", { replace: true })}
-                  >
-                    <div>
-                      <span className="material-symbols-outlined">dashboard</span>
+                    <div
+                      className="dropdown-item"
+                      onClick={() =>
+                        Nav("/organizer/dashboard", { replace: true })
+                      }
+                    >
+                      <div>
+                        <span className="material-symbols-outlined">
+                          dashboard
+                        </span>
+                      </div>
+                      Dashboard
                     </div>
-                    Dashboard
-                  </div></>
+                  </>
                 ) : (
                   ""
                 )}
@@ -230,7 +247,6 @@ confirmation_number
                   Settings
                 </div>
 
-                
                 <div
                   className="dropdown-item"
                   onClick={() => {
@@ -265,7 +281,9 @@ confirmation_number
                   // }}
                 >
                   <div>
-                    <span className="material-symbols-outlined">person_add</span>
+                    <span className="material-symbols-outlined">
+                      person_add
+                    </span>
                   </div>
                   Sign Up
                 </div>
@@ -296,10 +314,13 @@ confirmation_number
         />
       )}
       {popupSignUpClient && (
-        <SignUpClient setTrigger={setpopupSignUpClient} login={setpoupLogin}           
-        alert={alert}
-        setAlert={setAlert}
-        setAlertParams={setAlertParams}/>
+        <SignUpClient
+          setTrigger={setpopupSignUpClient}
+          login={setpoupLogin}
+          alert={alert}
+          setAlert={setAlert}
+          setAlertParams={setAlertParams}
+        />
       )}
     </nav>
   );

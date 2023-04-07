@@ -301,9 +301,7 @@ const eventController = {
   },
   getTopSalesEvents: async (req, res) => {
     try {
-      // console.log("Searching......top sales............");
       const events = await eventService.getTopSalesEvents();
-      //  console.log(events);
       res.status(200).json(events);
     } catch (err) {
       console.error(err);

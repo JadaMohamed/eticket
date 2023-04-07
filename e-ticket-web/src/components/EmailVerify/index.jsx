@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import success from "../../img/success.png";
+import success from "./success.gif";
+import ball from "./ball.svg";
 import "./style.css";
 import Eror404 from "../common/eror404";
 import logo from "./../../img/logo.svg";
@@ -77,8 +78,12 @@ const EmailVerify = () => {
             <img src={logo} alt="e-tickets.logo" className="Logo_" />
           </div>
         </nav>
-        <div className="">
-          <h1>Loading ...!</h1>
+        <div className="verify-email-page">
+          <div className="check-email">
+            <div className="check-email-container">
+              <img src={ball} alt="" style={{ maxWidth: "30px" }} />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -92,21 +97,28 @@ const EmailVerify = () => {
                 <img src={logo} alt="e-tickets.logo" className="Logo_" />
               </div>
             </nav>
-            <div className="">
-              <img src={success} alt="success_img" className="" />
-              <h1>Email verified successfully</h1>
-              {typeuser === "client" && (
-                <a href="/">
-                  {" "}
-                  <button className="">Back to Home</button>
-                </a>
-              )}
-              {typeuser === "organizer" && (
-                <Link to="/organizer/dashboard">
-                  {" "}
-                  <button className="">My dashboard</button>{" "}
-                </Link>
-              )}
+            <div className="check-email">
+              <div className="check-email-container">
+                <img src={success} alt="" />
+                <div className="header" style={{ color: "#38c172" }}>
+                  Email verified successfully !
+                </div>
+                <div
+                  className="info"
+                  style={{ maxWidth: "400px", textAlign: "center" }}
+                >
+                  Wecolme to e-ticket.com exlpore your favorite events and
+                  reserve your seat from home
+                </div>
+                <div
+                  className="btn"
+                  onClick={() => {
+                    Nav("/home");
+                  }}
+                >
+                  <div className="btn-container">Back to Home</div>
+                </div>
+              </div>
             </div>
           </>
         ) : (

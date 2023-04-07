@@ -20,22 +20,21 @@ export const Createevent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const { profile } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const [ispublished, setIspublished] = useState(false);
   const [msgeError, setmsgeError] = useState(false);
   const [hostedImages, setHostedImages] = useState([]);
   const [createEventStep, setCreateEventStep] = useState(1);
 
   const [eventData, setEventData] = useState({
-    eventTitle: "1111111111111111",
-    date: "2023-04-08",
-    time: "12:00",
-    address1: "GGGGGGGG",
-    address2: "teeeeeeeest",
+    eventTitle: "",
+    date: "",
+    time: "00:00",
+    address1: "",
+    address2: "",
     trailer_video_url: "",
     categories: [{ name: "", price: "", numSeats: "" }],
-    description: "fffffffffffffffffffffffffff",
-    eventType: "Sport",
+    description: "",
+    eventType: "",
     Event_Images: [],
   });
 
@@ -242,7 +241,7 @@ export const Createevent = () => {
         return (
           category.name.trim() !== "" &&
           category.price !== "" &&
-          category.price > 0 &&
+          category.price >= 0 &&
           category.numSeats !== "" &&
           category.numSeats
         );
