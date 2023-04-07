@@ -80,7 +80,7 @@ const EventsList = ({selectedEvent, selectedEventHandler, data}) => {
                   title={item?.title}
                   location={item?.location}
                   date={item?.start_time}
-                  brandUrl={item?.brand_url}
+                  brandUrl={`https://res.cloudinary.com/djjwswdo4/image/upload/v1/${item?.brand_url}`}
                 />
               </TouchableOpacity>
             </MotiView>

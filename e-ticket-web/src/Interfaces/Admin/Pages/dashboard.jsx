@@ -22,7 +22,7 @@ const AdminDashboard = () => {
   const [account, setAccount]=useState();
   const { profile, isLoggedIn } = useContext(AuthContext);
   useEffect(()=>{
-    const fetchUserCount= async()=>{
+    const fetchUserCount= async() => {
       const res = await axios.get(`${apiUrl}/api/admins/users/count/total`, { withCredentials: true });
       console.log(res.data);
       setTypeUserCount(res.data);

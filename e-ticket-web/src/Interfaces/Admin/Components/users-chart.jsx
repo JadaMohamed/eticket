@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Legend, Tooltip } from 'chart.js';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Doughnut } from 'react-chartjs-2';
 import "../../../../src/organizer/css/seats_sales.css";
+import AuthContext from '../../../Auth/AuthContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,7 +40,21 @@ const chartOptions = {
 function UsersChart({usersCount}) {
     const apiUrl = process.env.REACT_APP_API_URL;
     console.warn("usersCount in chart", usersCount);
-    const [chartData, setChartData] = useState();
+    const {profile} = useContext(AuthContext);
+    const [chartData, setChartData] = useState({
+        labels: ['Client', 'Oraganizer'],
+        datasets: [
+            {
+                label: '# Tickets sales',
+                data: [parseInt(usersCount?.clientsCount), parseInt(usersCount?.organizersCount)],
+                backgroundColor: [
+                    'rgba(255,199,0,255)',
+                    'rgba(85,46,136,255)',
+                ],
+            },
+        ],
+    });
+    console.warn("chartData in chart", chartData);
     const totalUsers = parseInt(usersCount?.organizersCount) + parseInt(usersCount?.clientsCount) ?? 0;
     // console.warn("meow", usersCount);
     // useEffect(() => {
@@ -64,7 +79,7 @@ function UsersChart({usersCount}) {
                 },
             ],
         });
-    }, [])
+    }, [profile])
     return (
         <div className='seats-sales-container'>
             <div className='header'>
@@ -79,7 +94,7 @@ function UsersChart({usersCount}) {
                     </div>
                     <span style={{ fontSize: 12 }}>User</span>
                 </div>
-                <Doughnut data={chartData ?? data} options={chartOptions} />
+                <Doughnut data={chartData} options={chartOptions} />
             </div>
             <div className='legend'>
 

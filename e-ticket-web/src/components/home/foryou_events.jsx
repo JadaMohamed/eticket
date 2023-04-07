@@ -35,7 +35,7 @@ function LocalEvents(props) {
               <Card
                 key={event.event_id}
                 eventid={event.event_id}
-                image={event.brand_url} // select the first image
+                image={ event.brand_url} 
                 title={event.title}
                 price={event?.SeatCategory[0]?.type_price}
                 location={event.location}

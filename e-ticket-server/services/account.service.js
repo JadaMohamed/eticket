@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 
 const createAccount = async (data) => {
-    return await prisma.account.create({data});
+    return await prisma.account.create({ data });
 };
 
 const getAccountById = async (id) => {
@@ -41,10 +41,10 @@ const deleteAccount = async (id) => {
 
 const getAllAccounts = async () => {
     return await prisma.account.findMany({
-        include:{
-            Admin:true,
-            Notifications:true,
-            Organizer:true,
+        include: {
+            Admin: true,
+            Notifications: true,
+            Organizer: true,
         }
     });
 };
@@ -100,6 +100,60 @@ async function findAccountByPhone(phone_number) {
     return account
 }
 
+async function getAccountsStats(timeframe) {
+    let query;
+    let startDate;
+    switch (timeframe) {
+        case "lifetime":
+            query = {
+                select: {
+                    created_at: true,
+                    account_type: true,
+                },
+            }
+            break;
+        case "last30days":
+            startDate = new Date();
+            startDate.setDate(startDate.getDate() - 30);
+            query = {
+                select: {
+                    created_at: true,
+                    account_type: true,
+                },
+                where: {
+                    created_at: { gte: startDate }
+                }
+            }
+            break;
+        default:
+            throw new Error(
+                `Invalid timeframe: ${timeframe}, with typeof: ${typeof timeframe}`
+            );
+    }
+    const accounts = await prisma.account.findMany(query)
+
+    const data = {}
+
+    accounts.forEach((account) => {
+        const date = account.created_at.toDateString()
+
+        if (!data[date]) {
+            data[date] = {
+                client: 0,
+                organizer: 0,
+            }
+        }
+
+        if (account.account_type === 'client') {
+            data[date].client++
+        } else if (account.account_type === 'organizer') {
+            data[date].organizer++
+        }
+    })
+
+    return data
+}
+
 export default {
     createAccount,
     getAccountById,
@@ -110,5 +164,6 @@ export default {
     findAccountByEmailAndPassword,
     findAccountByEmail,
     findAccountByFirstLastName,
-    findAccountByPhone
+    findAccountByPhone,
+    getAccountsStats
 };

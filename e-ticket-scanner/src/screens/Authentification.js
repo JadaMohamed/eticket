@@ -1,17 +1,14 @@
 import {StyleSheet, Text, View, Image, Alert} from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
-import Header from '../assets/Authentification/Header.svg';
 import Logo from '../assets/Logo.svg';
-import {width} from '../constants/Layout';
 import LabeledTextInput from '../components/authentification/LabeledTextInput';
 import Spacer from '../components/Spacer';
 import Button from '../components/Button';
 import { API_URL } from '../constants/Api';
 
-//FIXME: SVG Works fine in chrome, but in android it's not why ?.
 const Authentification = ({navigation}) => {
-  const [email, setEmail] = useState('organizer@example.com');
-  const [password, setPassword] = useState('organizerpassword');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [signinin, setsigninin] = useState(false);
 
   const emailChangeHandler = value => setEmail(value);
