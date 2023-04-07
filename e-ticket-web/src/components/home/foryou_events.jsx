@@ -16,7 +16,7 @@ function LocalEvents(props) {
     try {
       const response = await Axios.get(`${apiUrl}/api/events`);
       setEvents(response.data);
-       console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -35,11 +35,7 @@ function LocalEvents(props) {
               <Card
                 key={event.event_id}
                 eventid={event.event_id}
-                image={
-                  event.Event_Images.length > 0
-                    ? event.brand_url
-                    : null
-                } // select the first image
+                image={ event.brand_url} 
                 title={event.title}
                 price={event?.SeatCategory[0]?.type_price}
                 location={event.location}
