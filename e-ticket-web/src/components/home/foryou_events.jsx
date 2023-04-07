@@ -16,7 +16,7 @@ function LocalEvents(props) {
     try {
       const response = await Axios.get(`${apiUrl}/api/events`);
       setEvents(response.data);
-      // console.log(response.data);
+       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -37,7 +37,7 @@ function LocalEvents(props) {
                 eventid={event.event_id}
                 image={
                   event.Event_Images.length > 0
-                    ? event.Event_Images[0].img_url
+                    ? event.brand_url
                     : null
                 } // select the first image
                 title={event.title}
