@@ -19,6 +19,7 @@ model Account {
   created_at      DateTime        @default(now())
   avatar          String          @default("https://res.cloudinary.com/djjwswdo4/image/upload/v1679165345/e_ticket/useravatar/jzg6gsepwvzpsb0rej7a.jpg") @db.VarChar(150)
   phone_number    String          @unique @db.VarChar(50)
+  last_activity   DateTime        @default(now())
   Admin           Admin[]
   Notifications   Notifications[]
   Organizer       Organizer[]

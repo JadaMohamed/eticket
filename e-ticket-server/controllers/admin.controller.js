@@ -107,6 +107,17 @@ const getTotalUsers= async(req,res)=>{
     }
 
 }
+const getTotalActive= async(req,res)=>{
+    try{
+        const Users=await adminService.getTotalActive();
+        res.status(200).json(Users);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error Canot get users' });
+    }
+
+}
 
 const getJoinedLastWeek= async(req,res)=>{
     try{
@@ -163,5 +174,6 @@ export default {
     getJoinedLastWeek,
     getEventsStats,
     getLastJoinedUsers,
-    getAllUsers
+    getAllUsers,
+    getTotalActive
 };
