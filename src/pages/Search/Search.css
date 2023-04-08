@@ -108,3 +108,12 @@
 .search-filter .search-filter-container .bottom-search-filter .right-side:hover {
     opacity: 0.9;
 }
+@media only screen and (max-width: 780px) {
+    .search-filter .search-filter-container{
+        padding: 10px 20px;
+    }
+    .bottom-search-filter{
+        flex-direction: column !important;
+    }
+
+}

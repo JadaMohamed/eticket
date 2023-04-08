@@ -34,7 +34,7 @@ function Events() {
       <SubNavbar />
       {event ? (
         <>
-          <EventPreview event={event} />
+          <EventPreview event={event} id={event?.org_id}/>
           <MoreBy id={event?.org_id} />
         </>
       ) : (

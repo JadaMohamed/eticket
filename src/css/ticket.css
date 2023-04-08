@@ -28,6 +28,9 @@
 }
 .ticket-card .ticket-card-container .preview-image img {
     width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+
 }
 .ticket-card .ticket-card-container .event-title {
     font-weight: 600;
@@ -37,6 +40,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: rgba(0, 0, 0, 0.7) !important;
+    max-width: 300px;
 }
 .ticket-card .ticket-card-container .event-category {
     user-select: none;
@@ -100,11 +104,14 @@
 .ticket-card .ticket-card-container .ticket-consult .btns .download-ticket:hover {
     background-color: var(--LighterPurple);
 }
-.ticket-card .ticket-card-container .ticket-consult .btns .preview-ticket {
+.ticket-card .ticket-card-container .ticket-consult .btns .XXXXXX {
     border: 1px solid var(--Purple60);
     color: var(--White);
     transition: var(--Trans03);
     background-color: var(--Purple);
+}
+.ticket-card .ticket-card-container .ticket-consult .btns .XXXXXX:hover{
+    opacity: .9;
 }
 .ticket-card .ticket-card-container .ticket-consult .btns .preview-ticket:hover {
     opacity: 0.9;

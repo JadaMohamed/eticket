@@ -17,15 +17,17 @@
     flex-direction: column;
 }
 .event-preview .event-preview-container .leftside .images .selected-image {
-    min-height: 280px;
     background-color: var(--Purple30);
     border-radius: 8px;
     display: flex;
     overflow: hidden;
     margin-bottom: 10px;
+    aspect-ratio: 16/9;
+    width: 100%;
 }
 .event-preview .event-preview-container .leftside .images .selected-image img {
     width: 100%;
+    object-fit: cover;
     aspect-ratio: 16/9;
 }
 .event-preview .event-preview-container .leftside .images .image-slider {
@@ -209,3 +211,12 @@
 .more-by .section-title span:hover {
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 900px) {
+    .event-preview .event-preview-container{
+        flex-direction: column;
+    }
+    .event-preview .event-preview-container .right-side{
+        width: 100%;
+    }
+  }

@@ -40,7 +40,14 @@ function LocalEvents(props) {
                   eventid={levent.event_id}
                   image={levent.brand_url} // select the first image
                   title={levent.title}
-                  price={levent.price}
+                  // price={levent?.SeatCategory[0]?.type_price}
+                  price={
+                    levent?.SeatCategory?.reduce((prev, current) => {
+                      return prev.type_price < current.type_price
+                        ? prev
+                        : current;
+                    }).type_price
+                  }
                   location={levent.location}
                   category={levent.event_type}
                   date={levent.start_time}

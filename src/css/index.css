@@ -187,6 +187,7 @@ header .header-container .actions .cta:hover {
   padding: 10px 15px;
   border-radius: 8px;
   font-size: 14px;
+  z-index: 99999;
 }
 .alert .close {
   display: flex;

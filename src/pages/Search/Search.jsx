@@ -24,7 +24,6 @@ function Search() {
   });
 
   const searchEvents = async (keyword) => {
-
     // console.log("allfilters")
     // console.log(allfilters)
     // console.log('filters')
@@ -54,7 +53,7 @@ function Search() {
     if (value?.startsWith(" ")) {
       // console.log('value')
       // console.log(value)
-      handleCategoryChange()
+      handleCategoryChange();
       searchEvents("");
       value = "";
       return;
@@ -89,7 +88,7 @@ function Search() {
           {events.length > 0 ? (
             events.map((eventData) => (
               <Card
-                eventId={eventData.event_id}
+                eventid={eventData.event_id}
                 image={eventData.brand_url}
                 title={eventData.title}
                 price={eventData.price}

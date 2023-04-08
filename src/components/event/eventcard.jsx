@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "../../css/card.css";
 import { useNavigate } from "react-router-dom";
 import CountdownDate from "../common/countdown";
@@ -7,14 +7,23 @@ import Expired from "../../img/end.svg";
 import { Image } from "cloudinary-react";
 import axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
+import Alert from "../common/alert";
 
 function Card(props) {
   const apiUrl = process.env.REACT_APP_API_URL;
   const { profile } = useContext(AuthContext);
   const Nav = useNavigate();
-
   const isExpired = new Date(props.date) < new Date();
   const handleAddToCart = async () => {
+    if (!profile) {
+      setAlertParams({
+        color: "orange",
+        msg: "Please Sign in to manage your cart",
+        icon: "error",
+      });
+      setAlert(true);
+      return;
+    }
     if (isExpired) {
       return;
     }
@@ -36,9 +45,21 @@ function Card(props) {
       console.error(error);
     }
   };
-
+  const [alert, setAlert] = useState(false);
+  const [alertParams, setAlertParams] = useState({
+    color: "",
+    msg: "",
+    icon: "",
+  });
   return (
     <div className="cardevent" key={props.id}>
+      <Alert
+        color={alertParams.color}
+        msg={alertParams.msg}
+        icon={alertParams.icon}
+        setAlert={setAlert}
+        alert={alert}
+      />
       <div
         className="previewimage cta"
         onClick={() => Nav(`/events/${props.eventid}`, { replace: false })}
@@ -76,12 +97,15 @@ function Card(props) {
             <div className="priceing">
               <span className="start-at">Start at</span>
               <div className="eventprice">
-                <span className="price">{props.price ? props.price : 99}</span>
+                <span className="price">{props.price}</span>
                 <span className="curr">MAD</span>
               </div>
             </div>
             <div className="action">
-              <div className="add-to-cart-btn" onClick={handleAddToCart}>
+              <div
+                className={`add-to-cart-btn ${isExpired ? "disactivated" : ""}`}
+                onClick={handleAddToCart}
+              >
                 <span className="material-symbols-outlined">
                   add_shopping_cart
                 </span>

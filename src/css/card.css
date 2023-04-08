@@ -39,6 +39,10 @@
   overflow: hidden;
   position: relative;
 }
+.cards .cardevent .previewimage img{
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
 .cards .cardevent .previewimage .expiredimage {
   position: absolute;
   z-index: 99;
@@ -140,6 +144,9 @@
   color: var(--Purple);
   border-radius: 8px;
   transition: 0.3s ease-in-out;
+}
+.cards .cardevent .event-infos .shopping .action .disactivated{
+  cursor:not-allowed;
 }
 .cards .cardevent .event-infos .shopping .action .add-to-cart-btn span {
   font-size: 1rem;

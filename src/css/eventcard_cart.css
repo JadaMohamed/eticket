@@ -6,7 +6,7 @@
 }
 .event-card-cart .event-card-cart-container {
     display: grid;
-    grid-template-columns: 1.5fr 2fr;
+    grid-template-columns: 1.8fr 2fr;
     justify-content: space-between;
     align-items: center;
     /* border-bottom: 1px solid var(--Purple10); */
@@ -40,7 +40,9 @@
 }
 .event-card-cart .event-card-cart-container .preview-image img {
     width: 100%;
-    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
 }
 .event-card-cart .event-card-cart-container .event-title {
     font-weight: 600;
@@ -50,6 +52,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: rgba(0, 0, 0, 0.7);
+    max-width: 200px;
 }
 .event-card-cart .event-card-cart-container .event-infos .inf {
     display: flex;
@@ -162,7 +165,7 @@
     display: none;
 }
 .event-card-cart-container .seat-category{
-    width: 50%;
+    width: 40%;
 }
 
 #seat-categories {
@@ -234,6 +237,9 @@
         align-items: center;
         justify-content: left;
         align-items: start;
+    }
+    .event-card-cart-container .seat-category{
+        width: 60%;
     }
 }
 @media only screen and (max-width: 780px) {

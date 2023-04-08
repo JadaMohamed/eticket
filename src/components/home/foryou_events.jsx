@@ -25,8 +25,17 @@ function LocalEvents(props) {
     console.log("searcing for events");
     getEvents();
   }, []);
+  const [alert, setAlert] = useState(true);
+
   return (
     <div className="localevents">
+      <alert
+        color={"orange"}
+        msg={"Please Sign in to manage your cart"}
+        icon={"error"}
+        setAlert={setAlert}
+        alert={alert}
+      />
       <div className="localevent-container">
         <div className="section-title">Suggestions </div>
         {events.length > 0 ? (
@@ -35,9 +44,15 @@ function LocalEvents(props) {
               <Card
                 key={event.event_id}
                 eventid={event.event_id}
-                image={ event.brand_url} 
+                image={event.brand_url}
                 title={event.title}
-                price={event?.SeatCategory[0]?.type_price}
+                price={
+                  event?.SeatCategory?.reduce((prev, current) => {
+                    return prev.type_price < current.type_price
+                      ? prev
+                      : current;
+                  }).type_price
+                }
                 location={event.location}
                 category={event.event_type}
                 date={event.start_time}

@@ -13,8 +13,8 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
   const ticketRef = useRef(null);
   const [seatCategory, setSeatCategory] = useState();
   const downloadTicket = () => {
-    printDiv(ticketRef.current)
-  }
+    printDiv(ticketRef.current);
+  };
   useEffect(() => {
     const getTicketSeatCategory = async () => {
       try {
@@ -29,10 +29,9 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
     };
 
     getTicketSeatCategory();
-  }, [])
+  }, []);
 
-
-  //when the ticket is checked it will be added to checkedTickets 
+  //when the ticket is checked it will be added to checkedTickets
   //if clicked for unchecked it will be removed from ckeckedTickets
   function handleCheckboxChange(event) {
     const ticketId = ticket.ticket_id;
@@ -41,12 +40,11 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
     if (isChecked) {
       setCheckedTickets([...checkedTickets, ticketId]);
     } else {
-      setCheckedTickets(checkedTickets.filter(id => id !== ticketId));
+      setCheckedTickets(checkedTickets.filter((id) => id !== ticketId));
     }
   }
   return (
     <>
-
       <div className={`ticket-card-table selected`}>
         <div className="ticket-card">
           <div className="ticket-card-container">
@@ -60,7 +58,11 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
                 onChange={handleCheckboxChange}
               />
               <div className="preview-image">
-                <Image cloudName="djjwswdo4" publicId={ticket.Event.brand_url} alt="" />
+                <Image
+                  cloudName="djjwswdo4"
+                  publicId={ticket.Event.brand_url}
+                  alt=""
+                />
               </div>
               <div className="event-inf">
                 <div className="event-title">{ticket.Event.title}</div>
@@ -70,7 +72,9 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
                   {ticket.Event.location}
                 </div>
                 <div className="date inf">
-                  <span className="material-symbols-outlined">hourglass_top</span>
+                  <span className="material-symbols-outlined">
+                    hourglass_top
+                  </span>
                   <CountdownDate date={ticket.Event.start_time} />
                 </div>
                 <div className="event-category">{ticket.Event.event_type}</div>
@@ -78,12 +82,15 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
             </div>
             <div className="ticket-consult">
               <div className="btns">
-                <div className="download-ticket btn" onClick={() => downloadTicket()}>
+                <div
+                  className="download-ticket btn"
+                  onClick={() => downloadTicket()}
+                >
                   <span className="material-symbols-outlined">download</span>
                   Download
                 </div>
                 <div
-                  className="preview-ticket btn"
+                  className="XXXXXX btn"
                   onClick={() => onClick(ticket)}
                   style={{ marginTop: 0 }}
                 >
@@ -101,7 +108,14 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
             </div>
           </div>
         </div>
-        <TicketComponent eventData={ticket.Event} ref={ticketRef} ticketCategory={seatCategory} qrCode={ticket.qrcode} width={"800px"} visible={false} />
+        <TicketComponent
+          eventData={ticket.Event}
+          ref={ticketRef}
+          ticketCategory={seatCategory}
+          qrCode={ticket.qrcode}
+          width={"800px"}
+          visible={false}
+        />
       </div>
     </>
   );
