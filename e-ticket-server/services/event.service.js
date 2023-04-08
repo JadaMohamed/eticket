@@ -98,7 +98,14 @@ const eventService = {
               ? { event_type: { in: allfilters.categories } }
               : {},
             allfilters.cities.length > 0
-              ? { location: { in: allfilters.cities } }
+              // ? { location: { contains: { in: allfilters.cities } } }
+              //  ? { location: { some: { contains: allfilters.cities } } }
+              // ? { location: { contains: allfilters.cities } }
+              // ? { location: { in: allfilters.cities } }
+              // ? { location: { contains: allfilters.cities.map(city => `%${city}%`) } }
+              // ? { location: { in: allfilters.cities.map(city => `%${city}%`) } }
+              //after many testing finaly this one work
+              ? { OR: allfilters.cities.map(city => ({ location: { contains: city } })) }
               : {},
           ],
         },

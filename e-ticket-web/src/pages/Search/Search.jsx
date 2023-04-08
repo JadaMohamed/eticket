@@ -89,7 +89,7 @@ function Search() {
           {events.length > 0 ? (
             events.map((eventData) => (
               <Card
-                eventId={eventData.event_id}
+                eventid={eventData.event_id}
                 image={eventData.brand_url}
                 title={eventData.title}
                 price={eventData.price}
