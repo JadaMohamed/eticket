@@ -10,10 +10,11 @@ import "./Search.css";
 import loader from "../../img/loading.svg";
 
 function Search() {
+  const [filters, setFilters] = useState([]);
   useEffect(() => {
     document.title = "Search - E-Ticket";
   }, []);
-  let { value } = useParams("a");
+  let { value } = useParams();
   const [events, setEvents] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -23,25 +24,54 @@ function Search() {
   });
 
   const searchEvents = async (keyword) => {
-    if (keyword?.length < 1) {
-      return;
-    }
+
+    // console.log("allfilters")
+    // console.log(allfilters)
+    // console.log('filters')
+    // console.log(filters)
+    // console.log('keyword')
+    // console.log(keyword)
     try {
       const response = await Axios.post(
         `${apiUrl}/api/events/search?keyword=${keyword}`,
         { allfilters: allfilters }
       );
       setEvents(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
   console.log("yo yo : ", events);
+
+  const handleCategoryChange = () => {
+    const category = value.trim();
+    setFilters([category]);
+    setAllfilters({ categories: [category], cities: [] });
+  };
+
   useEffect(() => {
+    if (value?.startsWith(" ")) {
+      // console.log('value')
+      // console.log(value)
+      handleCategoryChange()
+      searchEvents("");
+      value = "";
+      return;
+    }
+
     searchEvents(value);
     console.log("ssearching for keyword " + value);
-  }, [value, allfilters]);
+  }, [value]);
+
+  useEffect(() => {
+    if (value?.startsWith(" ")) {
+      searchEvents("");
+      return;
+    }
+    searchEvents(value);
+    console.log("ssearching for keyword " + value);
+  }, [allfilters]);
   return (
     <>
       <Navbar />
@@ -50,6 +80,8 @@ function Search() {
         searchKeyword={value}
         allfilters={allfilters}
         setAllfilters={setAllfilters}
+        filters={filters}
+        setFilters={setFilters}
       />
       <div className="margin-top"></div>
       <div className="search-container">

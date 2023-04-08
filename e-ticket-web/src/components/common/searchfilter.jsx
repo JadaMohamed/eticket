@@ -5,12 +5,11 @@ import "../../css/searchfilter.css";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
-const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
+const SearchFilter = ({ searchKeyword, setAllfilters, setFilters, filters }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [filters, setFilters] = useState([]);
   const [categories, setCategories] = useState([]);
 
 
@@ -134,7 +133,7 @@ const SearchFilter = ({ searchKeyword, allfilters, setAllfilters }) => {
         <div className="bottom-search-filter">
           <div className="left-side">
             <div className="search-keyword">
-              Search result for : <span>"{searchKeyword}"</span>
+              Search result for : <span>"{searchKeyword?.startsWith(" ")? "": searchKeyword}"</span>
             </div>
             {filters.map((filter) => (
               <div key={filter} className="filter">

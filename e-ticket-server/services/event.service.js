@@ -69,25 +69,41 @@ const eventService = {
   },
 
   searchEvents: async (keyword, allfilters) => {
-    const events = await prisma.event.findMany({
-      where: {
-        AND: [
-          {
-            OR: [
-              { description: { contains: keyword } },
-              { location: { contains: keyword } },
-              { title: { contains: keyword } },
-            ],
-          },
-          allfilters.categories.length > 0
-            ? { event_type: { in: allfilters.categories } }
-            : {},
-          allfilters.cities.length > 0
-            ? { location: { in: allfilters.cities } }
-            : {},
-        ],
-      },
-    });
+    let events;
+    if (keyword !== 'undefined') {
+      events = await prisma.event.findMany({
+        where: {
+          AND: [
+            {
+              OR: [
+                { description: { contains: keyword } },
+                { location: { contains: keyword } },
+                { title: { contains: keyword } },
+              ],
+            },
+            allfilters.categories.length > 0
+              ? { event_type: { in: allfilters.categories } }
+              : {},
+            allfilters.cities.length > 0
+              ? { location: { in: allfilters.cities } }
+              : {},
+          ],
+        },
+      });
+    } else {
+      events = await prisma.event.findMany({
+        where: {
+          AND: [
+            allfilters.categories.length > 0
+              ? { event_type: { in: allfilters.categories } }
+              : {},
+            allfilters.cities.length > 0
+              ? { location: { in: allfilters.cities } }
+              : {},
+          ],
+        },
+      });
+    }
     return events;
   },
 
@@ -177,7 +193,7 @@ const eventService = {
         start_time: {
           gte: new Date() || new Date(new Date().getTime() + 48 * 60 * 60 * 1000),          // events that haven't started yet
           // lte: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),  // events that started maximum 48 hours ago
-          
+
         },
       },
       orderBy: {
@@ -188,7 +204,7 @@ const eventService = {
     return events;
   },
 
-  
+
 
   getAllEventsCategories: async () => {
     const categories = await prisma.event.findMany({
@@ -325,11 +341,11 @@ const eventService = {
         },
       });
     }
-  
+
     const ticketsBySeatCategory = {};
     events.forEach((event) => {
       event.Ticket.forEach((ticket) => {
-        console.log("ticket ? : " , ticket);
+        console.log("ticket ? : ", ticket);
         const ticketDate = ticket.created_at.toDateString();
         const category = ticket.SeatCategory.type_name;
         if (!ticketsBySeatCategory[category]) {
@@ -341,10 +357,10 @@ const eventService = {
         ticketsBySeatCategory[category][ticketDate] += 1;
       });
     });
-  
+
     return ticketsBySeatCategory;
   }
-  
+
 };
 
 
