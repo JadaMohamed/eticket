@@ -19,7 +19,7 @@ const RecordedTicket = ({ route, navigation }) => {
       );
       const data = await response.json();
       setClientName({firstName: data.Account.first_name, lastName: data.Account.last_name});
-      console.log("client account meow de meow : ",data.Account);
+      console.log("client account meow de meow : ",data);
     };
     const getSeatCategoryName = async () => {
       const response = await fetch(

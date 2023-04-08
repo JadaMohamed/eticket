@@ -101,6 +101,18 @@ const getAllUsers=async()=>{
         res.status(500).json({ error: 'Something went wrong' });
     }
 }
+const getTotalActive= async()=>{
+        try {
+          const now = new Date(); // Get the current date and time
+          const threshold = new Date(now.getTime() - (5 * 60 * 1000)); // Subtract 5 minutes from the current time
+            return await prisma.account.count({
+            where: { last_activity: { gte: threshold } },
+          });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Something went wrong' });
+        }
+}
 export default {
     createAdmin,
     getAdminById,
@@ -111,5 +123,6 @@ export default {
     getJoinedLastWeek,
     getEventsStats,
     getLastJoinedUsers,
-    getAllUsers
+    getAllUsers,
+    getTotalActive
 };

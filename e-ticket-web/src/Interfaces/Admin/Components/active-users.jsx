@@ -1,11 +1,11 @@
 import React from "react";
 
-const ActiveUsers = () => {
+const ActiveUsers = ({ activeUsers }) => {
   return (
     <div className="admin-dashboard-card active-users">
       <div className="admin-dashboard-card-container">
         <div className="top">
-          <div className="number">9,948</div>
+          <div className="number">{activeUsers}</div>
           <div className="label">Active Now</div>
           <div className="this bad">-28% last hour</div>
         </div>

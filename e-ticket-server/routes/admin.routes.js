@@ -14,7 +14,7 @@ router.get('/users/count/total', adminController.getTotalUsers);
 router.get('/events/count/total&weekcount', adminController.getEventsStats);
 router.get('/users/last-10-joined', adminController.getLastJoinedUsers);
 router.get('/users/all', adminController.getAllUsers);
-
+router.get('/users/active', adminController.getTotalActive)
 
 
 

@@ -130,7 +130,7 @@ const Home = ({route, navigation}) => {
                     title={events[selectedEventCard]?.title}
                     location={events[selectedEventCard]?.location}
                     date={events[selectedEventCard]?.start_time}
-                    brandUrl={events[selectedEventCard]?.brand_url}
+                    brandUrl={`https://res.cloudinary.com/djjwswdo4/image/upload/v1/${events[selectedEventCard]?.brand_url}`}
                   />
                 </TouchableOpacity>
               )}

@@ -156,31 +156,27 @@ const logout = async (req, res, next) => {
 
 const profile = async (req, res, next) => {
     try {
-        // console.log(req.user)
-
         const account = await accountService.getAccountById(req.user.accountId);
-        // console.log('account')
-        // console.log(account)
+
         if (!account) {
             return res.status(401).json({ error: 'Invalid virifecation to get account' });
         }
-
-
-        // Find user by email and password
+        await userService.updateAccountLastActivity(account.email);
+        // Update last_activity column in Account table
         const profile = await userService.findAccountByEmailAndPassword(account.email, account.password);
+        // profile.account.last_activity= new Date();
+
         if (!profile) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
-
 
         res.status(200).json({ profile });
 
     } catch (error) {
         next(error);
     }
-
-
 }
+
 
 
 const registerOrganizer = async (req, res, next) => {

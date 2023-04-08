@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
   },
   orgAvatar: {
     width: 80,
-    height: 80
+    height: 80,
+    borderRadius: 80
   }
 });
 

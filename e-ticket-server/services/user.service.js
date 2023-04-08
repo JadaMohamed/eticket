@@ -89,6 +89,18 @@ const findAccountByEmailAndPassword = async (email, password) => {
     }
     return {account,user};
 };
+const updateAccountLastActivity = async (accountemail) => {
+    try {
+        const now = new Date();
+        // Update the account's last_activity field
+        await prisma.account.update({
+          where: { email: accountemail },
+          data: { last_activity: now },
+        });
+    } catch (error) {
+      console.error(`Error updating last_activity for account `);
+    }
+  };
+  
 
-
-export default { createUser, findAccountByEmailAndPassword };
+export default { createUser, findAccountByEmailAndPassword,updateAccountLastActivity };
