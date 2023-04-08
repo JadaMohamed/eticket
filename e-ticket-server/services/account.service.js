@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 
-
 const createAccount = async (data) => {
     return await prisma.account.create({ data });
 };
