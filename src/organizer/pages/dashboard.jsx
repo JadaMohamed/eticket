@@ -39,6 +39,7 @@ function Dashboard() {
 
   useEffect(() => {
     getLastThreeEventsForOrganizer();
+    console.log("-------------------");
     console.log(lastThreeEvents);
   }, [profile]);
 
@@ -49,7 +50,9 @@ function Dashboard() {
         <SideBar activeBtn="dashboard" />
         <div className="container">
           <div className="welcome">
-            <div className="hi">Hi,Eticket Production</div>
+            <div className="hi">
+              Hi, {profile?.account.first_name} {profile?.account.last_name}
+            </div>
             <div className="inst">Welcome back to your dashboard !</div>
           </div>
           <div className="cards-container">

@@ -12,7 +12,7 @@
     margin-top: 20px;
     color: var(--Blak);
     width: 100%;
-    min-width: 100%
+    max-width: 1000px !important;
     /* margin: 20px; */
 }
 .preview-ticket-container .left-side {

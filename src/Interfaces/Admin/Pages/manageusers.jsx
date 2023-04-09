@@ -9,12 +9,15 @@ import "../CSS/admin-manage-users.css";
 const AdminUserManager = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [users, setUsers] = useState();
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     const fetchUsers = async () => {
       const res = await axios.get(`${apiUrl}/api/admins/users/all`, {
         withCredentials: true,
       });
       setUsers(res.data);
+      setTotal(res.data.length);
+      console.log(total);
     };
     fetchUsers();
   }, []);
@@ -35,6 +38,7 @@ const AdminUserManager = () => {
             <SearchUser
               userTypeFilter={userTypeToSearchIn}
               setUserTypeFilter={setUserTypeToSearchIn}
+              total={total}
             />
             <UsersGrid users={users} />
           </div>

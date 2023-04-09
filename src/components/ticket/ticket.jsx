@@ -115,6 +115,10 @@ function Ticket({ ticket, onClick, checkedTickets, setCheckedTickets }) {
           qrCode={ticket.qrcode}
           width={"800px"}
           visible={false}
+          // image={
+          //   "https://res.cloudinary.com/djjwswdo4/image/upload/v1/" +
+          //   ticket.Event.brand_url
+          // }
         />
       </div>
     </>

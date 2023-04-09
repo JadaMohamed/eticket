@@ -120,7 +120,7 @@ function OrEvents() {
               <div className="label">Selling</div>
               <span>{numSilling}</span>
             </div>
-            <div
+            {/* <div
               className={`all-ev filter-ev ${
                 activetab === "not-selling" ? "active" : ""
               }`}
@@ -131,7 +131,7 @@ function OrEvents() {
             >
               <div className="label">Paused</div>
               <span>{numPaused}</span>
-            </div>
+            </div> */}
             <div
               className={`all-ev filter-ev ${
                 activetab === "ended" ? "active" : ""

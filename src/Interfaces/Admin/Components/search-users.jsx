@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchUser = ({ userTypeFilter, setUserTypeFilter }) => {
+const SearchUser = ({ userTypeFilter, setUserTypeFilter, total }) => {
   return (
     <div className="search-user">
       <div className="search-user-container">
@@ -40,7 +40,7 @@ const SearchUser = ({ userTypeFilter, setUserTypeFilter }) => {
         </div>
         <div className="search-right-side">
           <div className="stats">
-            FOUND <span>103,948</span> USER
+            FOUND <span>{total}</span> USER
           </div>
         </div>
       </div>

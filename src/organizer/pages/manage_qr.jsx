@@ -18,11 +18,10 @@ function Manage_qr() {
         <div className="manage-qr">
           <div className="manage-qr-container">
             <div className="top-manage-qr-container">
-              <div className="title">3 Steps dolor sit amet consectetur</div>
+              <div className="title">3 Steps to manage your event gate</div>
               <div className="description">
-                Lorem ipsum dolor sit amet consectetur. Egestas eget volutpat
-                quam ipsum enim. Egestas consectetur tellus egestas sit neque
-                pulvinar quisque.
+                Here is the instruction to follow for managing smoothly your
+                event attendances.
               </div>
             </div>
             <div className="bottom-manage-qr-container">
@@ -31,12 +30,12 @@ function Manage_qr() {
                   <div className="image">
                     <img src={step1} alt="" />
                   </div>
-                  <div className="step-title">Step title</div>
+                  <div className="step-title">Scanner</div>
                 </div>
                 <div className="instructions-download">
                   <div className="instructions">
-                    Lorem ipsum dolor sit amet consectetur. Tincidunt cursus
-                    eget proin adipiscing
+                    Download your and install E-Ticket Scanner application on
+                    your mobile (camera required)
                   </div>
                 </div>
                 <div className="dwonload-app">
@@ -49,11 +48,10 @@ function Manage_qr() {
                   <div className="image">
                     <img src={step2} alt="" />
                   </div>
-                  <div className="step-title">Step title</div>
+                  <div className="step-title">Authenifiate</div>
                 </div>
                 <div className="instructions">
-                  Lorem ipsum dolor sit amet consectetur. Tincidunt cursus eget
-                  proin adipiscing amet porttitor mattis.
+                  Login to the application using your email and password.
                 </div>
               </div>
               <div className="step">
@@ -61,10 +59,11 @@ function Manage_qr() {
                   <div className="image">
                     <img src={step3} alt="" />
                   </div>
-                  <div className="step-title">Step title</div>
+                  <div className="step-title">Start managing</div>
                 </div>
                 <div className="instructions">
-                  Tincidunt cursus eget proin adipiscing amet porttitor mattis.
+                  Select your event and start scanning QR code in your visitors
+                  tickets.
                 </div>
               </div>
             </div>

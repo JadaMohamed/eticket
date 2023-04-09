@@ -17,7 +17,12 @@ const EventCard = ({
 
   function ConvertDate(isodate) {
     const date = new Date(isodate);
-    const options = { day: "numeric", month: "short" };
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    };
     const formattedDate = date.toLocaleDateString("en-US", options);
     return formattedDate;
   }
@@ -57,38 +62,36 @@ const EventCard = ({
             <div className="start">
               Start: <span>{ConvertDate(event.start_time)}</span>
             </div>
-            <div className="addres">
-              At: <span>{event.location}</span>
-            </div>
           </div>
-          <div className="sales-process">
+          {/* <div className="sales-process">
             <div className="percent"></div>
-          </div>
+          </div> */}
           <div className="svent-statu">
-            Statu: <span>{isSlling ? "Selling" : "Paused"}</span>
+            At: <span>{event.location}</span>
           </div>
         </div>
         <div className="oevent-actions">
-          <div className="change-statu">
+          {/* <div className="change-statu">
             <div className="label" onClick={switchIsSilling}>
               {isSlling ? "Stop selling" : "Start selling"}
             </div>
-          </div>
+          </div> */}
           <div className="actions">
-            <div className="stats act">
-              <span
-                className="material-symbols-outlined"
-                onClick={() =>
-                  Nav(`/events/${event.event_id}`, { replace: false })
-                }
-              >
-                equalizer
-              </span>
+            <div
+              className="stats act"
+              onClick={() => Nav(`/organizer/dashboard/`, { replace: false })}
+            >
+              <span className="material-symbols-outlined">equalizer</span>
             </div>
             <div className="edit act">
               <span className="material-symbols-outlined">edit</span>
             </div>
-            <div className="share act">
+            <div
+              className="share act"
+              onClick={() =>
+                Nav(`/events/${event.event_id}`, { replace: false })
+              }
+            >
               <span className="material-symbols-outlined">share</span>
             </div>
           </div>
