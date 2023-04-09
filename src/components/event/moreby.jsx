@@ -15,7 +15,7 @@ function MoreBy(props) {
       const response = await Axios.get(
         `${apiUrl}/api/events/organizer/${props.id}/all-events`
       );
-      // console.log(response.data);
+       console.log(response.data);
       setEvents(response.data);
     } catch (error) {
       console.error(error);
@@ -45,7 +45,7 @@ function MoreBy(props) {
                   : null
               } // select the first image
               title={event.title}
-              price={event.price}
+              price={event.SeatCategory[0].type_price}
               location={event.location}
               category={event.event_type}
               date={event.start_time}

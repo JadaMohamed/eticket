@@ -164,7 +164,7 @@ const Organizer = () => {
                                   : null
                               }
                               title={event.title}
-                              price={event.price}
+                              price={event.SeatCategory[0].type_price}
                               location={event.location}
                               category={event.event_type}
                               date={event.start_time}
@@ -185,7 +185,7 @@ const Organizer = () => {
                                   : null
                               }
                               title={event.title}
-                              price={event.price}
+                              price={event.SeatCategory[0].type_price}
                               location={event.location}
                               category={event.event_type}
                               date={event.start_time}
