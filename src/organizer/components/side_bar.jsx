@@ -41,7 +41,7 @@ function SideBar(props) {
                 <div className="name">Events</div>
               </div>
             </div>
-            {/* <div
+            <div
               className={`btn ${props.activeBtn === "sales" ? "active" : ""}`}
               onClick={() => {
                 Nav("/organizer/sales");
@@ -51,8 +51,8 @@ function SideBar(props) {
                 <span className="material-symbols-outlined">sell</span>{" "}
                 <div className="name">Sales</div>
               </div>
-            </div> */}
-            <div
+            </div>
+            {/* <div
               className={`btn ${props.activeBtn === "tickets" ? "active" : ""}`}
               onClick={() => {
                 Nav("/organizer/tickets");
@@ -64,7 +64,7 @@ function SideBar(props) {
                 </span>{" "}
                 <div className="name">Tickets</div>
               </div>
-            </div>
+            </div> */}
             <div
               className={`btn ${props.activeBtn === "qr" ? "active" : ""}`}
               onClick={() => {

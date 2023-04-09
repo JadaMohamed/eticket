@@ -63,7 +63,7 @@ function App() {
           <Route element={<ProtectOrganizer />}>
             <Route path="/organizer/dashboard" element={<Dashboard />} />
             <Route path="/organizer/events" element={<OrEvents />} />
-            <Route path="/organizer/tickets" element={<Tickets />} />
+            {/* <Route path="/organizer/tickets" element={<Tickets />} /> */}
             <Route path="/organizer/sales" element={<Sales />} />
             <Route path="/organizer/manageqr" element={<Manage_qr />} />
             <Route
