@@ -36,7 +36,7 @@ function Search() {
         { allfilters: allfilters }
       );
       setEvents(response.data);
-       console.log(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -91,7 +91,13 @@ function Search() {
                 eventid={eventData.event_id}
                 image={eventData.brand_url}
                 title={eventData.title}
-                price={eventData.SeatCategory[0].type_price}
+                price={
+                  eventData?.SeatCategory?.reduce((prev, current) => {
+                    return prev.type_price < current.type_price
+                      ? prev
+                      : current;
+                  }).type_price
+                }
                 location={eventData.location}
                 category={eventData.event_type}
                 date={eventData.start_time}
