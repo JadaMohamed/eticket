@@ -39,11 +39,7 @@ function MoreBy(props) {
             <Card
               key={event.event_id}
               eventid={event.event_id}
-              image={
-                event.Event_Images?.length > 0
-                  ? event.Event_Images[0].img_url
-                  : null
-              } // select the first image
+              image={event.brand_url}
               title={event.title}
               price={event.SeatCategory[0].type_price}
               location={event.location}
