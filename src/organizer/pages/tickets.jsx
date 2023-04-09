@@ -5,6 +5,7 @@ import "../css/tickets.css";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 import { useContext, useEffect, useState } from "react";
+import { Image } from "cloudinary-react";
 
 function Tickets() {
   const [events, setEvents] = useState();
@@ -81,7 +82,7 @@ function Tickets() {
                 </div>
                 <div className="preview-selected">
                   <div className="image">
-                    <img src={selectedEvent?.brand_url} alt="" />
+                    <Image cloudName="djjwswdo4" publicId={selectedEvent?.brand_url} />
                   </div>
                   <div className="infos">
                     <div className="line">
