@@ -93,7 +93,7 @@ export const Createevent = () => {
   };
   // Convert date and time to ISO format
   const convertToIsoDateTime = () => {
-    const [month, day, year] = eventData.date.split("-");
+    const [year, month, day] = eventData.date.split("-");
     const [hours, minutes] = eventData.time.split(":");
     const dateTime = new Date(year, month - 1, day, hours, minutes);
     console.log(dateTime);

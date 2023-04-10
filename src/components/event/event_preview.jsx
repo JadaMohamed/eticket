@@ -33,9 +33,7 @@ function EventPreview(props) {
     );
   }, [seatCategory]);
   const Nav = useNavigate();
-  const [selectedImage, setSelectedImage] = useState(
-    props.event.Event_Images[0].img_url
-  );
+  const [selectedImage, setSelectedImage] = useState(props.event.brand_url);
   const incrementQuantity = () => {
     if (quantity < max) {
       setQuantity(quantity + 1);
@@ -63,7 +61,7 @@ function EventPreview(props) {
     console.log("imgs " + images);
   }, [images]);
   useEffect(() => {
-    setSelectedImage(props.event.Event_Images[0].img_url);
+    setSelectedImage(props.event.brand_url);
   }, [images]);
 
   const handleAddToCart = async () => {
