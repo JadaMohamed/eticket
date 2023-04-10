@@ -3,17 +3,27 @@ import "../css/recentorders.css";
 import Order from "./order";
 import Axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
+import GridPagination from "../../Interfaces/Admin/Components/grid-pagination";
 
 const RecentOrders = () => {
   const { profile } = useContext(AuthContext);
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const [currentPage, setCurrenPage] = useState(1);
+  const [userPerPage, setUserPerPage] = useState(10);
+  const indexOfLastUser = currentPage * userPerPage;
+  const indexOfFirstUser = indexOfLastUser - userPerPage;
+
+  const paginate = (number) => setCurrenPage(number);
+
   const [recentOrders, setRecentOrders] = useState([]);
+
+  const currentOrders = recentOrders?.slice(indexOfFirstUser, indexOfLastUser);
 
   const getRecentOrdersByOrganizer = async () => {
     try {
       const response = await Axios.get(
-        `${apiUrl}/api/orders-cart/organizer/${profile.user.org_id}/recent`,
+        `${apiUrl}/api/orders-cart/organizer/${profile.user.org_id}/all`,
         { withCredentials: true }
       );
       setRecentOrders(response.data);
@@ -86,7 +96,7 @@ const RecentOrders = () => {
             </td>
           </tr>
         ) : (
-          recentOrders.map((order, index) => (
+          currentOrders.map((order, index) => (
             // <Order
             //   key={index}
             //   avatar={order.Client.Account ? order.Client.Account.avatar : ""}
@@ -107,7 +117,7 @@ const RecentOrders = () => {
               <td className="avatar">
                 <img
                   src={order.Client.Account.avatar}
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", objectFit: "cover" }}
                 />
               </td>
 
@@ -120,13 +130,22 @@ const RecentOrders = () => {
                     order.Client.Account.last_name
                   : ""}
               </td>
-              <td>{order.Client.Account ? order.Client.Account.email : ""}</td>
-              <td>{order.total_price}</td>
+              <td style={{ textTransform: "none" }}>
+                {order.Client.Account ? order.Client.Account.email : ""}
+              </td>
+              <td>{order.total_price} MAD</td>
               <td>{order.order_id}</td>
             </tr>
           ))
         )}
       </table>
+      <GridPagination
+        userPerPage={userPerPage}
+        totalUsers={recentOrders?.length}
+        paginate={paginate}
+        setUserPerPage={setUserPerPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
