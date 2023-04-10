@@ -10,6 +10,7 @@ const UsersGrid = ({ users }) => {
   const indexOfLastUser = currentPage * userPerPage;
   const indexOfFirstUser = indexOfLastUser - userPerPage;
   const currentUsers = users?.slice(indexOfFirstUser, indexOfLastUser);
+  const apiUrl = process.env.REACT_APP_API_URL;
   function formatDate(dateString) {
     const date = new Date(dateString);
     const month = date.toLocaleString("default", { month: "long" });
@@ -19,11 +20,21 @@ const UsersGrid = ({ users }) => {
     const year = date.getFullYear();
     return `${month} ${day}, ${year} ${hour}:${minute}`;
   }
+
+  const verifyOrganizer = async (id) => {
+    const res = await axios.get(`${apiUrl}/api/organizers/verify-organizer/${id}`, {
+      withCredentials: true,
+    });
+
+    console.log(res.data);
+  };
+
   const paginate = (number) => setCurrenPage(number);
   console.log(users);
   if (loading) {
     return <p>loading...</p>;
   }
+
   return (
     <div className="users-grid">
       <div className="users-grid-container">
@@ -60,7 +71,7 @@ const UsersGrid = ({ users }) => {
                 <td>{user.account_type}</td>
                 <td>Yesterday 13:35</td>
                 {user.account_type === "organizer" ? (
-                  <td title="Verify Organizer">
+                  <td title="Verify Organizer" onClick={() => verifyOrganizer(user.account_id)}>
                     <span class="material-symbols-outlined verify">
                       verified
                     </span>{" "}
