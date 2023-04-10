@@ -266,7 +266,7 @@ const PaymentForm = React.forwardRef(
             </div>
             <div onClick={handelValidatePayment} className="btns">
               <div className="chekout btn">
-                <span>{loader ? "loading" : "Validate payment"}</span>
+                <span>{loader ? "Loading" : "Validate payment"}</span>
               </div>
               <div
                 className="cancel btn"

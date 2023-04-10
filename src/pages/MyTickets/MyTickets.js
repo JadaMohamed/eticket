@@ -74,10 +74,10 @@ function MyTickets() {
     const checkedTicketsWithStartTime = ticketsAndStart.filter(
       (item) => checkedTickets.includes(item.ticket_id));
 
-    //emptying the checked tickets table to stop making requist again
+    //Clearing the checked tickets table to stop making request again
     setCheckedTickets([]);
 
-    //delete tickets in data base also
+    //Delete tickets in data base also
     try {
       const response = await axios.post(
         `${apiUrl}/api/tickets/delete-many`,
@@ -91,10 +91,10 @@ function MyTickets() {
       setAlert(true);
       setAlertParams({
         color: "orange",
-        msg: "Only the passed ticket events will be deleted permanently\n others will still",
+        msg: "Only the passed ticket events can be deleted",
         icon: "error",
       });
-      //fitch the ticket again
+      //Fetch the ticket again
       getTicketsByClientId();
     } catch (error) {
       console.error(error);
