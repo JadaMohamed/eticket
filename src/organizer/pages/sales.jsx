@@ -25,6 +25,71 @@ function Sales() {
   const [withdraw, setWithdraw] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
   const [eventId, setEventId] = useState();
+
+  const [eventProfits, setEventProfits] = useState([]);
+
+  //this is for the some of profit of event still not passed
+  // const [balanceAvailable, setBalanceAvailable] = useState("");
+  const [balanceAvailable, setBalanceAvailable] = useState(0);
+  // Update the balance whenever eventProfits changes
+  useEffect(() => {
+    setBalanceAvailable(eventProfits.filter((item) => item.withdrawn === 0)
+      .reduce((accumulator, currentProfit) => {
+        return accumulator + currentProfit.profit;
+      }, 0));
+  }, [eventProfits]);
+
+
+  //this one for the some of all profits  without exeption that is because
+  //we are not making the profit to 0 when organizer make withdrawn
+  const [earningsSinceJoining, setEarningsSinceJoining] = useState(0);
+  useEffect(() => {
+    setEarningsSinceJoining(eventProfits.filter((item) => item.profit > 0)
+      .reduce((accumulator, currentProfit) => {
+        return accumulator + currentProfit.profit;
+      }, 0));
+  }, [eventProfits]);
+
+
+  //this is the some of the earnings for the events that is passed and the organizer has
+  //take his money
+  const [withdrawnSinceJoining, setWithdrawnSinceJoining] = useState(0);
+  // Update the withdrawn sum whenever eventProfits changes
+  useEffect(() => {
+    setWithdrawnSinceJoining(eventProfits.filter((item) => item.withdrawn > 0)
+      .reduce((accumulator, currentProfit) => {
+        return accumulator + currentProfit.withdrawn;
+      }, 0));
+  }, [eventProfits]);
+
+
+
+
+
+
+
+  
+
+
+  useEffect(() => {
+    fetchAllOrganizerEventProfits();
+  }, [profile]);
+  async function fetchAllOrganizerEventProfits() {
+    if (!profile.user.org_id) {
+      return;
+    }
+    try {
+      const response = await Axios.get(
+        `${apiUrl}/api/event-profit/organizer/${profile?.user.org_id}`,
+        { withCredentials: true, }
+      );
+      console.log(response.data);
+      setEventProfits(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       <Navbar />
@@ -43,7 +108,7 @@ function Sales() {
                 </div>
 
                 <div className="amount">
-                  3023 <span>MAD</span>
+                  {balanceAvailable} <span>MAD</span>
                 </div>
               </div>
             </div>
@@ -57,7 +122,7 @@ function Sales() {
                   <div className="sub-header">Your earnings since joining.</div>
                 </div>
                 <div className="amount">
-                  4050 <span>MAD</span>
+                  {earningsSinceJoining} <span>MAD</span>
                 </div>
               </div>
             </div>
@@ -68,7 +133,7 @@ function Sales() {
                   <div className="sub-header">Withdrawn since joining.</div>
                 </div>
                 <div className="amount">
-                  1027<span>MAD</span>
+                  {withdrawnSinceJoining}<span>MAD</span>
                 </div>
               </div>
             </div>
@@ -85,25 +150,28 @@ function Sales() {
                 <th>Date</th>
                 <th></th>
               </tr>
-              <EarningRow
-                id={"100"}
-                title={"CONCERT SMALL X & TAGNE RABAT"}
-                profit={"1927"}
-                withdrawn={"0"}
-                withdrawn_date={""}
-                setEventId={setEventId}
-                setWithdraw={setWithdraw}
-              />
-              <EarningRow
+              {eventProfits?.map((eventProfit) => (
+                <EarningRow
+                  key={eventProfit.event_id}
+                  id={eventProfit.event_id}
+                  title={eventProfit.Event.title}
+                  profit={eventProfit.profit}
+                  withdrawn={eventProfit.withdrawn}
+                  withdrawn_date={eventProfit.withdrawnAt}
+                  setEventId={setEventId}
+                  setWithdraw={setWithdraw}
+                />
+              ))}
+              {/* <EarningRow
                 id={"106"}
                 title={"LIMAF FESTIVAL RABAT"}
-                profit={"107"}
+                profit={"1027"}
                 withdrawn={"1027"}
                 withdrawn_date={"Mars 16 2023"}
                 setEventId={setEventId}
                 setWithdraw={setWithdraw}
-              />
-              <EarningRow
+              /> */}
+              {/* <EarningRow
                 id={"102"}
                 title={"GIMS & FRIENDS STARS IN THE PLACE"}
                 profit={"0"}
@@ -120,7 +188,7 @@ function Sales() {
                 withdrawn_date={""}
                 setEventId={setEventId}
                 setWithdraw={setWithdraw}
-              />
+              /> */}
             </table>
           </div>
         </div>
