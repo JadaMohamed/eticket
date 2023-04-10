@@ -13,13 +13,13 @@ const EarningRow = ({
     // setEventId(id);
     setWithdraw(true);
   };
-  console.log("setWithdraw:", setWithdraw);
+  // console.log("setWithdraw:", setWithdraw);
   return (
     <tr>
       <td>{id}</td>
       <td style={{ maxWidth: "200px" }}>{title}</td>
       <td style={{ fontWeight: "600" }}>
-        {profit ? profit : "00"}.00 <span className="curr">MAD</span>
+        {profit ? profit : "00"}<span className="curr">MAD</span>
       </td>
       <td style={{ fontWeight: "600" }}>
         {withdrawn ? withdrawn : "00"}.00 <span className="curr">MAD</span>
