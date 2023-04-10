@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../css/ticket.css";
 import TicketComponent from "../../organizer/components/create post form/ticket_comp";
-import { printComponent, printDiv } from "../../Utils/divToImage";
+import { printDiv } from "../../Utils/divDownloader";
 import CountdownDate from "../common/countdown";
 
 import "../../organizer/css/create post form/ticket_form.css";

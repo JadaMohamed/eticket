@@ -23,7 +23,7 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [Errors, setErrors] = useState([]);
-  const[loading, setLoading]=useState(false); 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -119,10 +119,10 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
       //   response.data.profile.account.account_type
       // );
       // setProfile(response.data.profile);
-      if(response.data){
+      if (response.data) {
         setLoading(false);
         setTrigger(false);
-        setAlertParams({color: 'green', msg: `Verification Email has been sent to ${formData.email}`, icon: 'clock'})
+        setAlertParams({ color: 'green', msg: `Verification Email has been sent to ${formData.email}`, icon: 'clock' })
         setAlert(true);
         // navigate("/verify-email/checkemail")
       }
@@ -142,7 +142,7 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
 
 
   const handleFirstNameChange = (event) => {
-  setFirstNameError('')
+    setFirstNameError('')
     setFormData({ ...formData, first_name: event.target.value });
   };
 
@@ -212,26 +212,26 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
           <div className="personal-informations">
             <div className="row">
               <div className="labeled-input">
-                <label>First name <span style={{ color: 'red',fontSize: '12px' }}>{firstNameError}</span></label>
+                <label>First name <span style={{ color: 'red', fontSize: '12px' }}>{firstNameError}</span></label>
                 <input type="text"
                   value={formData.first_name}
-                  style={firstNameError ? {border: "1px solid red"} : {}}
+                  style={firstNameError ? { border: "1px solid red" } : {}}
                   onChange={handleFirstNameChange}
-                  placeholder="First name" 
-                  />
+                  placeholder="First name"
+                />
               </div>
               <div className="labeled-input">
-                <label>Last name<span style={{ color: 'red',fontSize: '12px' }}>{lastNameError}</span></label>
+                <label>Last name<span style={{ color: 'red', fontSize: '12px' }}>{lastNameError}</span></label>
                 <input type="text" value={formData.last_name}
                   onChange={handleLastNameChange}
-                  style={lastNameError ? {border: "1px solid red"} : {}}
+                  style={lastNameError ? { border: "1px solid red" } : {}}
                   placeholder="Last name" />
               </div>
             </div>
             <div className="row">
               <div className="labeled-input">
-                <label>Email<span style={{ color: 'red',fontSize: '12px' }}>{emailError}</span></label>
-                <div className="iconed-input"   style={emailError ? {border: "1px solid red"} : {}}>
+                <label>Email<span style={{ color: 'red', fontSize: '12px' }}>{emailError}</span></label>
+                <div className="iconed-input" style={emailError ? { border: "1px solid red" } : {}}>
                   <span className="material-symbols-outlined" >email</span>
                   <input type="text" placeholder="Email"
                     onChange={handleEmailChange}
@@ -241,8 +241,8 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
             </div>
             <div className="row">
               <div className="labeled-input">
-                <label>City<span style={{ color: 'red',fontSize: '12px' }}>{cityError}</span></label>
-                <div className="iconed-input" style={cityError ? {border: "1px solid red"} : {}}>
+                <label>City<span style={{ color: 'red', fontSize: '12px' }}>{cityError}</span></label>
+                <div className="iconed-input" style={cityError ? { border: "1px solid red" } : {}}>
                   <span className="material-symbols-outlined">distance</span>
                   <input type="text" placeholder="City"
                     onChange={handleCityChange}
@@ -252,8 +252,8 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
             </div>
             <div className="row">
               <div className="labeled-input">
-                <label>Phone<span style={{ color: 'red',fontSize: '12px' }}>{phoneNumberError}</span></label>
-                <div className="iconed-input" style={phoneNumberError ? {border: "1px solid red"} : {}}>
+                <label>Phone<span style={{ color: 'red', fontSize: '12px' }}>{phoneNumberError}</span></label>
+                <div className="iconed-input" style={phoneNumberError ? { border: "1px solid red" } : {}}>
                   <span className="material-symbols-outlined">call</span>
                   <input type="number" placeholder="Phone"
                     onChange={handlePhoneNumberChange}
@@ -263,15 +263,15 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
             </div>
             <div className="row pass">
               <div className="labeled-input">
-                <label>Password {passwordError!=='' && <span style={{ color: 'red' ,fontSize: '12px'}}>{passwordError}</span>}</label>
+                <label>Password {passwordError !== '' && <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span>}</label>
                 <input
-  type={visibility ? "text" : "password"}
-  placeholder="Password"
-  style={passwordError ? {border: "1px solid red"} : {}}
-  value={formData.password}
-  onChange={handlePasswordChange}
-  role="presentation"
-/>
+                  type={visibility ? "text" : "password"}
+                  placeholder="Password"
+                  style={passwordError ? { border: "1px solid red" } : {}}
+                  value={formData.password}
+                  onChange={handlePasswordChange}
+                  role="presentation"
+                />
 
               </div>
               <span
@@ -283,12 +283,12 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
                 {visibility ? "visibility" : "visibility_off"}
               </span>
               <div className="labeled-input">
-                <label>Confirm password {confirmPasswordError!=='' && <span style={{ color: 'red' , fontSize: '12px'}}>{confirmPasswordError}</span>}</label>
+                <label>Confirm password {confirmPasswordError !== '' && <span style={{ color: 'red', fontSize: '12px' }}>{confirmPasswordError}</span>}</label>
                 <input
                   type={`${visibility ? "text" : "password"}`}
                   placeholder="Confirm password"
                   value={formData.confirmPassword}
-                  style={confirmPasswordError ? {border: "1px solid red"} : {}}
+                  style={confirmPasswordError ? { border: "1px solid red" } : {}}
                   onChange={handleConfirmPasswordChange}
                   role="presentation"
                 />
@@ -300,8 +300,8 @@ const SignUpClient = ({ setTrigger, login, alert, setAlert, setAlertParams }) =>
                 registerclient();
               }}
             >
-              <div style={{ color: 'red', marginBottom: '10px', fontSize: '12px'}}> {Errors[0]}</div>
-              <div className="btn-container">{loading? <img src={rolling} style={{width: "20px"}}/> : 'Sign Up'}</div>
+              <div style={{ color: 'red', marginBottom: '10px', fontSize: '12px' }}> {Errors[0]}</div>
+              <div className="btn-container">{loading ? <img src={rolling} style={{ width: "20px" }} /> : 'Sign Up'}</div>
             </div>
           </div>
         </form>
