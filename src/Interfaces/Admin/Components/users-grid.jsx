@@ -2,11 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GridPagination from "./grid-pagination";
 import l from "../../../img/loading.svg";
+import Alert from "../../../components/common/alert";
 
 const UsersGrid = ({ users }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrenPage] = useState(1);
   const [userPerPage, setUserPerPage] = useState(10);
+  const [alert, setAlert] = useState(false);
+  const [alertParams, setAlertParams] = useState({
+    color: "",
+    msg: "",
+    icon: "",
+  });
+
+
   const indexOfLastUser = currentPage * userPerPage;
   const indexOfFirstUser = indexOfLastUser - userPerPage;
   const currentUsers = users?.slice(indexOfFirstUser, indexOfLastUser);
@@ -26,11 +35,26 @@ const UsersGrid = ({ users }) => {
       withCredentials: true,
     });
 
+    if(res.status == 200) {
+      setAlertParams({color: 'green', msg: `Organizer verified successfully.`, icon: 'clock'})
+      setAlert(true);
+    }
     console.log(res.data);
   };
 
   const paginate = (number) => setCurrenPage(number);
   console.log(users);
+
+
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => {
+        setAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
+
   if (loading) {
     return <p>loading...</p>;
   }
@@ -38,6 +62,13 @@ const UsersGrid = ({ users }) => {
   return (
     <div className="users-grid">
       <div className="users-grid-container">
+        <Alert
+          color={alertParams.color}
+          msg={alertParams.msg}
+          icon={alertParams.icon}
+          setAlert={setAlert}
+          alert={alert}
+        />
         <table>
           <tr>
             <th>A</th>
