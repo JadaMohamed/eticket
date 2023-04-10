@@ -11,6 +11,7 @@ import loader from "../../img/loading.svg";
 import QrCodeViewer from "../../components/ticket/qrcodeviewer";
 import Header from "../../components/common/Header";
 import axios from "axios";
+import Alert from "../../components/common/alert";
 
 
 function MyTickets() {
@@ -29,6 +30,13 @@ function MyTickets() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [checkedTickets, setCheckedTickets] = useState([]);
+
+  const [alert, setAlert] = useState(true);
+  const [alertParams, setAlertParams] = useState({
+    color: "",
+    msg: "",
+    icon: "",
+  });
 
 
 
@@ -79,7 +87,15 @@ function MyTickets() {
       if (response) {
         console.log(response.data)
       }
-      alert("only the passed ticket events will be deleted permanently\n others will still")
+      console.log('nicccccccccccc')
+      setAlert(true);
+      setAlertParams({
+        color: "orange",
+        msg: "Only the passed ticket events will be deleted permanently\n others will still",
+        icon: "error",
+      });
+      //fitch the ticket again
+      getTicketsByClientId();
     } catch (error) {
       console.error(error);
     }
@@ -140,6 +156,13 @@ function MyTickets() {
   }
   return (
     <>
+      <Alert
+        color={alertParams.color}
+        msg={alertParams.msg}
+        icon={alertParams.icon}
+        setAlert={setAlert}
+        alert={alert}
+      />
       <Navbar />
       <SubNavbar />
       <MyTicketsHeader
