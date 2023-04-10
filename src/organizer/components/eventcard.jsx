@@ -83,9 +83,9 @@ const EventCard = ({
             >
               <span className="material-symbols-outlined">equalizer</span>
             </div>
-            <div className="edit act">
+            {/* <div className="edit act">
               <span className="material-symbols-outlined">edit</span>
-            </div>
+            </div> */}
             <div
               className="share act"
               onClick={() =>

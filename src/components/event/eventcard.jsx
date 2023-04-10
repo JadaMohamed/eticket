@@ -64,8 +64,15 @@ function Card(props) {
         className="previewimage cta"
         onClick={() => Nav(`/events/${props.eventid}`, { replace: false })}
       >
-        {isExpired ? <img src={Expired} className="expiredimage" /> : ""}
+        {isExpired ? (
+          <div class="ribbon ribbon-top-right">
+            <span>ENDED</span>
+          </div>
+        ) : (
+          ""
+        )}
         <Image cloudName="djjwswdo4" publicId={props.image} />
+
         {/* <img src={props.image} alt="" /> */}
       </div>
       <div className="event-infos">

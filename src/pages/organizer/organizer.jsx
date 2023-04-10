@@ -64,11 +64,38 @@ const Organizer = () => {
                       <img src={organizer?.Account?.avatar} alt="" />
                     </div>
                     <div className="name-discreption">
-                      <div className="name">
+                      <div
+                        className="name"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          paddingTop: "10px",
+                        }}
+                      >
                         {organizer?.Account?.first_name}{" "}
-                        {organizer?.Account?.last_name}
+                        {organizer?.Account?.last_name}{" "}
+                        {organizer?.isVerified ? (
+                          <span
+                            title="This Organizer is verified"
+                            class="material-symbols-outlined"
+                            style={{
+                              fontVariationSettings: "'FILL' 1",
+                              color: "var(--Purple)",
+                              fontSize: "18px",
+                              marginLeft: "10px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            verified
+                          </span>
+                        ) : (
+                          ""
+                        )}
                       </div>
-                      <div className="discreption">
+                      <div
+                        className="discreption"
+                        style={{ fontSize: "14px", paddingTop: "10px" }}
+                      >
                         {organizer?.Description}
                       </div>
                       <div className="social-media">
