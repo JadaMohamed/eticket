@@ -4,7 +4,7 @@ import GridPagination from "./grid-pagination";
 import l from "../../../img/loading.svg";
 import Alert from "../../../components/common/alert";
 
-const UsersGrid = ({ users }) => {
+const UsersGrid = ({ users, deleteUserHandler }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrenPage] = useState(1);
   const [userPerPage, setUserPerPage] = useState(10);
@@ -14,7 +14,7 @@ const UsersGrid = ({ users }) => {
     msg: "",
     icon: "",
   });
-
+  
 
   const indexOfLastUser = currentPage * userPerPage;
   const indexOfFirstUser = indexOfLastUser - userPerPage;
@@ -41,6 +41,7 @@ const UsersGrid = ({ users }) => {
     }
     console.log(res.data);
   };
+
 
   const paginate = (number) => setCurrenPage(number);
   console.log(users);
@@ -110,7 +111,7 @@ const UsersGrid = ({ users }) => {
                 ) : (
                   <td></td>
                 )}
-                <td title="Block User">
+                <td title="Block User" onClick={() => deleteUserHandler(user.account_id)}>
                   <span class="material-symbols-outlined">block</span>
                 </td>
               </tr>
