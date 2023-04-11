@@ -17,17 +17,25 @@ const AdminUserManager = () => {
     msg: "",
     icon: "",
   });
+  let userCache;
 
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await axios.get(`${apiUrl}/api/admins/users/all`, {
-        withCredentials: true,
-      });
+  const fetchUsers = async (type) => {
+    const res = await axios.get(`${apiUrl}/api/admins/users/all`, {
+      withCredentials: true,
+    });
+    if (type == "organizer") {
+      setUsers(res.data.filter(e => e.account_type == "organizer"))
+    } else if (type == "client") {
+      setUsers(res.data.filter(e => e.account_type == "client"))
+    } else {
       setUsers(res.data);
-      setTotal(res.data.length);
-      console.log(total);
-    };
+    }
+    // setUsers(res.data);
+    setTotal(res.data.length);
+    // userCache = res.data;
+    console.log(total);
+  };
+  useEffect(() => {
     fetchUsers();
   }, []);
 
@@ -50,6 +58,16 @@ const AdminUserManager = () => {
     }
   }
   const [userTypeToSearchIn, setUserTypeToSearchIn] = useState("all");
+
+  useEffect(() => {
+    if (userTypeToSearchIn == "organizer") {
+      fetchUsers("organizer")
+    } else if (userTypeToSearchIn == "client") {
+      fetchUsers("client")
+    } else if (userTypeToSearchIn == "all") {
+      fetchUsers("all")
+    }
+  }, [userTypeToSearchIn]);
   return (
     <div>
       <Alert
