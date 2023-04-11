@@ -102,13 +102,13 @@ function UsersChart({usersCount}) {
                     <div className="legend-color" style={{ backgroundColor: "#ffc700" }}></div>
                     <span>Client</span>
                     <span>{parseInt(usersCount?.clientsCount)}/{totalUsers}</span>
-                    <span>{(parseInt(usersCount?.clientsCount) / totalUsers) * 100}%</span>
+                    <span>{((parseInt(usersCount?.clientsCount) / totalUsers) * 100).toFixed(2)}%</span>
                 </div>
                 <div className='legend-item'>
                     <div className="legend-color" style={{ backgroundColor: "#552e88" }}></div>
                     <span>Organizer</span>
                     <span>{parseInt(usersCount?.organizersCount)}/{totalUsers}</span>
-                    <span>{(parseInt(usersCount?.organizersCount) / totalUsers) * 100}%</span>
+                    <span>{((parseInt(usersCount?.organizersCount) / totalUsers) * 100).toFixed(2)}%</span>
                 </div>
             </div>
         </div>
