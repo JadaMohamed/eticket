@@ -104,7 +104,12 @@ export default function LoginPopup(props) {
                   fontSize: "14px",
                 }}
               >
-                <span style={{ color: "red" }}> {errorLogin} </span>
+                <span style={{ color: "red" }}>
+                  {" "}
+                  {errorLogin == "Please wait for Loading response ..."
+                    ? ""
+                    : errorLogin}{" "}
+                </span>
                 {/* <p>&nbsp;</p> */}
                 <Link
                   to="/reset-password/msg"
