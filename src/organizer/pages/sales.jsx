@@ -18,6 +18,7 @@ import EventSummaryGraph from "../components/eventsummarygraph";
 import SpecifiedEventSeatSales from "../components/specified_event_seats_sales";
 import EarningRow from "../components/earning_row";
 import WithrawForm from "../components/withraw_form";
+import Alert from "../../components/common/alert";
 
 function Sales() {
   const { profile } = useContext(AuthContext);
@@ -25,6 +26,24 @@ function Sales() {
   const [withdraw, setWithdraw] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
   const [eventId, setEventId] = useState();
+  const [profit, setProfit] = useState();
+
+  //for the Alert of the withraw in the starttime not passed by 48h
+  const [alert, setAlert] = useState(true);
+  const [alertParams, setAlertParams] = useState({
+    color: "",
+    msg: "",
+    icon: "",
+  });
+
+  function trigerTheAlert(){
+    setAlert(true);
+    setAlertParams({
+      color: "red",
+      msg: "the event has not passed by 48h to withraw",
+      icon: "error",
+    });
+  }
 
   const [eventProfits, setEventProfits] = useState([]);
 
@@ -68,7 +87,7 @@ function Sales() {
 
 
 
-  
+
 
 
   useEffect(() => {
@@ -92,6 +111,13 @@ function Sales() {
 
   return (
     <div>
+      <Alert
+        color={alertParams.color}
+        msg={alertParams.msg}
+        icon={alertParams.icon}
+        setAlert={setAlert}
+        alert={alert}
+      />
       <Navbar />
       <SideBar activeBtn="sales" />
       <div className="container">
@@ -158,41 +184,17 @@ function Sales() {
                   profit={eventProfit.profit}
                   withdrawn={eventProfit.withdrawn}
                   withdrawn_date={eventProfit.withdrawnAt}
+                  eventStart_data={eventProfit.Event.start_time}
                   setEventId={setEventId}
                   setWithdraw={setWithdraw}
+                  setProfit={setProfit}
+                  trigerTheAlert={trigerTheAlert}
                 />
               ))}
-              {/* <EarningRow
-                id={"106"}
-                title={"LIMAF FESTIVAL RABAT"}
-                profit={"1027"}
-                withdrawn={"1027"}
-                withdrawn_date={"Mars 16 2023"}
-                setEventId={setEventId}
-                setWithdraw={setWithdraw}
-              /> */}
-              {/* <EarningRow
-                id={"102"}
-                title={"GIMS & FRIENDS STARS IN THE PLACE"}
-                profit={"0"}
-                withdrawn={"0"}
-                withdrawn_date={""}
-                setEventId={setEventId}
-                setWithdraw={setWithdraw}
-              />
-              <EarningRow
-                id={"102"}
-                title={"سوق الاسطوانات | Souk l'Oustouwanat"}
-                profit={"477"}
-                withdrawn={"0"}
-                withdrawn_date={""}
-                setEventId={setEventId}
-                setWithdraw={setWithdraw}
-              /> */}
             </table>
           </div>
         </div>
-        {withdraw && <WithrawForm setWithdraw={setWithdraw} />}
+        {withdraw && <WithrawForm setWithdraw={setWithdraw} fetchAllOrganizerEventProfits={fetchAllOrganizerEventProfits} eventId={eventId} profit={profit} />}
       </div>
     </div>
   );

@@ -3,17 +3,30 @@ import React from "react";
 const EarningRow = ({
   setWithdraw,
   setEventId,
+  setProfit,
   id,
   title,
   profit,
   withdrawn,
   withdrawn_date,
+  eventStart_data,
+  trigerTheAlert,
 }) => {
+
   const handleWithdraw = () => {
-    // setEventId(id);
-    setWithdraw(true);
+    //check if the event start time has passed by 48h
+    if (new Date(eventStart_data) > new Date(Date.now() - 48 * 60 * 60 * 1000) && withdrawn === 0) {
+      console.log('the event is already passed')
+      setEventId(id);
+      setProfit(profit)
+      setWithdraw(true);
+    } else {
+      console.log("the event has not passed by 48h to withraw")
+      trigerTheAlert();
+    }
   };
-  // console.log("setWithdraw:", setWithdraw);
+
+
   return (
     <tr>
       <td>{id}</td>
