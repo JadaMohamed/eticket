@@ -13,16 +13,18 @@ const EarningRow = ({
   trigerTheAlert,
 }) => {
 
+  const isReadyTowithraw = new Date(eventStart_data) < new Date(Date.now() - 48 * 60 * 60 * 1000);
+
   const handleWithdraw = () => {
     //check if the event start time has passed by 48h
-    if (new Date(eventStart_data) > new Date(Date.now() - 48 * 60 * 60 * 1000) && withdrawn === 0) {
+    if ( isReadyTowithraw&& withdrawn === 0) {
       console.log('the event is already passed')
       setEventId(id);
       setProfit(profit)
       setWithdraw(true);
     } else {
       console.log("the event has not passed by 48h to withraw")
-      trigerTheAlert();
+      trigerTheAlert("red", "the event has not passed by 48h to withdraw", "error");
     }
   };
 
@@ -46,7 +48,7 @@ const EarningRow = ({
             style={{
               fontSize: "13px",
               padding: "7px 15px",
-              backgroundColor: "var(--White)",
+                backgroundColor: isReadyTowithraw ? "#76F41F" : "var(--white)",
               borderRadius: "8px",
               color: "var(--Purple)",
               fontWeight: "500",
@@ -61,7 +63,7 @@ const EarningRow = ({
           </span>
         )}
       </td>
-    </tr>
+    </tr >
   );
 };
 

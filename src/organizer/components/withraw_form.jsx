@@ -3,15 +3,15 @@ import "../../css/payment_form.css";
 import axios from "axios";
 import AuthContext from "../../Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/common/alert";
 
 const WithrawForm = React.forwardRef(
-  ({ setWithdraw, organizer, eventId, profit, fetchAllOrganizerEventProfits }, ref) => {
+  ({ setWithdraw, organizer, eventId, profit, fetchAllOrganizerEventProfits, trigerTheAlert }, ref) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [loader, setLoader] = useState(false);
     const { profile } = useContext(AuthContext);
     const apiUrl = process.env.REACT_APP_API_URL;
     const [isSendWithraw, setIsSendWithraw] = useState(false);
-
 
 
     //card information
@@ -39,12 +39,6 @@ const WithrawForm = React.forwardRef(
 
 
     const valideWithdrawData = () => {
-      //validate card number
-      // if (eventAndSeat_Ids.length === 0) {
-      //   setErrorMsg("Please select an item from your cart");
-      //   setLoader(false);
-      //   return false;
-      // }
       if (!cardNumber.current.value) {
         setErrorMsg("Please enter a card number");
         setLoader(false);
@@ -91,21 +85,20 @@ const WithrawForm = React.forwardRef(
     const handelWithdraw = async () => {
       setLoader(true);
       if (isSendWithraw) {
+        trigerTheAlert("orange", "Withdrawal in progress, please wait.", "error");
         return;
-        // setLoader(false);
       }
 
       //set the data for the test now
-      cardNumber.current.value = "6666555544443333";
-      cardOwner.current.value = "AYOUB ELOUAIZI";
-      cvc.current.value = "123";
-      expirationYear.current.value = 2024;
-      expirationDay.current.value = 31;
+      // cardNumber.current.value = "6666555544443333";
+      // cardOwner.current.value = "AYOUB ELOUAIZI";
+      // cvc.current.value = "123";
+      // expirationYear.current.value = 2024;
+      // expirationDay.current.value = 31;
 
       const isValid = valideWithdrawData();
       if (!isValid) {
         return;
-        setLoader(false);
       }
 
       //creating object to hold card info
@@ -119,9 +112,9 @@ const WithrawForm = React.forwardRef(
       //
       const eventProfitData = {
         withdrawnAt: new Date().toISOString(),
-        withdrawn: profit,
+        withdrawn: profit - profit / 10,
       }
-      console.log(cardInfo)
+      // console.log(cardInfo)
       console.log(eventProfitData)
 
       try {
@@ -135,9 +128,10 @@ const WithrawForm = React.forwardRef(
 
         if (response) {
           setLoader(false);
-          console.log(response.data);
+          // console.log(response.data);
           fetchAllOrganizerEventProfits();
           setWithdraw(false);
+          trigerTheAlert("green", "Great news! Your withdrawal has been processed successfully.", "");
         }
       } catch (error) {
         const errorData = error.response.data;

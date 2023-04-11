@@ -29,19 +29,19 @@ function Sales() {
   const [profit, setProfit] = useState();
 
   //for the Alert of the withraw in the starttime not passed by 48h
-  const [alert, setAlert] = useState(true);
+  const [alert, setAlert] = useState(false);
   const [alertParams, setAlertParams] = useState({
     color: "",
     msg: "",
     icon: "",
   });
 
-  function trigerTheAlert(){
+  function trigerTheAlert(_color,_msg,_icon) {
     setAlert(true);
     setAlertParams({
-      color: "red",
-      msg: "the event has not passed by 48h to withraw",
-      icon: "error",
+      color: _color,
+      msg: _msg,
+      icon: _icon,
     });
   }
 
@@ -194,7 +194,14 @@ function Sales() {
             </table>
           </div>
         </div>
-        {withdraw && <WithrawForm setWithdraw={setWithdraw} fetchAllOrganizerEventProfits={fetchAllOrganizerEventProfits} eventId={eventId} profit={profit} />}
+        {withdraw
+          && <WithrawForm
+            setWithdraw={setWithdraw}
+            fetchAllOrganizerEventProfits={fetchAllOrganizerEventProfits}
+            eventId={eventId}
+            profit={profit}
+            trigerTheAlert={trigerTheAlert}
+          />}
       </div>
     </div>
   );
