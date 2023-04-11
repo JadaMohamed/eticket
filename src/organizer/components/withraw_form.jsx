@@ -131,7 +131,7 @@ const WithrawForm = React.forwardRef(
           // console.log(response.data);
           fetchAllOrganizerEventProfits();
           setWithdraw(false);
-          trigerTheAlert("green", "Great news! Your withdrawal has been processed successfully.", "");
+          trigerTheAlert("green", "Great news! Your withdrawal has been processed successfully.", "clock");
         }
       } catch (error) {
         const errorData = error.response.data;

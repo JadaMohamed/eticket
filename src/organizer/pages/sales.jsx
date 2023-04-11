@@ -36,6 +36,15 @@ function Sales() {
     icon: "",
   });
 
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => {
+        setAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
+
   function trigerTheAlert(_color,_msg,_icon) {
     setAlert(true);
     setAlertParams({
