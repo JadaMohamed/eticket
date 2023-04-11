@@ -38,7 +38,14 @@ function MyTickets() {
     icon: "",
   });
 
-
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => {
+        setAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
 
   const handelSelectUnSelectAll = () => {
     if (checkedTickets.length !== tickets.length) {
@@ -87,11 +94,10 @@ function MyTickets() {
       if (response) {
         console.log(response.data)
       }
-      console.log('nicccccccccccc')
       setAlert(true);
       setAlertParams({
         color: "orange",
-        msg: "Only the passed ticket events can be deleted",
+        msg: "Only the passed ticket events will be deleted",
         icon: "error",
       });
       //Fetch the ticket again
