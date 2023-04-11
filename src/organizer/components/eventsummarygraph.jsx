@@ -40,6 +40,7 @@ export const chartOptions = {
             },
         },
         y: {
+            beginAtZero: true,
             ticks: {
                 font: {
                     family: 'Segoe UI',
