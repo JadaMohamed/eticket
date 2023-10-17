@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-// import "./index.css";
 import AuthContext from "../../../../Auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import rolling from "../../../../img/rolling.svg";
@@ -53,7 +52,7 @@ export default function LoginModal(props) {
             <label className="text-accent-400 text-sm" htmlFor="email">
               Email
             </label>
-            <div className="flex w-full border-accent-100 border rounded-lg overflow-hidden gap-2 focus-within:outline outline-primary-400">
+            <div className="flex w-full border-accent-100 border rounded-lg overflow-hidden focus-within:outline outline-primary-400">
               <span className="p-2">
                 <svg
                   width="20"
@@ -72,7 +71,7 @@ export default function LoginModal(props) {
                 </svg>
               </span>
               <input
-                className="outline-none bg-transparen w-full placeholder:text-accent-200 font-medium text-accent-800"
+                className="outline-none bg-transparen w-full px-2 placeholder:text-accent-200 font-medium text-accent-800"
                 type="email"
                 id="email"
                 ref={userName}
@@ -85,7 +84,7 @@ export default function LoginModal(props) {
             <label className="text-accent-400 text-sm mb-1" htmlFor="password">
               Password
             </label>
-            <div className="flex w-full border-accent-100 border rounded-lg overflow-hidden gap-2 focus-within:outline outline-primary-400">
+            <div className="flex w-full relative border-accent-100 border rounded-lg overflow-hidden focus-within:outline outline-primary-400">
               <span className="p-2">
                 <svg
                   width="20"
@@ -104,14 +103,17 @@ export default function LoginModal(props) {
                 </svg>
               </span>
               <input
-                className="outline-none bg-transparen w-full placeholder:text-accent-200 font-medium text-accent-800"
+                className="outline-none bg-transparen w-full px-2 placeholder:text-accent-200 font-medium text-accent-800"
                 type={isVisible ? "" : "password"}
                 id="first-name"
                 ref={password}
                 required
                 placeholder="***********"
               />
-              <span className="p-2 cursor-pointer" onClick={toggleVisibility}>
+              <span
+                className="p-2 cursor-pointer bg-white absolute rounded-full right-0"
+                onClick={toggleVisibility}
+              >
                 {isVisible ? (
                   <svg
                     width="20"

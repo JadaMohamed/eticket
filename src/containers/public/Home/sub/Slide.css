@@ -1,13 +1,14 @@
-.heroslider-container .preview-image-hot img {
+/* .heroslider-container .preview-image-hot img {
   width: 100%;
   border-radius: 8px;
   user-select: none;
+  height: 100%;
 }
 .hot-event-container {
   justify-content: center;
   display: flex;
   user-select: none;
-}
+} 
 .heroslider-container .btn {
   position: absolute;
   color: var(--White);
@@ -22,4 +23,17 @@
 }
 .heroslider-container .btn:hover {
   opacity: 0.9;
+}
+*/
+.showButton {
+  animation: howButton 0.3s ease;
+}
+
+@keyframes showButton {
+  0% {
+    bottom: -100px;
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
