@@ -1,5 +1,5 @@
 /********************  NavBar  ************************/
-nav {
+/* nav {
   border-bottom: 1px solid var(--Purple10);
   background-color: var(--White);
   position: fixed;
@@ -9,7 +9,6 @@ nav {
 }
 .nav-container {
   margin: auto;
-  /* max-width: 1200px; */
   padding: 15px 50px;
   display: flex;
   justify-content: space-between;
@@ -17,18 +16,12 @@ nav {
   width: 100%;
 }
 nav .nav-container .navmenu {
-  display: flex;
-  gap: 10px;
-  flex-direction: row;
-  align-items: center;
-}
-nav .nav-container .navmenu {
   list-style: none;
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
-}
+} 
 nav .nav-container .navmenu .crt {
   position: relative;
 }
@@ -55,16 +48,7 @@ nav .nav-container .navmenu .btn {
 nav .nav-container .navmenu .btn:hover {
   cursor: pointer;
   background-color: var(--LighterPurple);
-}
-nav .nav-container .navmenu .cta {
-  font-size: 14px !important;
-  border: 1px solid var(--Purple);
-  padding: 8px 20px !important;
-}
-nav .nav-container .search {
-  border-radius: 8px;
-  margin: auto;
-}
+}*/
 nav .nav-container .nav-search .nav-search-container {
   display: flex;
   height: 100%;
@@ -226,7 +210,8 @@ nav .nav-container .navmenu .home-mobile {
     z-index: 999;
     width: 100vw;
     left: 0;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 5px 1px 2px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 5px 1px 2px 0px;
   }
   /* nav .nav-container .navmenu .active .material-symbols-outlined {
     font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48 !important;

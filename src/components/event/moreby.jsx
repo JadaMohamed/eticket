@@ -3,7 +3,6 @@ import "../../css/moreby.css";
 import Card from "../event/eventcard";
 import { eventData, account } from "../data";
 import Axios from "axios";
-import { BASE_URL } from "../../Constants";
 import { useNavigate } from "react-router-dom";
 
 function MoreBy(props) {
@@ -15,7 +14,7 @@ function MoreBy(props) {
       const response = await Axios.get(
         `${apiUrl}/api/events/organizer/${props.id}/all-events`
       );
-       console.log(response.data);
+      console.log(response.data);
       setEvents(response.data);
     } catch (error) {
       console.error(error);
@@ -41,7 +40,11 @@ function MoreBy(props) {
               eventid={event.event_id}
               image={event.brand_url}
               title={event.title}
-              price={event.SeatCategory[0].type_price}
+              price={
+                event?.SeatCategory?.reduce((prev, current) => {
+                  return prev.type_price < current.type_price ? prev : current;
+                }, {}).type_price
+              }
               location={event.location}
               category={event.event_type}
               date={event.start_time}

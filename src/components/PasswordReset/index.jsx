@@ -158,11 +158,6 @@ function PasswordResetForm() {
   if (eticketjwt === "msg") {
     return (
       <>
-        <nav className="nav">
-          <div className="nav-container">
-            <img src={logo} alt="e-tickets.logo" className="Logo_" />
-          </div>
-        </nav>
         <div className="rest-massword">
           <Alert
             color={alertParams.color}
@@ -226,11 +221,6 @@ function PasswordResetForm() {
         {validUrl ? (
           <>
             <div className="password-reset-form">
-              <nav className="nav">
-                <div className="nav-container">
-                  <img src={logo} alt="e-tickets.logo" className="Logo_" />
-                </div>
-              </nav>
               <div className="rest-massword">
                 <Alert
                   color={alertParams.color}

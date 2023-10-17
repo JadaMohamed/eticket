@@ -38,11 +38,6 @@ const EmailVerify = () => {
   if (eticketjwt === "checkemail") {
     return (
       <>
-        <nav className="nav">
-          <div className="nav-container">
-            <img src={logo} alt="e-tickets.logo" className="Logo_" />
-          </div>
-        </nav>
         <div className="check-email">
           <div className="check-email-container">
             <div className="header">Please check your email !</div>
@@ -73,11 +68,6 @@ const EmailVerify = () => {
   } else if (isLoading) {
     return (
       <div>
-        <nav className="nav">
-          <div className="nav-container">
-            <img src={logo} alt="e-tickets.logo" className="Logo_" />
-          </div>
-        </nav>
         <div className="verify-email-page">
           <div className="check-email">
             <div className="check-email-container">
@@ -92,11 +82,6 @@ const EmailVerify = () => {
       <>
         {validUrl ? (
           <>
-            <nav className="nav">
-              <div className="nav-container">
-                <img src={logo} alt="e-tickets.logo" className="Logo_" />
-              </div>
-            </nav>
             <div className="check-email">
               <div className="check-email-container">
                 <img src={success} alt="" />

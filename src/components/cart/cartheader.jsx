@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../css/cartheader.css";
 import PaymentForm from "../common/paymentform";
-import LoginPopup from "../common/loginpopup";
+import LoginPopup from "../common/Modals/Login";
 
 function CartHeader({
   keyword,
@@ -17,7 +17,6 @@ function CartHeader({
 }) {
   const [login, setpoupLogin] = useState(false);
   const handleCheckOut = () => {
-
     if (isLoggedIn) {
       setCheckOut(true);
       return;
@@ -29,7 +28,12 @@ function CartHeader({
       <div className="cartheader-container">
         <div className="cartheader-left">
           <div className="cart-search">
-            <input type="text" value={keyword} onChange={e=>setKeyword(e.target.value)} placeholder="Search in this cart" />
+            <input
+              type="text"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="Search in this cart"
+            />
             <span className="material-symbols-outlined btn" title="Search">
               search
             </span>

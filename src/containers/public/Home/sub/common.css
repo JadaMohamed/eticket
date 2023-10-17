@@ -1,0 +1,32 @@
+.localevents {
+  margin: auto;
+  max-width: 1200px;
+  background-color: var(--White);
+  border-radius: 8px;
+  padding-bottom: 1px;
+}
+.localevents .localevent-container {
+  margin: 40px 30px 30px;
+  padding-top: 20px;
+  min-height: 300px;
+}
+.localevents .localevent-container .section-title {
+  margin-bottom: 20px;
+  font-weight: 500;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--Grey1);
+}
+.localevents .localevent-container .section-title span {
+  color: var(--Purple);
+}
+.localevents .localevent-container .section-title .user-city {
+  color: var(--Purple);
+}
+@media only screen and (max-width: 500px) {
+  .localevents .localevent-container {
+    margin: 15px 20px 20px;
+  }
+}
