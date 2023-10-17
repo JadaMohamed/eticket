@@ -53,7 +53,7 @@ export default function LoginModal(props) {
               Email
             </label>
             <div className="flex w-full border-accent-100 border rounded-lg overflow-hidden focus-within:outline outline-primary-400">
-              <span className="p-2">
+              <span className="p-[10px]">
                 <svg
                   width="20"
                   height="20"
@@ -71,7 +71,7 @@ export default function LoginModal(props) {
                 </svg>
               </span>
               <input
-                className="outline-none bg-transparen w-full px-2 placeholder:text-accent-200 font-medium text-accent-800"
+                className="outline-none bg-transparen w-full px-2 placeholder:text-accent-200 font-medium text-[15px] text-accent-800"
                 type="email"
                 id="email"
                 ref={userName}
@@ -85,7 +85,7 @@ export default function LoginModal(props) {
               Password
             </label>
             <div className="flex w-full relative border-accent-100 border rounded-lg overflow-hidden focus-within:outline outline-primary-400">
-              <span className="p-2">
+              <span className="p-[10px]">
                 <svg
                   width="20"
                   height="20"
@@ -103,7 +103,7 @@ export default function LoginModal(props) {
                 </svg>
               </span>
               <input
-                className="outline-none bg-transparen w-full px-2 placeholder:text-accent-200 font-medium text-accent-800"
+                className="outline-none bg-transparen w-full px-2 placeholder:text-accent-200 font-medium text-[15px] text-accent-800"
                 type={isVisible ? "" : "password"}
                 id="first-name"
                 ref={password}
@@ -111,7 +111,7 @@ export default function LoginModal(props) {
                 placeholder="***********"
               />
               <span
-                className="p-2 cursor-pointer bg-white absolute rounded-full right-0"
+                className="p-2 cursor-pointer top-[2px] absolute rounded-full right-0"
                 onClick={toggleVisibility}
               >
                 {isVisible ? (

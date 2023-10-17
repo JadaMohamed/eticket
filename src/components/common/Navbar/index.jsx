@@ -150,7 +150,7 @@ function NNavbar(props) {
         <div>
           <div className="flex items-center rounded-full border border-accent-50 overflow-hidden">
             <input
-              className="px-5 text-sm focus-within:outline-purple-500 rounded-s-full py-2 font-medium placeholder:text-accent-200 border-e border-accent-50"
+              className="px-5 text-sm focus-within:outline-purple-500 rounded-s-full py-2 font-medium text-accent-500 placeholder:text-accent-100 border-e border-accent-50"
               type="text"
               id="search"
               placeholder="Search"
