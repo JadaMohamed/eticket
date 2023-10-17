@@ -111,7 +111,7 @@ export default function LoginModal(props) {
                 placeholder="***********"
               />
               <span
-                className="p-2 cursor-pointer top-[2px] absolute rounded-full right-0"
+                className="p-2 cursor-pointer top-[2px] bg-white absolute rounded-full right-0"
                 onClick={toggleVisibility}
               >
                 {isVisible ? (
