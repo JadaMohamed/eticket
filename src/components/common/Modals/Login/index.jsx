@@ -38,14 +38,28 @@ export default function LoginModal(props) {
     <div className="h-screen fixed w-full bg-[rgba(0,0,0,0.2)] backdrop-blur-sm top-0 left-0 flex justify-center items-center select-none">
       <div className="relative m-5 p-8 w-full max-w-md bg-white rounded-lg flex gap-8 flex-col shadow-sm">
         <div
-          className="absolute top-3 right-3 text-accent-300 select-none cursor-pointer"
+          className="absolute top-3 right-3 text-accent-300 select-none cursor-pointer p-1 leading-none flex text- rounded-full hover:bg-[#f9f9f9] duration-300"
           onClick={() => props.setTrigger(false)}
         >
-          <span className="material-symbols-outlined">close</span>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 7L7 17M7 7L17 17"
+              className="stroke-accent-300"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
         <div>
           <div className="text-2xl font-semibold text-primary-700">Sign In</div>
-          <div className="text-accent-400">Welcome back!</div>
+          <div className="text-accent-400 text-sm">Welcome back!</div>
         </div>
         <div className="gap-5 flex flex-col">
           <div className="flex flex-col gap-1">

@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import LoginPopup from "./Modals/Login";
 import AuthContext from "../../Auth/AuthContext";
 import { Image } from "cloudinary-react";
-import SignUpNav from "./SignUpNav";
-import SignUpClient from "./sign_up";
+import SignUpNav from "./Modals/SignUp";
 import Alert from "./alert";
+import BuyerSignUp from "./Modals/BuyerSignUp";
 
 function Navbar(props) {
   const { profile, isLoggedIn } = useContext(AuthContext);
@@ -480,7 +480,7 @@ function Navbar(props) {
         />
       )}
       {popupSignUpClient && (
-        <SignUpClient
+        <BuyerSignUp
           setTrigger={setpopupSignUpClient}
           login={setpoupLogin}
           alert={alert}

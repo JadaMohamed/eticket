@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../Auth/AuthContext";
 import { Image } from "cloudinary-react";
 import Alert from "../alert";
-import SignUpNav from "../SignUpNav";
-import SignUpClient from "../sign_up";
 import LoginModal from "../Modals/Login";
+import SignUpNav from "../Modals/SignUp";
+import BuyerSignUp from "../Modals/BuyerSignUp";
 
 function NNavbar(props) {
   const { profile, isLoggedIn } = useContext(AuthContext);
@@ -429,7 +429,7 @@ function NNavbar(props) {
             <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
               <div className="min-w-[130px] px-2 rounded-lg overflow-hidden">
                 <div
-                  className="flex gap-2 text-accent-500 text-sm py-2 cursor-pointer duration-300 px-2 hover:bg-accent-50 font-medium"
+                  className="flex gap-3 text-accent-500 text-sm py-2 cursor-pointer duration-300 px-2 hover:bg-[#F9F9F9] rounded-t-lg font-medium"
                   onClick={() => {
                     setpopupSignup(true);
                   }}
@@ -461,7 +461,7 @@ function NNavbar(props) {
                   Sign Up
                 </div>
                 <div
-                  className="flex gap-2 text-accent-500 text-sm py-2 cursor-pointer duration-300 px-2 hover:bg-accent-50 font-medium"
+                  className="flex gap-3 text-accent-500 text-sm py-2 cursor-pointer duration-300 px-2 hover:bg-[#F9F9F9] rounded-b-lg font-medium"
                   onClick={() => {
                     setpoupLogin(true);
                   }}
@@ -507,7 +507,7 @@ function NNavbar(props) {
         />
       )}
       {popupSignUpClient && (
-        <SignUpClient
+        <BuyerSignUp
           setTrigger={setpopupSignUpClient}
           login={setpoupLogin}
           alert={alert}
